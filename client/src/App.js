@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import {ContainerDiv} from './styles/styledDiv'
 
 class App extends Component {
   render() {
     return (
-      <h1>HAROOO!</h1>
+      <ContainerDiv color="red">
+        <h1>Hey</h1>
+      </ContainerDiv>
     );
   }
 }
