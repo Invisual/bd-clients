@@ -1,15 +1,18 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
+require('dotenv').config()
 
-const itemsRoutes = require('./routes/api/items');
-
-mongoose.connect('mongodb://edd:abc123@ds259463.mlab.com:59463/mern_shoplist', {useNewUrlParser: true});
+const postsRoutes = require('./routes/api/items');
 
 const app = express();
 app.use(bodyParser.json());
-app.use('/api/items', itemsRoutes);
+app.use('/api/posts', postsRoutes);
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static(path.join(__dirname, 'client', 'build')));
