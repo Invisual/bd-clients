@@ -1,46 +1,45 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const SidebarDiv = styled.div`
-    width:14%;
-    height:100vh;
-    background-color:#666;
-    position:relative;
+  width: 14%;
+  height: 100vh;
+  background-color: #666;
+  position: relative;
 
-    .logo{
-        text-align: center;
-        margin-top: 50px;
+  .logo {
+    text-align: center;
+    margin-top: 50px;
 
-        img{
-            max-width: 80%;
-        }
+    img {
+      max-width: 80%;
     }
+  }
 
-    .navigation{
-        margin-top:100px;
+  .navigation {
+    margin-top: 100px;
 
-        ul{
-            color:#fff;
-            padding-inline-start: 25px;
-            list-style-type: none;
-            padding-bottom: 15px;
+    ul {
+      color: #fff;
+      padding-inline-start: 25px;
+      list-style-type: none;
+      padding-bottom: 15px;
 
-            li{
-                padding-bottom:15px;
-            }
-        }
+      li {
+        padding-bottom: 15px;
+      }
     }
+  }
 
-    .footer{
-        position:absolute;
-        bottom:0;
-        width:100%;
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 
-        p{
-            font-size: .7rem;
-            text-align:center;
-        }
+    p {
+      font-size: 0.7rem;
+      text-align: center;
     }
- 
+  }
 `;
 
 export const TopBarDiv = styled.div`
@@ -55,7 +54,7 @@ export const TopBarDiv = styled.div`
     list-style: none;
     display: flex;
 
-    .avatar-section {
+    .topbar-avatar {
       position: relative;
       bottom: 5px;
       font-weight: 500;
@@ -91,17 +90,63 @@ export const TopBarDiv = styled.div`
       display: block;
       color: #666;
       font-size: 0.99em;
+      position: relative;
+
+      p {
+        position: absolute;
+        top: -15px;
+        right: -2px;
+        font-size: 13px;
+        background-color: #5093e1;
+        border-radius: 50%;
+        width: 18px;
+        text-align: center;
+        height: 18px;
+        color: #000;
+      }
     }
     li:hover {
-      color: #718daa;
+      color: #5093e1;
     }
 
-    .search-field {
+    .topbar-search {
       padding: 10px 15px;
       text-align: center;
       display: block;
       color: #666;
       font-size: 0.99em;
+    }
+    .topbar-notifications,
+    .topbar-messages {
+      ul {
+        display: block;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        top: 45px;
+        right: 0px;
+        width: 200px;
+        background-color: white;
+        font-weight: bold;
+        position: absolute;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+      }
+      li {
+        color: #666;
+        text-decoration: none;
+      }
+      li {
+        padding: 8px 16px;
+        border-bottom: 1px solid #e5e5e5;
+      }
+      li:last-child {
+        border-bottom: none;
+      }
+      li:hover {
+        background-color: #e5e5e5;
+        color: white;
+      }
     }
   }
 `;
