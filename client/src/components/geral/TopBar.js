@@ -7,10 +7,10 @@ class TopBar extends Component {
     return (
       <TopBarDiv>
         <ul class="main-nav">
-          <li class="search-field"><input type="text" placeholder="Search" /></li>
-          <li><a href="#"><FaComment />Mensagens</a></li>
-          <li><a href="#"><FaBell />Notificações</a></li>
-          <li><a href="#">User</a></li>
+          <li class="search-field"><input type="text" placeholder="Search" /><FaSearch /></li>
+          <li><a href="#"><FaComment /></a></li>
+          <li><a href="#"><FaBell /></a></li>
+          <li class="avatar-section"><a href="#"><span>Tiago </span><img src="https://tarefas.invisual.pt/img/users/tiagoribeiro.jpg" alt="Avatar" style={{borderRadius: "50%" }} width="35px" height="35px"  /></a></li>
        </ul>
       </TopBarDiv>
     );
