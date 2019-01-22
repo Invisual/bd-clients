@@ -45,7 +45,7 @@ class MyTasks extends Component {
       <div className="mytasks-container widget">
         <h4 className="widget-title">{this.props.title}</h4>
         {fakeTasks.map(task => {
-            return <SingleTask id={task.id} title={task.title} state={task.state}/>
+            return <SingleTask key={task.id} id={task.id} title={task.title} state={task.state}/>
         })}
       </div>
     );

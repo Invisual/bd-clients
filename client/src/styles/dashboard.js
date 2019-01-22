@@ -7,8 +7,8 @@ export const DashboardContainer = styled.div`
     
     .widgets-grid{
         display:grid;
-        grid-template-columns: 50% 50%;
-        grid-gap: 20px;
+        grid-template-columns: 49% 49%;
+        grid-gap: 2%;
 
         .grid-widget{
             overflow:hidden;

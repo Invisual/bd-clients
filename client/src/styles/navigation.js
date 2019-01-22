@@ -85,14 +85,14 @@ export const TopBarDiv = styled.div`
       border-bottom: 1px solid #bbb;
       cursor: text;
     }
-    a {
+    li {
       padding: 10px 15px;
       text-align: center;
       display: block;
       color: #666;
       font-size: 0.99em;
     }
-    a:hover {
+    li:hover {
       color: #718daa;
     }
 

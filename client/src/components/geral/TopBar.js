@@ -6,11 +6,11 @@ class TopBar extends Component {
   render() {
     return (
       <TopBarDiv>
-        <ul class="main-nav">
-          <li class="search-field"><input type="text" placeholder="Search" /><FaSearch /></li>
-          <li><a href="#"><FaComment /></a></li>
-          <li><a href="#"><FaBell /></a></li>
-          <li class="avatar-section"><a href="#"><span>Tiago </span><img src="https://tarefas.invisual.pt/img/users/tiagoribeiro.jpg" alt="Avatar" style={{borderRadius: "50%" }} width="35px" height="35px"  /></a></li>
+        <ul className="main-nav">
+          <li className="search-field"><input type="text" placeholder="Search" /><FaSearch /></li>
+          <li><FaComment /></li>
+          <li><FaBell /></li>
+          <li className="avatar-section"><span>Tiago </span><img src="https://tarefas.invisual.pt/img/users/tiagoribeiro.jpg" alt="Avatar" style={{borderRadius: "50%" }} width="35px" height="35px"  /></li>
        </ul>
       </TopBarDiv>
     );
