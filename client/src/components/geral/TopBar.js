@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {TopBarDiv} from '../../styles/TopBar'
+import {TopBarDiv} from '../../styles/navigation'
 import { FaSearch, FaComment, FaBell } from 'react-icons/fa';
 
 class TopBar extends Component {

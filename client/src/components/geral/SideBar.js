@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import {SidebarDiv} from '../../styles/Sidebar';
+import {SidebarDiv} from '../../styles/navigation';
 import { FaFolderOpen, FaClipboard, FaCalendar, FaUsers, FaTasks, FaStopwatch, FaListUl } from 'react-icons/fa';
+import {Link} from 'react-router-dom';
 
 class SideBar extends Component {
   render() {
@@ -11,17 +12,17 @@ class SideBar extends Component {
         </div>
         <div className="navigation">
             <ul>
-                <li><FaFolderOpen/> <span>Projectos</span></li>  
-                <li><FaClipboard/> <span>Tarefas</span></li>  
-                <li><FaCalendar/> <span>Reuniões</span></li>  
-                <li><FaUsers/> <span>Clientes</span></li>  
-                <li><FaTasks/> <span>Objectivos</span></li>  
-                <li><FaStopwatch/> <span>Histórico Trabalho</span></li>  
-                <li><FaListUl/> <span>To-Do</span></li>  
+                <Link to="/"><li><FaFolderOpen/> <span>Projectos</span></li></Link> 
+                <Link to="/admin"><li><FaClipboard/> <span>Tarefas</span></li></Link>
+                <Link to="/"><li><FaCalendar/> <span>Reuniões</span></li></Link>
+                <Link to="/"><li><FaUsers/> <span>Clientes</span></li></Link>
+                <Link to="/"><li><FaTasks/> <span>Objectivos</span></li></Link>
+                <Link to="/"><li><FaStopwatch/> <span>Histórico Trabalho</span></li></Link>  
+                <Link to="/"><li><FaListUl/> <span>To-Do</span></li></Link>  
             </ul>
         </div>
         <div className="footer">
-          <p>Tarefas - Invisual Branding Solutions © 2019</p>
+          <a href="https://invisual.pt/"><p>Tarefas - Invisual © 2019</p></a>
         </div>
       </SidebarDiv>
     );
