@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SideBar from './components/geral/SideBar';
+import TopBar from './components/geral/TopBar';
 import UserDashboard from './components/dashboard/UserDashboard';
 import './styles/main.css';
 //import {ContainerDiv} from './styles/styledDiv'
