@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import SideBar from './components/geral/SideBar';
-import TopBar from './components/geral/TopBar';
+import SideBar from './components/navigation/SideBar';
+import TopBar from './components/navigation/TopBar';
 import UserDashboard from './components/dashboard/UserDashboard';
 import AdminDashboard from './components/dashboard/AdminDashboard';
 import './styles/main.css';

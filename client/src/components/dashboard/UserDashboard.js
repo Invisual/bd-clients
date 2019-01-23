@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import MyProjects from '../MyProjects';
-import MyTasks from '../MyTasks';
+import MyProjects from '../tables/MyProjects';
+import MyTasksContainer from '../../containers/tables/MyTasksContainer';
 import {DashboardContainer} from '../../styles/dashboard';
 
 class UserDashboard extends Component {
@@ -8,7 +8,7 @@ class UserDashboard extends Component {
     return (
       <DashboardContainer>
         <div className="widgets-grid">
-          <div className="grid-widget"><MyTasks title="As Minhas Tarefas"/></div>
+          <div className="grid-widget"><MyTasksContainer title="As Minhas Tarefas"/></div>
           <div className="grid-widget"><MyProjects/></div>
           <div className="grid-widget"><MyProjects/></div>
           <div className="grid-widget"><MyProjects/></div>
