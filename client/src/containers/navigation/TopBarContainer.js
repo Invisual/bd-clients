@@ -54,10 +54,6 @@ class TopBarContainer extends Component {
     this.setState({ [s]: !currState });
   }
 
-  teste = () => {
-    console.log('hey')
-  }
-
   hideDropdownMenu = () => {
     this.setState({
       displayMenu: false,
