@@ -3,11 +3,11 @@ const bodyParser = require('body-parser');
 const path = require('path');
 require('dotenv').config()
 
-const postsRoutes = require('./routes/api/items');
+const clientRoutes = require('./routes/api/clients');
 
 const app = express();
 app.use(bodyParser.json());
-app.use('/api/posts', postsRoutes);
+app.use('/api/clients', clientRoutes);
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");

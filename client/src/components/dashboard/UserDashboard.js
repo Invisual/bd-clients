@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import MyProjects from '../tables/MyProjects';
 import MyTasksContainer from '../../containers/tables/MyTasksContainer';
 import {DashboardContainer} from '../../styles/dashboard';
 
-class UserDashboard extends Component {
-  render() {
+export const UserDashboard = (props) => {
     return (
       <DashboardContainer>
         <div className="widgets-grid">
@@ -15,7 +14,5 @@ class UserDashboard extends Component {
         </div>
       </DashboardContainer>
     );
-  }
 }
 
-export default UserDashboard;
