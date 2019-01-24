@@ -10,7 +10,7 @@ require('dotenv').config();
 router.use(cors());
 
 var SECRET_KEY = process.env.SECRET_KEY;
-var checkToken = require('./checkTocken')
+var checkToken = require('./checkToken')
 
 
 router.get('/', checkToken, (req, res) => {
