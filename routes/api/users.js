@@ -23,7 +23,7 @@ router.get('/', checkToken, (req, res) => {
                 //If token is successfully verified, we can send the autorized data 
                 connection.query("Select * from users INNER JOIN positions ON users.ref_id_position = positions.id_position", function(error, results, fields){
                     if(err){throw err}
-                    if(results.length>0){ res.send(results); }  
+                    if(results.length>0){ res.send(results);}  
                 })
                 console.log('SUCCESSO: Conectado a Route Protegida');
             }
@@ -42,18 +42,18 @@ router.post('/login', (req, res) => {
       if (results.length > 0) {
         var user = results[0];
         if(bcrypt.compareSync(req.body.password, user.password_user)){
-            jwt.sign({user}, SECRET_KEY, {expiresIn: '8h'}, (err, token)=>{
+            jwt.sign({user}, SECRET_KEY, (err, token)=>{
                 if(err){console.log(err)}
-                res.send(token)
+                res.send({token: token, user: user});
             })
         }
         else{
-            res.send('Wrong Password')
+            res.send('Password Errada!')
         }
         //res.send(user);
       }
       else{
-          res.send('User does not exist')
+          res.send('Utilizador não existe!')
       }
     }
   );

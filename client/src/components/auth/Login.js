@@ -9,10 +9,11 @@ export const Login = (props) => {
                     Login Tarefas
                 </div>
                 <div className="login-fields">
-                    <input type="text" className="username-password-input" placeholder="Username" />
-                    <input type="password" className="login-password-input" placeholder="Password" />
-                    <button>Login</button>
+                    <input type="text" className="username-password-input" placeholder="Username" onChange={props.setUsername} onKeyDown={props.enterLogin}/>
+                    <input type="password" className="login-password-input" placeholder="Password" onChange={props.setPassword} onKeyDown={props.enterLogin}/>
+                    <button onClick={props.loginUser}>Login</button>
                 </div>
+                <div id="loginerrors" className="login-errors"></div>
             </div>
         </LoginDiv>
     );
