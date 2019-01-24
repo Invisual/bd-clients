@@ -56,5 +56,15 @@ export const LoginDiv = styled.div`
                 margin-top:25px;
             }
         }
+
+        .login-errors{
+            position: absolute;
+            font-size: .9em;
+            color: #006cff;
+            text-align: center;
+            right: 0;
+            left: 0;
+            bottom: 13px;
+        }
     }
 `
