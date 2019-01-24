@@ -4,6 +4,7 @@ const path = require('path');
 const cors = require('cors');
 require('dotenv').config()
 
+const usersRoutes = require('./routes/api/users');
 const clientRoutes = require('./routes/api/clients');
 const taskRoutes = require('./routes/api/tasks');
 const projectRoutes = require('./routes/api/projects');
@@ -21,6 +22,7 @@ app.use(function(req, res, next) {
     next();
 });
 
+app.use('/api/users', usersRoutes);
 app.use('/api/clients', clientRoutes);
 app.use('/api/tasks', taskRoutes);
 app.use('/api/projects', projectRoutes);
