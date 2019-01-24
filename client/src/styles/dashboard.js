@@ -7,13 +7,13 @@ export const DashboardContainer = styled.div`
     
     .widgets-grid{
         display:grid;
-        grid-template-columns: 49% 49%;
+        grid-template-columns: 69% 29%;
         grid-gap: 2%;
         width: 92%;
         margin: 40px auto 0 auto;
 
         .grid-widget{
-            overflow:hidden;
+            /*overflow:hidden;*/
         }
     }
 `
