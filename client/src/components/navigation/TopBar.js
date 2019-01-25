@@ -7,15 +7,15 @@ export const TopBar = props => {
     <TopBarDiv>
       <ul className="main-nav">
         <li className="topbar-search">
-          <input type="text" placeholder="Search" />
-          <FaSearch />
+          <input type="text" placeholder="Pesquisar" className={props.displaySearchInput} />
+          <FaSearch onClick={props.toggleSearchInput}/>
         </li>
-        <li className="topbar-messages" onClick={() => props.showDropdownMenu('displayMenu')}>
+        <li className="topbar-messages" onClick={() => {props.showDropdownMenu('displayDropdownMessages')}}>
           <p>2</p>
           <span>
             <FaComment />
           </span>
-          {props.displayMenu ? (
+          {props.displayDropdownMessages ? (
             <ul>
               {props.messages.map(message => {
                 return (
@@ -28,12 +28,12 @@ export const TopBar = props => {
           ) : null}
         </li>
         
-        <li className="topbar-notifications" onClick={() => props.showDropdownMenu('displayMenu2')}>
+        <li className="topbar-notifications" onClick={() => props.showDropdownMenu('displayDropdownNotifications')}>
           <p>1</p>
           <span>
             <FaBell />
           </span>
-          {props.displayMenu2 ? (
+          {props.displayDropdownNotifications ? (
             <ul>
               {props.notifications.map(notification => {
                 return (
@@ -45,7 +45,7 @@ export const TopBar = props => {
             </ul>
           ) : null}
         </li>
-        <li className="topbar-avatar">
+        <li className="topbar-avatar" onClick={() => props.showDropdownMenu('displayDropdownUser')}>
           <span>Tiago </span>
           <img
             src="https://tarefas.invisual.pt/img/users/tiagoribeiro.jpg"
@@ -54,6 +54,17 @@ export const TopBar = props => {
             width="35px"
             height="35px"
           />
+          {props.displayDropdownUser ? (
+            <ul>
+              {props.messages.map(message => {
+                return (
+                  <li key={message.id} id={message.id}>
+                    {message.title}
+                  </li>
+                );
+              })}
+            </ul>
+          ) : null}
         </li>
       </ul>
     </TopBarDiv>

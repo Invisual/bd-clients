@@ -70,20 +70,43 @@ export const TopBarDiv = styled.div`
       padding: 3px;
       background: none;
       z-index: 3;
-      width: 100px;
-    }
-
-    input[type='text']:hover {
-      z-index: 1;
+      width: 150px;
       border-bottom: 1px solid #bbb;
       cursor: text;
+      transform: scaleX(.0);
+      transform-origin: right;
     }
 
-    input[type='text']:focus {
-      z-index: 1;
-      border-bottom: 1px solid #bbb;
-      cursor: text;
+    input[type='text'].showsearch{
+      animation: showInput .3s ease-in-out;
+      animation-fill-mode: forwards;  
     }
+    @keyframes showInput{
+      0%{
+        transform: scaleX(.0);
+        opacity:0;
+      }
+      100%{
+        transform: scaleX(1);
+        opacity:1;
+      }
+    }
+    
+    input[type='text'].hidesearch{
+      animation: hideInput .3s ease-in-out;
+      animation-fill-mode: forwards;  
+    }
+    @keyframes hideInput{
+      0%{
+        transform: scaleX(1);
+        opacity:1;
+      }
+      100%{
+        transform: scaleX(.0);
+        opacity:0;
+      }
+    }
+
     li {
       padding: 10px 15px;
       text-align: center;
@@ -91,6 +114,7 @@ export const TopBarDiv = styled.div`
       color: #666;
       font-size: 0.99em;
       position: relative;
+      cursor: pointer;
 
       p {
         position: absolute;
@@ -117,7 +141,8 @@ export const TopBarDiv = styled.div`
       font-size: 0.99em;
     }
     .topbar-notifications,
-    .topbar-messages {
+    .topbar-messages,
+    .topbar-avatar {
       ul {
         display: block;
         list-style-type: none;

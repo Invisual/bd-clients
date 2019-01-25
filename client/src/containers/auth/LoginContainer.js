@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import {Login} from '../../components/auth/Login';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
+
 const axios = require('axios');
 
 class LoginContainer extends Component{
@@ -20,7 +23,7 @@ class LoginContainer extends Component{
     }
 
     enterLogin = (e) => {
-        if (e.keyCode == 13) {
+        if (e.keyCode === 13) {
           this.loginUser();
         }
     }
@@ -32,11 +35,23 @@ class LoginContainer extends Component{
         })
         .then((response) => {
             if(response.data.hasOwnProperty('token') && response.data.hasOwnProperty('user')){
-                //USER LOGGADO COM SUCESSO, VAMOS ENVIAR A INFO PARA O COMPONENTE APP E VAMOS METER OS DADOS DO USER EM LOCAL STORAGE
-                this.props.login(response.data.user, response.data.token);
-                localStorage.setItem('loggedIn', JSON.stringify(true));
-                localStorage.setItem('user', JSON.stringify(response.data.user));
-                localStorage.setItem('token', JSON.stringify(response.data.token));
+                //USER LOGGADO COM SUCESSO, VAMOS MOSTRAR O ALERTA E DEPOIS ENVIAR A INFO PARA O COMPONENTE APP E VAMOS METER OS DADOS DO USER EM LOCAL STORAGE
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top',
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+                  
+                  Toast.fire({
+                    type: 'success',
+                    title: `Bem-vindo ${response.data.user.name_user}`
+                  }).then(()=>{
+                    this.props.login(response.data.user, response.data.token);
+                    localStorage.setItem('loggedIn', JSON.stringify(true));
+                    localStorage.setItem('user', JSON.stringify(response.data.user));
+                    localStorage.setItem('token', JSON.stringify(response.data.token));
+                  })
             }
             else{
                 //DADOS DE LOGIN INCORRECTOS. VAMOS MOSTRAR O ERRO

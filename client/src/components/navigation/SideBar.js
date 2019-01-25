@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {SidebarDiv} from '../../styles/navigation';
-import { FaFolderOpen, FaClipboard, FaCalendar, FaUsers, FaTasks, FaStopwatch, FaListUl } from 'react-icons/fa';
+import { FaFolderOpen, FaClipboard, FaCalendar, FaUsers, FaTasks, FaStopwatch, FaListUl, FaSignOutAlt } from 'react-icons/fa';
 import {Link} from 'react-router-dom';
 
 class SideBar extends Component {
@@ -18,7 +18,8 @@ class SideBar extends Component {
                 <Link to="/"><li><FaUsers/> <span>Clientes</span></li></Link>
                 <Link to="/"><li><FaTasks/> <span>Objectivos</span></li></Link>
                 <Link to="/"><li><FaStopwatch/> <span>Histórico Trabalho</span></li></Link>  
-                <Link to="/"><li><FaListUl/> <span>To-Do</span></li></Link>  
+                <Link to="/"><li><FaListUl/> <span>To-Do</span></li></Link>
+                <li onClick={this.props.logout}><FaSignOutAlt/> <span>Log Out</span></li>
             </ul>
         </div>
         <div className="footer">
