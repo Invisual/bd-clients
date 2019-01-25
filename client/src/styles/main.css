@@ -1,6 +1,6 @@
 body{
     margin:0;
-    font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
 a{
@@ -16,7 +16,7 @@ a{
 }
 
 .single-card{
-    padding-left: 20px;
+    padding: 0 20px;
     background-color: #fff;
     margin-top: 15px;
     border-radius:10px;
@@ -31,3 +31,16 @@ a{
     border-radius:0 0 10px 10px;
     box-shadow: 1px 1px 10px #d2d2d2;
 }
+
+.see-all{
+    margin-top: 15px;
+    margin-bottom: -15px;
+    font-weight: 500;
+    color: #7f9aff;
+    
+}
+.arrow{
+        position: relative;
+        top: 3px;
+        padding: 5px;
+    }

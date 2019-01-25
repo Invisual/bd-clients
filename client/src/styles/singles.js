@@ -25,18 +25,43 @@ export const SingleTaskDiv = styled.div`
 
 export const SingleProjectDiv = styled.div`
     display: grid;
-    grid-template-columns: 80% 10% 10%;
+    grid-template-columns: 4% 60% 8% 8% 20%;
+    color:#797979;
+    
 
-
-    p{
+    .project-title{
         margin:0;
         padding:18px 0;
+        position: relative;
+        top: 2px;
+        
+        .title-divider {
+            padding-right: 5px;
+            border-right: 1px solid #afacd1; /* Line color */
+        }
+        .project-client{
+            padding-left: 7px;
+            color:#7f9aff
+        }
     }
 
 
-    .project-state{
+    .project-status,
+    .project-total-tasks,
+    .project-concluded-tasks{
         padding:18px 0;
-        text-align:center;
-        background-color:${props => props.taskColor};
+        position: relative;
+        top: 2px;
+        margin: 0;
+    }
+    .project-status{
+        margin:auto 0;
+        position: relative;
+        top: 4px;
+    }
+    .task-progress{
+        padding:18px 0;
+        position: relative;
+        top: 4px;
     }
 `

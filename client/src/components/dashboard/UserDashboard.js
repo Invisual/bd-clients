@@ -9,7 +9,7 @@ export const UserDashboard = (props) => {
         <div className="widgets-grid">
           <div className="grid-widget"><MyTasksContainer title="As Minhas Tarefas"/></div>
           <div className="grid-widget"><MyProjectsContainer title="Os Meus Projectos"/></div>
-          <div className="grid-widget"><MyProjectsContainer title="Os Meus Projectos"/></div>
+          <div className="grid-widget"><MyProjectsContainer title="Projetos"/></div>
           <div className="grid-widget"><MyProjectsContainer title="Os Meus Projectos"/></div>
         </div>
       </DashboardContainer>
