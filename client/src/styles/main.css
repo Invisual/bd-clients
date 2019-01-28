@@ -18,16 +18,24 @@ a{
     height:100%;
 }
 
-body.expanded-sidebar .sidebar-container{
+body.collapsed-sidebar .sidebar-container{
     width:5%;
 }
 
-body.expanded-sidebar .dashboard-container{
+body.collapsed-sidebar .dashboard-container{
     width:95%;
 }
 
-body.expanded-sidebar .sidebar-container .footer{
+body.collapsed-sidebar .sidebar-container .footer{
     opacity:0;
+}
+
+body.collapsed-sidebar .sidebar-container li{
+    text-align:center;
+}
+
+body.collapsed-sidebar .sidebar-container li span{
+    display:none;
 }
 
 .single-card{
@@ -64,6 +72,10 @@ body.expanded-sidebar .sidebar-container .footer{
 }
 .arrow{
         position: relative;
-        top: 3px;
+        top: 6px;
         padding: 5px;
     }
+
+.arrow svg{
+    font-size: 2em;
+}

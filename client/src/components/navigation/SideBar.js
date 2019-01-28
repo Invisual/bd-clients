@@ -1,44 +1,53 @@
 import React, { Component } from 'react';
 import {SidebarDiv} from '../../styles/navigation';
-import { FiHome } from 'react-icons/fi';
+import {themeColors} from '../../styles/themeConsts';
+import { FiHome, FiFolder, FiFileText, FiCalendar, FiBookmark, FiWatch, FiEdit, FiLogOut } from 'react-icons/fi';
 import {Link} from 'react-router-dom';
 
 class SideBar extends Component {
   constructor(props){
     super(props);
     this.state = {
-      expandedSidebar: false
+      collapsedSidebar: false
     }
   }
 
   toggleSideBar = () => {
     this.setState(prevState => ({
-      expandedSidebar: !prevState.expandedSidebar
+      collapsedSidebar: !prevState.collapsedSidebar
     }))
   }
 
   componentDidUpdate(){
-    this.state.expandedSidebar ? document.body.classList.add('expanded-sidebar') : document.body.classList.remove('expanded-sidebar')
+    this.state.collapsedSidebar ? document.body.classList.add('collapsed-sidebar') : document.body.classList.remove('collapsed-sidebar')
   }
 
 
   render() {
+
+    var logoImg = this.state.collapsedSidebar ? '/img/in.png' : '/img/logo.png';
+    var logoClass = this.state.collapsedSidebar ? 'logo logo-small' : 'logo logo-big';
+
     return (
-      <SidebarDiv className="sidebar-container">
-        <div className="logo">
-            <img alt="Invisual Branding Solutions" src="/img/logo.png"/>
+      <SidebarDiv className="sidebar-container" colors={themeColors}>
+        <div className={logoClass}>
+            <img alt="Invisual Branding Solutions" src={logoImg}/>
         </div>
         <div className="navigation">
             <ul>
-                <Link to="/"><li><FiHome/> <span>Projectos</span></li></Link> 
-                <Link to="/admin"><li><FiHome/> <span>Tarefas</span></li></Link>
-                <Link to="/"><li><FiHome/> <span>Reuniões</span></li></Link>
+                <Link to="/"><li><FiHome/> <span>Dashboard</span></li></Link> 
+                <Link to="/"><li><FiFolder/> <span>Projectos</span></li></Link> 
+                <Link to="/admin"><li><FiFileText/> <span>Tarefas</span></li></Link>
+                <Link to="/"><li><FiCalendar/> <span>Reuniões</span></li></Link>
                 <Link to="/"><li><FiHome/> <span>Clientes</span></li></Link>
-                <Link to="/"><li><FiHome/> <span>Objectivos</span></li></Link>
-                <Link to="/"><li><FiHome/> <span>Histórico</span></li></Link>  
-                <Link to="/"><li><FiHome/> <span>To-Do List</span></li></Link>
-                <li onClick={this.props.logout}><FiHome/> <span>Log Out</span></li>
-                <li onClick={this.toggleSideBar}>Toggle</li>
+                <Link to="/"><li><FiBookmark/> <span>Objectivos</span></li></Link>
+                <Link to="/"><li><FiWatch/> <span>Histórico</span></li></Link>  
+                <Link to="/"><li><FiEdit/> <span>To-Do List</span></li></Link>
+                <li onClick={this.props.logout}><FiLogOut/> <span>Log Out</span></li>
+                <label className="switch">
+                  <input type="checkbox" />
+                  <span className="slider rounded-slider" onClick={this.toggleSideBar}></span>
+                </label>
             </ul>
         </div>
         <div className="footer">
