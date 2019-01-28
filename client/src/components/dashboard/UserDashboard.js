@@ -5,7 +5,7 @@ import MyProjectsContainer from '../../containers/tables/MyProjectsContainer';
 
 export const UserDashboard = (props) => {
     return (
-      <DashboardContainer>
+      <DashboardContainer className="dashboard-container">
         <div className="widgets-grid">
           <div className="grid-widget"><MyTasksContainer title="As Minhas Tarefas"/></div>
           <div className="grid-widget"><MyProjectsContainer title="Os Meus Projectos"/></div>

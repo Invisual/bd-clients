@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 
 export const SidebarDiv = styled.div`
-  width: 14%;
+  width:14%;
   height: 100vh;
   background-color: #666;
   position: relative;
+  overflow-x:hidden;
+  transition:all .5s ease;
 
   .logo {
     text-align: center;
@@ -19,6 +21,7 @@ export const SidebarDiv = styled.div`
     margin-top: 100px;
 
     ul {
+      width:200px;
       color: #fff;
       padding-inline-start: 25px;
       list-style-type: none;
@@ -26,6 +29,10 @@ export const SidebarDiv = styled.div`
 
       li {
         padding-bottom: 15px;
+
+        svg{
+          padding-right: 20px;
+        }
       }
     }
   }
@@ -33,7 +40,10 @@ export const SidebarDiv = styled.div`
   .footer {
     position: absolute;
     bottom: 0;
-    width: 100%;
+    opacity:1;
+    width: 204px;
+    overflow-x: hidden;
+    transition: all .2s ease;
 
     p {
       font-size: 0.7rem;

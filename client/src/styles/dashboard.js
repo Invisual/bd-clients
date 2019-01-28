@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 
 export const DashboardContainer = styled.div`
-  width: 86%;
+  width:86%;
   min-height: 100vh;
   background-color: #f7f7f7;
   overflow-y: scroll;
+  transition:all .5s ease;
 
   .widgets-grid {
     display: grid;
@@ -18,6 +19,7 @@ export const DashboardContainer = styled.div`
     }
     .widget-title {
       margin-top: 0;
+      margin-bottom:0;
       color: #4b4b4b;
       font-weight:600;
     }
