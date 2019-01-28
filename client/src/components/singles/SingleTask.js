@@ -24,13 +24,13 @@ class SingleTask extends Component {
     var clockColor = '';
     switch(this.props.hourState){
       case 0:
-      clockColor = <FiClock size="1.3em" color="#0036FF" />;
+      clockColor = <FiClock  color="#0036FF" />;
       break;
       case 1:
-      clockColor =  <FiClock size="1.3em" color="#F43D3D" />;
+      clockColor =  <FiClock  color="#F43D3D" />;
       break;
       default:
-      clockColor = <FiClock size="1.3em" color="#0036FF" />;
+      clockColor = <FiClock color="#0036FF" />;
     }
 
     var projectFolder = '';
@@ -39,7 +39,7 @@ class SingleTask extends Component {
       projectFolder = '';
       break;
       case 1:
-      projectFolder = <FiFolder size="1.3em" color="#7F9AFF" />;
+      projectFolder = <FiFolder color="#7F9AFF" />;
       break;
       default:
       projectFolder = '';

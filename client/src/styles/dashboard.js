@@ -28,7 +28,7 @@ export const DashboardContainer = styled.div`
       grid-template-columns: 4% 57% 8% 8% 23%;
       padding: 0 20px;
       margin-top: 0;
-      font-size: 10px;
+      font-size: 0.8em;
       font-weight:500;
       color:#AAAAAA;
       span{

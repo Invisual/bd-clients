@@ -15,7 +15,7 @@ class App extends Component {
           <div className="app-container">
             <TopBarContainer />
             <SideBar logout={this.props.logout}/>
-            <Route exact path="/" render={props => <UserDashboardContainer {...props} name="teste" />} />
+            <Route exact path="/" render={props => <UserDashboardContainer {...props} />} />
             <Route path="/admin" render={props => <AdminDashboardContainer {...props} />} />
           </div> 
           : 

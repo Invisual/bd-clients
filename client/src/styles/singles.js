@@ -26,6 +26,9 @@ export const SingleTaskDiv = styled.div`
         text-align:center;
         background-color:${props => props.taskColor};
     }
+    svg{
+        font-size:2em;
+    }
 `
 
 export const SingleProjectDiv = styled.div`
@@ -38,7 +41,7 @@ export const SingleProjectDiv = styled.div`
         margin:0;
         padding:18px 0;
         position: relative;
-        top: 2px;
+        top: 8px;
         
         .title-divider {
             padding-right: 5px;
@@ -56,7 +59,7 @@ export const SingleProjectDiv = styled.div`
     .project-concluded-tasks{
         padding:18px 0;
         position: relative;
-        top: 2px;
+        top: 8px;
         margin: 0;
     }
     .project-status{
@@ -68,5 +71,9 @@ export const SingleProjectDiv = styled.div`
         padding:18px 0;
         position: relative;
         top: 4px;
+    }
+
+    svg{
+        font-size:2em;
     }
 `

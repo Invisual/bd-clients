@@ -68,7 +68,7 @@ class AppContainer extends Component {
   }
 
   render() {
-    return <App loggedIn={this.state.loggedIn} login={this.login} logout={this.logout}/>
+    return <App loggedIn={this.state.loggedIn} login={this.login} logout={this.logout} />
   }
 }
 
