@@ -5,7 +5,7 @@ class AppContainer extends Component {
   constructor(props){
     super(props);
     this.state = {
-      loggedIn: false,
+      loggedIn: true,
       userInfo: {},
       token: ''
     }

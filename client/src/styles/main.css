@@ -1,6 +1,7 @@
 body{
     margin:0;
     font-family: 'Montserrat', sans-serif;
+    font-size:62.5%;
 }
 
 a{
@@ -9,14 +10,36 @@ a{
 }
 
 .app-container{
+    /*display:grid;
+    transition: grid-template-columns .2s ease;
+    grid-template-columns: 5% 95%;*/
     display:flex;
-    flex-wrap: nowrap;
     width:100%;
     height:100%;
 }
 
+body.expanded-sidebar .sidebar-container{
+    width:5%;
+}
+
+body.expanded-sidebar .dashboard-container{
+    width:95%;
+}
+
+body.expanded-sidebar .sidebar-container .footer{
+    opacity:0;
+}
+
 .single-card{
     padding: 0 20px;
+    background-color: #fff;
+    margin-top: 15px;
+    border-radius:10px;
+    box-shadow: 1px 1px 10px #d2d2d2;
+}
+
+.single-card-task{
+    padding: 0 0 0 20px;
     background-color: #fff;
     margin-top: 15px;
     border-radius:10px;
