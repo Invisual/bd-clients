@@ -67,6 +67,49 @@ body.collapsed-sidebar .sidebar-container li span{
     box-shadow: 1px 1px 10px #d2d2d2;
 }
 
+.single-todo{
+    margin-top:10px;
+    margin-right:10px;
+    background-color: #fff;
+    border-bottom: 1px solid #afacd1;
+}
+.single-todo:first-of-type{
+    margin-top:0
+}
+.single-todo:first-of-type .todo-status{
+    margin-top:0
+}
+.single-todo:first-of-type .todo-text{
+    padding-top:0
+}
+
+.todo-scroll-container{
+    overflow: auto;
+    height:30vh;
+    margin-top:25px
+}
+
+.todo-scroll-container::-webkit-scrollbar {
+    width: 0.8em;
+}
+ 
+/* Track */
+.todo-scroll-container::-webkit-scrollbar-track {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+ 
+/* Handle */
+.todo-scroll-container::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #DFE4F8; 
+}
+.todo-scroll-container::-webkit-scrollbar-thumb:window-inactive {
+	background:#DFE4F8; 
+}
+
+
 .cards-container{
     border-top: 6px solid #7f9aff;
     background-color: #fff;
@@ -91,4 +134,8 @@ body.collapsed-sidebar .sidebar-container li span{
 
 .arrow svg{
     font-size: 2em;
+}
+
+.nodisplay{
+    display: none;
 }

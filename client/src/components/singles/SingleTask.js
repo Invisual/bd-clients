@@ -4,9 +4,7 @@ import { FiFolder } from 'react-icons/fi';
 import { FiClock } from 'react-icons/fi';
 
 class SingleTask extends Component {
-  click = ()=>{
-    console.log('sasa')
-  }
+
   render() {
     var taskColor = '';
     switch(this.props.stateVal){
@@ -52,7 +50,7 @@ class SingleTask extends Component {
         <div className="project-title"><span className="title-divider">{this.props.title} </span></div>
         <div className="task-watch">{projectFolder}</div>
         <div className="task-watch">{clockColor}</div>
-        <div className="task-state" onClick={this.click}>{this.props.stateTitle}</div>
+        <div className="task-state" onClick={() => this.props.changeTaskStatus(this.props.id, this.props.stateVal)}>{this.props.stateTitle}</div>
       </SingleTaskDiv>
     );
   }

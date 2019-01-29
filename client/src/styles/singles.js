@@ -1,11 +1,12 @@
 import styled from 'styled-components'
+import {themeConsts} from './themeConsts';
 
 export const SingleTaskDiv = styled.div`
     display: grid;
     grid-template-columns: 80% 5% 5% 10%;
     padding-left: 20px;
     margin-top: 15px;
-    color:#797979;
+    color:${themeConsts.textDarkGrey};
 
     .project-title{
         margin:0;
@@ -19,7 +20,7 @@ export const SingleTaskDiv = styled.div`
 
     .task-state{
         color: #fff;
-        border-radius: 10px;
+        border-radius: ${themeConsts.borderRadius};
         font-size: 18px;
         font-weight:600;
         padding:18px 0;
@@ -34,7 +35,7 @@ export const SingleTaskDiv = styled.div`
 export const SingleProjectDiv = styled.div`
     display: grid;
     grid-template-columns: 4% 60% 8% 8% 20%;
-    color:#797979;
+    color:${themeConsts.textDarkGrey};
     
 
     .project-title{
@@ -49,7 +50,7 @@ export const SingleProjectDiv = styled.div`
         }
         .project-client{
             padding-left: 7px;
-            color:#7f9aff
+            color:${themeConsts.secondaryBlue}
         }
     }
 
@@ -75,5 +76,27 @@ export const SingleProjectDiv = styled.div`
 
     svg{
         font-size:2em;
+    }
+`
+
+export const SingleToDoDiv = styled.div`
+    display: grid;
+    grid-template-columns: 10% 90%;
+    color:${themeConsts.textDarkGrey};
+    
+
+    .todo-text{
+        margin:0;
+        padding:18px 0;
+        position: relative;
+    }
+
+    .todo-status{
+        margin:auto 0;
+        position: relative;
+    }
+
+    svg{
+        font-size:1.4em;
     }
 `
