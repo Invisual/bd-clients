@@ -215,6 +215,10 @@ export const TopBarDiv = styled.div`
       position: relative;
       cursor: pointer;
 
+      svg{
+        font-size:2em;
+      }
+
       p {
         position: absolute;
         top: -15px;
