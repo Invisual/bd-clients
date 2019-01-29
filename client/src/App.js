@@ -13,7 +13,7 @@ class App extends Component {
       <BrowserRouter>
         {this.props.loggedIn ? 
           <div className="app-container">
-            <TopBarContainer />
+            <TopBarContainer userInfo={this.props.userInfo} />
             <SideBar logout={this.props.logout}/>
             <Route exact path="/" render={props => <UserDashboardContainer {...props} />} />
             <Route path="/admin" render={props => <AdminDashboardContainer {...props} />} />

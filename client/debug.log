@@ -1,0 +1,5 @@
+[0128/182856.966:ERROR:process_info.cc(329)] VirtualQueryEx: Acesso negado. (0x5)
+[0128/182856.969:ERROR:process_info.cc(550)] ReadMemoryInfo failed
+[0128/182856.973:ERROR:process_reader_win.cc(151)] SuspendThread: Acesso negado. (0x5)
+[0128/182856.973:ERROR:exception_snapshot_win.cc(88)] thread ID 6224 not found in process
+[0128/182856.973:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: Foi efetuada uma tentativa de aceder a um processo de saída. (0xc000010a)

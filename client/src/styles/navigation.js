@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import {themeColors} from './themeConsts'
+import {themeConsts} from './themeConsts'
 
 export const SidebarDiv = styled.div`
   width:14%;
   height: 100vh;
-  background-color: ${themeColors.primaryBlue};
+  background-color: ${themeConsts.primaryBlue};
   position: relative;
   overflow-x:hidden;
   transition:all .5s ease;
@@ -34,6 +34,8 @@ export const SidebarDiv = styled.div`
       /*width:200px;
       padding-inline-start: 26px;
       */
+     white-space: nowrap;
+      overflow-x: hidden;
       color: #fff;
       padding-inline-start: 0;
       list-style-type: none;
@@ -59,78 +61,72 @@ export const SidebarDiv = styled.div`
     }
   }
 
-  .footer {
+  .sidebar-toggle {
     position: absolute;
-    bottom: 0;
-    opacity:1;
-    width: 204px;
-    overflow-x: hidden;
-    transition: all .2s ease;
+    bottom: 75px;
+    left: 0;
+    right: 0;
+    text-align: center;
 
-    p {
-      font-size: 0.7rem;
-      text-align: center;
-    }
-  }
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 45px;
+        height: 21px;
+        
+        input {
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
 
-  .switch {
-    position: relative;
-    display: inline-block;
-    width: 45px;
-    height: 21px;
-    
-    input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
+        .slider {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: #ccc;
+          -webkit-transition: .4s;
+          transition: .4s;
+        }
 
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #ccc;
-      -webkit-transition: .4s;
-      transition: .4s;
-    }
+        .slider:before {
+          position: absolute;
+          content: "";
+          height: 15px;
+          width: 15px;
+          left: 3px;
+          bottom: 3px;
+          background-color: white;
+          -webkit-transition: .4s;
+          transition: .4s;
+        }
 
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 15px;
-      width: 15px;
-      left: 3px;
-      bottom: 3px;
-      background-color: white;
-      -webkit-transition: .4s;
-      transition: .4s;
-    }
+        input:checked + .slider {
+          background-color: #2196F3;
+        }
 
-    input:checked + .slider {
-      background-color: #2196F3;
-    }
+        input:focus + .slider {
+          box-shadow: 0 0 1px #2196F3;
+        }
 
-    input:focus + .slider {
-      box-shadow: 0 0 1px #2196F3;
-    }
+        input:checked + .slider:before {
+          -webkit-transform: translateX(26px);
+          -ms-transform: translateX(26px);
+          transform: translateX(26px);
+        }
 
-    input:checked + .slider:before {
-      -webkit-transform: translateX(26px);
-      -ms-transform: translateX(26px);
-      transform: translateX(26px);
-    }
+        /* Rounded sliders */
+        .rounded-slider {
+          border-radius: 34px;
+        }
 
-    /* Rounded sliders */
-    .rounded-slider {
-      border-radius: 34px;
-    }
-
-    .rounded-slider:before {
-      border-radius: 50%;
-    }
+        .rounded-slider:before {
+          border-radius: 50%;
+        }
+      }
   }
 `;
 
@@ -139,22 +135,33 @@ export const TopBarDiv = styled.div`
   padding-bottom: 0.5em;
   position: absolute;
   right: 0;
+  width: 100%;
+  background-color: ${themeConsts.white};
+  box-shadow: ${themeConsts.mainShadow};
 
   ul {
     margin: 0;
     padding: 0;
     list-style: none;
     display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 20px;
 
     .topbar-avatar {
-      position: relative;
-      bottom: 5px;
-      font-weight: 500;
+      span {
+        font-weight: 600;
+        margin-right: 18px;
+        color: ${themeConsts.secondaryBlue};
+        font-size: 1.25em;
+      }
 
       img {
         vertical-align: middle;
+        border: 2px solid ${themeConsts.primaryBlue};
       }
     }
+
     input[type='text'] {
       border: none;
       outline: none;

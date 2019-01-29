@@ -5,7 +5,7 @@ class AppContainer extends Component {
   constructor(props){
     super(props);
     this.state = {
-      loggedIn: true,
+      loggedIn: false,
       userInfo: {},
       token: ''
     }
@@ -46,9 +46,9 @@ class AppContainer extends Component {
       let loggedUserStorage = localStorage.getItem('user');
       loggedUserStorage = JSON.parse(loggedUserStorage);
       try {
-        this.setState({ user: loggedUserStorage });
+        this.setState({ userInfo: loggedUserStorage });
       } catch (e) {
-        this.setState({ user: loggedUserStorage });
+        this.setState({ userInfo: loggedUserStorage });
       }
     }
 
@@ -68,7 +68,7 @@ class AppContainer extends Component {
   }
 
   render() {
-    return <App loggedIn={this.state.loggedIn} login={this.login} logout={this.logout} />
+    return <App loggedIn={this.state.loggedIn} login={this.login} logout={this.logout} userInfo={this.state.userInfo} />
   }
 }
 

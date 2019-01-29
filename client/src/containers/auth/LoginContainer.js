@@ -47,10 +47,10 @@ class LoginContainer extends Component{
                     type: 'success',
                     title: `Bem-vindo ${response.data.user.name_user}`
                   }).then(()=>{
-                    this.props.login(response.data.user, response.data.token);
                     localStorage.setItem('loggedIn', JSON.stringify(true));
                     localStorage.setItem('user', JSON.stringify(response.data.user));
                     localStorage.setItem('token', JSON.stringify(response.data.token));
+                    this.props.login(response.data.user, response.data.token);
                   })
             }
             else{

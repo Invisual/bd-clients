@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {SidebarDiv} from '../../styles/navigation';
-import {themeColors} from '../../styles/themeConsts';
 import { FiHome, FiFolder, FiFileText, FiCalendar, FiBookmark, FiWatch, FiEdit, FiLogOut } from 'react-icons/fi';
 import {Link} from 'react-router-dom';
 
@@ -29,7 +28,7 @@ class SideBar extends Component {
     var logoClass = this.state.collapsedSidebar ? 'logo logo-small' : 'logo logo-big';
 
     return (
-      <SidebarDiv className="sidebar-container" colors={themeColors}>
+      <SidebarDiv className="sidebar-container">
         <div className={logoClass}>
             <img alt="Invisual Branding Solutions" src={logoImg}/>
         </div>
@@ -44,14 +43,13 @@ class SideBar extends Component {
                 <Link to="/"><li><FiWatch/> <span>Histórico</span></li></Link>  
                 <Link to="/"><li><FiEdit/> <span>To-Do List</span></li></Link>
                 <li onClick={this.props.logout}><FiLogOut/> <span>Log Out</span></li>
-                <label className="switch">
-                  <input type="checkbox" />
-                  <span className="slider rounded-slider" onClick={this.toggleSideBar}></span>
-                </label>
             </ul>
         </div>
-        <div className="footer">
-          <a href="https://invisual.pt/"><p>Tarefas - Invisual © 2019</p></a>
+        <div className="sidebar-toggle">
+          <label className="switch">
+              <input type="checkbox" />
+              <span className="slider rounded-slider" onClick={this.toggleSideBar}></span>
+          </label>
         </div>
       </SidebarDiv>
     );

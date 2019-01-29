@@ -1,4 +1,4 @@
-export const themeColors = {
+export const themeConsts = {
     primaryBlue: '#0036ff',
     secondaryBlue: '#7f9aff',
     activeBlue: '#4e71f4',
@@ -11,5 +11,5 @@ export const themeColors = {
     titlesDarkGrey: '#4b4b4b',
     textDarkGrey: '#797979',
     textLightGrey: '#aaaaaa',
-
+    mainShadow: '1px 1px 10px #d2d2d2'
 }   
