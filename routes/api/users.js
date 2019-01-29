@@ -48,12 +48,12 @@ router.post('/login', (req, res) => {
             })
         }
         else{
-            res.send('Password Errada!')
+            res.send('badpassword')
         }
         //res.send(user);
       }
       else{
-          res.send('Utilizador não existe!')
+          res.send('badusername')
       }
     }
   );
