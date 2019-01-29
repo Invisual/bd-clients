@@ -62,10 +62,6 @@ export const SidebarDiv = styled.div`
   }
 
   .sidebar-toggle {
-    position: absolute;
-    bottom: 75px;
-    left: 0;
-    right: 0;
     text-align: center;
 
       .switch {
@@ -165,15 +161,54 @@ export const TopBarDiv = styled.div`
     input[type='text'] {
       border: none;
       outline: none;
-      color: #555;
-      padding: 3px;
       background: none;
       z-index: 3;
       width: 150px;
-      border-bottom: 1px solid #bbb;
+      border-bottom: 1px solid ${themeConsts.primaryBlue};
       cursor: text;
       transform: scaleX(.0);
       transform-origin: right;
+      color:${themeConsts.secondaryBlue};
+      font-weight:600;
+      position: relative;
+      bottom: 5px;
+      right: 4px;
+    }
+
+    input[type='text']::-webkit-input-placeholder {
+      color:${themeConsts.secondaryBlue};
+      font-weight:600;
+      font-size: .9em;
+      font-family: 'Montserrat', sans-serif;
+      position:relative;
+      bottom:4px;
+    }
+
+    input[type='text']::-moz-placeholder {
+      color:${themeConsts.secondaryBlue};
+      font-weight:600;
+      font-size: .9em;
+      font-family: 'Montserrat', sans-serif;
+      position:relative;
+      bottom:4px;
+    }
+
+    input[type='text']:-ms-input-placeholder {
+      color:${themeConsts.secondaryBlue};
+      font-weight:600;
+      font-size: .9em;
+      font-family: 'Montserrat', sans-serif;
+      position:relative;
+      bottom:4px;
+    }
+
+    input[type='text']:-moz-placeholder {
+      color:${themeConsts.secondaryBlue};
+      font-weight:600;
+      font-size: .9em;
+      font-family: 'Montserrat', sans-serif;
+      position:relative;
+      bottom:4px;
     }
 
     input[type='text'].showsearch{
@@ -214,22 +249,30 @@ export const TopBarDiv = styled.div`
       font-size: 0.99em;
       position: relative;
       cursor: pointer;
+      margin-left: 10px;
 
       svg{
-        font-size:2em;
+        font-size:2.8em;
+        stroke-width: 1.3;
+        color: ${themeConsts.primaryBlue};
       }
 
-      p {
+      .notification-number {
+        width: 14px;
+        height: 14px;
         position: absolute;
-        top: -15px;
-        right: -2px;
-        font-size: 13px;
-        background-color: #5093e1;
+        top: 5px;
+        right: 12px;
+        background-color: ${themeConsts.red};
         border-radius: 50%;
-        width: 18px;
         text-align: center;
-        height: 18px;
-        color: #000;
+
+        span{
+          color: ${themeConsts.white};
+          font-size: .75em;
+          position: relative;
+          bottom: 1px;
+        }
       }
     }
     li:hover {
@@ -242,6 +285,9 @@ export const TopBarDiv = styled.div`
       display: block;
       color: #666;
       font-size: 0.99em;
+    }
+    .topbar-messages{
+      margin-right: 30px;
     }
     .topbar-notifications,
     .topbar-messages,

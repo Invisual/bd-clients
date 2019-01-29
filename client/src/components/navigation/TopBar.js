@@ -6,30 +6,14 @@ export const TopBar = props => {
   return (
     <TopBarDiv>
       <ul className="main-nav">
+
         <li className="topbar-search">
-          <input type="text" placeholder="Pesquisar" className={props.displaySearchInput} />
+          <input type="text" placeholder="Pesquisa" className={props.displaySearchInput} />
           <FiSearch onClick={props.toggleSearchInput}/>
         </li>
-        <li className="topbar-messages" onClick={() => {props.showDropdownMenu('displayDropdownMessages')}}>
-          <p>2</p>
-          <span>
-            <FiMessageCircle />
-          </span>
-          {props.displayDropdownMessages ? (
-            <ul>
-              {props.messages.map(message => {
-                return (
-                  <li key={message.id} id={message.id}>
-                    {message.title}
-                  </li>
-                );
-              })}
-            </ul>
-          ) : null}
-        </li>
-        
+
         <li className="topbar-notifications" onClick={() => props.showDropdownMenu('displayDropdownNotifications')}>
-          <p>1</p>
+          <div className="notification-number"><span>10</span></div>
           <span>
             <FiBell />
           </span>
@@ -45,6 +29,25 @@ export const TopBar = props => {
             </ul>
           ) : null}
         </li>
+
+        <li className="topbar-messages" onClick={() => {props.showDropdownMenu('displayDropdownMessages')}}>
+          <div className="notification-number"><span>2</span></div>
+          <span>
+            <FiMessageCircle />
+          </span>
+          {props.displayDropdownMessages ? (
+            <ul>
+              {props.messages.map(message => {
+                return (
+                  <li key={message.id} id={message.id}>
+                    {message.title}
+                  </li>
+                );
+              })}
+            </ul>
+          ) : null}
+        </li>
+
         <li className="topbar-avatar" onClick={() => props.showDropdownMenu('displayDropdownUser')}>
           <span>{props.userInfo.name_user}</span>
           <img
@@ -66,6 +69,7 @@ export const TopBar = props => {
             </ul>
           ) : null}
         </li>
+
       </ul>
     </TopBarDiv>
   );

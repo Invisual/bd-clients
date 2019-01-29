@@ -6,6 +6,7 @@ export const DashboardContainer = styled.div`
   background-color: #f7f7f7;
   overflow-y: scroll;
   transition:all .5s ease;
+  margin-top: 45px;
 
   .widgets-grid {
     display: grid;
