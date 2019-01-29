@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <clipPath id="clip-Web_1920_3">
+      <rect width="1920" height="1080"/>
+    </clipPath>
+  </defs>
+  <g id="Web_1920_3" data-name="Web 1920 – 3" clip-path="url(#clip-Web_1920_3)">
+    <rect width="1920" height="1080" fill="#fff"/>
+    <rect id="Rectangle_60" data-name="Rectangle 60" width="1920" height="1080" fill="#0031e6"/>
+    <circle id="Ellipse_30" data-name="Ellipse 30" cx="684" cy="684" r="684" transform="translate(-680 -154)" fill="#f5f7fd"/>
+  </g>
+</svg>

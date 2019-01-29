@@ -1,35 +1,28 @@
 import styled from 'styled-components';
+import {themeConsts} from './themeConsts'
+
 
 export const LoginDiv = styled.div`
     width:100vw;
     height:100vh;
     display:flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    background-color:#f7f7f7;
+    background:url('./img/fundo-login.svg');
+    background-size:cover;
+    background-repeat:no-repeat;
+
+    .ilustration{
+        width:50%;
+
+        img{
+            max-width:100%;
+        }
+    }
 
     .login-form{
         width:300px;
-        padding: 40px 20px;
-        background-color:#fff;
-        position:relative;
-        border-radius:3px;
-        box-shadow: 0 1px 22px 5px rgba(0,0,0,.2);
-
-        .login-header{
-            position:absolute;
-            top:0;
-            left:0;
-            width:100%;
-            background-color:#006cff;
-            padding: 20px 0;
-            color:#fff;
-            text-align:center;
-            font-weight:600;
-            letter-spacing:.02em;
-            border-top-left-radius:3px;
-            border-top-right-radius:3px;
-        }
+        text-align: center;
 
         .login-fields{
             margin-top:35px;
@@ -38,10 +31,20 @@ export const LoginDiv = styled.div`
             input{
                 width:90%;
                 margin:0 auto;
-                background-color:transparent;
+                background-color:${themeConsts.white};
+                margin-top:15px;
                 border:none;
-                border-bottom:2px solid #ccc;
-                margin-top:25px;
+                color: ${themeConsts.textDarkGrey};
+            }
+
+            input:-internal-autofill-previewed, input:-internal-autofill-selected, textarea:-internal-autofill-previewed, textarea:-internal-autofill-selected, select:-internal-autofill-previewed, select:-internal-autofill-selected {
+                background-color: ${themeConsts.white} !important;
+                background-image: none !important;
+                color: ${themeConsts.textDarkGrey} !important;
+            }
+
+            input:-webkit-autofill {
+                -webkit-box-shadow: 0 0 0px 1000px white inset;
             }
 
             button{
