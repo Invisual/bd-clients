@@ -1,6 +1,6 @@
 import React from 'react';
 import { TopBarDiv } from '../../styles/navigation';
-import { FaSearch, FaComment, FaBell } from 'react-icons/fa';
+import { FiSearch, FiMessageCircle, FiBell } from 'react-icons/fi';
 
 export const TopBar = props => {
   return (
@@ -8,12 +8,12 @@ export const TopBar = props => {
       <ul className="main-nav">
         <li className="topbar-search">
           <input type="text" placeholder="Pesquisar" className={props.displaySearchInput} />
-          <FaSearch onClick={props.toggleSearchInput}/>
+          <FiSearch onClick={props.toggleSearchInput}/>
         </li>
         <li className="topbar-messages" onClick={() => {props.showDropdownMenu('displayDropdownMessages')}}>
           <p>2</p>
           <span>
-            <FaComment />
+            <FiMessageCircle />
           </span>
           {props.displayDropdownMessages ? (
             <ul>
@@ -31,7 +31,7 @@ export const TopBar = props => {
         <li className="topbar-notifications" onClick={() => props.showDropdownMenu('displayDropdownNotifications')}>
           <p>1</p>
           <span>
-            <FaBell />
+            <FiBell />
           </span>
           {props.displayDropdownNotifications ? (
             <ul>
@@ -46,9 +46,9 @@ export const TopBar = props => {
           ) : null}
         </li>
         <li className="topbar-avatar" onClick={() => props.showDropdownMenu('displayDropdownUser')}>
-          <span>Tiago </span>
+          <span>{props.userInfo.name_user}</span>
           <img
-            src="https://tarefas.invisual.pt/img/users/tiagoribeiro.jpg"
+            src={props.userInfo.avatar_user}
             alt="Avatar"
             style={{ borderRadius: '50%' }}
             width="35px"

@@ -96,6 +96,7 @@ class TopBarContainer extends Component {
       toggleSearchInput={this.toggleSearchInput}
       messages={this.state.messages} 
       notifications={this.state.notifications}
+      userInfo={this.props.userInfo}
       />
     );
   }
