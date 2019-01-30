@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {SidebarDiv} from '../../styles/navigation';
 import { FiHome, FiFolder, FiFileText, FiCalendar, FiBookmark, FiWatch, FiEdit, FiLogOut } from 'react-icons/fi';
-import {Link} from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 
 class SideBar extends Component {
   constructor(props){
@@ -34,14 +34,14 @@ class SideBar extends Component {
         </div>
         <div className="navigation">
             <ul>
-                <Link to="/"><li><FiHome/> <span>Dashboard</span></li></Link> 
-                <Link to="/"><li><FiFolder/> <span>Projectos</span></li></Link> 
-                <Link to="/admin"><li><FiFileText/> <span>Tarefas</span></li></Link>
-                <Link to="/"><li><FiCalendar/> <span>Reuniões</span></li></Link>
-                <Link to="/"><li><FiHome/> <span>Clientes</span></li></Link>
-                <Link to="/"><li><FiBookmark/> <span>Objectivos</span></li></Link>
-                <Link to="/"><li><FiWatch/> <span>Histórico</span></li></Link>  
-                <Link to="/"><li><FiEdit/> <span>To-Do List</span></li></Link>
+                <NavLink exact={true} to="/" activeClassName='is-active'><li><FiHome/> <span>Dashboard</span></li></NavLink> 
+                <NavLink to="/ds" activeClassName='is-active'><li><FiFolder/> <span>Projectos</span></li></NavLink> 
+                <NavLink to="/admin" activeClassName='is-active'><li><FiFileText/> <span>Tarefas</span></li></NavLink>
+                <NavLink to="/ds" activeClassName='is-active'><li><FiCalendar/> <span>Reuniões</span></li></NavLink>
+                <NavLink to="/ds" activeClassName='is-active'><li><FiHome/> <span>Clientes</span></li></NavLink>
+                <NavLink to="/ds" activeClassName='is-active'><li><FiBookmark/> <span>Objectivos</span></li></NavLink>
+                <NavLink to="/ds" activeClassName='is-active'><li><FiWatch/> <span>Histórico</span></li></NavLink>  
+                <NavLink to="/ds" activeClassName='is-active'><li><FiEdit/> <span>To-Do List</span></li></NavLink>
                 <li onClick={this.props.logout}><FiLogOut/> <span>Log Out</span></li>
             </ul>
         </div>
