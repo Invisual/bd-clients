@@ -10,6 +10,7 @@ const taskRoutes = require('./routes/api/tasks');
 const projectRoutes = require('./routes/api/projects');
 const goalRoutes = require('./routes/api/goals');
 const meetingRoutes = require('./routes/api/meetings');
+const todoRoutes = require('./routes/api/todos');
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use('/api/tasks', taskRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/goals', goalRoutes);
 app.use('/api/meetings', meetingRoutes);
+app.use('/api/todos', todoRoutes);
 
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static(path.join(__dirname, 'client', 'build')));

@@ -19,7 +19,7 @@ class SingleToDo extends Component {
 
     return (
       <SingleToDoDiv className="single-todo">
-        <div className="todo-status">{todoStatus}</div>
+        <div className="todo-status" onClick={() => this.props.changeToDoStatus(this.props.id, this.props.status)}>{todoStatus}</div>
         <div className="todo-text">{this.props.text}</div>
       </SingleToDoDiv>
     );

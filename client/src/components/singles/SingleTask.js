@@ -21,18 +21,6 @@ class SingleTask extends Component {
       taskColor = '#F50057';
     }
 
-    var clockColor = '';
-    switch(this.props.hourState){
-      case 0:
-      clockColor = <FiClock  color="#0036FF" />;
-      break;
-      case 1:
-      clockColor =  <FiClock  color="#F43D3D" />;
-      break;
-      default:
-      clockColor = <FiClock color="#0036FF" />;
-    }
-
     var projectFolder = '';
     switch(this.props.projectState){
       case !null:
@@ -47,9 +35,9 @@ class SingleTask extends Component {
 
     return (
       <SingleTaskDiv className="single-card-task" taskColor={taskColor}>
-        <div className="project-title"><span className="title-divider">{this.props.title} </span></div>
+        <div className="task-title">{this.props.title}</div>
         <div className="task-watch">{projectFolder}</div>
-        <div className="task-watch">{clockColor}</div>
+        <div className="task-watch"><FiClock className={this.props.hourState===1 ? 'active-clock' : 'inactive-clock'}/></div>
         <div className="task-state" onClick={() => this.props.changeTaskStatus(this.props.id, this.props.stateVal)}>{this.props.stateTitle}</div>
       </SingleTaskDiv>
     );

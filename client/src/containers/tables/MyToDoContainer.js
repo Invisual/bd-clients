@@ -7,74 +7,54 @@ class MyToDoContainer extends Component {
     constructor(props){
         super(props);
         this.state = {
-            todo:[
-              {
-                id:1,
-                text: 'FOTOLIA - INvisualLDA lausivni',
-                status:1
-              },
-              {
-                id:2,
-                text: 'unifloresta2012',
-                status:0
-              },
-              {
-                id:3,
-                text:"var token = JSON.parse(localStorage.getItem('token'));",
-                status:1
-              },
-              {
-                id:4,
-                text: 'FOTOLIA - INvisualLDA lausivni',
-                status:1
-              },
-              {
-                id:5,
-                text: 'unifloresta2012',
-                status:0
-              },
-              {
-                id:6,
-                text:"var token = JSON.parse(localStorage.getItem('token'));",
-                status:1
-              }
-            ]
+            todos:[]
         }
     }
+    getTodos = () => {
+      var token = JSON.parse(localStorage.getItem('token'));
+      var AuthStr = 'Bearer ' + token;
+      var idUser = JSON.parse(localStorage.getItem('user'))
+  
+      axios.get(`/api/todos/${idUser.id_user}`, { headers: { Authorization: AuthStr } }).then(res => {
+        this.setState({ todos: res.data });
+      }); 
+      
+    };
 
-    changeTaskStatus = (taskId, currStatus) => {
+    componentDidMount(){
+      this.getTodos();
+    }
+
+    changeToDoStatus = (todoId, currStatus) => {
       var token = JSON.parse(localStorage.getItem('token'));
       var AuthStr = 'Bearer ' + token;
       var idUser = JSON.parse(localStorage.getItem('user'))
 
       var nextStatus = '';
       switch(currStatus){
-        case 1:
-        nextStatus = 2;
-        break;
-        case 2:
-        nextStatus =  3;
-        break;
-        case 3:
+        case 0:
         nextStatus = 1;
+        break;
+        case 1:
+        nextStatus =  0;
         break;
         default:
         nextStatus = 1;
       }
      const data = {
-        task: taskId,
+        todo: todoId,
         status: nextStatus,
         user:idUser.id_user
       }
   
-      axios.put('/api/tasks/userTaskStatus', data, { headers: { Authorization: AuthStr } }).then(res => {
-        this.getTasks();
+      axios.put('/api/todos/userToDoStatus', data, { headers: { Authorization: AuthStr } }).then(res => {
+        this.getTodos();
       }); 
       
     };
 
   render() {
-    return <MyToDo todo={this.state.todo} title={this.props.title} changeTaskStatus={this.changeTaskStatus}/>;
+    return <MyToDo todos={this.state.todos} title={this.props.title} changeToDoStatus={this.changeToDoStatus}/>;
   }
 }
 

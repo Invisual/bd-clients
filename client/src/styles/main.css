@@ -139,3 +139,13 @@ body.collapsed-sidebar .sidebar-container li span{
 .nodisplay{
     display: none;
 }
+
+.active-clock{
+    font-size:2.2em !important;
+    fill:#1DE9B6;
+    color:#ffffff;
+}
+
+.inactive-clock{
+    color: #0036FF
+}

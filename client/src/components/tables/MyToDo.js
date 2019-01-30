@@ -7,14 +7,14 @@ export const MyToDo = props => {
     <div className="mytasks-container widget cards-container">
       <h4 className="widget-title">{props.title}</h4>
       <div className="todo-scroll-container">
-      {props.todo.map(todo => {
+      {props.todos.map(todo => {
         return (
           <SingleToDo
-            key={todo.id}
-            id={todo.id}
-            text={todo.text}
-            status={todo.status}
-            changeTaskStatus={props.changeTaskStatus}
+            key={todo.id_todo_list}
+            id={todo.id_todo_list}
+            text={todo.title_list}
+            status={todo.status_list}
+            changeToDoStatus={props.changeToDoStatus}
           />
         );
       })}
