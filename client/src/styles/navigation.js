@@ -31,10 +31,7 @@ export const SidebarDiv = styled.div`
     margin-top: 60px;
 
     ul {
-      /*width:200px;
-      padding-inline-start: 26px;
-      */
-     white-space: nowrap;
+      white-space: nowrap;
       overflow-x: hidden;
       color: #fff;
       padding-inline-start: 0;
@@ -43,9 +40,22 @@ export const SidebarDiv = styled.div`
       display:table;
       margin:0 auto;
 
+      .is-active{
+        li{
+          background-color: ${themeConsts.activeBlue};
+          box-shadow: ${themeConsts.activeShadow};
+        }
+      }
+
       li {
-        padding-bottom: 25px;
+        margin-bottom: 12px;
         font-size:1.6em;
+        width: 175%;
+        padding: 12px 8px 8px 11px;
+        background-color: transparent;
+        border-top-left-radius: ${themeConsts.borderRadius};
+        border-bottom-left-radius: ${themeConsts.borderRadius};
+        transition: all .4s ease;
 
         svg{
           /*padding-right: 23px;*/
