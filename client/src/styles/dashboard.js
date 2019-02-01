@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { themeConsts } from './themeConsts';
 
 export const DashboardContainer = styled.div`
   width:86%;
@@ -37,5 +38,117 @@ export const DashboardContainer = styled.div`
       }
     }
 
+    .mycalendar-container{
+      height: 328px;
+      
+      .rbc-calendar{
+        margin-top: 20px;
+      
+
+        .rbc-btn-group {
+          margin-bottom: 10px;
+          width: 100%;
+          display: flex;
+          align-items: center;
+
+          .rbc-toolbar-label{
+            font-weight: 600;
+            color:${themeConsts.textDarkGrey};
+            text-transform:uppercase;
+            letter-spacing:.2em;
+            font-size: .9em;
+          }
+
+          button{
+            cursor:pointer;
+            border: none;
+
+            img{
+              width:15px;
+            }
+          }
+          
+          button:hover, button:active, button:focus{
+            background-color: transparent;
+            box-shadow:none;
+            outline: none;
+          }
+
+          button:first-child{
+            display:none;
+          }
+        }
+
+        .rbc-header, .rbc-month-view, .rbc-day-bg, .rbc-month-row{
+          border:none;
+        }
+
+        .rbc-header{
+          font-size: 1.2em;
+          font-weight: 700;
+          color:${themeConsts.secondaryBlue};
+        }
+
+        .rbc-month-header {
+          margin-bottom: 15px;
+        }
+
+        .rbc-month-row {
+          justify-content: center;
+          max-height:40px;
+        }
+
+        .rbc-today {
+          background-color: transparent;
+        }
+
+        .rbc-date-cell{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding-right:0;
+        }
+
+        .rbc-date-cell div{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width:30px;
+          height:30px;
+          font-size: 1.2em;
+          font-weight: 600;
+          color:${themeConsts.textDarkerGrey};
+        }
+
+        .rbc-off-range div{
+          color:${themeConsts.textLighterGrey};
+        }
+
+        .rbc-date-cell div.has-meeting{
+          background-color: ${themeConsts.lightBlue};
+          color: ${themeConsts.white};
+          border-radius: 50%;
+          cursor:pointer;
+        }
+
+        .rbc-date-cell div.has-out-meeting{
+          background-color: ${themeConsts.secondaryBlue};
+          cursor:pointer;
+        }
+
+        .rbc-off-range-bg {
+          background: transparent;
+        }
+
+        .rbc-row-segment{
+          position:relative;
+        }
+
+        .rbc-event{
+          display:none;
+        }
+      }
+    }
+    
   }
 `;

@@ -11,7 +11,8 @@ class LoginContainer extends Component {
             passwordInput: '',
             incorrectUsername: false,
             incorrectPassword: false,
-            sucessfullLogin: false
+            sucessfullLogin: false,
+            forgotPassword: false
         }
     }
 
@@ -71,6 +72,12 @@ class LoginContainer extends Component {
         })
     }
 
+    userForgotPassword = () => {
+        this.setState({
+            forgotPassword: true,
+        })
+    }
+
 
     render() {
         return <Login
@@ -82,6 +89,8 @@ class LoginContainer extends Component {
             incPassword={this.state.incorrectPassword}
             sucessfullLogin={this.state.sucessfullLogin}
             removeErrors={this.removeErrors}
+            forgotPassword={this.state.forgotPassword}
+            userForgotPassword={this.userForgotPassword}
         />;
     }
 }
