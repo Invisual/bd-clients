@@ -132,8 +132,20 @@ body.collapsed-sidebar .sidebar-container li span{
         padding: 5px;
     }
 
-.arrow svg{
+.arrow, .arrow-hours svg{
     font-size: 2em;
+}
+.see-hours{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    color: #7f9aff;
+}
+.arrow-hours {
+    position: relative;
+    top: 1px;
+    padding: 5px;
 }
 
 .nodisplay{

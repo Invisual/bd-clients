@@ -107,3 +107,26 @@ export const SingleToDoDiv = styled.div`
     font-size: 1.4em;
   }
 `;
+
+export const SingleTaskCommentDiv = styled.div`
+  display: grid;
+  grid-template-columns: 10% 90%;
+  color: ${themeConsts.textDarkGrey};
+  margin-bottom: 10px;
+
+  .todo-text {
+    margin: 0;
+    padding: 18px 0;
+    position: relative;
+  }
+
+  .todo-status {
+    margin: auto 0;
+    position: relative;
+    cursor:pointer;
+  }
+
+  svg {
+    font-size: 1.4em;
+  }
+`;
