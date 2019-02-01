@@ -87,6 +87,7 @@ export const LoginDiv = styled.div`
                 margin-top:10px;
                 color:${themeConsts.white};
                 letter-spacing: .04em;
+                cursor:pointer;
             }
 
             button{

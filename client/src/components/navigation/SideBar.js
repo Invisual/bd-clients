@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {SidebarDiv} from '../../styles/navigation';
-import { FiHome, FiFolder, FiFileText, FiCalendar, FiBookmark, FiWatch, FiEdit, FiLogOut } from 'react-icons/fi';
+import { FiHome, FiFolder, FiFileText, FiCalendar, FiBookmark, FiWatch, FiEdit, FiLogOut, FiUser } from 'react-icons/fi';
 import { NavLink} from 'react-router-dom';
 
 class SideBar extends Component {
@@ -36,9 +36,9 @@ class SideBar extends Component {
             <ul>
                 <NavLink exact={true} to="/" activeClassName='is-active'><li><FiHome/> <span>Dashboard</span></li></NavLink> 
                 <NavLink to="/ds" activeClassName='is-active'><li><FiFolder/> <span>Projectos</span></li></NavLink> 
-                <NavLink to="/admin" activeClassName='is-active'><li><FiFileText/> <span>Tarefas</span></li></NavLink>
+                <NavLink to="/tasks" activeClassName='is-active'><li><FiFileText/> <span>Tarefas</span></li></NavLink>
                 <NavLink to="/ds" activeClassName='is-active'><li><FiCalendar/> <span>Reuniões</span></li></NavLink>
-                <NavLink to="/ds" activeClassName='is-active'><li><FiHome/> <span>Clientes</span></li></NavLink>
+                <NavLink to="/ds" activeClassName='is-active'><li><FiUser/> <span>Clientes</span></li></NavLink>
                 <NavLink to="/ds" activeClassName='is-active'><li><FiBookmark/> <span>Objectivos</span></li></NavLink>
                 <NavLink to="/ds" activeClassName='is-active'><li><FiWatch/> <span>Histórico</span></li></NavLink>  
                 <NavLink to="/ds" activeClassName='is-active'><li><FiEdit/> <span>To-Do List</span></li></NavLink>
