@@ -30,13 +30,38 @@ export const AllTasksContainer = styled.div`
       padding: 15px;
       border-right: 1px solid #e6e6e6;
       border-bottom: 1px solid #e6e6e6;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      svg {
+        color: ${themeConsts.secondaryBlue};
+        font-size: 2em;
+      }
     }
     .tasks-list {
       border-right: 1px solid #e6e6e6;
       padding: 0 15px 15px 15px;
+      overflow: scroll;
     }
     .tasks-options {
       border-bottom: 1px solid #e6e6e6;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      svg {
+        color: ${themeConsts.secondaryBlue};
+        font-size: 2em;
+        padding: 0 15px;
+      }
+      .account-avatar {
+        display: flex;
+        justify-content: flex-end;
+        margin: 0;
+        padding: 10px 15px;
+      }
+      img {
+        border: 2px solid #0036ff;
+      }
     }
     .tasks-detail {
     }
@@ -58,19 +83,24 @@ export const TaskDetails = styled.div`
     .task-date {
       margin-bottom: 10px;
     }
-    .task-infos {
-      display: flex;
-      justify-content: flex-start;
-      padding-bottom: 5px;
+  
+  }
+  .task-infos {
+    display: flex;
+    justify-content: flex-start;
+    padding-bottom: 5px;
 
-      span {
-        padding-right: 15px;
-        .task-info-icon {
-          color: #7f9aff;
-        }
+    span {
+      padding-right: 15px;
+      .task-info-icon {
+        color: #7f9aff;
       }
     }
   }
+  
+
+  
+
   .task-descr {
     margin-right: 30px;
     margin-left: 30px;
@@ -161,7 +191,7 @@ export const TaskDetails = styled.div`
       display:flex;
       justify-content:center;
       align-items:flex-start;
-      font-size:2.5em
+      font-size:2.5em;
     }
    }
 

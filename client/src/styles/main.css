@@ -109,6 +109,26 @@ body.collapsed-sidebar .sidebar-container li span{
 	background:#DFE4F8; 
 }
 
+::-webkit-scrollbar {
+    width: 0.8em;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+  }
+
+  /* Handle */
+ ::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #dfe4f8;
+  }
+ ::-webkit-scrollbar-thumb:window-inactive {
+    background: #dfe4f8;
+  }
+
 
 .cards-container{
     border-top: 6px solid #7f9aff;
@@ -117,6 +137,15 @@ body.collapsed-sidebar .sidebar-container li span{
     padding: 25px;
     border-radius:0 0 10px 10px;
     box-shadow: 1px 1px 10px #d2d2d2;
+    min-height: 200px;
+    position: relative;
+}
+
+.loading-spinner{
+    width: 55px;
+    position: absolute;
+    top: 0;bottom: 0;right: 0;left:0;
+    margin: auto;
 }
 
 .see-all{

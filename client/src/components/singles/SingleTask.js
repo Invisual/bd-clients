@@ -35,7 +35,7 @@ class SingleTask extends Component {
 
     return (
       <SingleTaskDiv className="single-card-task" taskColor={taskColor}>
-        <div className="task-title">{this.props.title}</div>
+        <div className="task-title" onClick={() =>this.props.changeActiveTask(this.props.id)}>{this.props.title}</div>
         <div className="task-watch">{projectFolder}</div>
         <div className="task-watch"><FiClock className={this.props.hourState===1 ? 'active-clock' : 'inactive-clock'}/></div>
         <div className="task-state" onClick={() => this.props.changeTaskStatus(this.props.id, this.props.stateVal)}>{this.props.stateTitle}</div>
