@@ -9,7 +9,7 @@ export const LoginDiv = styled.div`
     grid-template-columns: 58% 25%;
     grid-gap: 5%;
     align-items: center;
-    background:url('./img/fundo-login.svg');
+    background:url('../../img/fundo-login.svg');
     background-size:cover;
     background-repeat:no-repeat;
 
@@ -28,52 +28,6 @@ export const LoginDiv = styled.div`
             margin-top:35px;
             text-align:center;
 
-            .input-wrapper{
-                position:relative;
-                margin:18px auto 0 auto;
-                max-width:375px;
-
-                input{
-                    width:90%;
-                    margin:0 auto;
-                    background-color:${themeConsts.white};
-                    color: ${themeConsts.textDarkGrey};
-                    border:none;
-                    height:42px;
-                    border-radius: ${themeConsts.borderRadius};
-                    text-indent: 15px;
-                    font-weight:600;
-                    position:relative;
-                }
-
-                input:-internal-autofill-previewed, input:-internal-autofill-selected, textarea:-internal-autofill-previewed, textarea:-internal-autofill-selected, select:-internal-autofill-previewed, select:-internal-autofill-selected {
-                    background-color: ${themeConsts.white} !important;
-                    background-image: none !important;
-                    color: ${themeConsts.textDarkGrey} !important;
-                    font-weight:600;
-                }
-
-                input:-webkit-autofill {
-                    -webkit-box-shadow: 0 0 0px 1000px white inset;
-                    font-weight:600;
-                    -webkit-text-fill-color: ${themeConsts.textDarkGrey} !important;
-                }
-
-                .input-error{
-                    border: 2px solid ${themeConsts.red};
-                }
-
-                svg{
-                    font-size:2em;
-                    color:${themeConsts.textDarkGrey};
-                    position: absolute;
-                    right:35px;
-                    top:0;
-                    bottom:0;
-                    margin: auto;
-                }
-            }
-
             .error-animation{
                 animation: errorShake .2s ease;
             }
@@ -88,21 +42,6 @@ export const LoginDiv = styled.div`
                 color:${themeConsts.white};
                 letter-spacing: .04em;
                 cursor:pointer;
-            }
-
-            button{
-                margin:0 auto;
-                background-color:${themeConsts.activeBlue};
-                border:none;
-                box-shadow:none;
-                color:#fff;
-                padding: 12px 20px;
-                border-radius:${themeConsts.borderRadius};
-                margin-top:45px;
-                font-weight: 600;
-                font-size: 1.4em;
-                letter-spacing: .05em;
-                cursor: pointer;
             }
         }
 
@@ -441,4 +380,76 @@ export const LoginDiv = styled.div`
         }
 
     }
+
+    .input-wrapper{
+        position:relative;
+        margin:18px auto 0 auto;
+        max-width:375px;
+
+        input{
+            width:90%;
+            margin:0 auto;
+            background-color:${themeConsts.white};
+            color: ${themeConsts.textDarkGrey};
+            border:none;
+            height:42px;
+            border-radius: ${themeConsts.borderRadius};
+            text-indent: 15px;
+            font-weight:600;
+            position:relative;
+        }
+
+        input:-internal-autofill-previewed, input:-internal-autofill-selected, textarea:-internal-autofill-previewed, textarea:-internal-autofill-selected, select:-internal-autofill-previewed, select:-internal-autofill-selected {
+            background-color: ${themeConsts.white} !important;
+            background-image: none !important;
+            color: ${themeConsts.textDarkGrey} !important;
+            font-weight:600;
+        }
+
+        input:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0px 1000px white inset;
+            font-weight:600;
+            -webkit-text-fill-color: ${themeConsts.textDarkGrey} !important;
+        }
+
+        .input-error{
+            border: 2px solid ${themeConsts.red};
+        }
+
+        svg{
+            font-size:2em;
+            color:${themeConsts.textDarkGrey};
+            position: absolute;
+            right:35px;
+            top:0;
+            bottom:0;
+            margin: auto;
+        }
+    }
+
+    button{
+        margin:0 auto;
+        background-color:${themeConsts.activeBlue};
+        border:none;
+        box-shadow:none;
+        color:#fff;
+        padding: 12px 20px;
+        border-radius:${themeConsts.borderRadius};
+        margin-top:45px;
+        font-weight: 600;
+        font-size: 1.4em;
+        letter-spacing: .05em;
+        cursor: pointer;
+    }
+
+    .forgot-password{
+        text-align: center;
+    }
+
+`
+
+
+
+export const ResetPasswordDiv = styled.div`
+
 `

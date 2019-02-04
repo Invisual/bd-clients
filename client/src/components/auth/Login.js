@@ -1,6 +1,6 @@
 import React from 'react';
-import {LoginDiv} from '../../styles/login';
-import { FiUser, FiLock } from 'react-icons/fi';
+import {LoginDiv} from '../../styles/auth';
+import { FiUser, FiLock, FiMail } from 'react-icons/fi';
 
 export const Login = (props) => {
     return (
@@ -10,7 +10,11 @@ export const Login = (props) => {
             </div>
             {props.forgotPassword ?
                 <div className="forgot-password">
-                    <h1>IN DEVELOPMENT</h1>
+                    <div className="input-wrapper">
+                        <input type="email" className="forgot-input-email" placeholder="Insira o seu Email" onChange={props.setEmail}/>
+                        <FiMail />
+                    </div>
+                    <button onClick={props.requestNewPassword}>Pedir Nova Password</button>
                 </div>
             :
                 <div className="login-form">

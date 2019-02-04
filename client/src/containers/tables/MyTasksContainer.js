@@ -9,6 +9,7 @@ class MyTasksContainer extends Component {
         this.state = {
             tasks:[],
             counter:0,
+            isLoading: true
         }
     }
 
@@ -49,7 +50,7 @@ class MyTasksContainer extends Component {
         var idUser = JSON.parse(localStorage.getItem('user'))
     
         axios.get(`/api/tasks/${idUser.id_user}`, { headers: { Authorization: AuthStr } }).then(res => {
-          this.setState({ tasks: res.data });
+          this.setState({ tasks: res.data, isLoading: false });
         }); 
         
       };
@@ -59,7 +60,7 @@ class MyTasksContainer extends Component {
       }
 
   render() {
-    return <MyTasks tasks={this.state.tasks} title={this.props.title} changeTaskStatus={this.changeTaskStatus} type={this.props.type}/>;
+    return <MyTasks tasks={this.state.tasks} title={this.props.title} changeTaskStatus={this.changeTaskStatus} type={this.props.type} isLoading={this.state.isLoading} changeActiveTask={this.props.changeActiveTask}/>;
   }
 }
 
