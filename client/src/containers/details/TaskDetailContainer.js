@@ -8,9 +8,7 @@ class TaskDetailContainer extends Component {
     super(props);
     this.state = {
       taskDetails: [],
-      comments: [],
-      isLoading: true, 
-      activeTask: 3
+      isLoading: true
     };
   }
 
@@ -19,7 +17,7 @@ class TaskDetailContainer extends Component {
     var AuthStr = 'Bearer ' + token;
     var idUser = JSON.parse(localStorage.getItem('user'));
 
-    axios.get(`/api/tasks/${idUser.id_user}/${this.state.activeTask}`, { headers: { Authorization: AuthStr } }).then(res => {
+    axios.get(`/api/tasks/${idUser.id_user}/${this.props.activeTask}`, { headers: { Authorization: AuthStr } }).then(res => {
       this.setState({ taskDetails: res.data, isLoading: false });
     });
   };
@@ -28,25 +26,26 @@ class TaskDetailContainer extends Component {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
 
-    axios.get(`/api/tasks/comments/${this.state.activeTask}`, { headers: { Authorization: AuthStr } }).then(res => {
+    axios.get(`/api/tasks/comments/${this.props.activeTask}`, { headers: { Authorization: AuthStr } }).then(res => {
       this.setState({ comments: res.data });
+      console.log(res.data>0)
     });
   };
 
   componentDidMount() {
-    //this.getTaskDetails();
+    this.getTaskDetails();
     //this.getTaskComments();
-    this.setState({activeTask: this.props.activeTask})
   }
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.activeTask !== prevState.activeTask) {
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.activeTask !== this.props.activeTask) {
       this.getTaskDetails();
-      this.getTaskComments();
+      //this.getTaskComments();
     }
   }
 
   render() {
-    return <TaskDetail comments={this.state.comments} taskDetails={this.state.taskDetails} isLoading={this.state.isLoading} />;
+    return <TaskDetail taskDetails={this.state.taskDetails} isLoading={this.state.isLoading} />;
   }
 }
 

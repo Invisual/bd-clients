@@ -5,7 +5,7 @@ class AllTasksContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeTask: 3,
+      activeTask: 2,
   }
 }
 

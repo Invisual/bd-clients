@@ -15,30 +15,30 @@ export const TaskDetail = props => {
           <img scr="img/loading.svg" alt="Loading" className="loading-spinner" />
         </TaskDetails>
       ) : (
-        <TaskDetails className="dashboard-container" hours={moment(props.taskDetails[0].total_hours, 'HH').format('h[h]mm')} color="red">
+        <TaskDetails className="dashboard-container" hours={moment('13:00:0000', 'HH').format('h[h]mm')} color="red">
           <div className="task-header">
-            <h4 className="task-title">{props.taskDetails[0].title_task}</h4>
+            <h4 className="task-title">{props.taskDetails.taskDetails[0].title_task}</h4>
             <div className="task-date">
-              <FiClock /> {moment(props.taskDetails[0].creation_date_task).format('D/MM/YYYY')}
+              <FiClock /> {moment(props.taskDetails.taskDetails.creation_date_task).format('D/MM/YYYY')}
             </div>
             <div className="task-infos">
               <span>
-                <FiFolder className="task-info-icon" /> {props.taskDetails[0].title_project}
+                <FiFolder className="task-info-icon" /> {props.taskDetails.taskDetails[0].title_project}
               </span>
               <span>
-                <FiUser className="task-info-icon" /> {props.taskDetails[0].name_client}
+                <FiUser className="task-info-icon" /> {props.taskDetails.taskDetails[0].name_client}
               </span>
               <span>
-                <FiInfo className="task-info-icon" /> {props.taskDetails[0].name_task_types}
+                <FiInfo className="task-info-icon" /> {props.taskDetails.taskDetails[0].name_task_types}
               </span>
               <span>
-                <FiCreditCard className="task-info-icon" /> {props.taskDetails[0].name_billing_mode}
+                <FiCreditCard className="task-info-icon" /> {props.taskDetails.taskDetails[0].name_billing_mode}
               </span>
             </div>
           </div>
           <div className="task-descr">
             <h4 className="task-descr-title">Descrição</h4>
-            <div className="task-descr-text">{props.taskDetails[0].description_task}
+            <div className="task-descr-text">{props.taskDetails.taskDetails[0].description_task}
             </div>
           </div>
           <div className="task-extras">
@@ -55,7 +55,7 @@ export const TaskDetail = props => {
             </div>
             <div className="task-comments">
               <h4 className="task-comment-title">Comentários</h4>
-              {props.comments.slice(0, 3).map(comment => {
+              {props.taskDetails.taskComments.slice(0, 3).map(comment => {
                 return (
                   <SingleTaskComment
                     key={comment.id_task_comment}

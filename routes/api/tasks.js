@@ -82,9 +82,7 @@ router.get('/comments/:task', checkToken, (req, res) => {
         task,
         function(error, results, fields) {
           if (error) throw error;
-          if (results.length > 0) {
             res.send(results);
-          }
         }
       );
     }
@@ -94,6 +92,7 @@ router.get('/comments/:task', checkToken, (req, res) => {
 router.get('/:user/:task', checkToken, (req, res) => {
   var id = req.params.user;
   var task = req.params.task;
+  var totalResults = {}
   jwt.verify(req.token, SECRET_KEY, (err, results) => {
     if (err) {
       //If error send Forbidden (403)
@@ -105,8 +104,17 @@ router.get('/:user/:task', checkToken, (req, res) => {
         function(error, results, fields) {
           if (error) throw error;
           if (results.length > 0) {
-            res.send(results);
+            totalResults.taskDetails = results;
           }
+        }
+      );
+      connection.query(
+        'SELECT id_task_comment, text_comments, date_comment, name_user from task_comments INNER JOIN users ON task_comments.ref_id_user=users.id_user WHERE ref_id_task= ?',
+        task,
+        function(error, results, fields) {
+          if (error) throw error;
+            totalResults.taskComments = results;
+            res.send(totalResults)
         }
       );
     }
