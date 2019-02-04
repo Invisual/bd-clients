@@ -12,7 +12,8 @@ class LoginContainer extends Component {
             incorrectUsername: false,
             incorrectPassword: false,
             sucessfullLogin: false,
-            forgotPassword: false
+            forgotPassword: false,
+            emailInput: ''
         }
     }
 
@@ -22,6 +23,10 @@ class LoginContainer extends Component {
 
     setPassword = (e) => {
         this.setState({ passwordInput: e.target.value })
+    }
+
+    setEmail = (e) => {
+        this.setState({ emailInput: e.target.value })
     }
 
     enterLogin = (e) => {
@@ -78,6 +83,18 @@ class LoginContainer extends Component {
         })
     }
 
+    requestNewPassword = () => {
+        axios.post('/api/users/requestpassword', {
+            email: this.state.emailInput
+        })
+        .then((response) => {
+            console.log(response)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    }
+
 
     render() {
         return <Login
@@ -91,6 +108,8 @@ class LoginContainer extends Component {
             removeErrors={this.removeErrors}
             forgotPassword={this.state.forgotPassword}
             userForgotPassword={this.userForgotPassword}
+            setEmail={this.setEmail}
+            requestNewPassword={this.requestNewPassword}
         />;
     }
 }

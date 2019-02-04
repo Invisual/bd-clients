@@ -7,7 +7,8 @@ class MyProjectsContainer extends Component {
   constructor(props){
     super(props);
     this.state = {
-        getProjects:[],
+        projects:[],
+        isLoading: true
     }
 }
 
@@ -17,7 +18,7 @@ class MyProjectsContainer extends Component {
     var idUser = JSON.parse(localStorage.getItem('user'))
 
     axios.get(`/api/projects/${idUser.id_user}`, { headers: { Authorization: AuthStr } }).then(res => {
-      this.setState({ getProjects: res.data });
+      this.setState({ projects: res.data, isLoading: false });
     }); 
     
   };
@@ -27,7 +28,7 @@ class MyProjectsContainer extends Component {
   }
 
   render() {
-    return <MyProjects projects={this.state.getProjects} title={this.props.title} />;
+    return <MyProjects projects={this.state.projects} title={this.props.title} isLoading={this.state.isLoading}/>;
   }
 }
 

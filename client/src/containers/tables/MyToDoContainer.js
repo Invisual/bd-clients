@@ -7,7 +7,8 @@ class MyToDoContainer extends Component {
     constructor(props){
         super(props);
         this.state = {
-            todos:[]
+            todos:[],
+            isLoading: true
         }
     }
     getTodos = () => {
@@ -16,7 +17,7 @@ class MyToDoContainer extends Component {
       var idUser = JSON.parse(localStorage.getItem('user'))
   
       axios.get(`/api/todos/${idUser.id_user}`, { headers: { Authorization: AuthStr } }).then(res => {
-        this.setState({ todos: res.data });
+        this.setState({ todos: res.data, isLoading: false });
       }); 
       
     };
@@ -54,7 +55,7 @@ class MyToDoContainer extends Component {
     };
 
   render() {
-    return <MyToDo todos={this.state.todos} title={this.props.title} changeToDoStatus={this.changeToDoStatus}/>;
+    return <MyToDo todos={this.state.todos} title={this.props.title} changeToDoStatus={this.changeToDoStatus} isLoading={this.state.isLoading}/>;
   }
 }
 
