@@ -6,6 +6,7 @@ import AdminDashboardContainer from './containers/dashboard/AdminDashboardContai
 import LoginContainer from './containers/auth/LoginContainer';
 import ResetPasswordContainer from './containers/auth/ResetPasswordContainer';
 import AllTasksContainer from './containers/lists/AllTasksContainer';
+import MyToDoContainer from './containers/tables/MyToDoContainer';
 import './styles/main.css';
 import { BrowserRouter, Route } from 'react-router-dom';
 
@@ -18,6 +19,7 @@ class App extends Component {
             <TopBarContainer userInfo={this.props.userInfo} />
             <SideBar logout={this.props.logout} />
             <Route exact path="/" render={props => <UserDashboardContainer {...props} />} />
+            <Route exact path="/" render={props => <MyToDoContainer {...props} title="To-do List" type="complete"/>} />
             <Route path="/tasks" render={props => <AllTasksContainer userInfo={this.props.userInfo} {...props} />} />
             <Route path="/admin" render={props => <AdminDashboardContainer {...props} />} />
           </div>

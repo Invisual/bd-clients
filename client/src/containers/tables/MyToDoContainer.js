@@ -51,11 +51,27 @@ class MyToDoContainer extends Component {
       axios.put('/api/todos/userToDoStatus', data, { headers: { Authorization: AuthStr } }).then(res => {
         this.getTodos();
       }); 
-      
     };
 
+    openFullModal = () => {
+      document.body.classList.add('todo-open');
+    }
+
+    closeFullModal = () => {
+      document.body.classList.remove('todo-open');
+    }
+    
+
   render() {
-    return <MyToDo todos={this.state.todos} title={this.props.title} changeToDoStatus={this.changeToDoStatus} isLoading={this.state.isLoading}/>;
+    return <MyToDo 
+            todos={this.state.todos} 
+            title={this.props.title} 
+            changeToDoStatus={this.changeToDoStatus} 
+            isLoading={this.state.isLoading} 
+            type={this.props.type}
+            openFullModal={this.openFullModal}
+            closeFullModal={this.closeFullModal}
+            />;
   }
 }
 

@@ -1,36 +1,67 @@
 import React from 'react';
 import SingleToDo from '../singles/SingleToDo';
-import { FiArrowRight } from 'react-icons/fi';
+import { FiArrowRight, FiX, FiPlus } from 'react-icons/fi';
+import {TodoListDashboardDiv, TodoListCompleteDiv} from '../../styles/todolist';
+
 
 export const MyToDo = props => {
   return (
-    <div className="mytasks-container widget cards-container">
-    {props.isLoading ?
-      <img src="img/loading.svg" alt="loading" className="loading-spinner" />
+    <>
+    {props.type === 'dashboard' ? 
+      <TodoListDashboardDiv className="widget cards-container">
+        {props.isLoading ?
+          <img src="img/loading.svg" alt="loading" className="loading-spinner" />
+        :
+          <div>
+            <h4 className="widget-title">{props.title}</h4>
+            <div className="todo-scroll-container">
+            {props.todos.slice(0,5).map(todo => {
+              return (
+                <SingleToDo
+                  key={todo.id_todo_list}
+                  id={todo.id_todo_list}
+                  text={todo.title_list}
+                  status={todo.status_list}
+                  changeToDoStatus={props.changeToDoStatus}
+                />
+              );
+            })}
+            </div>
+            <div className="see-all" onClick={props.openFullModal}>
+              Ver todos{' '}
+              <span className="arrow">
+                <FiArrowRight color="#0031e6" />
+              </span>
+            </div>
+          </div>
+        }  
+      </TodoListDashboardDiv>
     :
-      <div>
-        <h4 className="widget-title">{props.title}</h4>
-        <div className="todo-scroll-container">
-        {props.todos.map(todo => {
-          return (
-            <SingleToDo
-              key={todo.id_todo_list}
-              id={todo.id_todo_list}
-              text={todo.title_list}
-              status={todo.status_list}
-              changeToDoStatus={props.changeToDoStatus}
-            />
-          );
-        })}
-        </div>
-        <div className="see-all">
-          Ver todos{' '}
-          <span className="arrow">
-            <FiArrowRight color="#0031e6" />
-          </span>
-        </div>
-      </div>
-    }  
-    </div>
+      <TodoListCompleteDiv className="cards-container complete-todo">
+        <div className="todo-close" onClick={props.closeFullModal}><FiX /></div>
+        {props.isLoading ?
+          <img src="img/loading.svg" alt="loading" className="loading-spinner" />
+        :
+          <div className="todo-content-container">
+            <h4 className="widget-title">{props.title}</h4>
+            <div className="todo-scroll-container">
+            {props.todos.map(todo => {
+              return (
+                <SingleToDo
+                  key={todo.id_todo_list}
+                  id={todo.id_todo_list}
+                  text={todo.title_list}
+                  status={todo.status_list}
+                  changeToDoStatus={props.changeToDoStatus}
+                />
+              );
+            })}
+            </div>
+            <div className="todo-add"><FiPlus /></div>
+          </div>
+        }  
+      </TodoListCompleteDiv>
+    }
+    </>
   );
 };
