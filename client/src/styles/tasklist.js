@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { themeConsts } from './themeConsts';
 
-export const AllTasksContainerDiv = styled.div`
+export const AllTasksDiv = styled.div`
   width: 86%;
   min-height: 100vh;
   background-color: #f7f7f7;
@@ -42,6 +42,7 @@ export const AllTasksContainerDiv = styled.div`
       border-right: 1px solid #e6e6e6;
       padding: 0 15px 15px 15px;
       overflow: scroll;
+      position:relative;
     }
     .tasks-options {
       border-bottom: 1px solid #e6e6e6;
@@ -64,6 +65,7 @@ export const AllTasksContainerDiv = styled.div`
       }
     }
     .tasks-detail {
+      position:relative
     }
   }
   .cards-container {
@@ -71,7 +73,7 @@ export const AllTasksContainerDiv = styled.div`
   }
 `;
 
-export const TaskDetails = styled.div`
+export const TaskDetailsDiv = styled.div`
   color: #797979;
 
   .task-header {
@@ -133,6 +135,8 @@ export const TaskDetails = styled.div`
       right: 0;
       transform: translateY(-50%);
       text-align: center;
+      color: ${themeConsts.primaryBlue};
+      font-weight: 600;
     }
    }
    .task-comments{

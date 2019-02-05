@@ -8,9 +8,9 @@ export const MyTasks = props => {
     case 'dashboard':
       content = (
         <div className="mytasks-container widget cards-container">
-          {props.isLoading ? 
+          {props.isLoading ? (
             <img src="img/loading.svg" alt="loading" className="loading-spinner" />
-          :
+          ) : (
             <div>
               <h4 className="widget-title">{props.title}</h4>
               {props.tasks.slice(0, 5).map(task => {
@@ -35,31 +35,40 @@ export const MyTasks = props => {
                 </span>
               </div>
             </div>
-          }
+          )}
         </div>
       );
       break;
     case 'alltasks':
-      content = (
-        <div className="mytasks-container widget">
-          {props.tasks.map(task => {
-            return (
-              <SingleTask
-                key={task.id_task}
-                id={task.id_task}
-                title={task.title_task}
-                state={task.state}
-                hourState={1}
-                projectState={task.ref_id_project}
-                stateVal={task.ref_id_user_task_status}
-                stateTitle={task.name_user_task_status}
-                changeTaskStatus={props.changeTaskStatus}
-                changeActiveTask={props.changeActiveTask}
-              />
-            );
-          })}
-        </div>
-      );
+      if (props.isLoading) {
+        content = (
+            <img src="img/loading.svg" alt="Loading" className="loading-spinner" />
+        );
+      } else {
+        content = (
+          <div className="mytasks-container widget">
+            {props.tasks.map(task => {
+              return (
+                <SingleTask
+                  key={task.id_task}
+                  id={task.id_task}
+                  title={task.title_task}
+                  state={task.state}
+                  hourState={1}
+                  projectState={task.ref_id_project}
+                  stateVal={task.ref_id_user_task_status}
+                  stateTitle={task.name_user_task_status}
+                  changeTaskStatus={props.changeTaskStatus}
+                  changeActiveTask={props.changeActiveTask}
+                  activeTask={props.activeTask}
+                  type={'alltasks'}
+                />
+              );
+            })}
+          </div>
+        );
+      }
+
       break;
     default:
       content = '';

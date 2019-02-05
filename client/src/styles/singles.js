@@ -15,8 +15,13 @@ export const SingleTaskDiv = styled.div`
     top: 2px;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: flex-start;  
+    
+ 
   }
+  .title-click {
+      cursor:pointer;
+    }
 
   .task-watch {
     padding: 18px 0;
@@ -24,6 +29,14 @@ export const SingleTaskDiv = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    
+    .active-clock{
+    color:${themeConsts.red};
+    }
+
+    .inactive-clock{
+    color: ${themeConsts.primaryBlue}
+    }
   }
 
   .task-state {

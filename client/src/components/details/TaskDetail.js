@@ -1,30 +1,38 @@
 import React from 'react';
 import SingleTaskComment from '../singles/SingleTaskComment';
-import { TaskDetails } from '../../styles/tasklist';
+import { TaskDetailsDiv } from '../../styles/tasklist';
 import moment from 'moment';
 import 'moment/locale/pt';
+import 'moment-duration-format';
 import { Circle } from 'rc-progress';
 import { FiClock, FiFolder, FiUser, FiInfo, FiCreditCard, FiArrowRight, FiAlertTriangle, FiSend } from 'react-icons/fi';
 
 export const TaskDetail = props => {
- // console.log(props.taskContent.details[0]);
   return (
     <>
       {props.isLoading ? (
-        <TaskDetails className="dashboard-container" hours="00h00" color="red">
-          <img scr="img/loading.svg" alt="Loading" className="loading-spinner" />
-        </TaskDetails>
+        <TaskDetailsDiv><img src='img/loading.svg' alt="loading" className="loading-spinner" /></TaskDetailsDiv>
       ) : (
-        <TaskDetails className="dashboard-container" hours={moment('13:00:0000', 'HH').format('h[h]mm')} color="red">
+        <TaskDetailsDiv
+          hours={
+            props.taskContent.details[0].total_hours
+              ? moment.duration(props.taskContent.details[0].total_hours, 'hours').format('*HH[h]mm[m]', {
+                  forceLength: true
+                })
+              : '00h00m'
+          }
+        >
           <div className="task-header">
             <h4 className="task-title">{props.taskContent.details[0].title_task}</h4>
             <div className="task-date">
               <FiClock /> {moment(props.taskContent.details[0].creation_date_task).format('D/MM/YYYY')}
             </div>
             <div className="task-infos">
-              <span>
-                <FiFolder className="task-info-icon" /> {props.taskContent.details[0].title_project}
-              </span>
+              {props.taskContent.details[0].title_project ? (
+                <span>
+                  <FiFolder className="task-info-icon" /> {props.taskContent.details[0].title_project}
+                </span>
+              ) : null}
               <span>
                 <FiUser className="task-info-icon" /> {props.taskContent.details[0].name_client}
               </span>
@@ -54,7 +62,7 @@ export const TaskDetail = props => {
             </div>
             <div className="task-comments">
               <h4 className="task-comment-title">Comentários</h4>
-              {props.taskContent.comments.slice(0, 3).map(comment => {
+              {props.taskContent.comments.length? props.taskContent.comments.slice(0, 3).map(comment => {
                 return (
                   <SingleTaskComment
                     key={comment.id_task_comment}
@@ -64,7 +72,8 @@ export const TaskDetail = props => {
                     date={moment(comment.date_comment).format('D/MM/YYYY')}
                   />
                 );
-              })}
+              }): <div>Esta Tarefa ainda não tem comentários</div>}
+              
             </div>
           </div>
           <div className="task-billing-section">
@@ -91,7 +100,7 @@ export const TaskDetail = props => {
               <FiSend color="#5e78dd" />
             </div>
           </div>
-        </TaskDetails>
+        </TaskDetailsDiv>
       )}
     </>
   );

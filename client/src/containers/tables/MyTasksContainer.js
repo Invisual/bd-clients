@@ -60,7 +60,7 @@ class MyTasksContainer extends Component {
       }
 
   render() {
-    return <MyTasks tasks={this.state.tasks} title={this.props.title} changeTaskStatus={this.changeTaskStatus} type={this.props.type} isLoading={this.state.isLoading} changeActiveTask={this.props.changeActiveTask}/>;
+    return <MyTasks tasks={this.state.tasks} title={this.props.title} changeTaskStatus={this.changeTaskStatus} type={this.props.type} isLoading={this.state.isLoading} changeActiveTask={this.props.changeActiveTask} activeTask={this.props.activeTask}/>;
   }
 }
 
