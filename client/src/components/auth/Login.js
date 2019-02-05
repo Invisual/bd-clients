@@ -9,13 +9,19 @@ export const Login = (props) => {
                 <img src="/img/ilust-login.svg" alt="Login Tarefas" />
             </div>
             {props.forgotPassword ?
-                <div className="forgot-password">
-                    <div className="input-wrapper">
-                        <input type="email" className="forgot-input-email" placeholder="Insira o seu Email" onChange={props.setEmail}/>
-                        <FiMail />
+                props.emailSent ?
+                    <div className="email-sent">
+                        Verifique o seu email e siga as instruções.
                     </div>
-                    <button onClick={props.requestNewPassword}>Pedir Nova Password</button>
-                </div>
+                :    
+                    <div className="forgot-password">
+                        <div className={props.incEmail ? 'error-animation input-wrapper' : 'input-wrapper'}>
+                            <input type="email" className={props.incEmail ? 'input-error forgot-input-email' : 'forgot-input-email'} placeholder="Insira o seu Email" onKeyDown={props.enterEmail} onChange={props.setEmail} onClick={props.removeErrors}/>
+                            <FiMail />
+                        </div>
+                        <div className={props.incEmail ? 'forgot-password' : 'nodisplay forgot-password'} onClick={props.userForgotPassword}>Este email não está associado a nenhuma conta!</div>
+                        <button onClick={props.requestNewPassword}>Pedir Nova Password</button>
+                    </div>
             :
                 <div className="login-form">
                     {props.sucessfullLogin ? 

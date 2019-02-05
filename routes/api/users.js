@@ -132,12 +132,12 @@ router.get('/verifyrandomstring', (req, res) => {
 
 
 router.put('/changepassword', (req, res) => {
-    connection.query("UPDATE users SET password_user = ? WHERE id_user = ?", [req.body.password, req.body.iduser], function(error, results, fields){
+    var encPassword = bcrypt.hashSync(req.body.password);
+    connection.query("UPDATE users SET password_user = ?, reset_password_user = '' WHERE id_user = ?", [encPassword, req.body.iduser], function(error, results, fields){
         if (error) throw error;
         res.send(results);
     })
 })
-
 
 
 router.post('/getrandomstring', (req, res) => {
