@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { themeConsts } from './themeConsts';
 
-export const AllTasksContainer = styled.div`
+export const AllTasksContainerDiv = styled.div`
   width: 86%;
   min-height: 100vh;
   background-color: #f7f7f7;

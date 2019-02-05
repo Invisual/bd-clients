@@ -104,7 +104,7 @@ router.get('/:user/:task', checkToken, (req, res) => {
         function(error, results, fields) {
           if (error) throw error;
           if (results.length > 0) {
-            totalResults.taskDetails = results;
+            totalResults.details = results;
           }
         }
       );
@@ -113,7 +113,7 @@ router.get('/:user/:task', checkToken, (req, res) => {
         task,
         function(error, results, fields) {
           if (error) throw error;
-            totalResults.taskComments = results;
+            totalResults.comments = results;
             res.send(totalResults)
         }
       );
