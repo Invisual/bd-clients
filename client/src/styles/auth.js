@@ -28,19 +28,7 @@ export const LoginDiv = styled.div`
             margin-top:35px;
             text-align:center;
 
-            .error-animation{
-                animation: errorShake .2s ease;
-            }
-            @keyframes errorShake {
-                    0%, 100% { left: 0px;}
-                    20% , 60%{left: 15px;}
-                    40% , 80%{left: -15px;}
-                }
-
             .forgot-password{
-                margin-top:10px;
-                color:${themeConsts.white};
-                letter-spacing: .04em;
                 cursor:pointer;
             }
         }
@@ -370,15 +358,24 @@ export const LoginDiv = styled.div`
             margin: auto;
         }
 
-        .opacityanim{
-            animation: opacityAnimation .9s ease;
-            animation-fill-mode: forwards;
-        }
-        @keyframes opacityAnimation{
-            0%{opacity: 0;}
-            100%{opacity: 1;}
-        }
+    }
 
+    .opacityanim{
+        animation: opacityAnimation .9s ease;
+        animation-fill-mode: forwards;
+    }
+    @keyframes opacityAnimation{
+        0%{opacity: 0;}
+        100%{opacity: 1;}
+    }
+
+    .error-animation{
+        animation: errorShake .2s ease;
+    }  
+    @keyframes errorShake {
+            0%, 100% { left: 0px;}
+            20% , 60%{left: 15px;}
+            40% , 80%{left: -15px;}
     }
 
     .input-wrapper{
@@ -444,12 +441,19 @@ export const LoginDiv = styled.div`
 
     .forgot-password{
         text-align: center;
+        margin-top:10px;
+        color:${themeConsts.white};
+        letter-spacing: .04em;
     }
 
-`
-
-
-
-export const ResetPasswordDiv = styled.div`
+    .email-sent, .password-reseted{
+        color: ${themeConsts.white};
+        font-weight: 500;
+        font-size: 1.4em;
+        letter-spacing: .02em;
+        animation: opacityAnimation .5s ease .1s;
+        animation-fill-mode:forwards;
+        opacity:0;
+    }
 
 `

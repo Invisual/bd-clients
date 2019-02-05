@@ -13,7 +13,9 @@ class LoginContainer extends Component {
             incorrectPassword: false,
             sucessfullLogin: false,
             forgotPassword: false,
-            emailInput: ''
+            emailInput: '',
+            incorrectEmail: false,
+            emailSent: false
         }
     }
 
@@ -32,6 +34,12 @@ class LoginContainer extends Component {
     enterLogin = (e) => {
         if (e.keyCode === 13) {
             this.loginUser();
+        }
+    }
+
+    enterEmail = (e) => {
+        if (e.keyCode === 13) {
+            this.requestNewPassword();
         }
     }
 
@@ -73,7 +81,8 @@ class LoginContainer extends Component {
     removeErrors = () => {
         this.setState({
             incorrectUsername: false,
-            incorrectPassword: false
+            incorrectPassword: false,
+            incorrectEmail: false
         })
     }
 
@@ -88,7 +97,12 @@ class LoginContainer extends Component {
             email: this.state.emailInput
         })
         .then((response) => {
-            console.log(response)
+            if(response.data === 'bademail'){
+                this.setState({incorrectEmail: true})
+            }
+            else{
+                this.setState({emailSent: true})
+            }
         })
         .catch((error) => {
             console.log(error)
@@ -110,6 +124,9 @@ class LoginContainer extends Component {
             userForgotPassword={this.userForgotPassword}
             setEmail={this.setEmail}
             requestNewPassword={this.requestNewPassword}
+            incEmail={this.state.incorrectEmail}
+            emailSent={this.state.emailSent}
+            enterEmail={this.enterEmail}
         />;
     }
 }

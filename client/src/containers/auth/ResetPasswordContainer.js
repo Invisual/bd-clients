@@ -12,6 +12,7 @@ class ResetPasswordContainer extends Component {
             passwordsMatch: true,
             userId: '',
             randomString: '',
+            passwordReseted: false,
             redirect: false
         }
     }
@@ -39,8 +40,20 @@ class ResetPasswordContainer extends Component {
                 password: this.state.passwordInput,
                 iduser: this.state.userId
             })
-            .then();
+            .then((res) => {
+                if(res.data.affectedRows === 1){
+                    this.setState({
+                        passwordReseted: true
+                    })
+                }
+            });
         }
+    }
+
+    removeErrors = () => {
+        this.setState({
+            passwordsMatch: true
+        })
     }
 
     componentDidMount(){
@@ -69,6 +82,9 @@ class ResetPasswordContainer extends Component {
                 setRePassword={this.setRePassword}
                 changePassword={this.changePassword}
                 redirect={this.state.redirect}
+                passwordsMatch={this.state.passwordsMatch}
+                removeErrors={this.removeErrors}
+                passwordReseted={this.state.passwordReseted}
                 />;
     }
 }
