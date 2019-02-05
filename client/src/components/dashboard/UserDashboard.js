@@ -19,7 +19,7 @@ export const UserDashboard = (props) => {
             <MyProjectsContainer title="Projetos" />
           </div>
           <div className="grid-widget">
-            <MyToDoContainer title="To-do List" />
+            <MyToDoContainer title="To-do List" type="dashboard"/>
           </div>
         </div>
       </DashboardContainer>
