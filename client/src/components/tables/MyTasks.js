@@ -13,7 +13,7 @@ export const MyTasks = props => {
           ) : (
             <div>
               <h4 className="widget-title">{props.title}</h4>
-              {props.tasks.slice(0, 5).map(task => {
+              {props.tasks.slice(0, 4).map(task => {
                 return (
                   <SingleTask
                     key={task.id_task}

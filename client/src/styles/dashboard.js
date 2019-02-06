@@ -3,7 +3,6 @@ import { themeConsts } from './themeConsts';
 
 export const DashboardContainer = styled.div`
   width:86%;
-  min-height: 100vh;
   background-color: #f7f7f7;
   overflow-y: scroll;
   transition:all .5s ease;
@@ -19,18 +18,13 @@ export const DashboardContainer = styled.div`
     .grid-widget {
       /*overflow:hidden;*/
     }
-    .widget-title {
-      margin-top: 0;
-      margin-bottom:0;
-      color: #4b4b4b;
-      font-weight:600;
-    }
+    
     .project-labels{
       display: grid;
       grid-template-columns: 4% 57% 8% 8% 23%;
       padding: 0 20px;
       margin-top: 0;
-      font-size: 0.8em;
+      font-size: 1em;
       font-weight:500;
       color:#AAAAAA;
       span{
@@ -39,7 +33,6 @@ export const DashboardContainer = styled.div`
     }
 
     .mycalendar-container{
-      height: 328px;
       
       .rbc-calendar{
         margin-top: 20px;
@@ -55,8 +48,9 @@ export const DashboardContainer = styled.div`
             font-weight: 600;
             color:${themeConsts.textDarkGrey};
             text-transform:uppercase;
-            letter-spacing:.2em;
+            letter-spacing: .23em;
             font-size: .9em;
+            font-weight: 500;
           }
 
           button{
@@ -84,7 +78,7 @@ export const DashboardContainer = styled.div`
         }
 
         .rbc-header{
-          font-size: 1.2em;
+          font-size: 1.4em;
           font-weight: 700;
           color:${themeConsts.secondaryBlue};
         }
@@ -115,7 +109,7 @@ export const DashboardContainer = styled.div`
           justify-content: center;
           width:30px;
           height:30px;
-          font-size: 1.2em;
+          font-size: 1.4em;
           font-weight: 600;
           color:${themeConsts.textDarkerGrey};
         }
@@ -145,6 +139,10 @@ export const DashboardContainer = styled.div`
         }
 
         .rbc-event{
+          display:none;
+        }
+
+        .rbc-show-more{
           display:none;
         }
       }

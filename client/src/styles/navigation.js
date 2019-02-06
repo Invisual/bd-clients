@@ -50,12 +50,14 @@ export const SidebarDiv = styled.div`
       li {
         margin-bottom: 12px;
         font-size:1.6em;
+        font-weight: 600;
         width: 175%;
         padding: 12px 8px 8px 11px;
         background-color: transparent;
         border-top-left-radius: ${themeConsts.borderRadius};
         border-bottom-left-radius: ${themeConsts.borderRadius};
         transition: all .4s ease;
+        cursor:pointer;
 
         svg{
           /*padding-right: 23px;*/

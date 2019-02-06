@@ -8,9 +8,9 @@ import { FiFilePlus } from 'react-icons/fi';
 export const AllTasks = props => {
   return (
     <AllTasksDiv className="dashboard-container">
-      <div className="widgets-grid widget cards-container">
+      <div className="widgets-grid widget cards-container nofixed-height">
         <div className="grid-widget tasks-title">
-          <h4>Tarefas</h4>
+          <h4 className="widget-title">Tarefas</h4>
           {props.userRole === 3 || props.userRole === 2 ? <FiFilePlus /> : null}
         </div>
         <TaskOptionsContainer

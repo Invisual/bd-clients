@@ -41,7 +41,7 @@ class SideBar extends Component {
                 <NavLink to="/ds" activeClassName='is-active'><li><FiUser/> <span>Clientes</span></li></NavLink>
                 <NavLink to="/ds" activeClassName='is-active'><li><FiBookmark/> <span>Objectivos</span></li></NavLink>
                 <NavLink to="/ds" activeClassName='is-active'><li><FiWatch/> <span>Histórico</span></li></NavLink>  
-                <NavLink to="/ds" activeClassName='is-active'><li><FiEdit/> <span>To-Do List</span></li></NavLink>
+                <li onClick={() => document.body.classList.add('todo-open')}><FiEdit/><span>To-Do List</span></li>
                 <li onClick={this.props.logout}><FiLogOut/> <span>Log Out</span></li>
             </ul>
         </div>

@@ -24,7 +24,7 @@ class SingleProject extends Component {
         <div className="project-title"><span className="title-divider">{this.props.title} </span> <span className="project-client">{this.props.client}</span></div>
         <div className="project-total-tasks">{this.props.total_tasks}</div>
         <div className="project-concluded-tasks">{this.props.concluded_tasks}</div>
-        <div className="task-progress"><Line percent={this.props.percentage_tasks} strokeWidth="12" strokeColor="#1de9b6" trailColor="#d2fbf0" trailWidth="12" /></div>
+        <div className="task-progress"><Line percent={this.props.percentage_tasks} strokeWidth="10" strokeColor="#1de9b6" trailColor="#d2fbf0" trailWidth="10" /></div>
       </SingleProjectDiv>
     );
   }

@@ -13,7 +13,8 @@ body {
 
 body{
     margin:0;
-    font-family: 'Montserrat', sans-serif;
+    /*font-family: 'Montserrat', sans-serif;*/
+    font-family: 'Roboto', sans-serif;
     font-size:62.5%;
 }
 
@@ -90,17 +91,33 @@ body.collapsed-sidebar .sidebar-container li span{
     background: #dfe4f8;
   }
 
+.mt15{
+    margin-top: 15px;
+}
+
+.nofixed-height{
+    height:auto !important;
+}
 
 .cards-container{
     border-top: 6px solid #7f9aff;
     background-color: #fff;
-    margin-top: 15px;
     padding: 25px;
     border-radius:0 0 10px 10px;
     box-shadow: 1px 1px 10px #d2d2d2;
     min-height: 200px;
     position: relative;
+    height: 100%;
+    box-sizing: border-box;
 }
+
+.widget-title {
+    margin-top: 0;
+    margin-bottom:0;
+    color: #4b4b4b;
+    font-weight:600;
+    font-size:1.6em;
+  }
 
 .loading-spinner{
     width: 55px;
@@ -110,32 +127,21 @@ body.collapsed-sidebar .sidebar-container li span{
 }
 
 .see-all{
-    margin-top: 15px;
-    margin-bottom: -15px;
+    margin-top: 9px;
+    margin-bottom: -13px;
     font-weight: 500;
     color: #7f9aff;
     cursor: pointer;
+    font-size: 1.3em;
 }
 .arrow{
         position: relative;
-        top: 6px;
-        padding: 5px;
+        top: 5px;
+        padding:0 6px;
     }
 
 .arrow, .arrow-hours svg{
-    font-size: 2em;
-}
-.see-hours{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 500;
-    color: #7f9aff;
-}
-.arrow-hours {
-    position: relative;
-    top: 1px;
-    padding: 5px;
+    font-size: 1.4em;
 }
 
 .nodisplay{

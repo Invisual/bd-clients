@@ -15,7 +15,7 @@ export const MyToDo = props => {
           <div>
             <h4 className="widget-title">{props.title}</h4>
             <div className="todo-scroll-container">
-            {props.todos.slice(0,5).map(todo => {
+            {props.todos.slice(0,10).map(todo => {
               return (
                 <SingleToDo
                   key={todo.id_todo_list}

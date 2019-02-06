@@ -16,7 +16,7 @@ export const SingleTaskDiv = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-start;  
-    
+    font-size:1.3em;
  
   }
   .title-click {
@@ -42,7 +42,7 @@ export const SingleTaskDiv = styled.div`
   .task-state {
     color: #fff;
     border-radius: ${themeConsts.borderRadius};
-    font-size: 18px;
+    font-size: 1.5em;
     font-weight: 600;
     padding: 18px 0;
     text-align: center;
@@ -63,15 +63,17 @@ export const SingleProjectDiv = styled.div`
     margin: 0;
     padding: 18px 0;
     position: relative;
-    top: 8px;
+    top: 6px;
 
     .title-divider {
       padding-right: 5px;
-      border-right: 1px solid #afacd1; /* Line color */
+      border-right: 1px solid #afacd1;
+      font-size: 1.3em;
     }
     .project-client {
       padding-left: 7px;
       color: ${themeConsts.secondaryBlue};
+      font-weight: 700;
     }
   }
 
@@ -82,6 +84,7 @@ export const SingleProjectDiv = styled.div`
     position: relative;
     top: 8px;
     margin: 0;
+    font-size: 1.3em;
   }
   .project-status {
     margin: auto 0;
@@ -95,7 +98,7 @@ export const SingleProjectDiv = styled.div`
   }
 
   svg {
-    font-size: 2em;
+    font-size: 1.7em;
   }
 `;
 
@@ -106,8 +109,10 @@ export const SingleToDoDiv = styled.div`
 
   .todo-text {
     margin: 0;
-    padding: 18px 0;
-    position: relative;
+    padding: 14px 0;
+    font-size: 1em;
+    font-size: 1.2em;
+    line-height: 1.4em;
   }
 
   .todo-status {
@@ -123,7 +128,7 @@ export const SingleToDoDiv = styled.div`
 
 export const SingleTaskCommentDiv = styled.div`
   display: grid;
-  grid-template-columns: 10% 90%;
+  grid-template-columns: 6% 94%;
   color: ${themeConsts.textDarkGrey};
   margin-bottom: 10px;
 
@@ -137,9 +142,5 @@ export const SingleTaskCommentDiv = styled.div`
     margin: auto 0;
     position: relative;
     cursor:pointer;
-  }
-
-  svg {
-    font-size: 1.4em;
   }
 `;

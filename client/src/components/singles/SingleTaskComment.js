@@ -10,7 +10,8 @@ class SingleTaskComment extends Component {
           <FiCircle fill="#5E78DD" color="#5e78dd" />
         </div>
         <div className="single-comment-content">
-          {this.props.text}<div className="single-comment-date"><i>{this.props.author}, {this.props.date}</i></div>
+          <div className="single-comment-text">{this.props.text}</div>
+          <div className="single-comment-details"><i>{this.props.author}, {this.props.date}</i></div>
         </div>
       </SingleTaskCommentDiv>
     );

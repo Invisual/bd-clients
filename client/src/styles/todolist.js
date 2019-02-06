@@ -5,11 +5,11 @@ export const TodoListDashboardDiv = styled.div`
 
     .todo-scroll-container{
         overflow: scroll;
-        height:30vh;
+        height:216px;
         margin-top:25px;
 
         .single-todo{
-            margin-top:10px;
+            margin-top:6px;
             margin-right:10px;
             background-color: #fff;
             border-bottom: 1px solid #afacd1;
