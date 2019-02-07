@@ -8,9 +8,12 @@ class MyToDoContainer extends Component {
         super(props);
         this.state = {
             todos:[],
-            isLoading: true
+            isLoading: true,
+            textAreaVal: '',
+            textAreaOpen: false
         }
     }
+
     getTodos = () => {
       var token = JSON.parse(localStorage.getItem('token'));
       var AuthStr = 'Bearer ' + token;
@@ -25,6 +28,7 @@ class MyToDoContainer extends Component {
     componentDidMount(){
       this.getTodos();
     }
+
 
     changeToDoStatus = (todoId, currStatus) => {
       var token = JSON.parse(localStorage.getItem('token'));
@@ -55,14 +59,55 @@ class MyToDoContainer extends Component {
 
     openFullModal = () => {
       document.body.classList.add('todo-open');
+      document.getElementById('overlay').addEventListener('click', () => this.closeFullModal());
+      this.forceUpdate();
     }
 
     closeFullModal = () => {
       document.body.classList.remove('todo-open');
+      document.getElementById('overlay').removeEventListener('click', () => this.closeFullModal())
+      this.closeTextAreaModal();
+    }
+
+    openTextAreaModal = () => {
+      this.setState({
+        textAreaOpen: true
+      })
+    }
+
+    closeTextAreaModal = () => {
+      this.setState({
+        textAreaOpen: false
+      })
+    }
+
+    changeTextAreaVal = (e) => {
+      this.setState({
+        textAreaVal: e.target.value
+      })
+    }
+
+    addToDo = () => {
+      var token = JSON.parse(localStorage.getItem('token'));
+      var AuthStr = 'Bearer ' + token;
+      var user = JSON.parse(localStorage.getItem('user'))
+      var data = {
+        todo: this.state.textAreaVal,
+        user: user.id_user
+      }
+      axios.post('/api/todos/', data, { headers: { Authorization: AuthStr } })
+      .then(res => {
+        this.setState({
+          textAreaOpen: false
+        })
+        this.getTodos();
+        document.getElementById('textarea-fullmodal').value = '';
+      })
     }
     
 
   render() {
+    
     return <MyToDo 
             todos={this.state.todos} 
             title={this.props.title} 
@@ -71,6 +116,11 @@ class MyToDoContainer extends Component {
             type={this.props.type}
             openFullModal={this.openFullModal}
             closeFullModal={this.closeFullModal}
+            textAreaOpen={this.state.textAreaOpen}
+            openTextAreaModal={this.openTextAreaModal}
+            closeTextAreaModal={this.closeTextAreaModal}
+            changeTextAreaVal={this.changeTextAreaVal}
+            addToDo={this.addToDo}
             />;
   }
 }

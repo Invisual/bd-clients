@@ -23,6 +23,14 @@ a{
     text-decoration: none;
 }
 
+textarea{
+    font-family: 'Roboto', sans-serif;
+}
+
+textarea:focus, input:focus{
+    outline: none !important;
+}
+
 .app-container{
     /*display:grid;
     transition: grid-template-columns .2s ease;
@@ -176,4 +184,14 @@ body.todo-open #overlay{
 @keyframes slideFromTopAnimation{
     0%{transform: translateY(-200%);}
     100%{transform: translateY(-50%);}
+}
+
+.slidebottomanimation{
+    animation: slideFromTopWithOpacity .4s ease;
+    animation-fill-mode: forwards;
+}
+
+@keyframes slideFromTopWithOpacity{
+    0%{transform: translateY(-20px); opacity:0;}
+    100%{transform: translateY(0); opacity:1;}
 }
