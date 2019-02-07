@@ -5,13 +5,25 @@ import moment from 'moment';
 import 'moment/locale/pt';
 import 'moment-duration-format';
 import { Circle } from 'rc-progress';
-import { FiClock, FiFolder, FiUser, FiInfo, FiCreditCard, FiArrowRight, FiAlertTriangle, FiSend, FiFileText } from 'react-icons/fi';
+import {
+  FiClock,
+  FiFolder,
+  FiUser,
+  FiInfo,
+  FiCreditCard,
+  FiArrowRight,
+  FiAlertTriangle,
+  FiSend,
+  FiFileText
+} from 'react-icons/fi';
 
 export const TaskDetail = props => {
   return (
     <>
       {props.isLoading ? (
-        <TaskDetailsDiv><img src='img/loading.svg' alt="loading" className="loading-spinner" /></TaskDetailsDiv>
+        <TaskDetailsDiv>
+          <img src="img/loading.svg" alt="loading" className="loading-spinner" />
+        </TaskDetailsDiv>
       ) : (
         <TaskDetailsDiv
           hours={
@@ -23,9 +35,10 @@ export const TaskDetail = props => {
           }
         >
           <div className="task-details-grid">
-
             <div className="grid-item">
-              <div className="task-icon"><FiFileText/></div>
+              <div className="task-icon">
+                <FiFileText />
+              </div>
             </div>
 
             <div className="grid-item">
@@ -69,18 +82,21 @@ export const TaskDetail = props => {
                 </div>
                 <div className="task-comments">
                   <h4 className="task-comment-title">Comentários</h4>
-                  {props.taskContent.comments.length? props.taskContent.comments.slice(0, 3).map(comment => {
-                    return (
-                      <SingleTaskComment
-                        key={comment.id_task_comment}
-                        id={comment.id_task_comment}
-                        text={comment.text_comments}
-                        author={comment.name_user}
-                        date={moment(comment.date_comment).format('D/MM/YYYY')}
-                      />
-                    );
-                  }): <div>Esta Tarefa ainda não tem comentários</div>}
-                  
+                  {props.taskContent.comments.length ? (
+                    props.taskContent.comments.slice(0, 3).map(comment => {
+                      return (
+                        <SingleTaskComment
+                          key={comment.id_task_comment}
+                          id={comment.id_task_comment}
+                          text={comment.text_comments}
+                          author={comment.name_user}
+                          date={moment(comment.date_comment).format('D/MM/YYYY')}
+                        />
+                      );
+                    })
+                  ) : (
+                    <div>Esta Tarefa ainda não tem comentários</div>
+                  )}
                 </div>
               </div>
               <div className="task-billing-section">
@@ -100,18 +116,16 @@ export const TaskDetail = props => {
                 </div>
               </div>
             </div>
-
           </div>
 
-
           <div className="task-add-comment">
-            <div></div>
-            <div className="comment-input">
-              <textarea placeholder="Escreve um comentário..." />
-            </div>
-            <div className="comment-submit">
-              <FiSend />
-            </div>
+            <div />
+              <div className="comment-input">
+                <textarea placeholder="Escreve um comentário..." id="comment-textarea" onChange={props.changeCommentVal} onKeyDown={props.changeCommentVal} />
+              </div>
+              <div className="comment-submit" onClick={props.submitComment}>
+                  <FiSend />
+              </div>
           </div>
         </TaskDetailsDiv>
       )}

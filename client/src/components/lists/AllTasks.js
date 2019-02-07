@@ -33,7 +33,13 @@ export const AllTasks = props => {
           </div>
         </div>
         <div className="grid-widget tasks-detail">
-          <TaskDetailContainer activeTask={props.activeTask} taskContent={props.taskContent} isLoading={props.isLoading} />
+          <TaskDetailContainer
+            activeTask={props.activeTask}
+            taskContent={props.taskContent}
+            changeCommentVal={props.changeCommentVal}
+            submitComment={props.submitComment}
+            isLoading={props.isLoading}
+          />
         </div>
       </div>
     </AllTasksDiv>
