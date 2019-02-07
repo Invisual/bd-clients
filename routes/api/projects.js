@@ -27,6 +27,24 @@ router.get('/', checkToken, (req, res) => {
   });
 });
 
+
+router.post('/', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+    } else {
+      connection.query('INSERT INTO projects (title_project, briefing_project, deadline_project, ref_id_billing_mode, ref_id_client, ref_id_user) VALUES (?, ?, ?, ?, ?, ?)',
+        [req.body.title, req.body.briefing, req.body.deadline, req.body.billing, req.body.client, req.body.account],
+        function(error, results, fields) {
+        if (error) throw error;
+          res.send(results);
+      });
+    }
+  });
+})
+
+
 router.get('/:user', checkToken, (req, res) => {
   var id = req.params.user;
   jwt.verify(req.token, SECRET_KEY, (err, results) => {

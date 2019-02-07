@@ -7,6 +7,8 @@ import LoginContainer from './containers/auth/LoginContainer';
 import ResetPasswordContainer from './containers/auth/ResetPasswordContainer';
 import AllTasksContainer from './containers/lists/AllTasksContainer';
 import MyToDoContainer from './containers/tables/MyToDoContainer';
+import CreateProjectContainer from './containers/inserts/CreateProjectContainer';
+import CreateTaskContainer from './containers/inserts/CreateTaskContainer';
 import './styles/main.css';
 import { BrowserRouter, Route } from 'react-router-dom';
 
@@ -22,6 +24,8 @@ class App extends Component {
             <Route exact path="/" render={props => <MyToDoContainer {...props} title="To-do List" type="complete"/>} />
             <Route path="/tasks" render={props => <AllTasksContainer userInfo={this.props.userInfo} {...props} />} />
             <Route path="/admin" render={props => <AdminDashboardContainer {...props} />} />
+            <Route path="/createproject" render={props => <CreateProjectContainer {...props} type="add" title="Inserir Novo Projecto"/>} />
+            <Route path="/createtask" render={props => <CreateTaskContainer {...props} type="add" title="Inserir Nova Tarefa"/>} />
           </div>
         ) : (
           <div className="app-container">

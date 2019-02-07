@@ -17,7 +17,7 @@ router.get('/', checkToken, (req, res) => {
       //If error send Forbidden (403)
       res.sendStatus(403);
     } else {
-      connection.query('Select * from todo_lists', function(error, results, fields) {
+      connection.query('Select * from todo_lists ORDER BY id_todo_list DESC', function(error, results, fields) {
         if (error) throw error;
         if (results.length > 0) {
           res.send(results);
@@ -27,6 +27,22 @@ router.get('/', checkToken, (req, res) => {
   });
 });
 
+
+router.post('/', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+    } else {
+      connection.query('INSERT INTO todo_lists (title_list, status_list, ref_id_user) VALUES(?, ?, ?)', [req.body.todo, 0, req.body.user], function(error, results, fields) {
+        if (error) throw error;
+          res.send(results);
+      });
+    }
+  });
+})
+
+
 router.get('/:user', checkToken, (req, res) => {
   var id = req.params.user;
   jwt.verify(req.token, SECRET_KEY, (err, results) => {
@@ -34,7 +50,7 @@ router.get('/:user', checkToken, (req, res) => {
       //If error send Forbidden (403)
       res.sendStatus(403);
     } else {
-      connection.query('Select * from todo_lists WHERE ref_id_user=?', id, function(error, results, fields) {
+      connection.query('Select * from todo_lists WHERE ref_id_user=? ORDER BY id_todo_list DESC', id, function(error, results, fields) {
         if (error) throw error;
         if (results.length > 0) {
           res.send(results);

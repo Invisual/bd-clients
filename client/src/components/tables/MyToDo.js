@@ -2,7 +2,7 @@ import React from 'react';
 import SingleToDo from '../singles/SingleToDo';
 import { FiArrowRight, FiX, FiPlus } from 'react-icons/fi';
 import {TodoListDashboardDiv, TodoListCompleteDiv} from '../../styles/todolist';
-
+import { FiSend } from 'react-icons/fi';
 
 export const MyToDo = props => {
   return (
@@ -57,7 +57,14 @@ export const MyToDo = props => {
               );
             })}
             </div>
-            <div className="todo-add"><FiPlus /></div>
+            <div className="todo-textarea" className={props.textAreaOpen ? 'todo-textarea slidebottomanimation' : 'nodisplay todo-textarea'}>
+              <textarea placeholder="Escreve um To-Do..." onChange={props.changeTextAreaVal} id="textarea-fullmodal"></textarea>
+            </div>
+            {props.textAreaOpen ?
+              <div className="todo-add" onClick={props.addToDo}><FiSend className="todo-send-icon"/></div>
+            :
+              <div className="todo-add" onClick={props.openTextAreaModal}><FiPlus /></div>
+            }
           </div>
         }  
       </TodoListCompleteDiv>

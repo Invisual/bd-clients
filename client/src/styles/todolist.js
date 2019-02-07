@@ -54,8 +54,8 @@ export const TodoListCompleteDiv = styled.div`
     right:0;
     margin:auto;
     z-index:111;
-    width:35%;
-    height:75vh;
+    width:40%;
+    height:70vh !important;
     transform: translateY(-50%);
     box-shadow: none !important;
 
@@ -64,6 +64,7 @@ export const TodoListCompleteDiv = styled.div`
         top: 20px;
         right: 20px;
         cursor:pointer;
+        z-index: 1;
 
         svg{
             font-size:2.5em;
@@ -78,7 +79,7 @@ export const TodoListCompleteDiv = styled.div`
         .todo-scroll-container{
             overflow: auto;
             height: 88%;
-            margin-top: 25px;
+            margin-top: 17px;
 
             .single-todo{
                 margin-top:10px;
@@ -117,15 +118,35 @@ export const TodoListCompleteDiv = styled.div`
             background:#DFE4F8; 
         }
 
+        .todo-textarea{
+            
+            textarea{
+                width: 90%;
+                margin-top: 17px;
+                border: none;
+                text-indent: 20px;
+                color:${themeConsts.secondaryBlue};
+                resize:none;
+            }
+            textarea::placeholder{
+                color:${themeConsts.secondaryBlue};
+            }
+        }
+
         .todo-add{
             position:absolute;
-            right:0;
-            bottom:0;
+            right:-2px;
+            bottom:-11px;
             cursor:pointer;
 
             svg{
                 font-size:2.5em;
                 color:${themeConsts.primaryBlue}
+            }
+
+            svg.todo-send-icon{
+                font-size:2.2em;
+                stroke-width:1.5;
             }
         }
     }
