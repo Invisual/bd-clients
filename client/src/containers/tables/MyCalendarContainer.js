@@ -182,7 +182,7 @@ class MyCalendarContainer extends Component {
                 moment(meeting.end),
                 null,
                 "[]"
-              ) && meeting.type == 2
+              ) && meeting.type === 2
             ) !== undefined;
 
             let meetingsOnThisDay = this.state.meetings.filter(meeting => {

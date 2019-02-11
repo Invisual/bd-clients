@@ -24,8 +24,8 @@ class App extends Component {
             <Route exact path="/" render={props => <MyToDoContainer {...props} title="To-do List" type="complete"/>} />
             <Route path="/tasks" render={props => <AllTasksContainer userInfo={this.props.userInfo} {...props} />} />
             <Route path="/admin" render={props => <AdminDashboardContainer {...props} />} />
-            <Route path="/createproject" render={props => <CreateProjectContainer {...props} type="add" title="Inserir Novo Projecto"/>} />
-            <Route path="/createtask" render={props => <CreateTaskContainer {...props} type="add" title="Inserir Nova Tarefa"/>} />
+            <Route path="/createproject" render={props => <CreateProjectContainer {...props} type="add" title="Novo Projeto"/>} />
+            <Route path="/createtask" render={props => <CreateTaskContainer {...props} type="add" title="Nova Tarefa"/>} />
           </div>
         ) : (
           <div className="app-container">
