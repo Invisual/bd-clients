@@ -54,6 +54,8 @@ router.get('/:user', checkToken, (req, res) => {
         if (error) throw error;
         if (results.length > 0) {
           res.send(results);
+        } else {
+          res.send('nodata')
         }
       });
     }

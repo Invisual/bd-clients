@@ -27,7 +27,7 @@ textarea{
     font-family: 'Roboto', sans-serif;
 }
 
-textarea:focus, input:focus{
+textarea:focus, input:focus, button:focus {
     outline: none !important;
 }
 
@@ -150,6 +150,19 @@ body.collapsed-sidebar .sidebar-container li span{
 
 .arrow, .arrow-hours svg{
     font-size: 1.4em;
+}
+
+.empty-placeholder {
+    font-size: 1.2em;
+    margin-top: 20px;
+    color: #797979
+}
+
+.no-content{
+    font-size: 15em;
+    text-align: center;
+    color: #f7f7f7;
+    margin: 20px 0;
 }
 
 .nodisplay{

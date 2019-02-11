@@ -6,6 +6,7 @@ class TaskDetailContainer extends Component {
     return (
       <TaskDetail
         taskContent={this.props.taskContent}
+        activeTask={this.props.activeTask}
         isLoading={this.props.isLoading}
         changeCommentVal={this.props.changeCommentVal}
         submitComment={this.props.submitComment}

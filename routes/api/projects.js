@@ -38,12 +38,17 @@ router.post('/', checkToken, (req, res) => {
         [req.body.title, req.body.briefing, req.body.deadline, req.body.billing, req.body.client, req.body.account],
         function(error, results, fields) {
         if (error) throw error;
-          res.send(results);
+          for(var i=0, count=req.body.categories.length; i<count; i++){
+            connection.query('INSERT INTO projects_has_categories (ref_id_project, ref_id_category) VALUES (?,?)', [results.insertId, req.body.categories[i]],
+            function(error, results2, fields){
+              if (error) throw error;
+            })
+          }
+          res.send(results)
       });
     }
   });
 })
-
 
 router.get('/:user', checkToken, (req, res) => {
   var id = req.params.user;
@@ -61,6 +66,8 @@ router.get('/:user', checkToken, (req, res) => {
           if (error) throw error;
           if (results.length > 0) {
             res.send(results);
+          } else {
+            res.send('nodata')
           }
         }
       );

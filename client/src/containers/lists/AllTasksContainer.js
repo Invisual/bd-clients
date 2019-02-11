@@ -31,7 +31,11 @@ class AllTasksContainer extends Component {
           axios
             .get(`/api/tasks/${idUser.id_user}/${this.state.activeTask}`, { headers: { Authorization: AuthStr } })
             .then(res => {
-              this.setState({ taskContent: res.data, isLoading: false });
+              if (res.data === 'nodata') {
+                this.setState({ taskContent: null, isLoading: false });
+              } else {
+                this.setState({ taskContent: res.data, isLoading: false });
+              }
             });
         });
     }

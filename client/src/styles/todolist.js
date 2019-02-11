@@ -44,6 +44,37 @@ export const TodoListDashboardDiv = styled.div`
     .todo-scroll-container::-webkit-scrollbar-thumb:window-inactive {
         background:#DFE4F8; 
     }
+    .todo-textarea{
+            
+            textarea{
+                width: 90%;
+                margin-top: 17px;
+                border: none;
+                text-indent: 20px;
+                color:${themeConsts.secondaryBlue};
+                resize:none;
+            }
+            textarea::placeholder{
+                color:${themeConsts.secondaryBlue};
+            }
+        }
+
+        .todo-add{
+            position:absolute;
+            right:-2px;
+            bottom:-11px;
+            cursor:pointer;
+
+            svg{
+                font-size:2.5em;
+                color:${themeConsts.primaryBlue}
+            }
+
+            svg.todo-send-icon{
+                font-size:2.2em;
+                stroke-width:1.5;
+            }
+        }
 `
 
 
@@ -150,5 +181,6 @@ export const TodoListCompleteDiv = styled.div`
             }
         }
     }
+    
 
 `

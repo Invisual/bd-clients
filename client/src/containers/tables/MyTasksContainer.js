@@ -50,7 +50,12 @@ class MyTasksContainer extends Component {
         var idUser = JSON.parse(localStorage.getItem('user'))
     
         axios.get(`/api/tasks/${idUser.id_user}`, { headers: { Authorization: AuthStr } }).then(res => {
-          this.setState({ tasks: res.data, isLoading: false });
+          if(res.data=== 'nodata'){
+            this.setState({tasks: null, isLoading: false})
+          }else{
+            this.setState({ tasks: res.data, isLoading: false });
+          }
+          
         }); 
         
       };

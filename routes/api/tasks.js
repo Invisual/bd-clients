@@ -63,6 +63,8 @@ router.get('/:user', checkToken, (req, res) => {
           if (error) throw error;
           if (results.length > 0) {
             res.send(results);
+          } else {
+            res.send('nodata');
           }
         }
       );
@@ -82,7 +84,7 @@ router.get('/comments/:task', checkToken, (req, res) => {
         task,
         function(error, results, fields) {
           if (error) throw error;
-            res.send(results);
+          res.send(results);
         }
       );
     }
@@ -95,19 +97,16 @@ router.post('/comments/:task', checkToken, (req, res) => {
     text_comments: req.body.text_comment,
     ref_id_user: req.body.id_user,
     ref_id_task: task
-  }
+  };
   jwt.verify(req.token, SECRET_KEY, (err, results) => {
     if (err) {
       //If error send Forbidden (403)
       res.sendStatus(403);
     } else {
-      connection.query(
-        'INSERT INTO task_comments SET ?', comment,
-        function(error, results, fields) {
-          if (error) throw error;
-            res.send(results);
-        }
-      );
+      connection.query('INSERT INTO task_comments SET ?', comment, function(error, results, fields) {
+        if (error) throw error;
+        res.send(results);
+      });
     }
   });
 });
@@ -115,7 +114,7 @@ router.post('/comments/:task', checkToken, (req, res) => {
 router.get('/:user/:task', checkToken, (req, res) => {
   var id = req.params.user;
   var task = req.params.task;
-  var totalResults = {}
+  var totalResults = {};
   jwt.verify(req.token, SECRET_KEY, (err, results) => {
     if (err) {
       //If error send Forbidden (403)
@@ -136,15 +135,17 @@ router.get('/:user/:task', checkToken, (req, res) => {
         task,
         function(error, results, fields) {
           if (error) throw error;
-            totalResults.comments = results;
-            res.send(totalResults)
+          totalResults.comments = results;
+          if (totalResults.details[0].id_task !== null) {
+            res.send(totalResults);
+          } else {
+            res.send('nodata');
+          }
         }
       );
     }
   });
 });
-
-
 
 //SELECT text_comments, date_comment, name_user from task_comments INNER JOIN users ON task_comments.ref_id_user=users.id_user WHERE ref_id_task=3
 

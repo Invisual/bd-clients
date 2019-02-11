@@ -14,7 +14,8 @@ import {
   FiArrowRight,
   FiAlertTriangle,
   FiSend,
-  FiFileText
+  FiFileText,
+  FiMoreHorizontal
 } from 'react-icons/fi';
 
 export const TaskDetail = props => {
@@ -24,7 +25,7 @@ export const TaskDetail = props => {
         <TaskDetailsDiv>
           <img src="img/loading.svg" alt="loading" className="loading-spinner" />
         </TaskDetailsDiv>
-      ) : (
+      ) : props.taskContent ? (
         <TaskDetailsDiv
           hours={
             props.taskContent.details[0].total_hours
@@ -120,14 +121,25 @@ export const TaskDetail = props => {
 
           <div className="task-add-comment">
             <div />
-              <div className="comment-input">
-                <textarea placeholder="Escreve um comentário..." id="comment-textarea" onChange={props.changeCommentVal} onKeyDown={props.changeCommentVal} />
-              </div>
-              <div className="comment-submit" onClick={props.submitComment}>
-                  <FiSend />
-              </div>
+            <div className="comment-input">
+              <textarea
+                placeholder="Escreve um comentário..."
+                id="comment-textarea"
+                onChange={props.changeCommentVal}
+                onKeyDown={props.changeCommentVal}
+              />
+            </div>
+            <div className="comment-submit" onClick={props.submitComment}>
+              <FiSend />
+            </div>
           </div>
         </TaskDetailsDiv>
+      ) : (
+        <div>
+          <div className="no-content">
+            <FiMoreHorizontal />
+          </div>
+        </div>
       )}
     </>
   );
