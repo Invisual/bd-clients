@@ -35,7 +35,7 @@ class SideBar extends Component {
         <div className="navigation">
             <ul>
                 <NavLink exact={true} to="/" activeClassName='is-active'><li><FiHome/> <span>Dashboard</span></li></NavLink> 
-                <NavLink to="/ds" activeClassName='is-active'><li><FiFolder/> <span>Projectos</span></li></NavLink> 
+                <NavLink to="/ds" activeClassName='is-active'><li><FiFolder/> <span>Projetos</span></li></NavLink> 
                 <NavLink to="/tasks" activeClassName='is-active'><li><FiFileText/> <span>Tarefas</span></li></NavLink>
                 <NavLink to="/ds" activeClassName='is-active'><li><FiCalendar/> <span>Reuniões</span></li></NavLink>
                 <NavLink to="/ds" activeClassName='is-active'><li><FiUser/> <span>Clientes</span></li></NavLink>

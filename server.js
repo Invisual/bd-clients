@@ -11,6 +11,7 @@ const projectRoutes = require('./routes/api/projects');
 const goalRoutes = require('./routes/api/goals');
 const meetingRoutes = require('./routes/api/meetings');
 const todoRoutes = require('./routes/api/todos');
+const miscRoutes = require('./routes/api/misc');
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use('/api/projects', projectRoutes);
 app.use('/api/goals', goalRoutes);
 app.use('/api/meetings', meetingRoutes);
 app.use('/api/todos', todoRoutes);
+app.use('/api/misc', miscRoutes);
 
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static(path.join(__dirname, 'client', 'build')));

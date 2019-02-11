@@ -33,6 +33,25 @@ router.get('/', checkToken, (req, res) => {
 
 
 
+router.get('/accounts', checkToken, (req, res) => {
+    jwt.verify(req.token, SECRET_KEY, (err, results) => {
+        if(err){
+            //If error send Forbidden (403)
+            console.log('ERRO: Route Protegida');
+            res.sendStatus(403);
+        } else {
+            //If token is successfully verified, we can send the autorized data 
+            connection.query("Select id_user, name_user from users WHERE ref_id_position = 2", function(error, results, fields){
+                if(err){throw err}
+                if(results.length>0){ res.send(results);}  
+            })
+            console.log('SUCCESSO: Conectado a Route Protegida');
+        }
+    })
+})
+
+
+
 router.post('/login', (req, res) => {
   connection.query( "Select * from users INNER JOIN positions ON users.ref_id_position = positions.id_position WHERE username_user = ?", req.body.username, function(error, results, fields) {
       if (error) throw error;

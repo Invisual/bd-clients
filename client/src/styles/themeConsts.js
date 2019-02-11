@@ -14,6 +14,8 @@ export const themeConsts = {
     textDarkerGrey: '#707070',
     textLightGrey: '#aaaaaa',
     textLighterGrey: '#BEBEBE',
+    placeholderGrey: '#6e6e6e',
+    bordersGrey: '#ececec',
     mainShadow: '0px 1px 6px rgba(0,0,0, .16)',
     activeShadow: '0px 3px 6px rgba(0,0,0,.16)',
     borderRadius:'10px'
