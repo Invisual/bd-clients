@@ -29,6 +29,7 @@ export const AllTasks = props => {
               type="alltasks"
               changeActiveTask={props.changeActiveTask}
               activeTask={props.activeTask}
+              copyAlert={props.copyAlert}
             />
           </div>
         </div>

@@ -23,7 +23,7 @@ export const TaskDetail = props => {
     <>
       {props.isLoading ? (
         <TaskDetailsDiv>
-          <img src="img/loading.svg" alt="loading" className="loading-spinner" />
+          <img src="/img/loading.svg" alt="loading" className="loading-spinner" />
         </TaskDetailsDiv>
       ) : props.taskContent ? (
         <TaskDetailsDiv

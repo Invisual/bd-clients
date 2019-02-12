@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { SingleTaskDiv } from '../../styles/singles';
-import { FiFolder } from 'react-icons/fi';
-import { FiClock } from 'react-icons/fi';
+import { AllSingleTaskDiv, SingleTaskDiv } from '../../styles/singles';
+import { FiFolder, FiClock, FiLink2 } from 'react-icons/fi';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 class SingleTask extends Component {
   render() {
@@ -33,21 +33,27 @@ class SingleTask extends Component {
     }
 
     var singleContent = '';
+    //Verifica se está a ser renderizada na rota de todas as Tarefas
     if (this.props.type) {
-      let active = (this.props.id === this.props.activeTask ? ' active': '');
+      let active = this.props.id === this.props.activeTask ? ' active' : '';
       singleContent = (
-        <SingleTaskDiv className={`single-card-task${active}`} taskColor={taskColor}>
+        <AllSingleTaskDiv className={`single-card-task${active}`} taskColor={taskColor}>
           <div className="task-title title-click" onClick={() => this.props.changeActiveTask(this.props.id)}>
             {this.props.title}
           </div>
           <div className="task-watch">{projectFolder}</div>
+          <div className="task-link">
+            <CopyToClipboard text={window.location.href + '/' +this.props.id} onCopy={() => this.props.copyAlert()}>
+              <FiLink2 />
+            </CopyToClipboard>
+          </div>
           <div className="task-watch">
             <FiClock className={this.props.hourState === 1 ? 'active-clock' : 'inactive-clock'} />
           </div>
           <div className="task-state" onClick={() => this.props.changeTaskStatus(this.props.id, this.props.stateVal)}>
             {this.props.stateTitle}
           </div>
-        </SingleTaskDiv>
+        </AllSingleTaskDiv>
       );
     } else {
       singleContent = (

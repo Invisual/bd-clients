@@ -22,10 +22,13 @@ class App extends Component {
             <SideBar logout={this.props.logout} />
             <Route exact path="/" render={props => <UserDashboardContainer {...props} />} />
             <Route exact path="/" render={props => <MyToDoContainer {...props} title="To-do List" type="complete"/>} />
-            <Route path="/tasks" render={props => <AllTasksContainer userInfo={this.props.userInfo} {...props} />} />
+            <Route exact path="/tasks" render={props => <AllTasksContainer isShare={false} userInfo={this.props.userInfo} {...props} />} />
+            <Route exact path="/tasks/:id" to="tasks" render={props => <AllTasksContainer isShare={true} userInfo={this.props.userInfo} {...props}  />} />
             <Route path="/admin" render={props => <AdminDashboardContainer {...props} />} />
-            <Route path="/createproject" render={props => <CreateProjectContainer {...props} type="add" title="Novo Projeto"/>} />
-            <Route path="/createtask" render={props => <CreateTaskContainer {...props} type="add" title="Nova Tarefa"/>} />
+            <Route exact path="/createproject" render={props => <CreateProjectContainer {...props} type="add" title="Novo Projeto"/>} />
+            <Route path="/createproject/:id" render={props => <CreateProjectContainer {...props} type="edit" title="Editar Projeto"/>} />
+            <Route exact path="/createtask" render={props => <CreateTaskContainer {...props} type="add" title="Nova Tarefa"/>} />
+            <Route path="/createtask/:id" render={props => <CreateTaskContainer {...props} type="edit" title="Editar Tarefa"/>} />
           </div>
         ) : (
           <div className="app-container">

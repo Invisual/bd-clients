@@ -46,7 +46,7 @@ export const MyTasks = props => {
       break;
     case 'alltasks':
       if (props.isLoading) {
-        content = <img src="img/loading.svg" alt="Loading" className="loading-spinner" />;
+        content = <img src="/img/loading.svg" alt="Loading" className="loading-spinner" />;
       } else {
         content = (
           <div className="mytasks-container widget">
@@ -65,6 +65,7 @@ export const MyTasks = props => {
                     changeTaskStatus={props.changeTaskStatus}
                     changeActiveTask={props.changeActiveTask}
                     activeTask={props.activeTask}
+                    copyAlert={props.copyAlert}
                     type={'alltasks'}
                   />
                 );

@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
+import { createBrowserHistory } from 'history';
 import { AllTasks } from '../../components/lists/AllTasks';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
+
 const axios = require('axios');
+const history = createBrowserHistory();
 
 class AllTasksContainer extends Component {
   constructor(props) {
@@ -14,6 +19,7 @@ class AllTasksContainer extends Component {
   }
 
   getTaskDetails = () => {
+    const { match: { params } } = this.props;
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
     var idUser = JSON.parse(localStorage.getItem('user'));
@@ -22,22 +28,43 @@ class AllTasksContainer extends Component {
         this.setState({ taskContent: res.data, isLoading: false });
       });
     } else {
-      axios
-        .get(`/api/tasks/${idUser.id_user}`, { headers: { Authorization: AuthStr } })
-        .then(res => {
-          this.setState({ activeTask: res.data[0].id_task });
-        })
-        .then(res => {
-          axios
-            .get(`/api/tasks/${idUser.id_user}/${this.state.activeTask}`, { headers: { Authorization: AuthStr } })
-            .then(res => {
-              if (res.data === 'nodata') {
-                this.setState({ taskContent: null, isLoading: false });
-              } else {
-                this.setState({ taskContent: res.data, isLoading: false });
-              }
-            });
-        });
+      if (this.props.isShare) {
+        history.replace({pathname:'/tasks'}
+        )
+        axios
+          .get(`/api/tasks/link/${params.id}`, { headers: { Authorization: AuthStr } })
+          .then(res => {
+            this.setState({ activeTask: res.data.details[0].id_task });
+          })
+          .then(res => {
+            axios
+              .get(`/api/tasks/link/${this.state.activeTask}`, { headers: { Authorization: AuthStr } })
+              .then(res => {
+                if (res.data === 'nodata') {
+                  this.setState({ taskContent: null, isLoading: false });
+                } else {
+                  this.setState({ taskContent: res.data, isLoading: false });
+                }
+              });
+          });
+      } else {
+        axios
+          .get(`/api/tasks/${idUser.id_user}`, { headers: { Authorization: AuthStr } })
+          .then(res => {
+            this.setState({ activeTask: res.data[0].id_task });
+          })
+          .then(res => {
+            axios
+              .get(`/api/tasks/${idUser.id_user}/${this.state.activeTask}`, { headers: { Authorization: AuthStr } })
+              .then(res => {
+                if (res.data === 'nodata') {
+                  this.setState({ taskContent: null, isLoading: false });
+                } else {
+                  this.setState({ taskContent: res.data, isLoading: false });
+                }
+              });
+          });
+      }
     }
   };
 
@@ -48,6 +75,20 @@ class AllTasksContainer extends Component {
       this.setState({ activeTask: taskId, isLoading: true });
     }
   };
+
+  copyAlert = () =>{
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top',
+      showConfirmButton: false,
+      timer: 1000
+    });
+    
+    Toast.fire({
+      type: 'success',
+      title: 'Link copiado com sucesso!'
+    })
+  }
 
   deleteActiveTask = taskId => {
     window.alert('Delete task ' + taskId + '?');
@@ -60,7 +101,7 @@ class AllTasksContainer extends Component {
   };
 
   changeCommentVal = event => {
-    if (event.keyCode == 13 && event.shiftKey == false) {
+    if (event.keyCode === 13 && event.shiftKey === false) {
       event.preventDefault();
       this.submitComment();
     } else {
@@ -107,6 +148,8 @@ class AllTasksContainer extends Component {
         editActiveTask={this.editActiveTask}
         changeCommentVal={this.changeCommentVal}
         submitComment={this.submitComment}
+        isShare={this.props.isShare}
+        copyAlert={this.copyAlert}
       />
     );
   }
