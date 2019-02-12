@@ -96,7 +96,8 @@ class CreateProjectContainer extends Component{
         })
     }
 
-    insertProject = () => {
+    insertProject = (e) => {
+        e.preventDefault();
         var token = JSON.parse(localStorage.getItem('token'));
         var AuthStr = 'Bearer ' + token;
         var data = {

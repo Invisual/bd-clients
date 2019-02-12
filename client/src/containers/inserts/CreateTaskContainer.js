@@ -1,53 +1,198 @@
 import React, {Component} from 'react';
 import {CreateTask} from '../../components/inserts/CreateTask';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
+const axios = require('axios');
 
 class CreateTaskContainer extends Component{
     constructor(props){
         super(props);
         this.state = {
+            typeInput: '1',
             titleInput: '',
-            briefingInput: '',
-            deadlineInput: '',
-            billingInput: '',
             clientInput: '',
-            accountInput: ''
+            nameInput: '',
+            descInput: '',
+            projectInput: '',
+            deadlineInput: new Date(),
+            accountInput: '',
+            personInput: '',
+            billingInput: '',
+            typesData: [],
+            clientsData: [],
+            billingData: [],
+            accountsData: [],
+            usersData: [],
+            projectsData: [],
+            redirect: false
         }
+    }
+
+    changeTypeInput = (e) => {
+        this.setState({ typeInput: e.target.value })
     }
 
     changeTitleInput = (e) => {
         this.setState({ titleInput: e.target.value })
     }
 
-    changeBriefingInput = (e) => {
-        this.setState({ briefingInput: e.target.value })
-    }
-
-    changeDeadlineInput = (e) => {
-        this.setState({ deadlineInput: e.target.value })
-    }
-
-    changeBillingInput = (e) => {
-        this.setState({ billingInput: e.target.value })
-    }
-
     changeClientInput = (e) => {
         this.setState({ clientInput: e.target.value })
+    }
+
+    changeNameInput = (e) => {
+        this.setState({ nameInput: e.target.value })
+    }
+
+    changeDescInput = (e) => {
+        this.setState({ descInput: e.target.value })
+    }
+
+    changeProjectInput = (e) => {
+        this.setState({ projectInput: e.target.value })
+    }
+
+    changeDeadlineInput = (val) => {
+        this.setState({ deadlineInput: val })
     }
 
     changeAccountInput = (e) => {
         this.setState({ accountInput: e.target.value })
     }
 
+    changePersonInput = (e) => {
+        this.setState({ personInput: e.target.value })
+    }
+
+    changeBillingInput = (e) => {
+        this.setState({ billingInput: e.target.value }, () => console.log(this.state.billingInput))
+    }
+
+
+    getTypesData = () => {
+        var token = JSON.parse(localStorage.getItem('token'));
+        var AuthStr = 'Bearer ' + token;
+        axios.get('/api/misc/types', { headers: { Authorization: AuthStr } })
+        .then(res => {
+            this.setState({typesData: res.data})
+        })
+    }
+
+    getClientsData = () => {
+        var token = JSON.parse(localStorage.getItem('token'));
+        var AuthStr = 'Bearer ' + token;
+        axios.get('/api/clients/basic', { headers: { Authorization: AuthStr } })
+        .then(res => {
+            this.setState({clientsData: res.data})
+        })
+    }
+
+    getBillingData = () => {
+        var token = JSON.parse(localStorage.getItem('token'));
+        var AuthStr = 'Bearer ' + token;
+        axios.get('/api/misc/billing', { headers: { Authorization: AuthStr } })
+        .then(res => {
+            this.setState({billingData: res.data})
+        })
+    }
+
+    getAccountsData = () => {
+        var token = JSON.parse(localStorage.getItem('token'));
+        var AuthStr = 'Bearer ' + token;
+        axios.get('/api/users/accounts', { headers: { Authorization: AuthStr } })
+        .then(res => {
+            this.setState({accountsData: res.data})
+        })
+    }
+
+    getProjectsData = () => {
+        var token = JSON.parse(localStorage.getItem('token'));
+        var AuthStr = 'Bearer ' + token;
+        axios.get('/api/projects/basic', { headers: { Authorization: AuthStr } })
+        .then(res => {
+            this.setState({projectsData: res.data})
+        })
+    }
+
+    getUsersData = () => {
+        var token = JSON.parse(localStorage.getItem('token'));
+        var AuthStr = 'Bearer ' + token;
+        axios.get('/api/users/', { headers: { Authorization: AuthStr } })
+        .then(res => {
+            this.setState({usersData: res.data})
+        })
+    }
+
+
+    insertTask = (e) => {
+        e.preventDefault();
+        var data = {
+            title: this.state.titleInput,
+            description: this.state.descInput,
+            deadline: this.state.deadlineInput,
+            client: this.state.clientInput,
+            billing: this.state.billingInput,
+            project: this.state.projectInput,
+            type: this.state.typeInput,
+            account: this.state.accountInput,
+            user: this.state.personInput
+        }
+
+        if(this.state.typeInput === '1'){ data.account = null; data.billing = null; }
+        else if(this.state.typeInput === '2' || this.state.typeInput === '4'){ data.project = null;}
+        else if(this.state.typeInput === '3'){ data.project = null; data.user = null;}
+        
+        var token = JSON.parse(localStorage.getItem('token'));
+        var AuthStr = 'Bearer ' + token;
+        axios.post('/api/tasks/', data, { headers: { Authorization: AuthStr } })
+        .then(res => {
+            if(res.data.affectedRows){
+                Swal.fire({
+                    type: 'success',
+                    title: 'Nova Tarefa Inserida',
+                    text: `A Tarefa '${data.title}' foi inserida com sucesso!`
+                  })
+                  .then(click => {
+                      this.setState({redirect: true})
+                  })
+            }
+        })
+    }
+
+    
+    componentDidMount(){
+        this.getTypesData();
+        this.getClientsData();
+        this.getAccountsData();
+        this.getBillingData();
+        this.getProjectsData();
+        this.getUsersData();
+    }
 
     render(){
         return <CreateTask
                 title={this.props.title}
+                changeTypeInput={this.changeTypeInput}
                 changeTitleInput={this.changeTitleInput}
-                changeBriefingInput={this.changeBriefingInput}
-                changeDeadlineInput={this.changeDeadlineInput}
-                changeBillingInput={this.changeBillingInput}
                 changeClientInput={this.changeClientInput}
+                changeNameInput={this.changeNameInput}
+                changeDescInput={this.changeDescInput}
+                changeProjectInput={this.changeProjectInput}
+                changeDeadlineInput={this.changeDeadlineInput}
                 changeAccountInput={this.changeAccountInput}
+                changePersonInput={this.changePersonInput}
+                changeBillingInput={this.changeBillingInput}
+                deadlineInput={this.state.deadlineInput}
+                clientInput={this.state.clientInput}
+                typeInput={this.state.typeInput}
+                insertTask={this.insertTask}
+                typesData={this.state.typesData}
+                clientsData={this.state.clientsData}
+                accountsData={this.state.accountsData}
+                billingData={this.state.billingData}
+                projectsData={this.state.projectsData}
+                usersData={this.state.usersData}
+                redirect={this.state.redirect}
                 />;
     }
 }
