@@ -53,7 +53,6 @@ class MyTasksContainer extends Component {
         this.setState({ tasks: null, isLoading: false });
       } else {
         this.setState({ tasks: res.data, isLoading: false });
-        console.log('mudou')
       }
     });
   };

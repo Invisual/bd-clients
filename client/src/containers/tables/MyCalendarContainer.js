@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { MyCalendar } from '../../components/tables/MyCalendar';
-import moment from 'moment'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
-moment.locale();  
+import moment from 'moment'
 
 class MyCalendarContainer extends Component {
   constructor(props){
@@ -154,6 +153,7 @@ class MyCalendarContainer extends Component {
   }
 
   componentDidMount(){
+    console.log(moment.locale())
     this.changeMonthPlacement();
     this.replaceButtonTextWithArrows();
     this.replaceDaysWithCapitalLetter();

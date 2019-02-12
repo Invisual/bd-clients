@@ -11,6 +11,10 @@ import CreateProjectContainer from './containers/inserts/CreateProjectContainer'
 import CreateTaskContainer from './containers/inserts/CreateTaskContainer';
 import './styles/main.css';
 import { BrowserRouter, Route } from 'react-router-dom';
+import moment from 'moment'
+import 'moment/locale/ru';
+moment.locale('pt')
+
 
 class App extends Component {
   render() {
