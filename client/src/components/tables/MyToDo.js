@@ -78,10 +78,7 @@ export const MyToDo = props => {
                   );
                 })}
               </div>
-              <div
-                className="todo-textarea"
-                className={props.textAreaOpen ? 'todo-textarea slidebottomanimation' : 'nodisplay todo-textarea'}
-              >
+              <div className={props.textAreaOpen ? 'todo-textarea slidebottomanimation' : 'nodisplay todo-textarea'}>
                 <textarea placeholder="Escreve um To-Do..." onChange={props.changeTextAreaVal} id="textarea-fullmodal" />
               </div>
               {props.textAreaOpen ? (

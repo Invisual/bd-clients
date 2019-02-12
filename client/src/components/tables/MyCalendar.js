@@ -2,7 +2,7 @@ import React from 'react';
 import BigCalendar from 'react-big-calendar'
 import moment from 'moment'
 import 'moment/locale/pt'
-import 'react-big-calendar/lib/css/react-big-calendar.css'
+import 'react-big-calendar/lib/css/react-big-calendar.css' 
 
 export const MyCalendar = (props) => {
     const localizer = BigCalendar.momentLocalizer(moment)

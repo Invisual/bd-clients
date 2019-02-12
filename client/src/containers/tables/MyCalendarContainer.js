@@ -3,6 +3,7 @@ import { MyCalendar } from '../../components/tables/MyCalendar';
 import moment from 'moment'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+moment.locale();  
 
 class MyCalendarContainer extends Component {
   constructor(props){

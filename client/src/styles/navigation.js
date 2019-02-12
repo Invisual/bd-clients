@@ -17,7 +17,7 @@ export const SidebarDiv = styled.div`
 
   .logo-big{
     img {
-      max-width: 80%;
+      max-width: 100%;
     }
   }
 

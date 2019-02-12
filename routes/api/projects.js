@@ -28,6 +28,23 @@ router.get('/', checkToken, (req, res) => {
 });
 
 
+router.get('/basic', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+    } else {
+      connection.query('Select id_project, title_project, ref_id_client from projects', function(error, results, fields) {
+        if (error) throw error;
+        if (results.length > 0) {
+          res.send(results);
+        }
+      });
+    }
+  });
+});
+
+
 router.post('/', checkToken, (req, res) => {
   jwt.verify(req.token, SECRET_KEY, (err, results) => {
     if (err) {

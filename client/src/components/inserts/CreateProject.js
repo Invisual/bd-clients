@@ -17,7 +17,7 @@ export const CreateProject = props => {
             <div className="cards-container form-container">
 
                 <div className="form-title"><h4 className="widget-title">{props.title}</h4></div>
-
+                <form onSubmit={props.insertProject}>
                 <div className="grid50-50 form-grid">
 
                     <div className="grid-item">
@@ -128,10 +128,10 @@ export const CreateProject = props => {
                 </div>
 
                 <div className="form-buttons">
-                    <button className="btn secondary-btn">Cancelar</button>
-                    <button className="btn main-btn" onClick={props.insertProject}>Criar</button>
+                    <button type="button" className="btn secondary-btn">Cancelar</button>
+                    <button className="btn main-btn">Criar</button>
                 </div>
-
+                </form>                                    
             </div>
 
         </InsertFormDiv>

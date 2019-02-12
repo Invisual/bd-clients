@@ -59,7 +59,7 @@ export const InsertFormDiv = styled.div`
                 border:none;
                 box-shadow:${themeConsts.mainShadow};
                 border-radius: ${themeConsts.borderRadius};
-                padding-left: 12px;
+                text-indent: 12px;
             }
 
             input[type="text"], select, .react-date-picker{
@@ -69,6 +69,7 @@ export const InsertFormDiv = styled.div`
             .react-date-picker__wrapper{
                 width:100%;
                 border:none;
+                padding-left: 12px;
 
                 .react-date-picker__clear-button{
                     display:none;
@@ -76,6 +77,11 @@ export const InsertFormDiv = styled.div`
 
                 input{
                     font-size:1.2em;
+                    text-indent:0;
+                }
+
+                span{
+                    text-indent:0;
                 }
 
                 .react-date-picker__inputGroup__year{
@@ -94,15 +100,16 @@ export const InsertFormDiv = styled.div`
             textarea{
                 height: 195px;
                 padding-top: 18px;
+                padding-left: 0;
+                padding-right: 0;
                 resize: none;
-
             }
 
             select {
                 -webkit-appearance: none;
                 -moz-appearance: none;
                 appearance: none;
-                background: url(img/seta-circulo.svg) 94% / 15% no-repeat #fff;
+                background: url(/img/seta-circulo.svg) 94% / 15% no-repeat #fff;
                 background-size: 20px;
                 cursor:pointer;
             }
