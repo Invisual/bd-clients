@@ -34,7 +34,7 @@ router.post('/', checkToken, (req, res) => {
       //If error send Forbidden (403)
       res.sendStatus(403);
     } else {
-      connection.query('INSERT INTO tasks (title_task, description_task, deadline_date_task, ref_id_client, ref_id_billing_mode, ref_id_project, ref_id_type_task, ref_id_user ) VALUES (?,?,?,?,?,?,?,?)',
+      connection.query('INSERT INTO tasks (title_task, description_task, deadline_date_task, ref_id_client, ref_id_billing_mode, ref_id_project, ref_id_type_task, ref_id_user_account ) VALUES (?,?,?,?,?,?,?,?)',
       [req.body.title, req.body.description, req.body.deadline, req.body.client, req.body.billing, req.body.project, req.body.type, req.body.account],
       function(error, results, fields) {
         if (error) throw error;
@@ -133,7 +133,6 @@ router.post('/comments/:task', checkToken, (req, res) => {
 });
 
 router.get('/link/:task', checkToken, (req, res) => {
-  var id = req.params.user;
   var task = req.params.task;
   var totalResults = {};
   jwt.verify(req.token, SECRET_KEY, (err, results) => {
@@ -142,7 +141,7 @@ router.get('/link/:task', checkToken, (req, res) => {
       res.sendStatus(403);
     } else {
       connection.query(
-        'SELECT id_task, avatar_user, title_task, creation_date_task, title_project, name_client, name_task_types, name_billing_mode, description_task,SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS "total_hours" from tasks LEFT JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task LEFT JOIN task_types on task_types.id_task_type=tasks.ref_id_type_task LEFT JOIN aproval_task_status ON aproval_task_status.id_aproval_task_status=tasks.ref_id_aproval_task_status LEFT JOIN user_task_status ON user_task_status.id_user_task_status=users_has_tasks.ref_id_user_task_status LEFT JOIN projects ON tasks.ref_id_project=projects.id_project LEFT JOIN billing_modes ON billing_modes.id_billing_mode=tasks.ref_id_billing_mode LEFT JOIN clients ON clients.id_client=tasks.ref_id_client LEFT JOIN users ON users.id_user=projects.ref_id_user LEFT JOIN task_hours ON task_hours.ref_id_tasks=tasks.id_task where tasks.id_task=?',
+        'SELECT id_task, avatar_user, title_task, creation_date_task, title_project, name_client, name_task_types, name_billing_mode, description_task,SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS "total_hours" from tasks LEFT JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task LEFT JOIN task_types on task_types.id_task_type=tasks.ref_id_type_task LEFT JOIN aproval_task_status ON aproval_task_status.id_aproval_task_status=tasks.ref_id_aproval_task_status LEFT JOIN user_task_status ON user_task_status.id_user_task_status=users_has_tasks.ref_id_user_task_status LEFT JOIN projects ON tasks.ref_id_project=projects.id_project LEFT JOIN billing_modes ON billing_modes.id_billing_mode=tasks.ref_id_billing_mode LEFT JOIN clients ON clients.id_client=tasks.ref_id_client LEFT JOIN users ON users.id_user=projects.ref_id_user_account LEFT JOIN task_hours ON task_hours.ref_id_tasks=tasks.id_task where tasks.id_task=?',
         task,
         function(error, results, fields) {
           if (error) throw error;
@@ -168,6 +167,30 @@ router.get('/link/:task', checkToken, (req, res) => {
   });
 });
 
+ 
+
+router.get('/basic/:task', checkToken, (req, res) => {
+  var task = req.params.task;
+  var totalResults = {};
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+    } else {
+      connection.query(
+        'SELECT * FROM tasks INNER JOIN users_has_tasks ON tasks.id_task = users_has_tasks.ref_id_task WHERE id_task=?', task, function(error, results, fields) {
+          if (error) throw error;
+          if (results.length > 0) {
+            res.send(results);
+          }
+        }
+      );
+    }
+  });
+});
+
+
+
 router.get('/:user/:task', checkToken, (req, res) => {
   var id = req.params.user;
   var task = req.params.task;
@@ -178,7 +201,7 @@ router.get('/:user/:task', checkToken, (req, res) => {
       res.sendStatus(403);
     } else {
       connection.query(
-        'SELECT id_task, avatar_user, title_task, creation_date_task, title_project, name_client, name_task_types, name_billing_mode, description_task,SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS "total_hours" from tasks LEFT JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task LEFT JOIN task_types on task_types.id_task_type=tasks.ref_id_type_task LEFT JOIN aproval_task_status ON aproval_task_status.id_aproval_task_status=tasks.ref_id_aproval_task_status LEFT JOIN user_task_status ON user_task_status.id_user_task_status=users_has_tasks.ref_id_user_task_status LEFT JOIN projects ON tasks.ref_id_project=projects.id_project LEFT JOIN billing_modes ON billing_modes.id_billing_mode=tasks.ref_id_billing_mode LEFT JOIN clients ON clients.id_client=tasks.ref_id_client LEFT JOIN users ON users.id_user=projects.ref_id_user LEFT JOIN task_hours ON task_hours.ref_id_tasks=tasks.id_task where users_has_tasks.ref_id_user=? AND tasks.id_task=?',
+        'SELECT id_task, avatar_user, title_task, creation_date_task, title_project, name_client, name_task_types, name_billing_mode, description_task,SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS "total_hours" from tasks LEFT JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task LEFT JOIN task_types on task_types.id_task_type=tasks.ref_id_type_task LEFT JOIN aproval_task_status ON aproval_task_status.id_aproval_task_status=tasks.ref_id_aproval_task_status LEFT JOIN user_task_status ON user_task_status.id_user_task_status=users_has_tasks.ref_id_user_task_status LEFT JOIN projects ON tasks.ref_id_project=projects.id_project LEFT JOIN billing_modes ON billing_modes.id_billing_mode=tasks.ref_id_billing_mode LEFT JOIN clients ON clients.id_client=tasks.ref_id_client LEFT JOIN users ON users.id_user=projects.ref_id_user_account LEFT JOIN task_hours ON task_hours.ref_id_tasks=tasks.id_task where users_has_tasks.ref_id_user=? AND tasks.id_task=?',
         [id, task],
         function(error, results, fields) {
           if (error) throw error;

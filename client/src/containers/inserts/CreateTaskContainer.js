@@ -24,6 +24,7 @@ class CreateTaskContainer extends Component{
             accountsData: [],
             usersData: [],
             projectsData: [],
+            taskData: [],
             redirect: false
         }
     }
@@ -123,6 +124,24 @@ class CreateTaskContainer extends Component{
         })
     }
 
+    getTaskData = () => {
+        var token = JSON.parse(localStorage.getItem('token'));
+        var AuthStr = 'Bearer ' + token;
+        var id = this.props.match.params.id;
+        axios.get(`/api/tasks/basic/${id}`, { headers: { Authorization: AuthStr } })
+        .then(res => this.setState({
+            taskData: res.data,
+            typeInput: res.data.ref_id_task_type,
+            titleInput:res.data.title_task,
+            clientInput:res.data.ref_id_client,
+            descInput:res.data.description_task,
+            projectInput:res.data.ref_id_project,
+            deadlineInput:res.data.deadline_date_task,
+            accountInput:res.data.ref_id_user_account,
+            personInput,
+            billingInput: res.data.ref_id_billing_mode
+        }))
+    }
 
     insertTask = (e) => {
         e.preventDefault();
@@ -167,6 +186,7 @@ class CreateTaskContainer extends Component{
         this.getBillingData();
         this.getProjectsData();
         this.getUsersData();
+        if(this.props.type === 'edit'){ this.getTaskData() }
     }
 
     render(){
@@ -192,7 +212,9 @@ class CreateTaskContainer extends Component{
                 billingData={this.state.billingData}
                 projectsData={this.state.projectsData}
                 usersData={this.state.usersData}
+                taskData={this.state.taskData}
                 redirect={this.state.redirect}
+                type={this.props.type}
                 />;
     }
 }
