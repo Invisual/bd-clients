@@ -16,6 +16,7 @@ export const SingleTaskDiv = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    color: ${themeConsts.textDarkGrey};
     font-size: 1.3em;
   }
   .title-click {
@@ -55,7 +56,7 @@ export const SingleTaskDiv = styled.div`
 
 export const AllSingleTaskDiv = styled.div`
   display: grid;
-  grid-template-columns:  75% 5% 5% 5% 10%;
+  grid-template-columns: 75% 5% 5% 5% 10%;
   padding-left: 20px;
   margin-top: 15px;
   color: ${themeConsts.textDarkGrey};
@@ -160,6 +161,72 @@ export const SingleProjectDiv = styled.div`
     top: 4px;
   }
 
+  svg {
+    font-size: 1.7em;
+  }
+`;
+
+export const AllSingleProjectDiv = styled.div`
+  color: ${themeConsts.textDarkGrey};
+  padding: 10px !important;
+
+  .project-header {
+    padding-bottom: 3px;
+    border-bottom: 1px solid #e6e6e6;
+    .project-title {
+      display: flex;
+      align-items: flex-end;
+      margin-bottom: 5px;
+      margin-bottom: 25px;
+      font-size: 1.4em;
+      font-weight: 500;
+      span {
+        padding-left: 5px;
+      }
+    }
+    .project-client-date {
+      display: flex;
+      justify-content: space-between;
+      .project-icon-client {
+        display: flex;
+        align-items: center;
+        .project-client {
+          color: ${themeConsts.secondaryBlue};
+          font-size: 1.2em;
+          font-weight: 700;
+        }
+      }
+      .project-date {
+        display: flex;
+        align-items: center;
+      }
+    }
+    svg {
+      padding-right: 5px;
+      font-size: 1.4em;
+    }
+  }
+  .project-tasks-progress {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 15px 0;
+    .project-tasks {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .label {
+        color: ${themeConsts.textLightGrey};
+        font-size: 1.2em;
+      }
+      .label-value {
+        padding-top:3px;
+        font-size: 1.6em;
+        font-weight: 500;
+      }
+    }
+  }
+  .project-progress {
+  }
   svg {
     font-size: 1.7em;
   }
