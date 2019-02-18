@@ -73,6 +73,78 @@ export const AllTasksDiv = styled.div`
   }
 `;
 
+export const AllProjectsDiv = styled.div`
+  width: 86%;
+  min-height: 100vh;
+  background-color: #f7f7f7;
+  overflow-y: scroll;
+  transition: all 0.5s ease;
+  margin-top: 45px;
+
+  .widgets-grid {
+    display: grid;
+    grid-template-columns: 25% 85%;
+    width: 92%;
+    margin: 40px auto 0 auto;
+
+    .grid-widget {
+      /*overflow:hidden;*/
+    }
+    .widget-title {
+      margin-top: 0;
+      margin-bottom: 0;
+      color: #4b4b4b;
+      font-weight: 600;
+    }
+
+    .tasks-title {
+      margin: 0;
+      padding: 20px 22px 15px 22px;
+      border-right: 1px solid #e6e6e6;
+      border-bottom: 1px solid #e6e6e6;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      svg {
+        color: ${themeConsts.secondaryBlue};
+        font-size: 2em;
+      }
+    }
+    .tasks-list {
+      border-right: 1px solid #e6e6e6;
+      padding: 0 15px 15px 15px;
+      overflow: scroll;
+      position:relative;
+    }
+    .tasks-options {
+      border-bottom: 1px solid #e6e6e6;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      svg {
+        color: ${themeConsts.secondaryBlue};
+        font-size: 2em;
+        padding: 0 15px;
+      }
+      .account-avatar {
+        display: flex;
+        justify-content: flex-end;
+        margin: 0;
+        padding: 10px 15px;
+      }
+      img {
+        border: 2px solid #0036ff;
+      }
+    }
+    .tasks-detail {
+      position:relative
+    }
+  }
+  .cards-container {
+    padding: 0;
+  }
+`;
+
 export const TaskDetailsDiv = styled.div`
   color: #797979;
   
