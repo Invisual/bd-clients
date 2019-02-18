@@ -42,11 +42,40 @@ router.post('/', checkToken, (req, res) => {
         function(error, results2, fields){
           if (error) throw error;
         })
+        console.log(req.body.deadline)
         res.send(results);
       });
     }
   });
 });
+
+
+router.put('/', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+    } else {
+      connection.query('UPDATE tasks SET title_task = ?, description_task = ?, deadline_date_task = ?, ref_id_client = ?, ref_id_billing_mode = ?, ref_id_project = ?, ref_id_type_task = ?, ref_id_user_account = ? WHERE id_task = ?',
+      [req.body.title, req.body.description, req.body.deadline, req.body.client, req.body.billing, req.body.project, req.body.type, req.body.account, req.body.id],
+      function(error, results, fields) {
+        if (error) throw error;
+        if(req.body.changeUser){
+          connection.query('DELETE FROM users_has_tasks WHERE ref_id_user = ? AND ref_id_task = ?', [req.body.oldUser, req.body.id],
+          function(error, results2, fields){
+            if (error) throw error;
+            connection.query('INSERT INTO users_has_tasks (ref_id_user, ref_id_task, ref_id_user_task_status ) VALUES (?,?,?)', [req.body.user, req.body.id, 1],
+            function(error, results3, fields){
+              if (error) throw error;
+            })
+          })
+        }
+        res.send(results);
+      });
+    }
+  });
+});
+
 
 router.put('/userTaskStatus', checkToken, (req, res) => {
   jwt.verify(req.token, SECRET_KEY, (err, results) => {
@@ -182,6 +211,9 @@ router.get('/basic/:task', checkToken, (req, res) => {
           if (error) throw error;
           if (results.length > 0) {
             res.send(results);
+          }
+          else{
+            res.send('notask');
           }
         }
       );

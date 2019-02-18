@@ -25,7 +25,10 @@ class CreateTaskContainer extends Component{
             usersData: [],
             projectsData: [],
             taskData: [],
-            redirect: false
+            redirect: false,
+            isLoading: true,
+            error: false,
+            errorMsg: ''
         }
     }
 
@@ -66,7 +69,7 @@ class CreateTaskContainer extends Component{
     }
 
     changeBillingInput = (e) => {
-        this.setState({ billingInput: e.target.value }, () => console.log(this.state.billingInput))
+        this.setState({ billingInput: e.target.value })
     }
 
 
@@ -129,18 +132,32 @@ class CreateTaskContainer extends Component{
         var AuthStr = 'Bearer ' + token;
         var id = this.props.match.params.id;
         axios.get(`/api/tasks/basic/${id}`, { headers: { Authorization: AuthStr } })
-        .then(res => this.setState({
-            taskData: res.data,
-            typeInput: res.data.ref_id_task_type,
-            titleInput:res.data.title_task,
-            clientInput:res.data.ref_id_client,
-            descInput:res.data.description_task,
-            projectInput:res.data.ref_id_project,
-            deadlineInput:res.data.deadline_date_task,
-            accountInput:res.data.ref_id_user_account,
-            personInput,
-            billingInput: res.data.ref_id_billing_mode
-        }))
+        .then(res => {
+            if(res.data === 'notask'){
+                Swal.fire({
+                    type: 'error',
+                    title: 'ID não existente',
+                    text: `A Tarefa que está a tentar editar não existe.`
+                  })
+                  .then(click => {
+                      this.setState({redirect: true})
+                  })
+            }
+            else{
+                this.setState({
+                    taskData: res.data[0],
+                    typeInput: res.data[0].ref_id_type_task,
+                    titleInput:res.data[0].title_task,
+                    clientInput:res.data[0].ref_id_client,
+                    descInput:res.data[0].description_task,
+                    projectInput:res.data[0].ref_id_project,
+                    deadlineInput:res.data[0].deadline_date_task,
+                    accountInput:res.data[0].ref_id_user_account,
+                    personInput: res.data[0].ref_id_user,
+                    billingInput: res.data[0].ref_id_billing_mode
+                })
+            }
+        })
     }
 
     insertTask = (e) => {
@@ -178,15 +195,54 @@ class CreateTaskContainer extends Component{
         })
     }
 
+
+    editTask = (e) => {
+        e.preventDefault();
+        var data = {
+            id: this.props.match.params.id,
+            title: this.state.titleInput,
+            description: this.state.descInput,
+            deadline: this.state.deadlineInput,
+            client: this.state.clientInput,
+            billing: this.state.billingInput,
+            project: this.state.projectInput,
+            type: this.state.typeInput,
+            account: this.state.accountInput,
+            user: this.state.personInput,
+            oldUser: this.state.taskData.ref_id_user,
+            changeUser: Number(this.state.taskData.ref_id_user) === Number(this.state.personInput) ? false : true
+        }
+
+        if(this.state.typeInput === '1'){ data.account = null; data.billing = null; }
+        else if(this.state.typeInput === '2' || this.state.typeInput === '4'){ data.project = null;}
+        else if(this.state.typeInput === '3'){ data.project = null; data.user = null;}
+        
+        var token = JSON.parse(localStorage.getItem('token'));
+        var AuthStr = 'Bearer ' + token;
+        axios.put('/api/tasks/', data, { headers: { Authorization: AuthStr } })
+        .then(res => {
+            if(res.data.affectedRows){
+                Swal.fire({
+                    type: 'success',
+                    title: 'Tarefa Editada',
+                    text: `A Tarefa '${data.title}' foi editada com sucesso!`
+                  })
+                  .then(click => {
+                      this.setState({redirect: true})
+                  })
+            }
+        })
+    }
+
     
     componentDidMount(){
+        if(this.props.type === 'edit'){ this.getTaskData();}
         this.getTypesData();
         this.getClientsData();
         this.getAccountsData();
         this.getBillingData();
         this.getProjectsData();
         this.getUsersData();
-        if(this.props.type === 'edit'){ this.getTaskData() }
     }
 
     render(){
@@ -205,7 +261,14 @@ class CreateTaskContainer extends Component{
                 deadlineInput={this.state.deadlineInput}
                 clientInput={this.state.clientInput}
                 typeInput={this.state.typeInput}
+                titleInput={this.state.titleInput}
+                descInput={this.state.descInput}
+                projectInput={this.state.projectInput}
+                accountInput={this.state.accountInput}
+                personInput={this.state.personInput}
+                billingInput={this.state.billingInput}
                 insertTask={this.insertTask}
+                editTask={this.editTask}
                 typesData={this.state.typesData}
                 clientsData={this.state.clientsData}
                 accountsData={this.state.accountsData}
@@ -214,7 +277,10 @@ class CreateTaskContainer extends Component{
                 usersData={this.state.usersData}
                 taskData={this.state.taskData}
                 redirect={this.state.redirect}
+                isLoading={this.state.isLoading}
                 type={this.props.type}
+                error={this.state.error}
+                errorMsg={this.state.errorMsg}
                 />;
     }
 }
