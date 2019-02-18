@@ -1,22 +1,22 @@
 import React from 'react';
 import { AllProjectsDiv } from '../../styles/tasklist';
 import MyProjectsContainer from '../../containers/tables/MyProjectsContainer';
-import TaskDetailContainer from '../../containers/details/TaskDetailContainer';
-import TaskOptionsContainer from '../../containers/options/TaskOptionsContainer';
+import ProjectDetailContainer from '../../containers/details/ProjectDetailContainer';
+import ProjectOptionsContainer from '../../containers/options/ProjectOptionsContainer';
 import { FiFolderPlus } from 'react-icons/fi';
 
 export const AllProjects = props => {
   return (
     <AllProjectsDiv className="dashboard-container">
-      <div className="widgets-grid widget cards-container nofixed-height">
+      <div className="widgets-grid widget cards-container nofixed-height no-shadow">
         <div className="grid-widget tasks-title">
           <h4 className="widget-title">Projetos</h4>
           {props.userRole === 3 || props.userRole === 2 ? <FiFolderPlus /> : null}
         </div>
-        <TaskOptionsContainer
+          <ProjectOptionsContainer
           userRole={props.userRole}
-          activeTask={props.activeTask}
-          taskContent={props.taskContent}
+          activeProject={props.activeProject}
+          projectContent={props.projectContent}
           isLoading={props.isLoading}
           deleteActiveTask={props.deleteActiveTask}
           duplicateActiveTask={props.duplicateActiveTask}
@@ -27,18 +27,18 @@ export const AllProjects = props => {
             <MyProjectsContainer
               title="Tarefas"
               type="allprojects"
-              changeActiveTask={props.changeActiveTask}
-              activeTask={props.activeTask}
+              changeActiveProject={props.changeActiveProject}
+              activeProject={props.activeProject}
               copyAlert={props.copyAlert}
             />
           </div>
         </div>
         <div className="grid-widget tasks-detail">
-          <TaskDetailContainer
-            activeTask={props.activeTask}
-            taskContent={props.taskContent}
-            changeCommentVal={props.changeCommentVal}
-            submitComment={props.submitComment}
+          <ProjectDetailContainer
+            activeProject={props.activeProject}
+            projectContent={props.projectContent}
+            changeActiveTab={props.changeActiveTab}
+            activeTab={props.activeTab}
             isLoading={props.isLoading}
           />
         </div>

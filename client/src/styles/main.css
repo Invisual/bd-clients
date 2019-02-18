@@ -78,6 +78,38 @@ body.collapsed-sidebar .sidebar-container li span{
 .single-card-task.active{
     background-color:#f5f7fd;
 }
+.active{
+    background-color:#f5f7fd;
+}
+
+.project-task-tab-title {
+    text-align: center;
+}
+.single-card-todo{
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    background-color: #fff;
+    margin-top: 15px;
+    border-radius:10px;
+    box-shadow: 1px 1px 10px #d2d2d2;
+    text-align: left;
+    font-size: 1.2em;
+
+}
+
+.todo {
+    border:1px solid #F50057
+}
+.doing {
+    border:1px solid #1DE9B6
+}
+
+.done {
+    border:1px solid #651FFF
+}
+
+
 
 ::-webkit-scrollbar {
     width: 0.8em;
@@ -167,6 +199,9 @@ body.collapsed-sidebar .sidebar-container li span{
 
 .nodisplay{
     display: none;
+}
+.no-shadow {
+    box-shadow: none;
 }
 
 .btn{

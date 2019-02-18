@@ -14,7 +14,8 @@ class AllTasksContainer extends Component {
       activeTask: '',
       taskContent: [],
       commentVal: '',
-      isLoading: true
+      isLoading: true,
+      redirect: false
     };
   }
 
@@ -34,7 +35,19 @@ class AllTasksContainer extends Component {
         axios
           .get(`/api/tasks/link/${params.id}`, { headers: { Authorization: AuthStr } })
           .then(res => {
-            this.setState({ activeTask: res.data.details[0].id_task });
+            if(res.data === 'nodata'){
+              Swal.fire({
+                type: 'error',
+                title: 'Nova Tarefa Inserida',
+                text: `A Tarefa foi inserida com sucesso!`
+              })
+              .then(click => {
+                  this.setState({redirect: true})
+              })
+            }
+            else{
+              this.setState({ activeTask: res.data.details[0].id_task });
+            }
           })
           .then(res => {
             axios
@@ -150,6 +163,7 @@ class AllTasksContainer extends Component {
         submitComment={this.submitComment}
         isShare={this.props.isShare}
         copyAlert={this.copyAlert}
+        redirect={this.state.redirect}
       />
     );
   }

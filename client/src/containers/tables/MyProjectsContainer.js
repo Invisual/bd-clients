@@ -31,7 +31,16 @@ class MyProjectsContainer extends Component {
   }
 
   render() {
-    return <MyProjects projects={this.state.projects} title={this.props.title} isLoading={this.state.isLoading} type={this.props.type}/>;
+    return (
+      <MyProjects
+        projects={this.state.projects}
+        title={this.props.title}
+        isLoading={this.state.isLoading}
+        type={this.props.type}
+        changeActiveProject={this.props.changeActiveProject}
+        activeProject={this.props.activeProject}
+      />
+    );
   }
 }
 

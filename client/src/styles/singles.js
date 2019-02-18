@@ -169,6 +169,7 @@ export const SingleProjectDiv = styled.div`
 export const AllSingleProjectDiv = styled.div`
   color: ${themeConsts.textDarkGrey};
   padding: 10px !important;
+  cursor: pointer;
 
   .project-header {
     padding-bottom: 3px;

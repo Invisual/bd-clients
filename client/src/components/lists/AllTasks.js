@@ -4,8 +4,12 @@ import MyTasksContainer from '../../containers/tables/MyTasksContainer';
 import TaskDetailContainer from '../../containers/details/TaskDetailContainer';
 import TaskOptionsContainer from '../../containers/options/TaskOptionsContainer';
 import { FiFilePlus } from 'react-icons/fi';
+import {Redirect} from 'react-router-dom';
 
 export const AllTasks = props => {
+  if(props.redirect){
+    return <Redirect  to='/' />
+  }
   return (
     <AllTasksDiv className="dashboard-container">
       <div className="widgets-grid widget cards-container nofixed-height">

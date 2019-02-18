@@ -65,8 +65,11 @@ export const MyProjects = props => {
                     stateVal={project.concluded_project}
                     client={project.name_client}
                     total_tasks={project.total_tasks}
+                    doing={project.doing}
                     concluded_tasks={project.concluded_tasks}
                     percentage_tasks={project.percentage_tasks}
+                    changeActiveProject={props.changeActiveProject}
+                    activeProject={props.activeProject}
                     type={props.type}
                   />
                 );

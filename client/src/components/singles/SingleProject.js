@@ -21,12 +21,13 @@ class SingleProject extends Component {
 
     switch (this.props.type) {
       case 'allprojects':
+      let active = this.props.id === this.props.activeProject ? ' active' : '';
         content = (
-          <AllSingleProjectDiv className="single-card">
+          <AllSingleProjectDiv className={`single-card${active}`} onClick={() => this.props.changeActiveProject(this.props.id)}>
             <div className="project-header">
               <div className="project-title">
                 {projectStatus}
-                <span>{this.props.title} </span>
+                <span className="title-click">{this.props.title} </span>
               </div>
               <div className="project-client-date">
                 <div className="project-icon-client"><FiUser/><span className="project-client"> {this.props.client}</span></div>
