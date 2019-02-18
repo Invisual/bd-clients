@@ -20,6 +20,7 @@ class CreateProjectContainer extends Component{
             clientsData: [],
             accountsData: [],
             categoriesData: [],
+            projectData: [],
             redirect: false
         }
     }
@@ -96,6 +97,37 @@ class CreateProjectContainer extends Component{
         })
     }
 
+    getProjectData = () => {
+        var token = JSON.parse(localStorage.getItem('token'));
+        var AuthStr = 'Bearer ' + token;
+        var id = this.props.match.params.id;
+        axios.get(`/api/projects/basic/${id}`, { headers: { Authorization: AuthStr } })
+        .then(res => {
+            if(res.data === 'noproject'){
+                Swal.fire({
+                    type: 'error',
+                    title: 'ID não existente',
+                    text: `O Projecto que está a tentar editar não existe.`
+                  })
+                  .then(click => {
+                      this.setState({redirect: true})
+                  })
+            }
+            else{
+                this.setState({
+                    projectData: res.data[0],
+                    titleInput: res.data[0].title_project,
+                    briefingInput:res.data[0].briefing_project,
+                    deadlineInput:res.data[0].deadline_project,
+                    billingInput:res.data[0].ref_id_billing_mode,
+                    clientInput:res.data[0].ref_id_client,
+                    accountInput:res.data[0].ref_id_user_account,
+                    categoriesArr:res.data[0].categories ? res.data[0].categories.split(',') : []
+                })
+            }
+        })
+    }
+
     insertProject = (e) => {
         e.preventDefault();
         var token = JSON.parse(localStorage.getItem('token'));
@@ -124,7 +156,38 @@ class CreateProjectContainer extends Component{
         })
     }
 
+    editProject = (e) => {
+        e.preventDefault();
+        var data = {
+            id: this.props.match.params.id,
+            title: this.state.titleInput,
+            briefing: this.state.briefingInput,
+            deadline: this.state.deadlineInput,
+            client: this.state.clientInput,
+            billing: this.state.billingInput,
+            account: this.state.accountInput,
+            categories: this.state.categoriesArr
+        }
+        
+        var token = JSON.parse(localStorage.getItem('token'));
+        var AuthStr = 'Bearer ' + token;
+        axios.put('/api/projects/', data, { headers: { Authorization: AuthStr } })
+        .then(res => {
+            if(res.data.affectedRows){
+                Swal.fire({
+                    type: 'success',
+                    title: 'Tarefa Editada',
+                    text: `A Tarefa '${data.title}' foi editada com sucesso!`
+                  })
+                  .then(click => {
+                      this.setState({redirect: true})
+                  })
+            }
+        })
+    }
+
     componentDidMount(){
+        if(this.props.type === 'edit'){ this.getProjectData();}
         this.getBillingData();
         this.getClientsData();
         this.getAccountsData();
@@ -141,12 +204,20 @@ class CreateProjectContainer extends Component{
                 changeClientInput={this.changeClientInput}
                 changeAccountInput={this.changeAccountInput}
                 changeCategoriesArr={this.changeCategoriesArr}
+                titleInput={this.state.titleInput}
+                briefingInput={this.state.briefingInput}
+                deadlineInput={this.state.deadlineInput}
+                billingInput={this.state.billingInput}
+                clientInput={this.state.clientInput}
+                accountInput={this.state.accountInput}
+                categoriesArr={this.state.categoriesArr}
                 billingData={this.state.billingData}
                 clientsData={this.state.clientsData}
                 accountsData={this.state.accountsData}
                 categoriesData={this.state.categoriesData}
                 insertProject={this.insertProject}
-                deadlineInput={this.state.deadlineInput}
+                editProject={this.editProject}
+                type={this.props.type}
                 redirect={this.state.redirect}
                 />;
     }

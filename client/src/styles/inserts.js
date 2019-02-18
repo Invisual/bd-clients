@@ -78,6 +78,8 @@ export const InsertFormDiv = styled.div`
                 input{
                     font-size:1.2em;
                     text-indent:0;
+                    width:14px !important;
+                    text-align: center;
                 }
 
                 span{
@@ -99,9 +101,9 @@ export const InsertFormDiv = styled.div`
 
             textarea{
                 height: 195px;
-                padding-top: 18px;
-                padding-left: 0;
-                padding-right: 0;
+                padding: 18px;
+                box-sizing: border-box;
+                text-indent: 0;
                 resize: none;
             }
 
