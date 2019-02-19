@@ -164,6 +164,8 @@ class AllTasksContainer extends Component {
         isShare={this.props.isShare}
         copyAlert={this.copyAlert}
         redirect={this.state.redirect}
+        activeHours={this.props.activeHours}
+        getActiveHours={this.props.getActiveHours}
       />
     );
   }

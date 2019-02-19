@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import App from './App';
+import TitleTimer from './components/misc/TitleTimer'
+const axios = require('axios');
 
 class AppContainer extends Component {
   constructor(props){
@@ -7,7 +9,9 @@ class AppContainer extends Component {
     this.state = {
       loggedIn: false,
       userInfo: {},
-      token: ''
+      token: '',
+      activeHours:'',
+      latestActiveHour: ''
     }
   }
 
@@ -63,12 +67,33 @@ class AppContainer extends Component {
     }
   }
 
-  componentDidMount() {
-    this.hydrateStateWithLocalStorage();
+  getActiveHours = () => {
+    var token = JSON.parse(localStorage.getItem('token'));
+    var AuthStr = 'Bearer ' + token;
+    var user = JSON.parse(localStorage.getItem('user'));
+
+    axios.get(`/api/hours/active/${user.id_user}`, { headers: { Authorization: AuthStr } }).then(res => {
+      if (res.data === 'nohours') {
+        this.setState({ activeHours: null, latestActiveHour: null});
+      } else {
+        this.setState({ activeHours: res.data, latestActiveHour: res.data[0].beginning_hour});
+      }
+    });
   }
 
+  componentDidMount() {
+    this.hydrateStateWithLocalStorage();
+    this.getActiveHours();
+  }
+
+
   render() {
-    return <App loggedIn={this.state.loggedIn} login={this.login} logout={this.logout} userInfo={this.state.userInfo} />
+    return (
+            <>
+              <TitleTimer latestActiveHour={this.state.latestActiveHour}/>
+              <App loggedIn={this.state.loggedIn} login={this.login} logout={this.logout} userInfo={this.state.userInfo} activeHours={this.state.activeHours} getActiveHours={this.getActiveHours}/>
+            </>
+            )
   }
 }
 

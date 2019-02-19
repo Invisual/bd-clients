@@ -16,17 +16,30 @@ export const MyTasks = props => {
             <div>
               <h4 className="widget-title">{props.title}</h4>
               {props.tasks.slice(0, 4).map(task => {
+                var hourState = 0;
+                var hourId = '';
+                if(props.activeHours !== null && props.activeHours !== undefined){
+                  for(var i=0, count=props.activeHours.length; i<count; i++){
+                    if(task.id_task == props.activeHours[i].id_task){
+                      hourState = 1;
+                      hourId = props.activeHours[i].id_task_hour;
+                    }
+                  }
+                }
                 return (
                   <SingleTask
                     key={task.id_task}
                     id={task.id_task}
                     title={task.title_task}
                     state={task.state}
-                    hourState={1}
+                    hourState={hourState}
+                    hourId={hourId}
                     projectState={task.ref_id_project}
                     stateVal={task.ref_id_user_task_status}
                     stateTitle={task.name_user_task_status}
                     changeTaskStatus={props.changeTaskStatus}
+                    startCountingHours={props.startCountingHours}
+                    stopCountingHours={props.stopCountingHours}
                   />
                 );
               })}
@@ -52,13 +65,24 @@ export const MyTasks = props => {
           <div className="mytasks-container widget">
             {props.tasks ? (
               props.tasks.map(task => {
+                var hourState = 0;
+                var hourId = '';
+                if(props.activeHours !== undefined && props.activeHours !== null){
+                  for(var i=0, count=props.activeHours.length; i<count; i++){
+                    if(task.id_task == props.activeHours[i].id_task){
+                      hourState = 1;
+                      hourId = props.activeHours[i].id_task_hour;
+                    }
+                  }
+                }
                 return (
                   <SingleTask
                     key={task.id_task}
                     id={task.id_task}
                     title={task.title_task}
                     state={task.state}
-                    hourState={1}
+                    hourState={hourState}
+                    hourId={hourId}
                     projectState={task.ref_id_project}
                     stateVal={task.ref_id_user_task_status}
                     stateTitle={task.name_user_task_status}
@@ -67,6 +91,8 @@ export const MyTasks = props => {
                     activeTask={props.activeTask}
                     copyAlert={props.copyAlert}
                     type={'alltasks'}
+                    startCountingHours={props.startCountingHours}
+                    stopCountingHours={props.stopCountingHours}
                   />
                 );
               })

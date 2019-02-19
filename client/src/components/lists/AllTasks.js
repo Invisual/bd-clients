@@ -34,6 +34,8 @@ export const AllTasks = props => {
               changeActiveTask={props.changeActiveTask}
               activeTask={props.activeTask}
               copyAlert={props.copyAlert}
+              activeHours={props.activeHours}
+              getActiveHours={props.getActiveHours}
             />
           </div>
         </div>

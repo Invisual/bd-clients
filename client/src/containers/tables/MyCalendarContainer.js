@@ -153,7 +153,6 @@ class MyCalendarContainer extends Component {
   }
 
   componentDidMount(){
-    console.log(moment.locale())
     this.changeMonthPlacement();
     this.replaceButtonTextWithArrows();
     this.replaceDaysWithCapitalLetter();

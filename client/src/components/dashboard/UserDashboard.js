@@ -10,7 +10,7 @@ export const UserDashboard = (props) => {
       <DashboardContainer className="dashboard-container">
         <div className="widgets-grid">
           <div className="grid-widget mt15">
-            <MyTasksContainer title="Tarefas" type="dashboard"/>
+            <MyTasksContainer title="Tarefas" type="dashboard" activeHours={props.activeHours} getActiveHours={props.getActiveHours}/>
           </div>
           <div className="grid-widget mt15">
             <MyCalendarContainer title="Calendário"/>
