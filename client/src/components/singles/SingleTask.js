@@ -48,7 +48,7 @@ class SingleTask extends Component {
             </CopyToClipboard>
           </div>
           <div className="task-watch">
-            <FiClock className={this.props.hourState === 1 ? 'active-clock' : 'inactive-clock'} />
+            <FiClock onClick={this.props.hourState === 1 ? () => this.props.stopCountingHours(this.props.hourId, this.props.title) : () => this.props.startCountingHours(this.props.id, this.props.title)} className={this.props.hourState === 1 ? 'active-clock' : 'inactive-clock'} />
           </div>
           <div className="task-state" onClick={() => this.props.changeTaskStatus(this.props.id, this.props.stateVal)}>
             {this.props.stateTitle}
@@ -61,7 +61,7 @@ class SingleTask extends Component {
           <div className="task-title">{this.props.title}</div>
           <div className="task-watch">{projectFolder}</div>
           <div className="task-watch">
-            <FiClock className={this.props.hourState === 1 ? 'active-clock' : 'inactive-clock'} />
+            <FiClock onClick={this.props.hourState === 1 ? () => this.props.stopCountingHours(this.props.hourId, this.props.title) : () => this.props.startCountingHours(this.props.id, this.props.title)} className={this.props.hourState === 1 ? 'active-clock' : 'inactive-clock'} />
           </div>
           <div className="task-state" onClick={() => this.props.changeTaskStatus(this.props.id, this.props.stateVal)}>
             {this.props.stateTitle}

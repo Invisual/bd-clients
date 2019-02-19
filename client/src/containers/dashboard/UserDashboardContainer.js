@@ -3,8 +3,9 @@ import {UserDashboard} from '../../components/dashboard/UserDashboard';
 
 
 class UserDashboardContainer extends Component {
-  render() {
-    return <UserDashboard />
+  render() 
+  {
+    return <UserDashboard activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours}/>
   }
 }
 

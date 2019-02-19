@@ -12,6 +12,7 @@ const goalRoutes = require('./routes/api/goals');
 const meetingRoutes = require('./routes/api/meetings');
 const todoRoutes = require('./routes/api/todos');
 const miscRoutes = require('./routes/api/misc');
+const hoursRoutes = require('./routes/api/hours');
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.use('/api/goals', goalRoutes);
 app.use('/api/meetings', meetingRoutes);
 app.use('/api/todos', todoRoutes);
 app.use('/api/misc', miscRoutes);
+app.use('/api/hours', hoursRoutes);
 
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static(path.join(__dirname, 'client', 'build')));
