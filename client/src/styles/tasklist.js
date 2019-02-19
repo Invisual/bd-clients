@@ -462,7 +462,7 @@ export const ProjectDetailsDiv = styled.div`
             border-radius: 50%;
             width: 20px;
             height: 20px;
-            border: 2px solid ${themeConsts.primaryBlue};
+            border: 2px solid ${themeConsts.bordersGrey};
             margin-right: 10px;
           }
     }

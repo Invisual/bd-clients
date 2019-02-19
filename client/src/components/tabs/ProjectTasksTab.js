@@ -1,9 +1,4 @@
 import React from 'react';
-import { Line } from 'rc-progress';
-import { FiAlertTriangle } from 'react-icons/fi';
-import moment from 'moment';
-import 'moment/locale/pt';
-import 'moment-duration-format';
 
 class ProjectTasksTab extends React.Component {
   render() {

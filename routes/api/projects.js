@@ -163,11 +163,11 @@ router.get('/details/:project', checkToken, (req, res) => {
         }
       );
       connection.query(
-        'SELECT id_task_comment, text_comments, date_comment, name_user from task_comments INNER JOIN users ON task_comments.ref_id_user=users.id_user WHERE ref_id_task= ?',
-        2,
+        'SELECT id_project_comment, text_comment, date_comment, name_user from project_comments INNER JOIN users ON project_comments.ref_id_user=users.id_user WHERE ref_id_project= ?',
+        project,
         function(error, results, fields) {
           if (error) throw error;
-          if (totalResults.details[0].id_task !== null) {
+          if (totalResults.details[0].project !== null) {
             totalResults.comments = results
           } else {
             res.send('nodata');
