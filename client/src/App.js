@@ -10,6 +10,7 @@ import AllProjectsContainer from './containers/lists/AllProjectsContainer';
 import MyToDoContainer from './containers/tables/MyToDoContainer';
 import CreateProjectContainer from './containers/inserts/CreateProjectContainer';
 import CreateTaskContainer from './containers/inserts/CreateTaskContainer';
+import CreateMeetingContainer from './containers/inserts/CreateMeetingContainer';
 import './styles/main.css';
 import { BrowserRouter, Route } from 'react-router-dom';
 import moment from 'moment'
@@ -35,6 +36,8 @@ class App extends Component {
             <Route path="/createproject/:id" render={props => <CreateProjectContainer {...props} type="edit" title="Editar Projeto"/>} />
             <Route exact path="/createtask" render={props => <CreateTaskContainer {...props} type="add" title="Nova Tarefa"/>} />
             <Route path="/createtask/:id" render={props => <CreateTaskContainer {...props} type="edit" title="Editar Tarefa"/>} />
+            <Route exact path="/createmeeting" render={props => <CreateMeetingContainer {...props} type="add" title="Nova Reunião"/>} />
+            <Route path="/createmeeting/:id" render={props => <CreateMeetingContainer {...props} type="edit" title="Editar Reunião"/>} />
           </div>
         ) : (
           <div className="app-container">

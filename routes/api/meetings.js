@@ -27,6 +27,32 @@ router.get('/', checkToken, (req, res) => {
   });
 });
 
+
+router.get('/basic/:id', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+    } else {
+      connection.query(
+        "SELECT *, GROUP_CONCAT(DISTINCT CONCAT(meetings_has_users.ref_id_user) SEPARATOR ',') as intervenientes from meetings INNER JOIN meetings_has_users ON meetings.id_meeting=meetings_has_users.ref_id_meeting WHERE id_meeting=? GROUP BY id_meeting",
+        req.params.id,
+        function(error, results, fields) {
+          if (error) throw error;
+          if (results.length > 0) {
+            res.send(results);
+          }
+          else{
+            res.send('nomeeting');
+          }
+        }
+      );
+    }
+  });
+});
+
+
+
 router.get('/:user', checkToken, (req, res) => {
   var id = req.params.user;
   jwt.verify(req.token, SECRET_KEY, (err, results) => {
@@ -47,5 +73,58 @@ router.get('/:user', checkToken, (req, res) => {
     }
   });
 });
+
+
+
+router.post('/', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+    } else {
+      connection.query('INSERT INTO meetings (title_meeting, place_meeting, date_meeting, ref_id_clients, start_hour_meeting, end_hour_meeting, type_meeting) VALUES (?,?,?,?,?,?,?)',
+      [req.body.topic, req.body.place, req.body.date, req.body.client, req.body.startHour, req.body.endHour, req.body.placeType],
+      function(error, results, fields) {
+        if (error) throw error;
+        for(var i=0, count=req.body.users.length; i<count; i++){
+          connection.query('INSERT INTO meetings_has_users (ref_id_meeting, ref_id_user) VALUES (?,?)', [results.insertId, req.body.users[i]],
+          function(error, results2, fields){
+            if (error) throw error;
+          })
+        }
+        res.send(results);
+      });
+    }
+  });
+});
+
+
+
+router.put('/', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+    } else {
+      connection.query('UPDATE meetings SET title_meeting = ?, place_meeting = ?, date_meeting = ?, ref_id_clients = ?, start_hour_meeting = ?, end_hour_meeting = ?, type_meeting = ? WHERE id_meeting = ?',
+      [req.body.topic, req.body.place, req.body.date, req.body.client, req.body.startHour, req.body.endHour, req.body.placeType, req.body.id],
+      function(error, results, fields) {
+        if (error) throw error;
+        connection.query('DELETE FROM meetings_has_users WHERE ref_id_meeting = ?', req.body.id,
+        function(error, results2, fields){
+          if (error) throw error;
+          for(var i=0, count=req.body.users.length; i<count; i++){
+            connection.query('INSERT INTO meetings_has_users (ref_id_meeting, ref_id_user) VALUES (?,?)', [req.body.id, req.body.users[i]],
+            function(error, results2, fields){
+              if (error) throw error;
+            })
+          }
+        })
+        res.send(results);
+      });
+    }
+  });
+});
+
 
 module.exports = router;
