@@ -2,6 +2,7 @@ import React from 'react';
 import { ProjectDetailsDiv } from '../../styles/tasklist';
 import ProjectReviewTab from '../../components/tabs/ProjectReviewTab';
 import ProjectTasksTab from '../../components/tabs/ProjectTasksTab';
+import ProjectCommentsTab from '../../components/tabs/ProjectCommentsTab';
 import moment from 'moment';
 import 'moment/locale/pt';
 import 'moment-duration-format';
@@ -46,7 +47,7 @@ export const ProjectDetail = props => {
                   case 'projecttasks':
                     return <ProjectTasksTab projectContent={props.projectContent}/>;
                   case 'projectcomments':
-                    return <div>project comments</div>;
+                    return <ProjectCommentsTab projectContent={props.projectContent}/>;
                   default:
                     return null;
                 }
