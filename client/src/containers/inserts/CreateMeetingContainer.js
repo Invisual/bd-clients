@@ -128,7 +128,7 @@ class CreateMeetingContainer extends Component{
             users: this.state.usersArr
         }
 
-        if(this.state.placeTypeInput === '1'){ data.place = null;}
+        if(Number(this.state.placeTypeInput) === 1){ data.place = 'Invisual';}
         
         var token = JSON.parse(localStorage.getItem('token'));
         var AuthStr = 'Bearer ' + token;
@@ -141,7 +141,7 @@ class CreateMeetingContainer extends Component{
                     text: `A Reunião foi inserida com sucesso!`
                   })
                   .then(click => {
-                      this.setState({redirect: true})
+                    this.setState({redirect: true})
                   })
             }
         })
@@ -162,7 +162,7 @@ class CreateMeetingContainer extends Component{
             users: this.state.usersArr
         }
 
-        if(this.state.placeTypeInput === '1'){ data.place = null;}
+        if(Number(this.state.placeTypeInput) === 1){ data.place = 'Invisual';}
         
         var token = JSON.parse(localStorage.getItem('token'));
         var AuthStr = 'Bearer ' + token;

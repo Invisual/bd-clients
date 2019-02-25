@@ -3,6 +3,8 @@ export const themeConsts = {
     secondaryBlue: '#7f9aff',
     activeBlue: '#4e71f4',
     lightBlue: '#00e5ff',
+    thirdBlue: '#00B1FF',
+    orange: '#F7AB00',
     green: '#1de9b6',
     purple: '#651fff',
     pink: '#f50057',

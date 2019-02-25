@@ -17,7 +17,7 @@ router.get('/', checkToken, (req, res) => {
       //If error send Forbidden (403)
       res.sendStatus(403);
     } else {
-      connection.query('Select * from meetings', function(error, results, fields) {
+      connection.query('SELECT id_meeting, title_meeting, place_meeting, date_meeting, ref_id_clients, start_hour_meeting, end_hour_meeting, type_meeting, name_client, GROUP_CONCAT(DISTINCT CONCAT(users.id_user,",",users.name_user,",",users.avatar_user) SEPARATOR ";") as intervenientes from meetings INNER JOIN meetings_has_users ON meetings_has_users.ref_id_meeting=meetings.id_meeting LEFT JOIN users on meetings_has_users.ref_id_user = users.id_user  LEFT JOIN clients ON meetings.ref_id_clients = clients.id_client WHERE CURDATE() <= date_meeting  GROUP BY id_meeting', function(error, results, fields) {
         if (error) throw error;
         if (results.length > 0) {
           res.send(results);
@@ -54,15 +54,14 @@ router.get('/basic/:id', checkToken, (req, res) => {
 
 
 router.get('/:user', checkToken, (req, res) => {
-  var id = req.params.user;
   jwt.verify(req.token, SECRET_KEY, (err, results) => {
     if (err) {
       //If error send Forbidden (403)
       res.sendStatus(403);
     } else {
       connection.query(
-        'SELECT * from meetings INNER JOIN meetings_has_users ON meetings_has_users.ref_id_meeting=meetings.id_meeting WHERE ref_id_user=?',
-        id,
+        'SELECT id_meeting, title_meeting, place_meeting, date_meeting, ref_id_clients, start_hour_meeting, end_hour_meeting, type_meeting, name_client, GROUP_CONCAT(DISTINCT CONCAT(users.id_user,",",users.name_user,",",users.avatar_user) SEPARATOR ";") as intervenientes from meetings INNER JOIN meetings_has_users ON meetings_has_users.ref_id_meeting=meetings.id_meeting LEFT JOIN users on meetings_has_users.ref_id_user = users.id_user  LEFT JOIN clients ON meetings.ref_id_clients = clients.id_client WHERE CURDATE() <= date_meeting  GROUP BY id_meeting HAVING FIND_IN_SET(?, intervenientes)',
+        req.params.user,
         function(error, results, fields) {
           if (error) throw error;
           if (results.length > 0) {

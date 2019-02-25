@@ -206,14 +206,23 @@ class MyCalendarContainer extends Component {
             var dayClass = '';
             dayClass += hasMeetingsOnThisDay ? 'has-meeting' : '';
             dayClass += hasOutMeetingsOnThisDay  ? ' has-out-meeting' : '';
-            return (
-              <div className={dayClass} onClick={()=>meetingsOnThisDay.length > 0 ? Swal.fire({
-                title: `Reuniões no dia ${moment(date).format('D')} de ${moment(date).format('MMMM')}`,
-                html: `${mapMeetingsOnThisDay}`
-              }) : null}>
-              <p>{label}</p>
-              </div>
-            );
+            if(this.props.type === 'allmeetings'){
+              return (
+                <div className={dayClass} onClick={() => this.props.changeActiveDay(moment(date).format('Y-MM-DD'))}>
+                <p>{label}</p>
+                </div>
+              );
+            }
+            else{
+              return (
+                <div className={dayClass} onClick={()=>meetingsOnThisDay.length > 0 ? Swal.fire({
+                  title: `Reuniões no dia ${moment(date).format('D')} de ${moment(date).format('MMMM')}`,
+                  html: `${mapMeetingsOnThisDay}`
+                }) : null}>
+                <p>{label}</p>
+                </div>
+              );
+            }
           }
         }
     }
