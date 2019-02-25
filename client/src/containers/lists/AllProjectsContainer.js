@@ -117,6 +117,31 @@ class AllProjectsContainer extends Component {
     window.alert('Edit task ' + taskId + '?');
   };
 
+  changeCommentVal = event => {
+    if (event.keyCode === 13 && event.shiftKey === false) {
+      event.preventDefault();
+      this.submitComment();
+    } else {
+      this.setState({ commentVal: event.target.value });
+    }
+  };
+
+  submitComment = () => {
+    var token = JSON.parse(localStorage.getItem('token'));
+    var AuthStr = 'Bearer ' + token;
+    var idUser = JSON.parse(localStorage.getItem('user'));
+    const data = {
+      text_comment: this.state.commentVal,
+      id_user: idUser.id_user
+    };
+
+    axios.post(`/api/projects/comments/${this.state.activeProject}`, data, { headers: { Authorization: AuthStr } }).then(res => {
+      document.getElementById('comment-textarea').value = '';
+      this.setState({ commentVal: '' });
+      this.getProjectDetails();
+    });
+  };
+
   componentDidMount() {
     this.getProjectDetails();
   }
@@ -139,6 +164,8 @@ class AllProjectsContainer extends Component {
         deleteActiveTask={this.deleteActiveTask}
         duplicateActiveTask={this.duplicateActiveTask}
         editActiveTask={this.editActiveTask}
+        changeCommentVal={this.changeCommentVal}
+        submitComment={this.submitComment}
         isShare={this.props.isShare}
         copyAlert={this.copyAlert}
         changeActiveTab={this.changeActiveTab}

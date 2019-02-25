@@ -1,6 +1,6 @@
 import React from 'react';
 
-class ProjectTasksTab extends React.Component {
+class ClientTasksTab extends React.Component {
   render() {
     return (
       <>
@@ -8,7 +8,8 @@ class ProjectTasksTab extends React.Component {
           <div className="project-task-tab-title">
             <span>Por iniciar</span>
             <div className="scrum-list">
-            {this.props.projectContent.tasks
+            {this.props.clientContent.tasks.filter(status => {return status.ref_id_user_task_status === 1;}).length ?
+              this.props.clientContent.tasks
               .filter(status => {
                 return status.ref_id_user_task_status === 1;
               })
@@ -19,12 +20,13 @@ class ProjectTasksTab extends React.Component {
                     <img src={task.avatar_user} alt={task.name_user} />
                   </div>
                 );
-              })}</div>
+              }) : <div>Sem tarefas por iniciar.</div>}</div>
           </div>
           <div className="project-task-tab-title">
             <span>Em curso</span>
             <div className="scrum-list">
-            {this.props.projectContent.tasks
+            {this.props.clientContent.tasks.filter(status => {return status.ref_id_user_task_status === 2 || status.ref_id_user_task_status===3}).length ?
+              this.props.clientContent.tasks
               .filter(status => {
                 return status.ref_id_user_task_status === 2 || status.ref_id_user_task_status===3
      
@@ -36,12 +38,13 @@ class ProjectTasksTab extends React.Component {
                     <img src={task.avatar_user} alt={task.name_user} />
                   </div>
                 );
-              })}</div>
+              }): <div>Sem tarefas em curso.</div>}</div>
           </div>
           <div className="project-task-tab-title">
             <span>Concluídas</span>
             <div className="scrum-list">
-            {this.props.projectContent.tasks
+            {this.props.clientContent.tasks.filter(status => {return status.ref_id_user_task_status === 4}).length ?
+              this.props.clientContent.tasks
               .filter(status => {
                 return status.ref_id_user_task_status === 4;
               })
@@ -52,7 +55,7 @@ class ProjectTasksTab extends React.Component {
                     <img src={task.avatar_user} alt={task.name_user} />
                   </div>
                 );
-              })}</div>
+              }): <div>Sem tarefas concluídas.</div>}</div>
           </div>
         </div>
       </>
@@ -60,4 +63,4 @@ class ProjectTasksTab extends React.Component {
   }
 }
 
-export default ProjectTasksTab;
+export default ClientTasksTab;

@@ -20,7 +20,7 @@ export const MyTasks = props => {
                 var hourId = '';
                 if(props.activeHours !== null && props.activeHours !== undefined){
                   for(var i=0, count=props.activeHours.length; i<count; i++){
-                    if(task.id_task == props.activeHours[i].id_task){
+                    if(task.id_task === props.activeHours[i].id_task){
                       hourState = 1;
                       hourId = props.activeHours[i].id_task_hour;
                     }
@@ -69,7 +69,7 @@ export const MyTasks = props => {
                 var hourId = '';
                 if(props.activeHours !== undefined && props.activeHours !== null){
                   for(var i=0, count=props.activeHours.length; i<count; i++){
-                    if(task.id_task == props.activeHours[i].id_task){
+                    if(task.id_task === props.activeHours[i].id_task){
                       hourState = 1;
                       hourId = props.activeHours[i].id_task_hour;
                     }

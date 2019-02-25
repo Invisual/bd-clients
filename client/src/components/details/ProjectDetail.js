@@ -1,12 +1,12 @@
 import React from 'react';
-import { ProjectDetailsDiv } from '../../styles/tasklist';
+import { ProjectDetailsDiv } from '../../styles/listings';
 import ProjectReviewTab from '../../components/tabs/ProjectReviewTab';
 import ProjectTasksTab from '../../components/tabs/ProjectTasksTab';
 import ProjectCommentsTab from '../../components/tabs/ProjectCommentsTab';
 import moment from 'moment';
 import 'moment/locale/pt';
 import 'moment-duration-format';
-import { FiClock, FiUser, FiFileText, FiMoreHorizontal } from 'react-icons/fi';
+import { FiClock, FiUser, FiMoreHorizontal, FiSend, FiFolderPlus } from 'react-icons/fi';
 
 export const ProjectDetail = props => {
   return (
@@ -20,7 +20,7 @@ export const ProjectDetail = props => {
           <div className="project-details-grid">
             <div className="grid-item">
               <div className="project-icon">
-                <FiFileText />
+                <FiFolderPlus />
               </div>
             </div>
 
@@ -35,9 +35,24 @@ export const ProjectDetail = props => {
                   </span>
                 </div>
                 <div className="project-infos">
-                  <div className={"project-tab " + (props.activeTab==='projectreview'? "active-tab" : "")}  onClick={() => props.changeActiveTab('projectreview')}>Project Review</div>
-                  <div className={"project-tab " + (props.activeTab==='projecttasks'? "active-tab" : "")} onClick={() => props.changeActiveTab('projecttasks')}>Tarefas</div>
-                  <div className={"project-tab " + (props.activeTab==='projectcomments'? "active-tab" : "")} onClick={() => props.changeActiveTab('projectcomments')}>Comentários</div>
+                  <div
+                    className={'project-tab ' + (props.activeTab === 'projectreview' ? 'active-tab' : '')}
+                    onClick={() => props.changeActiveTab('projectreview')}
+                  >
+                    Project Review
+                  </div>
+                  <div
+                    className={'project-tab ' + (props.activeTab === 'projecttasks' ? 'active-tab' : '')}
+                    onClick={() => props.changeActiveTab('projecttasks')}
+                  >
+                    Tarefas
+                  </div>
+                  <div
+                    className={'project-tab ' + (props.activeTab === 'projectcomments' ? 'active-tab' : '')}
+                    onClick={() => props.changeActiveTab('projectcomments')}
+                  >
+                    Comentários ({props.projectContent.details[0].total_comments})
+                  </div>
                 </div>
               </div>
               {(() => {
@@ -45,15 +60,31 @@ export const ProjectDetail = props => {
                   case 'projectreview':
                     return <ProjectReviewTab projectContent={props.projectContent} />;
                   case 'projecttasks':
-                    return <ProjectTasksTab projectContent={props.projectContent}/>;
+                    return <ProjectTasksTab projectContent={props.projectContent} />;
                   case 'projectcomments':
-                    return <ProjectCommentsTab projectContent={props.projectContent}/>;
+                    return <ProjectCommentsTab projectContent={props.projectContent} />;
                   default:
-                    return null;
+                    return <ProjectReviewTab projectContent={props.projectContent} />;
                 }
               })()}
             </div>
           </div>
+          {props.activeTab === 'projectcomments' ? (
+            <div className="project-add-comment">
+              <div />
+              <div className="comment-input">
+                <textarea
+                  placeholder="Escreve um comentário..."
+                  id="comment-textarea"
+                  onChange={props.changeCommentVal}
+                  onKeyDown={props.changeCommentVal}
+                />
+              </div>
+              <div className="comment-submit" onClick={props.submitComment}>
+                <FiSend />
+              </div>
+            </div>
+          ) : null}
         </ProjectDetailsDiv>
       ) : (
         <div>

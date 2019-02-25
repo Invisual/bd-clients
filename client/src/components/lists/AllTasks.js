@@ -1,8 +1,8 @@
 import React from 'react';
-import { AllTasksDiv } from '../../styles/tasklist';
+import { AllTasksDiv } from '../../styles/listings';
 import MyTasksContainer from '../../containers/tables/MyTasksContainer';
 import TaskDetailContainer from '../../containers/details/TaskDetailContainer';
-import TaskOptionsContainer from '../../containers/options/TaskOptionsContainer';
+import OptionsContainer from '../../containers/options/OptionsContainer';
 import { FiFilePlus } from 'react-icons/fi';
 import {Redirect} from 'react-router-dom';
 
@@ -17,8 +17,9 @@ export const AllTasks = props => {
           <h4 className="widget-title">Tarefas</h4>
           {props.userRole === 3 || props.userRole === 2 ? <FiFilePlus /> : null}
         </div>
-        <TaskOptionsContainer
+        <OptionsContainer
           userRole={props.userRole}
+          type={'taskoptions'}
           activeTask={props.activeTask}
           taskContent={props.taskContent}
           isLoading={props.isLoading}

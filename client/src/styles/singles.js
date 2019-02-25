@@ -166,6 +166,55 @@ export const SingleProjectDiv = styled.div`
   }
 `;
 
+export const ClientProjectDiv = styled.div`
+  display: grid;
+  grid-template-columns: 4% 60% 8% 8% 20%;
+  color: ${themeConsts.textDarkGrey};
+  
+  .project-status {
+    display:flex;
+    align-items:center;
+  }
+  .project-title {
+    display:flex;
+    align-items:center;
+
+    .title-divider {
+      padding-right: 5px;
+      border-right: 1px solid #afacd1;
+      font-size: 1.3em;
+    }
+    .project-participants {
+      padding-left: 7px;
+      img {
+        margin-right:3px;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        border: 2px solid ${themeConsts.bordersGrey};
+      }
+    }
+  }
+
+  .project-total-tasks,
+  .project-concluded-tasks {
+    display: flex;
+    font-size: 1.3em;
+    align-items: center;
+    font-size: 1.3em;
+  }
+  
+  .task-progress {
+    padding: 18px 0;
+    position: relative;
+    top: 0px;
+  }
+
+  svg {
+    font-size: 1.7em;
+  }
+`;
+
 export const AllSingleProjectDiv = styled.div`
   color: ${themeConsts.textDarkGrey};
   padding: 10px !important;
@@ -220,7 +269,7 @@ export const AllSingleProjectDiv = styled.div`
         font-size: 1.2em;
       }
       .label-value {
-        padding-top:3px;
+        padding-top: 3px;
         font-size: 1.6em;
         font-weight: 500;
       }
@@ -275,3 +324,166 @@ export const SingleTaskCommentDiv = styled.div`
     cursor: pointer;
   }
 `;
+
+export const SingleClientDiv = styled.div`
+  display: grid;
+  grid-template-columns: 45% 35% 20%;
+  color: ${themeConsts.textDarkGrey};
+  min-height: 50px;
+
+  .client-title {
+    display: flex;
+    align-items: center;
+    font-size: 1.4em;
+    font-weight: 500;
+  }
+
+  .hours-progress {
+    padding: 18px 0;
+    svg {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .client-hours {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: ${themeConsts.secondaryBlue};
+    font-size: 1em;
+  }
+
+  svg {
+    font-size: 1.7em;
+  }
+`;
+
+
+export const AllMeetingsDiv = styled.div`
+
+  .meeting-card-grid{
+    display: grid;
+    grid-template-columns: 93% 7%;
+  
+    .meeting-type-1{background-color:${themeConsts.orange}}
+    .meeting-type-2{background-color:${themeConsts.thirdBlue}}
+    .meeting-info-date{
+      display:inline-block;
+      color:${themeConsts.white};
+      border-radius:${themeConsts.borderRadius};
+      padding:4px 8px;
+      margin-top:15px;
+
+      .date{
+        margin-left: 5px;
+      }
+    }
+
+    h3{
+      font-weight: 500;
+      font-size: 1.4em;
+      color:${themeConsts.titlesDarkGrey};
+      margin: 10px 0 10px 3px;
+    }
+
+    .meeting-info-users{
+      margin-left: 3px;
+
+      img{
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        border: 2px solid ${themeConsts.primaryBlue};
+        margin-right: 5px;
+      }
+    }
+
+    .meeting-info-extra{
+      display:flex;
+      margin-top: 12px;
+      margin-bottom: 7px;
+
+
+      .meeting-extra-place{
+        margin-left:25px;
+      }
+      svg{
+        padding-right: 5px;
+        font-size: 1.5em;
+        color:${themeConsts.primaryBlue};
+      }
+      span{
+        font-weight:500;
+        color:${themeConsts.textDarkGrey};
+        position: relative;
+        bottom: 3px;
+      }
+    }
+
+    .meeting-card-actions{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      svg{
+        font-size:1.75em;
+        color:${themeConsts.secondaryBlue};
+        margin:9px 0;
+        cursor:pointer;
+      }
+    }
+  }
+
+  .meeting-card-small{
+
+    .meeting-info-date{
+      padding: 2px 6px;
+
+      .hours{
+        font-size:.85em;
+      }
+    }
+
+    h3{
+      font-size:1.1em;
+    }
+
+    .meeting-info-users img{
+      width: 17px;
+      height: 17px;
+    }
+
+    .meeting-info-extra{
+      svg{
+        font-size:1.3em;
+      }
+
+      span{
+        font-size: .85em;
+      }
+    }
+  }
+
+
+.small-height{
+    animation: incHeight .3s ease;
+    animation-fill-mode: forwards;
+}
+.full-height{
+    animation: redHeight .3s ease;
+    animation-fill-mode: forwards;
+}
+
+@keyframes incHeight{
+    0%{padding-bottom: 0;}
+    100%{padding-bottom: 60px;}
+}
+
+
+@keyframes redHeight{
+    0%{padding-bottom: 60px;}
+    100%{padding-bottom: 0;}
+}
+`

@@ -77,7 +77,7 @@ router.get('/:user', checkToken, (req, res) => {
       connection.query(
         //"SELECT *, group_concat(DISTINCT users_has_tasks.ref_id_user SEPARATOR ',') as 'intervenientes' from tasks INNER JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task INNER JOIN projects ON tasks.ref_id_project=projects.id_project group by projects.id_project HAVING  FIND_IN_SET( ? , intervenientes)",
 
-        "SELECT title_project, name_client, id_project, concluded_project, SUM(CASE WHEN tasks.id_task THEN 1 ELSE 0 END) AS total_tasks, SUM(case WHEN users_has_tasks.ref_id_user_task_status=2 THEN 1 ELSE 0 END) as doing, SUM(case WHEN tasks.concluded_task=1 THEN 1 ELSE 0 END) AS concluded_tasks, SUM(case WHEN tasks.concluded_task=1 THEN 1 ELSE 0 END)/count(*) *100 AS percentage_tasks, group_concat(DISTINCT users_has_tasks.ref_id_user SEPARATOR ',') as 'intervenientes' from tasks INNER JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task INNER JOIN projects ON tasks.ref_id_project=projects.id_project INNER JOIN clients ON clients.id_client=projects.ref_id_client group by projects.id_project HAVING FIND_IN_SET(?, intervenientes)",
+        "SELECT title_project, name_client, id_project, creation_date_project, concluded_project, SUM(CASE WHEN tasks.id_task THEN 1 ELSE 0 END) AS total_tasks, SUM(case WHEN users_has_tasks.ref_id_user_task_status=2 THEN 1 ELSE 0 END) as doing, SUM(case WHEN tasks.concluded_task=1 THEN 1 ELSE 0 END) AS concluded_tasks, SUM(case WHEN tasks.concluded_task=1 THEN 1 ELSE 0 END)/count(*) *100 AS percentage_tasks, group_concat(DISTINCT users_has_tasks.ref_id_user SEPARATOR ',') as 'intervenientes' from tasks INNER JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task INNER JOIN projects ON tasks.ref_id_project=projects.id_project INNER JOIN clients ON clients.id_client=projects.ref_id_client group by projects.id_project HAVING FIND_IN_SET(?, intervenientes)",
         id,
         function(error, results, fields) {
           if (error) throw error;
@@ -154,7 +154,7 @@ router.get('/details/:project', checkToken, (req, res) => {
       res.sendStatus(403);
     } else {
       connection.query(
-        "SELECT title_project, (SELECT avatar_user from users INNER join projects ON users.id_user=projects.ref_id_user_account WHERE projects.id_project=?) as avatar_user , creation_date_project, name_client, id_project, briefing_project, deadline_project, concluded_project,  COUNT( DISTINCT(tasks.id_task)) AS total_tasks, COUNT(DISTINCT (users_has_tasks.ref_id_user_task_status=2)) as doing, COUNT(DISTINCT(tasks.concluded_task=1)) AS concluded_tasks, SUM(case WHEN tasks.concluded_task=1 THEN 1 ELSE 0 END)/count(*) *100 AS percentage_tasks, group_concat(DISTINCT users_has_tasks.ref_id_user SEPARATOR ',') as 'user', GROUP_CONCAT(DISTINCT CONCAT(users.id_user,',',users.name_user,',',users.avatar_user) SEPARATOR ';') as intervenientes, group_concat(DISTINCT categories.name_category SEPARATOR ',') as categories FROM projects LEFT JOIN tasks ON projects.id_project=tasks.ref_id_project LEFT JOIN users_has_tasks ON tasks.id_task=users_has_tasks.ref_id_task LEFT JOIN projects_has_categories ON projects.id_project= projects_has_categories.ref_id_project LEFT JOIN categories ON projects_has_categories.ref_id_category = categories.id_category LEFT JOIN users ON users_has_tasks.ref_id_user= users.id_user LEFT JOIN clients ON projects.ref_id_client = clients.id_client WHERE projects.id_project=?", [project, project],
+        "SELECT title_project, (SELECT avatar_user from users INNER join projects ON users.id_user=projects.ref_id_user_account WHERE projects.id_project=?) as avatar_user , creation_date_project, name_client, id_project, briefing_project, deadline_project, concluded_project,  COUNT(DISTINCT(project_comments.id_project_comment)) AS total_comments, COUNT( DISTINCT(tasks.id_task)) AS total_tasks, COUNT(DISTINCT (users_has_tasks.ref_id_user_task_status=2)) as doing, COUNT(DISTINCT(tasks.concluded_task=1)) AS concluded_tasks, SUM(case WHEN tasks.concluded_task=1 THEN 1 ELSE 0 END)/count(*) *100 AS percentage_tasks, group_concat(DISTINCT users_has_tasks.ref_id_user SEPARATOR ',') as 'user', GROUP_CONCAT(DISTINCT CONCAT(users.id_user,',',users.name_user,',',users.avatar_user) SEPARATOR ';') as intervenientes, group_concat(DISTINCT categories.name_category SEPARATOR ',') as categories FROM projects LEFT JOIN tasks ON projects.id_project=tasks.ref_id_project LEFT JOIN users_has_tasks ON tasks.id_task=users_has_tasks.ref_id_task LEFT JOIN project_comments ON projects.id_project=project_comments.ref_id_project LEFT JOIN projects_has_categories ON projects.id_project= projects_has_categories.ref_id_project LEFT JOIN categories ON projects_has_categories.ref_id_category = categories.id_category LEFT JOIN users ON users_has_tasks.ref_id_user= users.id_user LEFT JOIN clients ON projects.ref_id_client = clients.id_client WHERE projects.id_project=?", [project, project],
         function(error, results, fields) {
           if (error) throw error;
           if (results.length > 0) {
@@ -187,6 +187,26 @@ router.get('/details/:project', checkToken, (req, res) => {
           }
         }
       );
+    }
+  });
+});
+
+router.post('/comments/:project', checkToken, (req, res) => {
+  var project = req.params.project;
+  var comment = {
+    text_comment: req.body.text_comment,
+    ref_id_user: req.body.id_user,
+    ref_id_project: project
+  };
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+    } else {
+      connection.query('INSERT INTO project_comments SET ?', comment, function(error, results, fields) {
+        if (error) throw error;
+        res.send(results);
+      });
     }
   });
 });

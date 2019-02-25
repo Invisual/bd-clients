@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { ProjectDetail } from '../../components/details/ProjectDetail';
 
 class ProjectDetailContainer extends Component {
-
-
   render() {
     return (
       <ProjectDetail
@@ -12,6 +10,8 @@ class ProjectDetailContainer extends Component {
         isLoading={this.props.isLoading}
         changeActiveTab={this.props.changeActiveTab}
         activeTab={this.props.activeTab}
+        changeCommentVal={this.props.changeCommentVal}
+        submitComment={this.props.submitComment}
       />
     );
   }

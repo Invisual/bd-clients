@@ -1,6 +1,6 @@
 import React from 'react';
 import SingleTaskComment from '../singles/SingleTaskComment';
-import { TaskDetailsDiv } from '../../styles/tasklist';
+import { TaskDetailsDiv } from '../../styles/listings';
 import moment from 'moment';
 import 'moment/locale/pt';
 import 'moment-duration-format';

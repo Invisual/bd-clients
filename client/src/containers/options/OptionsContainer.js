@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { ProjectOptions } from '../../components/options/ProjectOptions';
+import { Options } from '../../components/options/Options';
 
-class ProjectOptionsContainer extends Component {
+class OptionsContainer extends Component {
   render() {
     return (
-      <ProjectOptions
+      <Options
         userRole={this.props.userRole}
+        type={this.props.type}
         isLoading={this.props.isLoading}
+        taskContent={this.props.taskContent}
         projectContent={this.props.projectContent}
         deleteActiveTask={this.props.deleteActiveTask}
         duplicateActiveTask={this.props.duplicateActiveTask}
@@ -16,4 +18,4 @@ class ProjectOptionsContainer extends Component {
   }
 }
 
-export default ProjectOptionsContainer;
+export default OptionsContainer;

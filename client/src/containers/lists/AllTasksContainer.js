@@ -113,14 +113,8 @@ class AllTasksContainer extends Component {
     window.alert('Edit task ' + taskId + '?');
   };
 
-  changeCommentVal = event => {
-    if (event.keyCode === 13 && event.shiftKey === false) {
-      event.preventDefault();
-      this.submitComment();
-    } else {
-      this.setState({ commentVal: event.target.value });
-    }
-  };
+
+  
 
   submitComment = () => {
     var token = JSON.parse(localStorage.getItem('token'));

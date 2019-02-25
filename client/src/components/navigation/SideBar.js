@@ -37,8 +37,8 @@ class SideBar extends Component {
                 <NavLink exact={true} to="/" activeClassName='is-active'><li><FiHome/> <span>Dashboard</span></li></NavLink> 
                 <NavLink to="/projects" activeClassName='is-active'><li><FiFolder/> <span>Projetos</span></li></NavLink> 
                 <NavLink to="/tasks" activeClassName='is-active'><li><FiFileText/> <span>Tarefas</span></li></NavLink>
-                <NavLink to="/ds" activeClassName='is-active'><li><FiCalendar/> <span>Reuniões</span></li></NavLink>
-                <NavLink to="/ds" activeClassName='is-active'><li><FiUser/> <span>Clientes</span></li></NavLink>
+                <NavLink to="/clients" activeClassName='is-active'><li><FiUser/> <span>Clientes</span></li></NavLink>
+                <NavLink to="/meetings" activeClassName='is-active'><li><FiCalendar/> <span>Reuniões</span></li></NavLink>
                 <NavLink to="/ds" activeClassName='is-active'><li><FiBookmark/> <span>Objectivos</span></li></NavLink>
                 <NavLink to="/ds" activeClassName='is-active'><li><FiWatch/> <span>Histórico</span></li></NavLink>  
                 <li onClick={() => document.body.classList.add('todo-open')}><FiEdit/><span>To-Do List</span></li>

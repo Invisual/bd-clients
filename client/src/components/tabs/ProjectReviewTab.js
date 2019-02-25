@@ -29,12 +29,14 @@ class ProjectReviewTab extends React.Component {
             <div className="project-members">
               <div className="project-members-title">Membros</div>
               <div className="project-members-avatar">
-                {this.props.projectContent.details[0].intervenientes? this.props.projectContent.details[0].intervenientes
-                  .split(';')
-                  .map(e => e.split(','))
-                  .map(avatar => {
-                    return <img key={avatar[0]} src={avatar[2]} alt={avatar[1]} />;
-                  }): null}
+                {this.props.projectContent.details[0].intervenientes
+                  ? this.props.projectContent.details[0].intervenientes
+                      .split(';')
+                      .map(e => e.split(','))
+                      .map(avatar => {
+                        return <img key={avatar[0]} src={avatar[2]} alt={avatar[1]} />;
+                      })
+                  : null}
               </div>
             </div>
 

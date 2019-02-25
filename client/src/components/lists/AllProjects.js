@@ -1,8 +1,8 @@
 import React from 'react';
-import { AllProjectsDiv } from '../../styles/tasklist';
+import { AllProjectsDiv } from '../../styles/listings';
 import MyProjectsContainer from '../../containers/tables/MyProjectsContainer';
 import ProjectDetailContainer from '../../containers/details/ProjectDetailContainer';
-import ProjectOptionsContainer from '../../containers/options/ProjectOptionsContainer';
+import OptionsContainer from '../../containers/options/OptionsContainer';
 import { FiFolderPlus } from 'react-icons/fi';
 
 export const AllProjects = props => {
@@ -13,8 +13,9 @@ export const AllProjects = props => {
           <h4 className="widget-title">Projetos</h4>
           {props.userRole === 3 || props.userRole === 2 ? <FiFolderPlus /> : null}
         </div>
-          <ProjectOptionsContainer
+        <OptionsContainer
           userRole={props.userRole}
+          type={'projectoptions'}
           activeProject={props.activeProject}
           projectContent={props.projectContent}
           isLoading={props.isLoading}
@@ -40,6 +41,8 @@ export const AllProjects = props => {
             changeActiveTab={props.changeActiveTab}
             activeTab={props.activeTab}
             isLoading={props.isLoading}
+            changeCommentVal={props.changeCommentVal}
+            submitComment={props.submitComment}
           />
         </div>
       </div>

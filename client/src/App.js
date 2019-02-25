@@ -7,6 +7,8 @@ import LoginContainer from './containers/auth/LoginContainer';
 import ResetPasswordContainer from './containers/auth/ResetPasswordContainer';
 import AllTasksContainer from './containers/lists/AllTasksContainer';
 import AllProjectsContainer from './containers/lists/AllProjectsContainer';
+import AllMeetingsContainer from './containers/lists/AllMeetingsContainer';
+import AllClientsContainer from './containers/lists/AllClientsContainer';
 import MyToDoContainer from './containers/tables/MyToDoContainer';
 import CreateProjectContainer from './containers/inserts/CreateProjectContainer';
 import CreateTaskContainer from './containers/inserts/CreateTaskContainer';
@@ -31,6 +33,8 @@ class App extends Component {
             <Route exact path="/tasks" render={props => <AllTasksContainer isShare={false} userInfo={this.props.userInfo} {...props} activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours}/>} />
             <Route exact path="/tasks/:id" to="tasks" render={props => <AllTasksContainer isShare={true} userInfo={this.props.userInfo} {...props}  activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours}/>} />
             <Route exact path="/projects" render={props => <AllProjectsContainer isShare={false} userInfo={this.props.userInfo} {...props} />} />
+            <Route exact path="/meetings" render={props => <AllMeetingsContainer userInfo={this.props.userInfo} {...props} />} />
+            <Route exact path="/clients" render={props => <AllClientsContainer isShare={false} userInfo={this.props.userInfo} {...props} />} />
             <Route path="/admin" render={props => <AdminDashboardContainer {...props} />} />
             <Route exact path="/createproject" render={props => <CreateProjectContainer {...props} type="add" title="Novo Projeto"/>} />
             <Route path="/createproject/:id" render={props => <CreateProjectContainer {...props} type="edit" title="Editar Projeto"/>} />
