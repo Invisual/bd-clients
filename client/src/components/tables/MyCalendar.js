@@ -1,13 +1,14 @@
 import React from 'react';
 import BigCalendar from 'react-big-calendar'
-import 'react-big-calendar/lib/css/react-big-calendar.css' 
+import 'react-big-calendar/lib/css/react-big-calendar.css'
+import {CalendarDiv} from '../../styles/calendar';
 import moment from 'moment'
 
 export const MyCalendar = (props) => {
     const localizer = BigCalendar.momentLocalizer(moment)
     return (
-        <div className="mycalendar-container widget cards-container">
-          <h4 className="widget-title">{props.title}</h4>
+        <CalendarDiv className="mycalendar-container widget cards-container">
+          {props.title ? <h4 className="widget-title">{props.title}</h4> : null }
             <BigCalendar
                 localizer={localizer}
                 events={props.meetings}
@@ -19,7 +20,7 @@ export const MyCalendar = (props) => {
                 dayPropGetter={props.customDayPropGetter}
                 components={props.components}
             />
-        </div>
+        </CalendarDiv>
     )
 }
  

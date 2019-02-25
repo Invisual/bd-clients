@@ -40,7 +40,7 @@ export const CreateMeeting = props => {
                                         <select onChange={props.changeStartHourInput} defaultValue={props.type === 'edit' ? props.startHourInput : '0'}>
                                             <option value="0" disabled>Selecionar</option>
                                             {props.hoursInterval.map(hour => {
-                                                return <option value={hour}>{hour}</option>
+                                                return <option key={hour} value={hour}>{hour}</option>
                                             })}
                                         </select>
                                     </fieldset>
@@ -69,7 +69,7 @@ export const CreateMeeting = props => {
                                         <select onChange={props.changeEndHourInput} defaultValue={props.type === 'edit' ? props.endHourInput : '0'}>
                                             <option value="0" disabled>Selecionar</option>
                                             {props.hoursInterval.map(hour => {
-                                                return <option value={hour}>{hour}</option>
+                                                return <option key={hour} value={hour}>{hour}</option>
                                             })}
                                         </select>
                                     </fieldset>

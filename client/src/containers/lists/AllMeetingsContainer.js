@@ -1,0 +1,56 @@
+import React, { Component } from 'react';
+import { createBrowserHistory } from 'history';
+import { AllMeetings } from '../../components/lists/AllMeetings';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
+import moment from 'moment';
+
+const axios = require('axios');
+const history = createBrowserHistory();
+
+class AllMeetingsContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeDay: moment(new Date()).format('Y-MM-DD'),
+      meetings: [],
+      isLoading: true
+    };
+  }
+
+  changeActiveDay = day => {
+    this.setState({ activeDay: day });
+  };
+
+  getMeetings = () => {
+    var token = JSON.parse(localStorage.getItem('token'));
+    var AuthStr = 'Bearer ' + token;
+    var idUser = JSON.parse(localStorage.getItem('user'));
+
+    axios.get(`/api/meetings/${idUser.id_user}`, { headers: { Authorization: AuthStr } }).then(res => {
+      if (res.data === 'nomeeting') {
+        this.setState({ meetings: null, isLoading: false });
+      } else {
+        this.setState({ meetings: res.data, isLoading: false });
+      }
+    });
+  };
+
+  componentDidMount() {
+    this.getMeetings();
+  }
+
+  render() {
+    return (
+      <AllMeetings
+        userRole={this.props.userInfo.ref_id_role}
+        meetings={this.state.meetings}
+        isLoading={this.state.isLoading}
+        activeDay={this.state.activeDay}
+        changeActiveDay={this.changeActiveDay}
+      />
+    );
+  }
+}
+
+export default AllMeetingsContainer;
