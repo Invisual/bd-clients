@@ -5,90 +5,6 @@ import 'sweetalert2/src/sweetalert2.scss'
 import moment from 'moment'
 
 class MyCalendarContainer extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      meetings: [
-        {
-          title: 'teste evento',
-          start: '2019-02-02',
-          end: '2019-02-02',
-          allDay: true,
-          type:1,
-          resource: 2,
-          client: 'Invisual',
-          hour: '12:00',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-        },
-        {
-          title: 'teste evento',
-          start: '2019-02-06',
-          end: '2019-02-06',
-          allDay: true,
-          type:2,
-          resource: 3,
-          client: 'Invisual',
-          hour: '12:00',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-        },
-        {
-          title: 'teste evento',
-          start: '2019-02-06',
-          end: '2019-02-06',
-          allDay: true,
-          type:1,
-          resource: 3,
-          client: 'Invisual',
-          hour: '12:00',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-        },
-        {
-          title: 'Mais um Evento',
-          start: '2019-02-06',
-          end: '2019-02-06',
-          allDay: true,
-          type:1,
-          resource: 3,
-          client: 'Invisual',
-          hour: '12:00',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-        },
-        {
-          title: 'teste evento',
-          start: '2019-02-14',
-          end: '2019-02-14',
-          allDay: true,
-          type:2,
-          resource: 3,
-          client: 'Invisual',
-          hour: '12:00',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-        },
-        {
-          title: 'teste evento',
-          start: '2019-02-14',
-          end: '2019-02-14',
-          allDay: true,
-          type:1,
-          resource: 3,
-          client: 'Invisual',
-          hour: '12:00',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-        },
-        {
-          title: 'teste evento',
-          start: '2019-02-26',
-          end: '2019-02-26',
-          allDay: true,
-          type:1,
-          resource: 3,
-          client: 'Invisual',
-          hour: '12:00',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-        }
-      ]
-    }
-  }
 
   changeMonthPlacement = () => {
     var monthLabel = document.querySelector('.rbc-toolbar-label');
@@ -143,15 +59,15 @@ class MyCalendarContainer extends Component {
 
   customDayPropGetter = date => {
     const data = moment(date).format('YYYY-MM-DD');
-    for(var i=0, count=this.state.meetings.length; i<count; i++){
-      if(this.state.meetings[i].start === data){
+    for(var i=0, count=this.props.meetings.length; i<count; i++){
+      if(this.props.meetings[i].start === data){
         return{
           className: 'day-with-event'
         }
       }
     }
   }
-
+  
   componentDidMount(){
     this.changeMonthPlacement();
     this.replaceButtonTextWithArrows();
@@ -159,6 +75,9 @@ class MyCalendarContainer extends Component {
   }
 
   render() {
+
+    var meetings = this.props.meetings.length > 0 ? this.props.meetings : [{title: 'placeholder', start:'2019-02-02', end:'2019-02-02', allDay: true, type: 1, resource: 2, client:'Invisual', hour:'13:00', description: 'placeholder'}];
+
     let formats = {
       monthHeaderFormat: 'MMMM'
     }
@@ -167,7 +86,7 @@ class MyCalendarContainer extends Component {
         month: {
           dateHeader: ({ date, label }) => {
             let hasMeetingsOnThisDay =
-              this.state.meetings.find(meeting =>
+              this.props.meetings.find(meeting =>
                 moment(date).isBetween(
                   moment(meeting.start),
                   moment(meeting.end),
@@ -176,7 +95,7 @@ class MyCalendarContainer extends Component {
                 )
               ) !== undefined;
 
-            let hasOutMeetingsOnThisDay = this.state.meetings.find(meeting =>
+            let hasOutMeetingsOnThisDay = this.props.meetings.find(meeting =>
               moment(date).isBetween(
                 moment(meeting.start),
                 moment(meeting.end),
@@ -185,7 +104,7 @@ class MyCalendarContainer extends Component {
               ) && meeting.type === 2
             ) !== undefined;
 
-            let meetingsOnThisDay = this.state.meetings.filter(meeting => {
+            let meetingsOnThisDay = this.props.meetings.filter(meeting => {
               return moment(date).isBetween(
                 moment(meeting.start),
                 moment(meeting.end),
@@ -227,7 +146,7 @@ class MyCalendarContainer extends Component {
         }
     }
 
-    return <MyCalendar title={this.props.title} meetings={this.state.meetings} formats={formats} customDayPropGetter={this.customDayPropGetter} components={components}/>;
+    return <MyCalendar title={this.props.title} meetings={this.props.meetings} formats={formats} customDayPropGetter={this.customDayPropGetter} components={components}/>;
   }
 }
 

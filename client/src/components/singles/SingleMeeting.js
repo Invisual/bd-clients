@@ -12,7 +12,7 @@ class SingleMeeting extends Component {
     }
 
     toggleCard = (boolean) => {
-        this.setState({extended: boolean}, () => console.log(this.state.extended))
+        this.setState({extended: boolean})
     }
 
     render() {

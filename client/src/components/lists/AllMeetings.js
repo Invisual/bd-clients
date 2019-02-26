@@ -1,7 +1,7 @@
 import React from 'react';
 import { AllProjectsDiv } from '../../styles/listings';
 import MyMeetingsContainer from '../../containers/tables/MyMeetingsContainer';
-import ProjectOptionsContainer from '../../containers/options/ProjectOptionsContainer';
+import OptionsContainer from '../../containers/options/OptionsContainer';
 import MyCalendarContainer from '../../containers/tables/MyCalendarContainer';
 import MeetingsOnActiveDay from '../misc/MeetingsOnActiveDay';
 
@@ -12,7 +12,7 @@ export const AllMeetings = props => {
         <div className="grid-widget tasks-title">
           <h4 className="widget-title">Reuniões</h4>
         </div>
-          <ProjectOptionsContainer
+          <OptionsContainer
           userRole={props.userRole}
           activeProject={props.activeProject}
           projectContent={props.projectContent}
@@ -34,6 +34,7 @@ export const AllMeetings = props => {
           <MyCalendarContainer 
           type="allmeetings"
           changeActiveDay={props.changeActiveDay}
+          meetings={props.meetings}
           />
           <MeetingsOnActiveDay 
           activeDay={props.activeDay}

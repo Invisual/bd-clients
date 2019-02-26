@@ -13,7 +13,7 @@ export const UserDashboard = (props) => {
             <MyTasksContainer title="Tarefas" type="dashboard" activeHours={props.activeHours} getActiveHours={props.getActiveHours}/>
           </div>
           <div className="grid-widget mt15">
-            <MyCalendarContainer title="Calendário" type="dashboard"/>
+            <MyCalendarContainer title="Calendário" type="dashboard" meetings={props.meetings}/>
           </div>
           <div className="grid-widget mt15">
             <MyProjectsContainer title="Projetos" type="dashboard"/>
