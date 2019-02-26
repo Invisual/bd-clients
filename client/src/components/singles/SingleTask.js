@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { AllSingleTaskDiv, SingleTaskDiv } from '../../styles/singles';
 import { FiFolder, FiClock, FiLink2 } from 'react-icons/fi';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -41,17 +42,18 @@ class SingleTask extends Component {
           <div className="task-title title-click" onClick={() => this.props.changeActiveTask(this.props.id)}>
             {this.props.title}
           </div>
-          <div className="task-watch">{projectFolder}</div>
+          <div className="task-watch"><div className="tooltip-container"><Link to={`/projects/`+this.props.projectState}>{projectFolder}</Link><span className="tooltip">Ir para o Projeto</span></div></div>
           <div className="task-link">
+          <div className="tooltip-container">
             <CopyToClipboard text={window.location.href + '/' +this.props.id} onCopy={() => this.props.copyAlert()}>
               <FiLink2 />
-            </CopyToClipboard>
+            </CopyToClipboard><span className="tooltip">Copiar Link</span></div>
           </div>
           <div className="task-watch">
-            <FiClock onClick={this.props.hourState === 1 ? () => this.props.stopCountingHours(this.props.hourId, this.props.title) : () => this.props.startCountingHours(this.props.id, this.props.title)} className={this.props.hourState === 1 ? 'active-clock' : 'inactive-clock'} />
-          </div>
+          <div className="tooltip-container"><FiClock onClick={this.props.hourState === 1 ? () => this.props.stopCountingHours(this.props.hourId, this.props.title) : () => this.props.startCountingHours(this.props.id, this.props.title)} className={this.props.hourState === 1 ? 'active-clock' : 'inactive-clock'} />
+          <span className="tooltip">Iniciar contagem</span></div></div>
           <div className="task-state" onClick={() => this.props.changeTaskStatus(this.props.id, this.props.stateVal)}>
-            {this.props.stateTitle}
+          {this.props.stateTitle}
           </div>
         </AllSingleTaskDiv>
       );
@@ -59,10 +61,10 @@ class SingleTask extends Component {
       singleContent = (
         <SingleTaskDiv className="single-card-task" taskColor={taskColor}>
           <div className="task-title">{this.props.title}</div>
-          <div className="task-watch">{projectFolder}</div>
+          <div className="task-watch"><div className="tooltip-container"><Link to={`/projects/`+this.props.projectState}>{projectFolder}</Link><span className="tooltip">Ir para o Projeto</span></div></div>
           <div className="task-watch">
-            <FiClock onClick={this.props.hourState === 1 ? () => this.props.stopCountingHours(this.props.hourId, this.props.title) : () => this.props.startCountingHours(this.props.id, this.props.title)} className={this.props.hourState === 1 ? 'active-clock' : 'inactive-clock'} />
-          </div>
+          <div className="tooltip-container"><FiClock onClick={this.props.hourState === 1 ? () => this.props.stopCountingHours(this.props.hourId, this.props.title) : () => this.props.startCountingHours(this.props.id, this.props.title)} className={this.props.hourState === 1 ? 'active-clock' : 'inactive-clock'} />
+          <span className="tooltip">Iniciar contagem</span></div></div>
           <div className="task-state" onClick={() => this.props.changeTaskStatus(this.props.id, this.props.stateVal)}>
             {this.props.stateTitle}
           </div>

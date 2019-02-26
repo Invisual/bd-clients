@@ -9,6 +9,7 @@ class OptionsContainer extends Component {
         type={this.props.type}
         isLoading={this.props.isLoading}
         taskContent={this.props.taskContent}
+        clientContent={this.props.clientContent}
         projectContent={this.props.projectContent}
         deleteActiveTask={this.props.deleteActiveTask}
         duplicateActiveTask={this.props.duplicateActiveTask}

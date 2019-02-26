@@ -1,4 +1,7 @@
 import React from 'react';
+
+import { Link } from 'react-router-dom';
+
 import { AllProjectsDiv } from '../../styles/listings';
 import MyProjectsContainer from '../../containers/tables/MyProjectsContainer';
 import ProjectDetailContainer from '../../containers/details/ProjectDetailContainer';
@@ -11,7 +14,7 @@ export const AllProjects = props => {
       <div className="widgets-grid widget cards-container nofixed-height no-shadow">
         <div className="grid-widget tasks-title">
           <h4 className="widget-title">Projetos</h4>
-          {props.userRole === 3 || props.userRole === 2 ? <FiFolderPlus /> : null}
+          {props.userRole === 3 || props.userRole === 2 ?<div className="tooltip-container"> <Link to="/createproject"> <FiFolderPlus /> <span className="tooltip">Adicionar Projeto</span></Link> </div>: null}
         </div>
         <OptionsContainer
           userRole={props.userRole}

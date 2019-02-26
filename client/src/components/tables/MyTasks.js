@@ -9,7 +9,7 @@ export const MyTasks = props => {
       content = (
         <div className="mytasks-container widget cards-container">
           {props.isLoading ? (
-            <img src="img/loading.svg" alt="loading" className="loading-spinner" />
+            <img src="/img/loading.svg" alt="loading" className="loading-spinner" />
           ) : 
             props.tasks ?  
           (

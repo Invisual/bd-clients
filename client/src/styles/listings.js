@@ -961,6 +961,10 @@ export const ClientDetailsDiv = styled.div`
             margin-bottom: 10px;
           }
         }
+        .right {
+          border-left: 1px solid #e6e6e6;
+          padding-left: 15px;
+        }
       }
       .client-info-grid100 {
         display: grid;

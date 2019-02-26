@@ -54,7 +54,7 @@ export const MyProjects = props => {
       content = (
         <div className="mytasks-container widget">
           {props.isLoading ? (
-            <img src="img/loading.svg" alt="loading" className="loading-spinner" />
+            <img src="/img/loading.svg" alt="loading" className="loading-spinner" />
           ) : props.projects ? (
               props.projects.map(project => {
                 return (

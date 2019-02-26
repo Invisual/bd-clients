@@ -13,7 +13,7 @@ class ClientInfoTab extends React.Component {
               <div><b>Username: </b><span>{this.props.clientContent.details[0].cpanel_username_client ? this.props.clientContent.details[0].cpanel_username_client : noInfo}</span></div>
               <div><b>Password: </b><span>{this.props.clientContent.details[0].cpanel_password_client ? this.props.clientContent.details[0].cpanel_password_client : noInfo}</span></div>
             </div>
-            <div className="client-info">
+            <div className="client-info right">
               <h4 className="client-content-title">Wordpress</h4>
               <div><b>Link: </b><span>{this.props.clientContent.details[0].wordpress_link_client ? this.props.clientContent.details[0].wordpress_link_client : noInfo}</span></div>
               <div><b>Username: </b><span>{this.props.clientContent.details[0].wordpress_username_client ? this.props.clientContent.details[0].wordpress_username_client : noInfo}</span></div>
@@ -26,7 +26,7 @@ class ClientInfoTab extends React.Component {
               <div><b>Username: </b><span>{this.props.clientContent.details[0].dns_nichandle_client ? this.props.clientContent.details[0].dns_nichandle_client : noInfo}</span></div>
               <div><b>Password: </b><span>{this.props.clientContent.details[0].dns_password_client ? this.props.clientContent.details[0].dns_password_client : noInfo}</span></div>
             </div>
-            <div className="client-info">
+            <div className="client-info right">
             <h4 className="client-content-title">Outras Informações</h4>
               {this.props.clientContent.details[0].others_client ?
                 this.props.clientContent.details[0].others_client.split(',').map( (other, index)=> {

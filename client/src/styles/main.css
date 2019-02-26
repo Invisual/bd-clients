@@ -267,6 +267,32 @@ body.collapsed-sidebar .sidebar-container li span {
   background-color: #7f9aff;
 }
 
+.tooltip-container {
+  display: inline-flex;
+  position: relative;
+}
+.tooltip {
+  position: absolute;
+  width: max-content;
+  top:-25px;
+  left:50%;
+  transform: translateX(-50%);
+  padding: 3px 10px;
+  background-color:#ececec;
+  color:#707070;
+  border-radius: 5px;
+  text-align: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.tooltip-container:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+
 body .complete-todo {
   display: none;
   opacity: 0;

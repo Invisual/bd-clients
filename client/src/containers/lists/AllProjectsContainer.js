@@ -33,13 +33,13 @@ class AllProjectsContainer extends Component {
         history.replace({pathname:'/projects'}
         )
         axios
-          .get(`/api/tasks/link/${params.id}`, { headers: { Authorization: AuthStr } })
+          .get(`/api/projects/details/${params.id}`, { headers: { Authorization: AuthStr } })
           .then(res => {
-            this.setState({ activeProject: res.data.details[0].id_task });
+            this.setState({ activeProject: res.data.details[0].id_project });
           })
           .then(res => {
             axios
-              .get(`/api/tasks/link/${this.state.activeProject}`, { headers: { Authorization: AuthStr } })
+              .get(`/api/projects/details/${this.state.activeProject}`, { headers: { Authorization: AuthStr } })
               .then(res => {
                 if (res.data === 'nodata') {
                   this.setState({ projectContent: null, isLoading: false });

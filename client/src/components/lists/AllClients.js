@@ -11,7 +11,7 @@ export const AllClients = props => {
       <div className="widgets-grid widget cards-container nofixed-height no-shadow">
         <div className="grid-widget tasks-title">
           <h4 className="widget-title">Clientes</h4>
-          <FiSearch /> {props.userRole === 3 || props.userRole === 2 ? <FiUserPlus /> : null}
+          <FiSearch /> {props.userRole === 3 || props.userRole === 2 ? <div className="tooltip-container"><span className="tooltip">Adicionar Cliente</span><FiUserPlus /></div> : null}
         </div>
         <OptionsContainer
           userRole={props.userRole}

@@ -6,7 +6,7 @@ import ProjectCommentsTab from '../../components/tabs/ProjectCommentsTab';
 import moment from 'moment';
 import 'moment/locale/pt';
 import 'moment-duration-format';
-import { FiClock, FiUser, FiMoreHorizontal, FiSend, FiFolderPlus } from 'react-icons/fi';
+import { FiClock, FiUser, FiMoreHorizontal, FiSend, FiFolder } from 'react-icons/fi';
 
 export const ProjectDetail = props => {
   return (
@@ -20,7 +20,7 @@ export const ProjectDetail = props => {
           <div className="project-details-grid">
             <div className="grid-item">
               <div className="project-icon">
-                <FiFolderPlus />
+                <FiFolder />
               </div>
             </div>
 
