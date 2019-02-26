@@ -13,6 +13,7 @@ import MyToDoContainer from './containers/tables/MyToDoContainer';
 import CreateProjectContainer from './containers/inserts/CreateProjectContainer';
 import CreateTaskContainer from './containers/inserts/CreateTaskContainer';
 import CreateMeetingContainer from './containers/inserts/CreateMeetingContainer';
+import CreateClientContainer from './containers/inserts/CreateClientContainer';
 import './styles/main.css';
 import { BrowserRouter, Route } from 'react-router-dom';
 import moment from 'moment'
@@ -33,6 +34,7 @@ class App extends Component {
             <Route exact path="/tasks" render={props => <AllTasksContainer isShare={false} userInfo={this.props.userInfo} {...props} activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours}/>} />
             <Route exact path="/tasks/:id" to="tasks" render={props => <AllTasksContainer isShare={true} userInfo={this.props.userInfo} {...props}  activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours}/>} />
             <Route exact path="/projects" render={props => <AllProjectsContainer isShare={false} userInfo={this.props.userInfo} {...props} />} />
+            <Route exact path="/projects/:id" render={props => <AllProjectsContainer isShare={true} userInfo={this.props.userInfo} {...props} />} />
             <Route exact path="/meetings" render={props => <AllMeetingsContainer userInfo={this.props.userInfo} {...props} />} />
             <Route exact path="/clients" render={props => <AllClientsContainer isShare={false} userInfo={this.props.userInfo} {...props} />} />
             <Route path="/admin" render={props => <AdminDashboardContainer {...props} />} />
@@ -42,6 +44,8 @@ class App extends Component {
             <Route path="/createtask/:id" render={props => <CreateTaskContainer {...props} type="edit" title="Editar Tarefa"/>} />
             <Route exact path="/createmeeting" render={props => <CreateMeetingContainer {...props} type="add" title="Nova Reunião"/>} />
             <Route path="/createmeeting/:id" render={props => <CreateMeetingContainer {...props} type="edit" title="Editar Reunião"/>} />
+            <Route exact path="/createclient" render={props => <CreateClientContainer {...props} type="add" title="Novo Cliente"/>} />
+            <Route path="/createclient/:id" render={props => <CreateClientContainer {...props} type="edit" title="Editar Cliente"/>} />
           </div>
         ) : (
           <div className="app-container">

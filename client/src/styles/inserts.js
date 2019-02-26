@@ -54,7 +54,7 @@ export const InsertFormDiv = styled.div`
                 margin-bottom: 8px;
             }
 
-            input[type="text"], select, textarea, .react-date-picker, .categories-card{
+            input[type="text"], input[type="number"], select, textarea, .react-date-picker, .categories-card{
                 width:100%;
                 border:none;
                 box-shadow:${themeConsts.mainShadow};
@@ -62,7 +62,7 @@ export const InsertFormDiv = styled.div`
                 text-indent: 12px;
             }
 
-            input[type="text"], select, .react-date-picker{
+            input[type="text"], input[type="number"], select, .react-date-picker{
                 height:50px;
             }
 

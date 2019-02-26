@@ -36,7 +36,7 @@ router.get('/basic', checkToken, (req, res) => {
       //If error send Forbidden (403)
       res.sendStatus(403);
     } else {
-      connection.query('Select id_client, name_client from clients', function(error, results, fields) {
+      connection.query('Select id_client, name_client, monthly_hours_client from clients', function(error, results, fields) {
         if (error) throw error;
         if (results.length > 0) {
           res.send(results);
@@ -46,7 +46,31 @@ router.get('/basic', checkToken, (req, res) => {
   });
 });
 
+
+
+router.get('/basic/:client', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+    } else {
+      connection.query('Select id_client, name_client, monthly_hours_client from clients WHERE id_client = ?', req.params.client, function(error, results, fields) {
+        if (error) throw error;
+        if (results.length > 0) {
+          res.send(results);
+        }
+        else{
+          res.send('noclient')
+        }
+      });
+    }
+  });
+});
+
+
+
 router.get('/details/:client', checkToken, (req, res) => {
+
   var id = req.params.user;
   var client = req.params.client;
   var totalResults = {};
@@ -86,6 +110,41 @@ router.get('/details/:client', checkToken, (req, res) => {
           }
         }
       );
+    }
+  });
+});
+
+
+router.post('/', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+    } else {
+      connection.query('INSERT INTO clients (name_client, monthly_hours_client) VALUES (?,?)',
+      [req.body.clientName, req.body.clientHours],
+      function(error, results, fields) {
+        if (error) throw error;
+        res.send(results);
+      });
+    }
+  });
+});
+
+
+
+router.put('/', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+    } else {
+      connection.query('UPDATE clients SET name_client = ?, monthly_hours_client = ? WHERE id_client = ?',
+      [req.body.clientName, req.body.clientHours, req.body.id],
+      function(error, results, fields) {
+        if (error) throw error;
+        res.send(results);
+      });
     }
   });
 });

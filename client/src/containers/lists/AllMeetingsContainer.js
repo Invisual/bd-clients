@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
-import { createBrowserHistory } from 'history';
 import { AllMeetings } from '../../components/lists/AllMeetings';
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-import 'sweetalert2/src/sweetalert2.scss'
 import moment from 'moment';
 
 const axios = require('axios');
-const history = createBrowserHistory();
 
 class AllMeetingsContainer extends Component {
   constructor(props) {
@@ -27,7 +23,7 @@ class AllMeetingsContainer extends Component {
     var AuthStr = 'Bearer ' + token;
     var idUser = JSON.parse(localStorage.getItem('user'));
 
-    axios.get(`/api/meetings/${idUser.id_user}`, { headers: { Authorization: AuthStr } }).then(res => {
+    axios.get(`/api/meetings/`, { headers: { Authorization: AuthStr } }).then(res => {
       if (res.data === 'nomeeting') {
         this.setState({ meetings: null, isLoading: false });
       } else {
