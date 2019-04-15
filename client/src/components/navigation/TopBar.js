@@ -5,8 +5,9 @@ import { FiSearch, FiMessageCircle, FiBell } from 'react-icons/fi';
 export const TopBar = props => {
   return (
     <TopBarDiv>
+      
       <ul className="main-nav">
-
+      {props.canGoBack ? <li className="topbar-notifications"> <FiSearch onClick={() => console.log('click')}/></li> : null}
         <li className="topbar-search">
           <input type="text" placeholder="Pesquisa" className={props.displaySearchInput} />
           <FiSearch onClick={props.toggleSearchInput}/>

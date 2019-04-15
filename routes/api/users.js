@@ -26,7 +26,6 @@ router.get('/', checkToken, (req, res) => {
                     if(err){throw err}
                     if(results.length>0){ res.send(results);}  
                 })
-                console.log('SUCCESSO: Conectado a Route Protegida');
             }
         })
 })
@@ -45,7 +44,6 @@ router.get('/accounts', checkToken, (req, res) => {
                 if(err){throw err}
                 if(results.length>0){ res.send(results);}  
             })
-            console.log('SUCCESSO: Conectado a Route Protegida');
         }
     })
 })

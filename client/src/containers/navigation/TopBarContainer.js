@@ -97,6 +97,7 @@ class TopBarContainer extends Component {
       messages={this.state.messages} 
       notifications={this.state.notifications}
       userInfo={this.props.userInfo}
+      canGoBack={this.props.canGoBack}
       />
     );
   }

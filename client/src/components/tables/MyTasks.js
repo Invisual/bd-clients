@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import SingleTask from '../singles/SingleTask';
 import { FiArrowRight } from 'react-icons/fi';
 
@@ -10,17 +11,15 @@ export const MyTasks = props => {
         <div className="mytasks-container widget cards-container">
           {props.isLoading ? (
             <img src="/img/loading.svg" alt="loading" className="loading-spinner" />
-          ) : 
-            props.tasks ?  
-          (
+          ) : props.tasks ? (
             <div>
               <h4 className="widget-title">{props.title}</h4>
               {props.tasks.slice(0, 4).map(task => {
                 var hourState = 0;
                 var hourId = '';
-                if(props.activeHours !== null && props.activeHours !== undefined){
-                  for(var i=0, count=props.activeHours.length; i<count; i++){
-                    if(task.id_task === props.activeHours[i].id_task){
+                if (props.activeHours !== null && props.activeHours !== undefined) {
+                  for (var i = 0, count = props.activeHours.length; i < count; i++) {
+                    if (task.id_task === props.activeHours[i].id_task) {
                       hourState = 1;
                       hourId = props.activeHours[i].id_task_hour;
                     }
@@ -43,17 +42,21 @@ export const MyTasks = props => {
                   />
                 );
               })}
-              <div className="see-all">
-                Ver todas{' '}
-                <span className="arrow">
-                  <FiArrowRight color="#0031e6" />
-                </span>
-              </div>
+              <Link to="/tasks">
+                <div className="see-all">
+                  Ver todas{' '}
+                  <span className="arrow">
+                    <FiArrowRight color="#0031e6" />
+                  </span>
+                </div>
+              </Link>
             </div>
-          ): <div>
+          ) : (
+            <div>
               <h4 className="widget-title">{props.title}</h4>
               <div className="empty-placeholder">Ainda não tem nenhuma tarefa atribuida.</div>
-             </div>}
+            </div>
+          )}
         </div>
       );
       break;
@@ -67,9 +70,9 @@ export const MyTasks = props => {
               props.tasks.map(task => {
                 var hourState = 0;
                 var hourId = '';
-                if(props.activeHours !== undefined && props.activeHours !== null){
-                  for(var i=0, count=props.activeHours.length; i<count; i++){
-                    if(task.id_task === props.activeHours[i].id_task){
+                if (props.activeHours !== undefined && props.activeHours !== null) {
+                  for (var i = 0, count = props.activeHours.length; i < count; i++) {
+                    if (task.id_task === props.activeHours[i].id_task) {
                       hourState = 1;
                       hourId = props.activeHours[i].id_task_hour;
                     }

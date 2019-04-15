@@ -58,9 +58,10 @@ class SingleTask extends Component {
         </AllSingleTaskDiv>
       );
     } else {
+      //dashboard
       singleContent = (
         <SingleTaskDiv className="single-card-task" taskColor={taskColor}>
-          <div className="task-title">{this.props.title}</div>
+          <Link to={`/tasks/`+this.props.id}><div className="task-title">{this.props.title}</div></Link>
           <div className="task-watch"><div className="tooltip-container"><Link to={`/projects/`+this.props.projectState}>{projectFolder}</Link><span className="tooltip">Ir para o Projeto</span></div></div>
           <div className="task-watch">
           <div className="tooltip-container"><FiClock onClick={this.props.hourState === 1 ? () => this.props.stopCountingHours(this.props.hourId, this.props.title) : () => this.props.startCountingHours(this.props.id, this.props.title)} className={this.props.hourState === 1 ? 'active-clock' : 'inactive-clock'} />

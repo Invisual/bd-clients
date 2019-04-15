@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { createBrowserHistory } from 'history'
 import App from './App';
 import TitleTimer from './components/misc/TitleTimer'
 const axios = require('axios');
+const history = createBrowserHistory();
 
 class AppContainer extends Component {
   constructor(props){
@@ -11,7 +13,8 @@ class AppContainer extends Component {
       userInfo: {},
       token: '',
       activeHours:'',
-      latestActiveHour: ''
+      latestActiveHour: '', 
+      canGoBack: false
     }
   }
 
@@ -81,9 +84,16 @@ class AppContainer extends Component {
     });
   }
 
+  canGoBack = () => {
+    if (history.location.pathname.indexOf('tasks/') !== -1 || history.location.pathname.indexOf('projects/') !== -1){
+      this.setState({ canGoBack:true }, console.log('asdasd'))
+    }
+  }
+
   componentDidMount() {
     this.hydrateStateWithLocalStorage();
-    this.getActiveHours();
+    if (localStorage.hasOwnProperty('user')) {this.getActiveHours();}
+    this.canGoBack();
   }
 
 
@@ -91,7 +101,7 @@ class AppContainer extends Component {
     return (
             <>
               <TitleTimer latestActiveHour={this.state.latestActiveHour}/>
-              <App loggedIn={this.state.loggedIn} login={this.login} logout={this.logout} userInfo={this.state.userInfo} activeHours={this.state.activeHours} getActiveHours={this.getActiveHours}/>
+              <App canGoBack={this.state.canGoBack} loggedIn={this.state.loggedIn} login={this.login} logout={this.logout} userInfo={this.state.userInfo} activeHours={this.state.activeHours} getActiveHours={this.getActiveHours}/>
             </>
             )
   }

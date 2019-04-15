@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { SingleProjectDiv, AllSingleProjectDiv, ClientProjectDiv} from '../../styles/singles';
 import { Line } from 'rc-progress';
 import { FiCircle, FiClock, FiUser } from 'react-icons/fi';
+import { Link } from 'react-router-dom'
 import moment from 'moment';
 import 'moment/locale/pt';
 
@@ -29,7 +30,7 @@ class SingleProject extends Component {
             <div className="project-header">
               <div className="project-title">
                 {projectStatus}
-                <span className="title-click">{this.props.title} </span>
+                <span className="title-click">{this.props.title}</span>
               </div>
               <div className="project-client-date">
                 <div className="project-icon-client">
@@ -102,7 +103,7 @@ class SingleProject extends Component {
           <SingleProjectDiv className="single-card">
             <div className="project-status">{projectStatus}</div>
             <div className="project-title">
-              <span className="title-divider">{this.props.title} </span>{' '}
+              <span className="title-divider"><Link to={`/projects/`+this.props.id}>{this.props.title}</Link> </span>{' '}
               <span className="project-client">{this.props.client}</span>
             </div>
             <div className="project-total-tasks">{this.props.total_tasks}</div>

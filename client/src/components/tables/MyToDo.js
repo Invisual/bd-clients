@@ -12,8 +12,9 @@ export const MyToDo = props => {
           {props.isLoading ? (
             <img src="img/loading.svg" alt="loading" className="loading-spinner" />
           ) : props.todos ? (
-            <div>
+            <>
               <h4 className="widget-title">{props.title}</h4>
+              <div className="mytodo-container">
               <div className="todo-scroll-container">
                 {props.todos.slice(0, 10).map(todo => {
                   return (
@@ -33,7 +34,8 @@ export const MyToDo = props => {
                   <FiArrowRight color="#0031e6" />
                 </span>
               </div>
-            </div>
+              </div>
+              </>
           ) : (
             <div>
               <h4 className="widget-title">{props.title}</h4>

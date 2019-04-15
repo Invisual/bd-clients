@@ -330,6 +330,7 @@ export const SingleClientDiv = styled.div`
   grid-template-columns: 45% 35% 20%;
   color: ${themeConsts.textDarkGrey};
   min-height: 50px;
+  cursor: pointer;
 
   .client-title {
     display: flex;

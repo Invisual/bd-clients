@@ -36,12 +36,9 @@ export const Options = props => {
                     /><span className="tooltip">Editar Tarefa</span></Link>
                     </div>
                    <div className="tooltip-container">
-                    <FiFolder
+                    <Link to={`/projects/`+props.taskContent.details[0].ref_id_project}><FiFolder
                       className="task-info-icon"
-                      onClick={() => {
-                        console.log('ir ao projecto ' + props.taskContent.details[0].id_task);
-                      }}
-                    /><span className="tooltip">Ir para Projeto</span>
+                    /><span className="tooltip">Ir para Projeto</span></Link>
                     </div>
                   </div>
                 ) : null}
@@ -73,16 +70,7 @@ export const Options = props => {
                     <FiTrash2
                       className="task-info-icon"
                       onClick={() => {
-                        props.deleteActiveTask(props.projectContent.details[0].id_project);
-                      }}
-                    />
-                    </div>
-                    <div className="tooltip-container">
-                    <span className="tooltip">Duplicar Projeto</span>
-                    <FiCopy
-                      className="task-info-icon"
-                      onClick={() => {
-                        props.duplicateActiveTask(props.projectContent.details[0].id_project);
+                        props.deleteActiveProject(props.projectContent.details[0].id_project);
                       }}
                     />
                     </div>

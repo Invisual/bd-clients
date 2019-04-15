@@ -67,6 +67,21 @@ router.post('/', checkToken, (req, res) => {
   });
 })
 
+router.delete('/:id', checkToken, (req, res) => {
+  id = req.params.id;
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+    } else {
+      connection.query('DELETE FROM projects WHERE id_project=?', id, function(error, results, fields) {
+        if (error) throw error;
+        res.send('deleted');
+      });
+    }
+  });
+});
+
 router.get('/:user', checkToken, (req, res) => {
   var id = req.params.user;
   jwt.verify(req.token, SECRET_KEY, (err, results) => {
@@ -77,7 +92,7 @@ router.get('/:user', checkToken, (req, res) => {
       connection.query(
         //"SELECT *, group_concat(DISTINCT users_has_tasks.ref_id_user SEPARATOR ',') as 'intervenientes' from tasks INNER JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task INNER JOIN projects ON tasks.ref_id_project=projects.id_project group by projects.id_project HAVING  FIND_IN_SET( ? , intervenientes)",
 
-        "SELECT title_project, name_client, id_project, creation_date_project, concluded_project, SUM(CASE WHEN tasks.id_task THEN 1 ELSE 0 END) AS total_tasks, SUM(case WHEN users_has_tasks.ref_id_user_task_status=2 THEN 1 ELSE 0 END) as doing, SUM(case WHEN tasks.concluded_task=1 THEN 1 ELSE 0 END) AS concluded_tasks, SUM(case WHEN tasks.concluded_task=1 THEN 1 ELSE 0 END)/count(*) *100 AS percentage_tasks, group_concat(DISTINCT users_has_tasks.ref_id_user SEPARATOR ',') as 'intervenientes' from tasks INNER JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task INNER JOIN projects ON tasks.ref_id_project=projects.id_project INNER JOIN clients ON clients.id_client=projects.ref_id_client group by projects.id_project HAVING FIND_IN_SET(?, intervenientes)",
+        "SELECT title_project, id_client, name_client, id_project, creation_date_project, projects.ref_id_billing_mode, concluded_project, SUM(CASE WHEN tasks.id_task THEN 1 ELSE 0 END) AS total_tasks, SUM(case WHEN users_has_tasks.ref_id_user_task_status=2 THEN 1 ELSE 0 END) as doing, SUM(case WHEN tasks.concluded_task=1 THEN 1 ELSE 0 END) AS concluded_tasks, SUM(case WHEN tasks.concluded_task=1 THEN 1 ELSE 0 END)/count(*) *100 AS percentage_tasks, group_concat(DISTINCT users_has_tasks.ref_id_user SEPARATOR ',') as 'intervenientes' from tasks INNER JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task INNER JOIN projects ON tasks.ref_id_project=projects.id_project INNER JOIN clients ON clients.id_client=projects.ref_id_client group by projects.id_project HAVING FIND_IN_SET(?, intervenientes)",
         id,
         function(error, results, fields) {
           if (error) throw error;

@@ -41,6 +41,7 @@ export const AllTasksDiv = styled.div`
     .tasks-list {
       border-right: 1px solid #e6e6e6;
       padding: 0 15px 15px 15px;
+      max-height: 79vh;
       overflow-y: scroll;
       position: relative;
     }
@@ -53,6 +54,7 @@ export const AllTasksDiv = styled.div`
         color: ${themeConsts.secondaryBlue};
         font-size: 2em;
         padding: 0 15px;
+        cursor: pointer;
       }
       .account-avatar {
         display: flex;
@@ -126,6 +128,7 @@ export const AllProjectsDiv = styled.div`
         color: ${themeConsts.secondaryBlue};
         font-size: 2em;
         padding: 0 15px;
+        cursor: pointer;
       }
       .account-avatar {
         display: flex;
@@ -185,6 +188,10 @@ export const AllProjectsDiv = styled.div`
 
 export const TaskDetailsDiv = styled.div`
   color: #797979;
+  height:100%;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
   
   .task-details-grid{
     display:grid;
@@ -789,6 +796,7 @@ export const AllClientsDiv = styled.div`
         color: ${themeConsts.secondaryBlue};
         font-size: 2em;
         padding: 0 15px;
+        cursor: pointer;
       }
       .account-avatar {
         display: flex;

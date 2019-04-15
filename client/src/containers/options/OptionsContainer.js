@@ -12,8 +12,8 @@ class OptionsContainer extends Component {
         clientContent={this.props.clientContent}
         projectContent={this.props.projectContent}
         deleteActiveTask={this.props.deleteActiveTask}
+        deleteActiveProject={this.props.deleteActiveProject}
         duplicateActiveTask={this.props.duplicateActiveTask}
-        editActiveTask={this.props.editActiveTask}
       />
     );
   }

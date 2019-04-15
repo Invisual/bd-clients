@@ -11,8 +11,7 @@ class MyTasksContainer extends Component {
     super(props);
     this.state = {
       tasks: [],
-      counter: 0,
-      isLoading: true
+      isLoading: true,
     };
   }
 
@@ -122,6 +121,13 @@ class MyTasksContainer extends Component {
   componentDidMount() {
     this.getTasks();
   }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.reloadTasks !== this.props.reloadTasks) {
+      this.getTasks();
+    }
+  }
+
 
   render() {
     return (

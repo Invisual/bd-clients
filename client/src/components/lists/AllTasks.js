@@ -4,18 +4,28 @@ import MyTasksContainer from '../../containers/tables/MyTasksContainer';
 import TaskDetailContainer from '../../containers/details/TaskDetailContainer';
 import OptionsContainer from '../../containers/options/OptionsContainer';
 import { FiFilePlus } from 'react-icons/fi';
-import {Redirect, Link} from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 export const AllTasks = props => {
-  if(props.redirect){
-    return <Redirect  to='/' />
+  if (props.redirect) {
+    return <Redirect to="/" />;
   }
+
   return (
     <AllTasksDiv className="dashboard-container">
       <div className="widgets-grid widget cards-container nofixed-height">
         <div className="grid-widget tasks-title">
           <h4 className="widget-title">Tarefas</h4>
-          {props.userRole === 3 || props.userRole === 2 ? <div className="tooltip-container"><Link to="/createtask"><FiFilePlus /><span className="tooltip">Adicionar Tarefa</span></Link></div> : null}
+          {props.userRole === 3 || props.userRole === 2 ? (
+            <>
+            <div className="tooltip-container">
+              <Link to="/createtask">
+                <FiFilePlus />
+                <span className="tooltip">Adicionar Tarefa</span>
+              </Link>
+            </div>
+             </>
+          ) : null}
         </div>
         <OptionsContainer
           userRole={props.userRole}
@@ -25,13 +35,13 @@ export const AllTasks = props => {
           isLoading={props.isLoading}
           deleteActiveTask={props.deleteActiveTask}
           duplicateActiveTask={props.duplicateActiveTask}
-          editActiveTask={props.editActiveTask}
         />
         <div className="grid-widget tasks-list">
           <div className="tasks-list-container">
             <MyTasksContainer
               title="Tarefas"
               type="alltasks"
+              reloadTasks={props.reloadTasks}
               changeActiveTask={props.changeActiveTask}
               activeTask={props.activeTask}
               copyAlert={props.copyAlert}
