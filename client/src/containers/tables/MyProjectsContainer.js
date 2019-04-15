@@ -30,10 +30,34 @@ class MyProjectsContainer extends Component {
     this.getProjects();
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.reloadProjects !== this.props.reloadProjects) {
+      this.getProjects();
+    }
+  }
+
+
   render() {
+    console.log(this.state.projects)
+    var filteredProjects
+    switch(this.props.type){
+      case 'allprojects':
+        filteredProjects = this.state.projects.filter( project => {
+          return this.props.filters.client === '' ? true : Number(project.id_client) === Number(this.props.filters.client)
+        }).filter(project => {
+          return this.props.filters.billing === '' ? true : Number(project.ref_id_billing_mode) === Number(this.props.filters.billing)
+        }).filter(project => {
+          return this.props.filters.users === [] ? true : this.props.filters.users.map(user => project.intervenientes.indexOf(user) === -1)
+        })
+      break;
+
+      default:
+      filteredProjects = this.state.projects
+    }
+
     return (
       <MyProjects
-        projects={this.state.projects}
+        projects={filteredProjects}
         title={this.props.title}
         isLoading={this.state.isLoading}
         type={this.props.type}

@@ -35,9 +35,19 @@ export const InsertFormDiv = styled.div`
             grid-gap: 4%;
         }
 
+        .grid33-33-33{
+            display:grid;
+            grid-template-columns: 33% 33% 33%;
+            grid-gap: 1%;
+        }
+
         .grid100{
             display:grid;
             grid-template-columns: 100%;
+        }
+
+        .mt10 {
+            margin-top: 10px;
         }
 
         fieldset{

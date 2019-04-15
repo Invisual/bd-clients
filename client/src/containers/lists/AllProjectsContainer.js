@@ -15,8 +15,45 @@ class AllProjectsContainer extends Component {
       activeTab: 'projectreview',
       projectContent: [],
       commentVal: '',
+      reloadProjects: false,
+      filtersAreActive: false,
+      filters: {
+        client: '',
+        billing: '',
+        users: []
+      },
+      clientsList: [],
+      billingList: [],
+      usersList: [],
       isLoading: true
     };
+  }
+
+  changeFilters = (filters) => this.setState({filters: filters})
+  changeFiltersAreActive = () => this.setState({filtersAreActive: !this.state.filtersAreActive})
+
+  getClients = () => {
+    var token = JSON.parse(localStorage.getItem('token'));
+    var AuthStr = 'Bearer ' + token;
+    axios.get(`/api/clients/basic`, { headers: { Authorization: AuthStr } }).then(res => {
+      this.setState({ clientsList: res.data});
+    });
+  }
+
+  getBillingModes = () => {
+    var token = JSON.parse(localStorage.getItem('token'));
+    var AuthStr = 'Bearer ' + token;
+    axios.get(`/api/misc/billing`, { headers: { Authorization: AuthStr } }).then(res => {
+      this.setState({ billingList: res.data});
+    });
+  }
+
+  getUsers = () => {
+    var token = JSON.parse(localStorage.getItem('token'));
+    var AuthStr = 'Bearer ' + token;
+    axios.get(`/api/users`, { headers: { Authorization: AuthStr } }).then(res => {
+      this.setState({ usersList: res.data});
+    });
   }
 
   getProjectDetails = () => {
@@ -44,7 +81,7 @@ class AllProjectsContainer extends Component {
                 if (res.data === 'nodata') {
                   this.setState({ projectContent: null, isLoading: false });
                 } else {
-                  this.setState({ projectContent: res.data, isLoading: false });
+                  this.setState({ projectContent: res.data, isLoading: false }, () => this.scrollToElementD());
                 }
               });
           });
@@ -107,14 +144,24 @@ class AllProjectsContainer extends Component {
     })
   }
 
-  deleteActiveTask = taskId => {
-    window.alert('Delete task ' + taskId + '?');
-  };
-  duplicateActiveTask = taskId => {
-    window.alert('Duplicate task ' + taskId + '?');
-  };
-  editActiveTask = taskId => {
-    window.alert('Edit task ' + taskId + '?');
+  deleteActiveProject = projectId => {
+    var token = JSON.parse(localStorage.getItem('token'));
+    var AuthStr = 'Bearer ' + token;
+    Swal.fire({
+      title: 'Tem a certeza?',
+      text: 'Esta ação é irreversível',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, eliminar!',
+      cancelButtonText: 'Cancelar'
+    }).then(result => {
+      if (result.value) {
+        Swal.fire('Eliminado!', '', 'success');
+        axios.delete(`/api/projects/${projectId}`, { headers: { Authorization: AuthStr } }).then(this.setState({ reloadProjects: true }));
+      }
+    });
   };
 
   changeCommentVal = event => {
@@ -142,14 +189,26 @@ class AllProjectsContainer extends Component {
     });
   };
 
+
+  scrollToElementD = () => {
+    var topPos = document.querySelector('.active').offsetTop;
+    document.querySelector('.tasks-list').scrollTop = topPos-10;
+   }
+
   componentDidMount() {
     this.getProjectDetails();
+    this.getClients();
+    this.getBillingModes();
+    this.getUsers();
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.activeProject !== this.state.activeProject) {
       this.getProjectDetails();
       this.setState({activeTab:'projectreview'})
+    }
+    if (prevState.reloadProjects !== this.state.reloadProjects) {
+      this.setState({ activeProject:'', reloadProjects: false });
     }
   }
 
@@ -161,15 +220,21 @@ class AllProjectsContainer extends Component {
         isLoading={this.state.isLoading}
         activeProject={this.state.activeProject}
         changeActiveProject={this.changeActiveProject}
-        deleteActiveTask={this.deleteActiveTask}
-        duplicateActiveTask={this.duplicateActiveTask}
-        editActiveTask={this.editActiveTask}
+        deleteActiveProject={this.deleteActiveProject}
         changeCommentVal={this.changeCommentVal}
         submitComment={this.submitComment}
         isShare={this.props.isShare}
         copyAlert={this.copyAlert}
         changeActiveTab={this.changeActiveTab}
         activeTab={this.state.activeTab}
+        filtersAreActive={this.state.filtersAreActive}
+        changeFiltersAreActive={this.changeFiltersAreActive}
+        filters={this.state.filters}
+        changeFilters={this.changeFilters}
+        clientsList={this.state.clientsList}
+        billingList={this.state.billingList}
+        usersList={this.state.usersList}
+        reloadProjects={this.state.reloadProjects}
       />
     );
   }

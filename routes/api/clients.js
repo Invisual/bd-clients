@@ -36,7 +36,7 @@ router.get('/basic', checkToken, (req, res) => {
       //If error send Forbidden (403)
       res.sendStatus(403);
     } else {
-      connection.query('Select id_client, name_client, monthly_hours_client from clients', function(error, results, fields) {
+      connection.query('Select id_client, name_client, monthly_hours_client from clients ORDER BY name_client ASC', function(error, results, fields) {
         if (error) throw error;
         if (results.length > 0) {
           res.send(results);
@@ -141,6 +141,23 @@ router.put('/', checkToken, (req, res) => {
     } else {
       connection.query('UPDATE clients SET name_client = ?, monthly_hours_client = ? WHERE id_client = ?',
       [req.body.clientName, req.body.clientHours, req.body.id],
+      function(error, results, fields) {
+        if (error) throw error;
+        res.send(results);
+      });
+    }
+  });
+});
+
+
+router.put('/details', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+    } else {
+      connection.query('UPDATE clients SET cpanel_username_client = ?, cpanel_password_client = ?, dns_nichandle_client = ?, dns_password_client = ?, wordpress_link_client = ?, wordpress_username_client = ?, wordpress_password_client = ?, email_client = ?, others_client = ?, cpanel_link_client = ? WHERE id_client = ?',
+      [req.body.cpanelUser, req.body.cpanelPass, req.body.dnsNic, req.body.dnsPass, req.body.wpLink, req.body.wpUser, req.body.wpPass, req.body.emails, req.body.others, req.body.cpanelLink, req.body.id],
       function(error, results, fields) {
         if (error) throw error;
         res.send(results);

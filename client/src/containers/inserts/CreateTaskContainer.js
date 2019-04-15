@@ -32,9 +32,7 @@ class CreateTaskContainer extends Component{
         }
     }
 
-    changeTypeInput = (e) => {
-        this.setState({ typeInput: e.target.value })
-    }
+    changeTypeInput = e => this.setState({ typeInput: e.target.value })
 
     changeTitleInput = (e) => {
         this.setState({ titleInput: e.target.value })
