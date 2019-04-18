@@ -11,6 +11,7 @@ export const AllProjects = props => {
   if (props.reloadProjects) {
     return <Redirect to='/projects' />;
   }
+  
   return (
     <AllProjectsDiv className="dashboard-container">
       <div className="widgets-grid widget cards-container nofixed-height no-shadow">
@@ -21,7 +22,8 @@ export const AllProjects = props => {
             <div className="tooltip-container">
               <Link to="/createproject"><FiFolderPlus /><span className="tooltip">Adicionar Projeto</span></Link>
             </div>
-            <div className="tooltip-container">
+            <div className="tooltip-container filter-with-notification">
+              {props.getNumberOfActiveFilters() > 0 ? <div className="notification"><span>{props.getNumberOfActiveFilters()}</span></div> : null}
               <FiSliders className={props.filtersAreActive ? 'task-filters-icon icon-selected' : 'task-filters-icon'} onClick={props.changeFiltersAreActive}/>
               <span className="tooltip">Filtrar Projetos</span>
             </div>
@@ -61,7 +63,10 @@ export const AllProjects = props => {
             changeFiltersAreActive={props.changeFiltersAreActive}
             clientsList={props.clientsList}
             billingList={props.billingList}
+            accountsList={props.accountsList}
             usersList={props.usersList}
+            categoriesList={props.categoriesList}
+            filters={props.filters}
           />
         :
           <ProjectDetailContainer
