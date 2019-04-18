@@ -20,17 +20,33 @@ class AllProjectsContainer extends Component {
       filters: {
         client: '',
         billing: '',
+        account: '',
+        percentage: '',
+        categories: [],
         users: []
       },
       clientsList: [],
       billingList: [],
+      accountsList: [],
+      categoriesList: [],
       usersList: [],
       isLoading: true
     };
   }
 
-  changeFilters = (filters) => this.setState({filters: filters})
+  changeFilters = (filters) => this.setState({filters: filters}, () => console.log(this.state.filters))
   changeFiltersAreActive = () => this.setState({filtersAreActive: !this.state.filtersAreActive})
+
+  getNumberOfActiveFilters = () => {
+    var x = 0;
+    if(this.state.filters.client !== '') {x++}
+    if(this.state.filters.billing !== '') {x++}
+    if(this.state.filters.account !== '') {x++}
+    if(this.state.filters.percentage !== '') {x++}
+    if(this.state.filters.categories.length > 0) {x++}
+    if(this.state.filters.users.length > 0) {x++}
+    return x
+  }
 
   getClients = () => {
     var token = JSON.parse(localStorage.getItem('token'));
@@ -45,6 +61,22 @@ class AllProjectsContainer extends Component {
     var AuthStr = 'Bearer ' + token;
     axios.get(`/api/misc/billing`, { headers: { Authorization: AuthStr } }).then(res => {
       this.setState({ billingList: res.data});
+    });
+  }
+
+  getAccounts = () => {
+    var token = JSON.parse(localStorage.getItem('token'));
+    var AuthStr = 'Bearer ' + token;
+    axios.get(`/api/users/accounts`, { headers: { Authorization: AuthStr } }).then(res => {
+      this.setState({ accountsList: res.data});
+    });
+  }
+
+  getCategories = () => {
+    var token = JSON.parse(localStorage.getItem('token'));
+    var AuthStr = 'Bearer ' + token;
+    axios.get(`/api/misc/categories`, { headers: { Authorization: AuthStr } }).then(res => {
+      this.setState({ categories: res.data});
     });
   }
 
@@ -200,6 +232,8 @@ class AllProjectsContainer extends Component {
     this.getClients();
     this.getBillingModes();
     this.getUsers();
+    this.getAccounts();
+    this.getCategories();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -231,9 +265,12 @@ class AllProjectsContainer extends Component {
         changeFiltersAreActive={this.changeFiltersAreActive}
         filters={this.state.filters}
         changeFilters={this.changeFilters}
+        getNumberOfActiveFilters={this.getNumberOfActiveFilters}
         clientsList={this.state.clientsList}
         billingList={this.state.billingList}
+        accountsList={this.state.accountsList}
         usersList={this.state.usersList}
+        categoriesList={this.state.categories}
         reloadProjects={this.state.reloadProjects}
       />
     );

@@ -130,6 +130,7 @@ class MyTasksContainer extends Component {
 
 
   render() {
+    console.log(this.state.tasks)
     return (
       <MyTasks
         tasks={this.state.tasks}

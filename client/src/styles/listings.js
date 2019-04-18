@@ -143,6 +143,25 @@ export const AllProjectsDiv = styled.div`
     .tasks-detail {
       position: relative;
     }
+    .filter-with-notification{
+      position:relative;
+    }
+    .notification{
+      width: 12px;
+      height: 12px;
+      position: absolute;
+      top: -7px;
+      right: -4px;
+      background-color: #F43D3D;
+      border-radius: 50%;
+      text-align: center;
+      span{
+        color: #ffffff;
+        font-size: .75em;
+        position: relative;
+        bottom: 1px;
+      }
+    }
   }
 
   .meetings-grid{
