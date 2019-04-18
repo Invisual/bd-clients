@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import {TopBar} from '../../components/navigation/TopBar'
+import { createBrowserHistory } from 'history';
+
+const history = createBrowserHistory();
 
 class TopBarContainer extends Component {
   _isMounted = false;
@@ -84,6 +87,10 @@ class TopBarContainer extends Component {
     document.body.removeEventListener('click', ()=>this.hideDropdownMenu())
   }
 
+  goBackHistory = () => {
+    history.goBack();
+  }
+
   render() {  
     return (
       <TopBar 
@@ -98,6 +105,7 @@ class TopBarContainer extends Component {
       notifications={this.state.notifications}
       userInfo={this.props.userInfo}
       canGoBack={this.props.canGoBack}
+      goBackHistory={this.goBackHistory}
       />
     );
   }

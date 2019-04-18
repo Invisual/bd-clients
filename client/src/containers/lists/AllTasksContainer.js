@@ -147,7 +147,35 @@ class AllTasksContainer extends Component {
 
   scrollToElementD = () => {
     var topPos = document.querySelector('.active').offsetTop;
-    document.querySelector('.tasks-list').scrollTop = topPos - 10;
+    this.scrollTo(document.querySelector('.tasks-list'), topPos - 10, 600);
+  };
+
+  scrollTo = (element, to, duration) => {
+    var start = element.scrollTop,
+        change = to - start,
+        currentTime = 0,
+        increment = 20;
+    var that= this;
+    var animateScroll = function(){        
+        currentTime += increment;
+        var val = that.easeInOutQuad(currentTime, start, change, duration);
+        element.scrollTop = val;
+        if(currentTime < duration) {
+            setTimeout(animateScroll, increment);
+        }
+    };
+    animateScroll();
+  }
+
+  //t = current time
+  //b = start value
+  //c = change in value
+  //d = duration
+  easeInOutQuad = (t, b, c, d) => {
+	t /= d/2;
+	if (t < 1) return c/2*t*t + b;
+	t--;
+	return -c/2 * (t*(t-2) - 1) + b;
   };
   
 
