@@ -3,6 +3,7 @@ import {CreateTask} from '../../components/inserts/CreateTask';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 import moment from 'moment'
+
 const axios = require('axios');
 
 class CreateTaskContainer extends Component{
@@ -29,7 +30,8 @@ class CreateTaskContainer extends Component{
             redirect: false,
             isLoading: true,
             error: false,
-            errorMsg: ''
+            errorMsg: '',
+            lastInsertedId:''
         }
     }
 
@@ -187,7 +189,7 @@ class CreateTaskContainer extends Component{
                     text: `A Tarefa '${data.title}' foi inserida com sucesso!`
                   })
                   .then(click => {
-                      this.setState({redirect: true})
+                      this.setState({redirect: true, lastInsertedId:res.data.insertId})
                   })
             }
         })
@@ -226,8 +228,8 @@ class CreateTaskContainer extends Component{
                     text: `A Tarefa '${data.title}' foi editada com sucesso!`
                   })
                   .then(click => {
-                      this.setState({redirect: true})
-                  })
+                    this.setState({redirect: true})
+                })
             }
         })
     }
@@ -279,6 +281,7 @@ class CreateTaskContainer extends Component{
                 type={this.props.type}
                 error={this.state.error}
                 errorMsg={this.state.errorMsg}
+                lastInsertedId={this.state.lastInsertedId}
                 />;
     }
 }

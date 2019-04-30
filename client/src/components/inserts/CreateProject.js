@@ -9,7 +9,14 @@ const history = createBrowserHistory()
 export const CreateProject = props => {
 
     if (props.redirect) {
-        return <Redirect to='/' />;
+        switch(props.type) {
+            case 'edit':
+            return <Redirect to={`/projects/${props.taskData.id_task}`} />
+            case 'add':
+            return <Redirect to={`/projects/${props.lastInsertedId}`} />
+            default:
+            return <Redirect to={`/projects`} />
+        }
     }
 
     return (

@@ -95,7 +95,7 @@ class AllProjectsContainer extends Component {
     var idUser = JSON.parse(localStorage.getItem('user'));
     if (this.state.activeProject) {
       axios.get(`/api/projects/details/${this.state.activeProject}`, { headers: { Authorization: AuthStr } }).then(res => {
-        this.setState({ projectContent: res.data, isLoading: false });
+        this.setState({ projectContent: res.data, isLoading: false }, () => this.scrollToElementD());
       });
     } else {
       if (this.props.isShare) {

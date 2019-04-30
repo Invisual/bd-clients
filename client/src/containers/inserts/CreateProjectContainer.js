@@ -22,7 +22,8 @@ class CreateProjectContainer extends Component{
             accountsData: [],
             categoriesData: [],
             projectData: [],
-            redirect: false
+            redirect: false,
+            lastInsertedId:''
         }
     }
 
@@ -151,7 +152,7 @@ class CreateProjectContainer extends Component{
                     text: `O Projecto '${data.title}' foi inserido com sucesso e já podem começar a trabalhar nele!`
                   })
                   .then(click => {
-                      this.setState({redirect: true})
+                      this.setState({redirect: true, lastInsertedId:res.data.insertId})
                   })
             }
         })
@@ -220,6 +221,7 @@ class CreateProjectContainer extends Component{
                 editProject={this.editProject}
                 type={this.props.type}
                 redirect={this.state.redirect}
+                lastInsertedId={this.state.lastInsertedId}
                 />;
     }
 }
