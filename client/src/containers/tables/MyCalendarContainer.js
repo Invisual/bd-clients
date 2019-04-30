@@ -76,7 +76,7 @@ class MyCalendarContainer extends Component {
 
   render() {
 
-    var meetings = this.props.meetings.length > 0 ? this.props.meetings : [{title: 'placeholder', start:'2019-02-02', end:'2019-02-02', allDay: true, type: 1, resource: 2, client:'Invisual', hour:'13:00', description: 'placeholder'}];
+    //var meetings = this.props.meetings.length > 0 ? this.props.meetings : [{title: 'placeholder', start:'2019-02-02', end:'2019-02-02', allDay: true, type: 1, resource: 2, client:'Invisual', hour:'13:00', description: 'placeholder'}];
 
     let formats = {
       monthHeaderFormat: 'MMMM'

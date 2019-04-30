@@ -54,7 +54,7 @@ class MyProjectsContainer extends Component {
           else{
             for(var i=0, count=this.props.filters.users.length; i<count; i++){
               var x = 0
-              if(project.intervenientes.indexOf(this.props.filters.users[i]) == -1){
+              if(project.intervenientes.indexOf(this.props.filters.users[i]) === -1){
                 return false
               }
               else{
@@ -69,7 +69,7 @@ class MyProjectsContainer extends Component {
           else{
             for(var i=0, count=this.props.filters.categories.length; i<count; i++){
               var x = 0
-              if(project.categories.indexOf(this.props.filters.categories[i]) == -1){
+              if(project.categories.indexOf(this.props.filters.categories[i]) === -1){
                 return false
               }
               else{

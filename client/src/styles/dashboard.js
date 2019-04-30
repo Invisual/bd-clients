@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { themeConsts } from './themeConsts';
 
 export const DashboardContainer = styled.div`
   width:86%;
