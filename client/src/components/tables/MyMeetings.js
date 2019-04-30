@@ -1,6 +1,5 @@
 import React from 'react';
 import SingleMeeting from '../singles/SingleMeeting';
-import { FiArrowRight } from 'react-icons/fi';
 import moment from 'moment'
 
 export const MyMeetings = props => {

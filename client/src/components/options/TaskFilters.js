@@ -60,11 +60,12 @@ removeFilters = () => {
 
 render(){
 
+  var projectsList;
     if(this.state.taskClientFilter === ''){
-      var projectsList = this.props.projectsList
+      projectsList = this.props.projectsList
     }
     else{
-      var projectsList = this.props.projectsList.filter(project => Number(project.ref_id_client) === Number(this.state.taskClientFilter))
+      projectsList = this.props.projectsList.filter(project => Number(project.ref_id_client) === Number(this.state.taskClientFilter))
     }
 
     return (

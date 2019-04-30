@@ -21,7 +21,6 @@ class AllMeetingsContainer extends Component {
   getMeetings = () => {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
-    var idUser = JSON.parse(localStorage.getItem('user'));
 
     axios.get(`/api/meetings/`, { headers: { Authorization: AuthStr } }).then(res => {
       if (res.data === 'nomeeting') {
