@@ -31,8 +31,7 @@ class App extends Component {
             <TopBarContainer canGoBack={this.props.canGoBack} userInfo={this.props.userInfo} />
             <SideBar logout={this.props.logout} />
             <Switch>
-              <Route exact path="/" render={props => <UserDashboardContainer activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} {...props} />} />
-              <Route exact path="/" render={props => <MyToDoContainer {...props} title="To-do List" type="complete"/>} />
+              <Route exact path="/" render={props => <><UserDashboardContainer activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} {...props} /><MyToDoContainer {...props} title="To-do List" type="complete"/></>} />
               <Route exact path="/tasks" render={props => <AllTasksContainer isShare={false} userInfo={this.props.userInfo} {...props} activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours}/>} />
               <Route exact path="/tasks/:id" render={props => <AllTasksContainer isShare={true} userInfo={this.props.userInfo} {...props}  activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours}/>} />
               <Route exact path="/projects" render={props => <AllProjectsContainer isShare={false} userInfo={this.props.userInfo} {...props} />} />
