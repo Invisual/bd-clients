@@ -134,6 +134,7 @@ class MyTasksContainer extends Component {
 
 
   render() {
+    console.log(this.state.tasks)
     var filteredTasks
     switch(this.props.type){
       case 'alltasks':
