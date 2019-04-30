@@ -1,13 +1,13 @@
 import React from 'react';
 import { TopBarDiv } from '../../styles/navigation';
-import { FiSearch, FiMessageCircle, FiBell } from 'react-icons/fi';
+import { FiSearch, FiMessageCircle, FiBell, FiChevronLeft } from 'react-icons/fi';
 
 export const TopBar = props => {
   return (
     <TopBarDiv>
       
       <ul className="main-nav">
-      {props.canGoBack ? <li className="topbar-notifications"> <FiSearch onClick={() => console.log('click')}/></li> : null}
+      {props.canGoBack ? <li className="topbar-goback"> <FiChevronLeft onClick={props.goBackHistory}/></li> : null}
         <li className="topbar-search">
           <input type="text" placeholder="Pesquisa" className={props.displaySearchInput} />
           <FiSearch onClick={props.toggleSearchInput}/>
@@ -70,7 +70,6 @@ export const TopBar = props => {
             </ul>
           ) : null}
         </li>
-
       </ul>
     </TopBarDiv>
   );

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { createBrowserHistory } from 'history'
 import App from './App';
 import TitleTimer from './components/misc/TitleTimer'
+import { withRouter } from "react-router-dom";
 const axios = require('axios');
-const history = createBrowserHistory();
 
 class AppContainer extends Component {
   constructor(props){
@@ -84,16 +83,24 @@ class AppContainer extends Component {
     });
   }
 
-  canGoBack = () => {
-    if (history.location.pathname.indexOf('tasks/') !== -1 || history.location.pathname.indexOf('projects/') !== -1){
-      this.setState({ canGoBack:true }, console.log('asdasd'))
-    }
-  }
 
   componentDidMount() {
     this.hydrateStateWithLocalStorage();
     if (localStorage.hasOwnProperty('user')) {this.getActiveHours();}
-    this.canGoBack();
+    if(this.props.location.pathname.indexOf('tasks/') !== -1){
+      this.setState({canGoBack : true})
+    }
+  }
+
+  componentDidUpdate(prevProps){
+    if (this.props.location.pathname !== prevProps.location.pathname) {
+      if(this.props.location.pathname.indexOf('tasks/') !== -1){
+        this.setState({canGoBack : true})
+      }
+        else {
+          this.setState({canGoBack : false})
+      }
+    }
   }
 
 
@@ -107,4 +114,4 @@ class AppContainer extends Component {
   }
 }
 
-export default AppContainer;
+export default withRouter(props => <AppContainer  {...props} />);

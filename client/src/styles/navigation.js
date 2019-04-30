@@ -148,6 +148,7 @@ export const TopBarDiv = styled.div`
   box-shadow: ${themeConsts.mainShadow};
 
   ul {
+    position:relative;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -155,6 +156,13 @@ export const TopBarDiv = styled.div`
     justify-content: flex-end;
     align-items: center;
     padding-right: 20px;
+    
+    .topbar-goback {
+      position:absolute;
+      left:15.5%;
+      top:50%;
+      transform:translateY(-50%);
+    }
 
     .topbar-avatar {
       span {
