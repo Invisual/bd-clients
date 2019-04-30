@@ -32,12 +32,12 @@ class AllClientsContainer extends Component {
       if (this.props.isShare) {
         history.replace({ pathname: '/clients' });
         axios
-          .get(`/api/tasks/link/${params.id}`, { headers: { Authorization: AuthStr } })
+          .get(`/api/clients/details/${params.id}`, { headers: { Authorization: AuthStr } })
           .then(res => {
-            this.setState({ activeClient: res.data.details[0].id_task });
+            this.setState({ activeClient:  res.data.details[0].id_client });
           })
           .then(res => {
-            axios.get(`/api/tasks/link/${this.state.activeClient}`, { headers: { Authorization: AuthStr } }).then(res => {
+            axios.get(`/api/clients/details/${this.state.activeClient}`, { headers: { Authorization: AuthStr } }).then(res => {
               if (res.data === 'nodata') {
                 this.setState({ clientContent: null, isLoading: false });
               } else {

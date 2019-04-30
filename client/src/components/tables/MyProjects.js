@@ -29,6 +29,7 @@ export const MyProjects = props => {
                     title={project.title_project}
                     stateVal={project.concluded_project}
                     client={project.name_client}
+                    clientId={project.id_client}
                     total_tasks={project.total_tasks}
                     concluded_tasks={project.concluded_tasks}
                     percentage_tasks={project.percentage_tasks}
@@ -68,6 +69,7 @@ export const MyProjects = props => {
                   creation_date_project={project.creation_date_project}
                   stateVal={project.concluded_project}
                   client={project.name_client}
+                  clientId={project.id_client}
                   total_tasks={project.total_tasks}
                   doing={project.doing}
                   concluded_tasks={project.concluded_tasks}

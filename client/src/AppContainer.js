@@ -94,7 +94,7 @@ class AppContainer extends Component {
 
   componentDidUpdate(prevProps){
     if (this.props.location.pathname !== prevProps.location.pathname) {
-      if(this.props.location.pathname.indexOf('tasks/') !== -1){
+      if(this.props.location.pathname.indexOf('tasks/') !== -1 || this.props.location.pathname.indexOf('projects/') !== -1 || this.props.location.pathname.indexOf('clients/') !== -1){
         this.setState({canGoBack : true})
       }
         else {

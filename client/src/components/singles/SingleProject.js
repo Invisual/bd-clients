@@ -35,7 +35,7 @@ class SingleProject extends Component {
               <div className="project-client-date">
                 <div className="project-icon-client">
                   <FiUser />
-                  <span className="project-client"> {this.props.client}</span>
+                  <span className="project-client"><Link to={`/clients/`+this.props.clientId}>{this.props.client}</Link></span>
                 </div>
                 <span className="project-date">
                   <FiClock /> {moment(this.props.creation_date_project).format('D/MM/YYYY')}
@@ -74,7 +74,7 @@ class SingleProject extends Component {
           <ClientProjectDiv className="single-card">
             <div className="project-status">{projectStatus}</div>
             <div className="project-title">
-              <span className="title-divider">{this.props.title} </span>{' '}
+              <span className="title-divider"><Link to={`/projects/`+this.props.id}>{this.props.title}</Link></span>{' '}
               <span className="project-participants">{this.props.intervenientes
                   ? this.props.intervenientes
                       .split(';')
@@ -104,7 +104,7 @@ class SingleProject extends Component {
             <div className="project-status">{projectStatus}</div>
             <div className="project-title">
               <span className="title-divider"><Link to={`/projects/`+this.props.id}>{this.props.title}</Link> </span>{' '}
-              <span className="project-client">{this.props.client}</span>
+              <span className="project-client"><Link to={`/clients/`+this.props.clientId}>{this.props.client}</Link></span>
             </div>
             <div className="project-total-tasks">{this.props.total_tasks}</div>
             <div className="project-concluded-tasks">{this.props.concluded_tasks}</div>

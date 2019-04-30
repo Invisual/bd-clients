@@ -39,6 +39,7 @@ class App extends Component {
               <Route exact path="/projects/:id" render={props => <AllProjectsContainer isShare={true} userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/meetings" render={props => <AllMeetingsContainer userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/clients" render={props => <AllClientsContainer isShare={false} userInfo={this.props.userInfo} {...props} />} />
+              <Route exact path="/clients/:id" render={props => <AllClientsContainer isShare={true} userInfo={this.props.userInfo} {...props} />} />
               <Route path="/admin" render={props => <AdminDashboardContainer {...props} />} />
               <Route exact path="/createproject" render={props => <CreateProjectContainer {...props} type="add" title="Novo Projeto"/>} />
               <Route path="/createproject/:id" render={props => <CreateProjectContainer {...props} type="edit" title="Editar Projeto"/>} />
