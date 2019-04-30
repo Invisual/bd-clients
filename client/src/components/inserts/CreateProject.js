@@ -3,7 +3,8 @@ import { InsertFormDiv } from '../../styles/inserts'
 import { Redirect } from 'react-router'
 import DatePicker from 'react-date-picker'
 import { FiCalendar } from 'react-icons/fi';
-
+import {createBrowserHistory} from 'history'
+const history = createBrowserHistory()
 
 export const CreateProject = props => {
 
@@ -134,7 +135,7 @@ export const CreateProject = props => {
                 </div>
 
                 <div className="form-buttons">
-                    <button type="button" className="btn secondary-btn">Cancelar</button>
+                    <button type="button" className="btn secondary-btn" onClick={() => history.goBack()}>Cancelar</button>
                     <button className="btn main-btn">{props.type === 'edit' ? 'Editar' : 'Criar'}</button>
                 </div>
                 </form>                                    

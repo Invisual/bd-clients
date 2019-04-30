@@ -6,6 +6,7 @@ export const themeConsts = {
     thirdBlue: '#00B1FF',
     orange: '#F7AB00',
     green: '#1de9b6',
+    lightGreen: '#d2fbf0',
     purple: '#651fff',
     pink: '#f50057',
     red: '#F43D3D',

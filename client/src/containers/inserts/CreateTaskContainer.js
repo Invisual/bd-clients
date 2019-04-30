@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {CreateTask} from '../../components/inserts/CreateTask';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+import moment from 'moment'
 const axios = require('axios');
 
 class CreateTaskContainer extends Component{
@@ -163,7 +164,7 @@ class CreateTaskContainer extends Component{
         var data = {
             title: this.state.titleInput,
             description: this.state.descInput,
-            deadline: this.state.deadlineInput,
+            deadline: moment(this.state.deadlineInput).format(),
             client: this.state.clientInput,
             billing: this.state.billingInput,
             project: this.state.projectInput,
@@ -171,11 +172,10 @@ class CreateTaskContainer extends Component{
             account: this.state.accountInput,
             user: this.state.personInput
         }
-
-        if(this.state.typeInput === '1'){ data.account = null; data.billing = null; }
+        var chosenProject = this.state.projectsData.filter(proj => Number(proj.id_project) === Number(this.state.projectInput))
+        if(this.state.typeInput === '1'){ data.account = null; data.billing = chosenProject[0].ref_id_billing_mode; }
         else if(this.state.typeInput === '2' || this.state.typeInput === '4'){ data.project = null;}
         else if(this.state.typeInput === '3'){ data.project = null; data.user = null;}
-        
         var token = JSON.parse(localStorage.getItem('token'));
         var AuthStr = 'Bearer ' + token;
         axios.post('/api/tasks/', data, { headers: { Authorization: AuthStr } })
@@ -200,7 +200,7 @@ class CreateTaskContainer extends Component{
             id: this.props.match.params.id,
             title: this.state.titleInput,
             description: this.state.descInput,
-            deadline: this.state.deadlineInput,
+            deadline: moment(this.state.deadlineInput).format(),
             client: this.state.clientInput,
             billing: this.state.billingInput,
             project: this.state.projectInput,

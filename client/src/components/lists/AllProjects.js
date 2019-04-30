@@ -4,8 +4,8 @@ import { AllProjectsDiv } from '../../styles/listings';
 import MyProjectsContainer from '../../containers/tables/MyProjectsContainer';
 import ProjectDetailContainer from '../../containers/details/ProjectDetailContainer';
 import OptionsContainer from '../../containers/options/OptionsContainer';
-import Filters from '../options/Filters';
-import { FiFolderPlus, FiSliders } from 'react-icons/fi';
+import ProjectFilters from '../options/ProjectFilters';
+import { FiFolderPlus, FiFilter } from 'react-icons/fi';
 
 export const AllProjects = props => {
   if (props.reloadProjects) {
@@ -24,12 +24,18 @@ export const AllProjects = props => {
             </div>
             <div className="tooltip-container filter-with-notification">
               {props.getNumberOfActiveFilters() > 0 ? <div className="notification"><span>{props.getNumberOfActiveFilters()}</span></div> : null}
-              <FiSliders className={props.filtersAreActive ? 'task-filters-icon icon-selected' : 'task-filters-icon'} onClick={props.changeFiltersAreActive}/>
+              <FiFilter className={props.filtersAreActive ? 'task-filters-icon icon-selected' : 'task-filters-icon'} onClick={props.changeFiltersAreActive}/>
               <span className="tooltip">Filtrar Projetos</span>
             </div>
           </div>
           : 
-            null
+          <div className="project-icons">
+          <div className="tooltip-container filter-with-notification">
+            {props.getNumberOfActiveFilters() > 0 ? <div className="notification"><span>{props.getNumberOfActiveFilters()}</span></div> : null}
+            <FiFilter className={props.filtersAreActive ? 'task-filters-icon icon-selected' : 'task-filters-icon'} onClick={props.changeFiltersAreActive}/>
+            <span className="tooltip">Filtrar Projetos</span>
+          </div>
+        </div>
           }
         </div>
         <OptionsContainer
@@ -57,8 +63,7 @@ export const AllProjects = props => {
         </div>
         <div className="grid-widget tasks-detail">
         {props.filtersAreActive ?
-          <Filters 
-            type="projetos"
+          <ProjectFilters
             changeFilters={props.changeFilters}
             changeFiltersAreActive={props.changeFiltersAreActive}
             clientsList={props.clientsList}

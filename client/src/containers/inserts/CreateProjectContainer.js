@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {CreateProject} from '../../components/inserts/CreateProject';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+import moment from 'moment'
 
 const axios = require('axios');
 
@@ -135,7 +136,7 @@ class CreateProjectContainer extends Component{
         var data = {
             title: this.state.titleInput,
             briefing: this.state.briefingInput,
-            deadline: this.state.deadlineInput,
+            deadline: moment(this.state.deadlineInput).format(),
             billing: this.state.billingInput,
             client: this.state.clientInput,
             account: this.state.accountInput,
@@ -162,7 +163,7 @@ class CreateProjectContainer extends Component{
             id: this.props.match.params.id,
             title: this.state.titleInput,
             briefing: this.state.briefingInput,
-            deadline: this.state.deadlineInput,
+            deadline: moment(this.state.deadlineInput).format(),
             client: this.state.clientInput,
             billing: this.state.billingInput,
             account: this.state.accountInput,

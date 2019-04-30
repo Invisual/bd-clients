@@ -3,6 +3,8 @@ import { InsertFormDiv } from '../../styles/inserts'
 import { Redirect } from 'react-router'
 import DatePicker from 'react-date-picker'
 import { FiCalendar } from 'react-icons/fi';
+import {createBrowserHistory} from 'history'
+const history = createBrowserHistory()
 
 export const CreateTask = props => {
 
@@ -108,7 +110,7 @@ export const CreateTask = props => {
                                 <div className="input-wrapper">
                                     <fieldset>
                                         <legend>Deadline</legend>
-                                        <DatePicker id="task-deadline" onChange={props.changeDeadlineInput} value={new Date(props.deadlineInput)} calendarIcon={<FiCalendar/>}/>
+                                        <DatePicker id="task-deadline" onChange={props.changeDeadlineInput} format="y-MM-dd" locale="pt-PT" value={new Date(props.deadlineInput)} calendarIcon={<FiCalendar/>}/>
                                     </fieldset>
                                 </div>
                             </div>
@@ -161,7 +163,7 @@ export const CreateTask = props => {
                 </div>
 
                 <div className="form-buttons">
-                    <button type="button" className="btn secondary-btn">Cancelar</button>
+                    <button type="button" className="btn secondary-btn" onClick={() => history.goBack()}>Cancelar</button>
                     <button className="btn main-btn">{props.type === 'edit' ? 'Editar' : 'Criar'}</button>
                 </div>
                 </form>

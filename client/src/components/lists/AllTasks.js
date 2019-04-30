@@ -3,7 +3,8 @@ import { AllTasksDiv } from '../../styles/listings';
 import MyTasksContainer from '../../containers/tables/MyTasksContainer';
 import TaskDetailContainer from '../../containers/details/TaskDetailContainer';
 import OptionsContainer from '../../containers/options/OptionsContainer';
-import { FiFilePlus } from 'react-icons/fi';
+import TaskFilters from '../options/TaskFilters';
+import { FiFilePlus, FiFilter } from 'react-icons/fi';
 import { Redirect, Link } from 'react-router-dom';
 
 export const AllTasks = props => {
@@ -24,8 +25,22 @@ export const AllTasks = props => {
                 <span className="tooltip">Adicionar Tarefa</span>
               </Link>
             </div>
+            <div className="tooltip-container filter-with-notification">
+              {props.getNumberOfActiveFilters() > 0 ? <div className="notification"><span>{props.getNumberOfActiveFilters()}</span></div> : null}
+              <FiFilter className={props.filtersAreActive ? 'task-filters-icon icon-selected' : 'task-filters-icon'} onClick={props.changeFiltersAreActive}/>
+              <span className="tooltip">Filtrar Projetos</span>
+            </div>
              </>
-          ) : null}
+          ) 
+          : 
+          <>
+            <div className="tooltip-container filter-with-notification">
+              {props.getNumberOfActiveFilters() > 0 ? <div className="notification"><span>{props.getNumberOfActiveFilters()}</span></div> : null}
+              <FiFilter className={props.filtersAreActive ? 'task-filters-icon icon-selected' : 'task-filters-icon'} onClick={props.changeFiltersAreActive}/>
+              <span className="tooltip">Filtrar Projetos</span>
+            </div>
+             </>  
+          }
         </div>
         <OptionsContainer
           userRole={props.userRole}
@@ -47,10 +62,24 @@ export const AllTasks = props => {
               copyAlert={props.copyAlert}
               activeHours={props.activeHours}
               getActiveHours={props.getActiveHours}
+              filters={props.filters}
             />
           </div>
         </div>
         <div className="grid-widget tasks-detail">
+        {props.filtersAreActive ?
+          <TaskFilters 
+            changeFilters={props.changeFilters}
+            changeFiltersAreActive={props.changeFiltersAreActive}
+            clientsList={props.clientsList}
+            billingList={props.billingList}
+            projectsList={props.projectsList}
+            usersList={props.usersList}
+            taskTypesList={props.taskTypesList}
+            tasksStatusList={props.tasksStatusList}
+            filters={props.filters}
+          />
+        :
           <TaskDetailContainer
             activeTask={props.activeTask}
             taskContent={props.taskContent}
@@ -58,6 +87,7 @@ export const AllTasks = props => {
             submitComment={props.submitComment}
             isLoading={props.isLoading}
           />
+        }
         </div>
       </div>
     </AllTasksDiv>

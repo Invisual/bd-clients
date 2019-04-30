@@ -62,7 +62,11 @@ class MyTasksContainer extends Component {
   startCountingHours = (taskId, taskTitle) => {
     if(this.props.activeHours !== undefined && this.props.activeHours !== null){
       if(this.props.activeHours.length > 0){
-        console.log('JA TENS HORAS FDP!')
+        Swal.fire({
+          type: 'error',
+          title: 'Erro!',
+          text: `Já existe uma contagem de horas iniciada na Tarefa '${taskTitle}'`
+        })
       }
     } 
     else{
@@ -130,10 +134,33 @@ class MyTasksContainer extends Component {
 
 
   render() {
-    console.log(this.state.tasks)
+    var filteredTasks
+    switch(this.props.type){
+      case 'alltasks':
+      filteredTasks = this.state.tasks.filter( task => {
+          return this.props.filters.client === '' ? true : Number(task.ref_id_client) === Number(this.props.filters.client)
+        }).filter(task => {
+          return this.props.filters.billing === '' ? true : Number(task.ref_id_billing_mode) === Number(this.props.filters.billing)
+        }).filter(task => {
+          return this.props.filters.type === '' ? true : Number(task.ref_id_type_task) === Number(this.props.filters.type)
+        }).filter(task => {
+          return this.props.filters.user === '' ? true : Number(task.ref_id_user) === Number(this.props.filters.user)
+        }).filter(task => {
+          return this.props.filters.status === '' ? true : Number(task.ref_id_user_task_status) === Number(this.props.filters.status)
+        }).filter(task => {
+          return this.props.filters.project === '' ? true : Number(task.ref_id_project) === Number(this.props.filters.project)
+        }).filter(task => {
+          return this.props.filters.isDeadlineSet === false ? true : moment(task.deadline_date_task).isSameOrBefore(this.props.filters.deadline, 'day')
+        })
+      break;
+
+      default:
+      filteredTasks = this.state.tasks
+    }
+
     return (
       <MyTasks
-        tasks={this.state.tasks}
+        tasks={filteredTasks}
         title={this.props.title}
         changeTaskStatus={this.changeTaskStatus}
         type={this.props.type}

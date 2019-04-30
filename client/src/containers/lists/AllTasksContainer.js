@@ -14,9 +14,89 @@ class AllTasksContainer extends Component {
       taskContent: [],
       commentVal: '',
       reloadTasks: false,
+      filtersAreActive: false,
+      filters: {
+        client: '',
+        billing: '',
+        user: '',
+        status: '',
+        project: '',
+        deadline: new Date(),
+        isDeadlineSet: false,
+        type: ''
+      },
+      clientsList: [],
+      billingList: [],
+      usersList: [],
+      projectsList: [],
+      taskTypesList: [],
+      tasksStatusList: [],
       isLoading: true,
       redirect: false
     };
+  }
+
+  changeFilters = (filters) => this.setState({filters: filters})
+  changeFiltersAreActive = () => this.setState({filtersAreActive: !this.state.filtersAreActive})
+
+  getNumberOfActiveFilters = () => {
+    var x = 0;
+    if(this.state.filters.client !== '') {x++}
+    if(this.state.filters.billing !== '') {x++}
+    if(this.state.filters.user !== '') {x++}
+    if(this.state.filters.status !== '') {x++}
+    if(this.state.filters.project !== '') {x++}
+    if(this.state.filters.isDeadlineSet) {x++}
+    if(this.state.filters.type !== '') {x++}
+    return x
+  }
+
+  getClients = () => {
+    var token = JSON.parse(localStorage.getItem('token'));
+    var AuthStr = 'Bearer ' + token;
+    axios.get(`/api/clients/basic`, { headers: { Authorization: AuthStr } }).then(res => {
+      this.setState({ clientsList: res.data});
+    });
+  }
+
+  getBillingModes = () => {
+    var token = JSON.parse(localStorage.getItem('token'));
+    var AuthStr = 'Bearer ' + token;
+    axios.get(`/api/misc/billing`, { headers: { Authorization: AuthStr } }).then(res => {
+      this.setState({ billingList: res.data});
+    });
+  }
+
+  getUsers = () => {
+    var token = JSON.parse(localStorage.getItem('token'));
+    var AuthStr = 'Bearer ' + token;
+    axios.get(`/api/users`, { headers: { Authorization: AuthStr } }).then(res => {
+      this.setState({ usersList: res.data});
+    });
+  }
+
+  getProjects = () =>{
+    var token = JSON.parse(localStorage.getItem('token'));
+    var AuthStr = 'Bearer ' + token;
+    axios.get(`/api/projects`, { headers: { Authorization: AuthStr } }).then(res => {
+      this.setState({ projectsList: res.data});
+    });
+  }
+
+  getTaskTypes = () => {
+    var token = JSON.parse(localStorage.getItem('token'));
+    var AuthStr = 'Bearer ' + token;
+    axios.get(`/api/misc/types`, { headers: { Authorization: AuthStr } }).then(res => {
+      this.setState({ taskTypesList: res.data});
+    });
+  }
+
+  getTaskStatus = () => {
+    var token = JSON.parse(localStorage.getItem('token'));
+    var AuthStr = 'Bearer ' + token;
+    axios.get(`/api/misc/status`, { headers: { Authorization: AuthStr } }).then(res => {
+      this.setState({ tasksStatusList: res.data});
+    });
   }
 
   getTaskDetails = () => {
@@ -28,7 +108,7 @@ class AllTasksContainer extends Component {
     var idUser = JSON.parse(localStorage.getItem('user'));
     if (this.state.activeTask) {
       axios.get(`/api/tasks/${idUser.id_user}/${this.state.activeTask}`, { headers: { Authorization: AuthStr } }).then(res => {
-        this.setState({ taskContent: res.data, isLoading: false });
+        this.setState({ taskContent: res.data, isLoading: false }, () => this.scrollToElementD());
       });
     } else {
       if (this.props.isShare) {
@@ -123,10 +203,25 @@ class AllTasksContainer extends Component {
       }
     });
   };
+
   duplicateActiveTask = taskId => {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
-    axios.post(`/api/tasks/${taskId}`, null, { headers: { Authorization: AuthStr } }).then(this.setState({ reloadTasks: true }));
+    axios.post(`/api/tasks/${taskId}`, null, { headers: { Authorization: AuthStr } })
+      .then(data => {
+        this.setState({ reloadTasks: true, activeTask: data.data[2].insertId});
+      });
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top',
+      showConfirmButton: false,
+      timer: 1000
+    });
+
+    Toast.fire({
+      type: 'success',
+      title: 'Tarefa duplicada com sucesso!'
+    });
   };
 
   submitComment = () => {
@@ -153,6 +248,12 @@ class AllTasksContainer extends Component {
 
   componentDidMount() {
     this.getTaskDetails();
+    this.getClients();
+    this.getBillingModes();
+    this.getUsers();
+    this.getProjects();
+    this.getTaskTypes();
+    this.getTaskStatus();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -182,6 +283,17 @@ class AllTasksContainer extends Component {
         activeHours={this.props.activeHours}
         getActiveHours={this.props.getActiveHours}
         reloadTasks={this.state.reloadTasks}
+        filtersAreActive={this.state.filtersAreActive}
+        changeFiltersAreActive={this.changeFiltersAreActive}
+        filters={this.state.filters}
+        changeFilters={this.changeFilters}
+        getNumberOfActiveFilters={this.getNumberOfActiveFilters}
+        clientsList={this.state.clientsList}
+        projectsList={this.state.projectsList}
+        usersList={this.state.usersList}
+        billingList={this.state.billingList}
+        taskTypesList={this.state.taskTypesList}
+        tasksStatusList={this.state.tasksStatusList}
       />
     );
   }
