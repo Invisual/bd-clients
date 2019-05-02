@@ -63,6 +63,7 @@ export const AllTasks = props => {
               activeHours={props.activeHours}
               getActiveHours={props.getActiveHours}
               filters={props.filters}
+              userRole={props.userRole}
             />
           </div>
         </div>

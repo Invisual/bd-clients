@@ -107,7 +107,7 @@ class AllTasksContainer extends Component {
     var AuthStr = 'Bearer ' + token;
     var idUser = JSON.parse(localStorage.getItem('user'));
     if (this.state.activeTask) {
-      axios.get(`/api/tasks/${idUser.id_user}/${this.state.activeTask}`, { headers: { Authorization: AuthStr } }).then(res => {
+      axios.get(`/api/tasks/content/${this.state.activeTask}`, { headers: { Authorization: AuthStr } }).then(res => {
         this.setState({ taskContent: res.data, isLoading: false }, () => this.scrollToElementD());
       });
     } else {
@@ -137,14 +137,15 @@ class AllTasksContainer extends Component {
             });
           });
       } else {
+        var url = this.props.userInfo.ref_id_role === 3 || this.props.userInfo.ref_id_role === 2 ? `/api/tasks/all` : `/api/tasks/${idUser.id_user}`
         axios
-          .get(`/api/tasks/${idUser.id_user}`, { headers: { Authorization: AuthStr } })
+          .get(url, { headers: { Authorization: AuthStr } })
           .then(res => {
             this.setState({ activeTask: res.data[0].id_task });
           })
           .then(res => {
             axios
-              .get(`/api/tasks/${idUser.id_user}/${this.state.activeTask}`, { headers: { Authorization: AuthStr } })
+              .get(`/api/tasks/content/${this.state.activeTask}`, { headers: { Authorization: AuthStr } })
               .then(res => {
                 if (res.data === 'nodata') {
                   this.setState({ taskContent: null, isLoading: false });

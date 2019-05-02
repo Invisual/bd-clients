@@ -54,8 +54,9 @@ class App extends Component {
         ) : (
           <div className="app-container">
           <Switch>
-            <Route exact path="/" render={props => <LoginContainer {...props} login={this.props.login} />} />
+            
             <Route exact path="/respasstar/:user/:randomstring" render={props => <ResetPasswordContainer {...props} />} />
+            <Route path="/" render={props => <LoginContainer {...props} login={this.props.login} />} />
           </Switch>
           </div>
         )}

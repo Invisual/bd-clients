@@ -5,8 +5,6 @@ import { TodoListDashboardDiv, TodoListCompleteDiv } from '../../styles/todolist
 import { FiSend } from 'react-icons/fi';
 
 export const MyToDo = props => {
-  
-  console.log(props.type)
   return (
     <>
       {props.type === 'dashboard' ? (

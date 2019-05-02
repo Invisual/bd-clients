@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiTrash2, FiCopy, FiEdit3, FiFolder } from 'react-icons/fi';
 
-export const Options = props => {
+export const Options =  props => {
   return (
     <>
       {(() => {
@@ -41,18 +41,25 @@ export const Options = props => {
                     /><span className="tooltip">Ir para Projeto</span></Link>
                     </div>
                   </div>
-                ) : null}
+                ) 
+                : 
+                <div className="task-infos">
+                  <div className="tooltip-container">
+                    <Link to={`/projects/`+props.taskContent.details[0].ref_id_project}><FiFolder
+                      className="task-info-icon"
+                    /><span className="tooltip">Ir para Projeto</span></Link>
+                  </div>
+                </div>
+                }
                 <div className="account-avatar">
-                  {' '}
-                  {props.taskContent.details[0].avatar_user ? (
-                    <img
-                      src={props.taskContent.details[0].avatar_user}
-                      alt="Avatar"
-                      style={{ borderRadius: '50%' }}
-                      width="20px"
-                      height="20px"
-                    />
-                  ) : null}
+                  <img
+                    src={props.taskContent.details[0].avatar_user}
+                    alt="Avatar"
+                    style={{ borderRadius: '50%' }}
+                    width="20px"
+                    height="20px"
+                    title={props.taskContent.details[0].name_user}
+                  />
                 </div>
               </div>
             ) : (

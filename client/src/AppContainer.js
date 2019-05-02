@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import App from './App';
 import TitleTimer from './components/misc/TitleTimer'
 import { withRouter } from "react-router-dom";
+import {createBrowserHistory} from 'history'
+const history = createBrowserHistory()
 const axios = require('axios');
 
 class AppContainer extends Component {
@@ -34,6 +36,7 @@ class AppContainer extends Component {
       localStorage.removeItem('loggedIn');
       localStorage.removeItem('user');
       localStorage.removeItem('token');
+      history.replace('/')
     })
   }
 

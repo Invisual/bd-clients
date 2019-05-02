@@ -49,8 +49,9 @@ class MyTasksContainer extends Component {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
     var user = JSON.parse(localStorage.getItem('user'));
+    var url = this.props.userRole === 2 || this.props.userRole === 3 ? `/api/tasks/all` : `/api/tasks/${user.id_user}`
 
-    axios.get(`/api/tasks/${user.id_user}`, { headers: { Authorization: AuthStr } }).then(res => {
+    axios.get(url, { headers: { Authorization: AuthStr } }).then(res => {
       if (res.data === 'nodata') {
         this.setState({ tasks: null, isLoading: false });
       } else {
@@ -138,7 +139,8 @@ class MyTasksContainer extends Component {
     var filteredTasks
     switch(this.props.type){
       case 'alltasks':
-      filteredTasks = this.state.tasks.filter( task => {
+      if(this.state.tasks !== null){
+        filteredTasks = this.state.tasks.filter( task => {
           return this.props.filters.client === '' ? true : Number(task.ref_id_client) === Number(this.props.filters.client)
         }).filter(task => {
           return this.props.filters.billing === '' ? true : Number(task.ref_id_billing_mode) === Number(this.props.filters.billing)
@@ -153,6 +155,11 @@ class MyTasksContainer extends Component {
         }).filter(task => {
           return this.props.filters.isDeadlineSet === false ? true : moment(task.deadline_date_task).isSameOrBefore(this.props.filters.deadline, 'day')
         })
+      }
+      else{
+        filteredTasks = null
+      }
+      
       break;
 
       default:
