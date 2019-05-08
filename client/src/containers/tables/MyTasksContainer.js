@@ -49,8 +49,13 @@ class MyTasksContainer extends Component {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
     var user = JSON.parse(localStorage.getItem('user'));
-    var url = this.props.userRole === 2 || this.props.userRole === 3 ? `/api/tasks/all` : `/api/tasks/${user.id_user}`
-
+    var url = ''
+    if(this.props.userRole === 2 || this.props.userRole === 3){
+      url = this.props.currentTaskList === 'all' ? `/api/tasks/all` : `/api/tasks/${user.id_user}`
+    }
+    else{
+      url = `/api/tasks/${user.id_user}`
+    }
     axios.get(url, { headers: { Authorization: AuthStr } }).then(res => {
       if (res.data === 'nodata') {
         this.setState({ tasks: null, isLoading: false });
@@ -124,12 +129,15 @@ class MyTasksContainer extends Component {
   }
 
   componentDidMount() {
-    this.getTasks();
+    this.getTasks()
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.reloadTasks !== this.props.reloadTasks) {
-      this.getTasks();
+      this.getTasks()
+    }
+    if(prevProps.currentTaskList !== this.props.currentTaskList){
+      this.getTasks()
     }
   }
 

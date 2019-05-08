@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {SidebarDiv} from '../../styles/navigation';
-import { FiHome, FiFolder, FiFileText, FiCalendar, FiBookmark, FiWatch, FiEdit, FiLogOut, FiUser } from 'react-icons/fi';
+import { FiHome, FiFolder, FiFileText, FiCalendar, FiBookmark, FiUsers, FiEdit, FiLogOut, FiUser } from 'react-icons/fi';
 import { NavLink} from 'react-router-dom';
 
 class SideBar extends Component {
@@ -40,7 +40,7 @@ class SideBar extends Component {
                 <NavLink to="/clients" activeClassName='is-active'><li><FiUser/> <span>Clientes</span></li></NavLink>
                 <NavLink to="/meetings" activeClassName='is-active'><li><FiCalendar/> <span>Reuniões</span></li></NavLink>
                 <NavLink to="/ds" activeClassName='is-active'><li><FiBookmark/> <span>Objectivos</span></li></NavLink>
-                <NavLink to="/ds" activeClassName='is-active'><li><FiWatch/> <span>Histórico</span></li></NavLink>  
+                <NavLink to="/team" activeClassName='is-active'><li><FiUsers/> <span>Equipa</span></li></NavLink>  
                 <li onClick={() => document.body.classList.add('todo-open')}><FiEdit/><span>To-Do List</span></li>
                 <li onClick={this.props.logout}><FiLogOut/> <span>Log Out</span></li>
             </ul>

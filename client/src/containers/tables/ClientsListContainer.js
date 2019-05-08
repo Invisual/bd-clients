@@ -31,9 +31,12 @@ class ClientsListContainer extends Component {
   }
 
   render() {
+    var filteredClients = this.state.clients.filter(client => {
+      return this.props.searchQuery === '' ? true : client.name_client.toLowerCase().includes(this.props.searchQuery.toLowerCase())
+    })
     return (
       <ClientsList
-        clients={this.state.clients}
+        clients={filteredClients}
         type={this.props.type}
         isLoading={this.state.isLoading}
         changeActiveClient={this.props.changeActiveClient}

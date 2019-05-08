@@ -9,7 +9,7 @@ export const TopBar = props => {
       <ul className="main-nav">
       {props.canGoBack ? <li className="topbar-goback"> <FiChevronLeft onClick={props.goBackHistory}/></li> : null}
         <li className="topbar-search">
-          <input type="text" placeholder="Pesquisa" className={props.displaySearchInput} />
+          <input type="text" placeholder="Pesquisa" className={props.displaySearchInput+' searchinput'} />
           <FiSearch onClick={props.toggleSearchInput}/>
         </li>
 

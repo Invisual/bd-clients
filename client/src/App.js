@@ -9,6 +9,7 @@ import AllTasksContainer from './containers/lists/AllTasksContainer';
 import AllProjectsContainer from './containers/lists/AllProjectsContainer';
 import AllMeetingsContainer from './containers/lists/AllMeetingsContainer';
 import AllClientsContainer from './containers/lists/AllClientsContainer';
+import AllTeamContainer from './containers/lists/AllTeamContainer';
 import MyToDoContainer from './containers/tables/MyToDoContainer';
 import CreateProjectContainer from './containers/inserts/CreateProjectContainer';
 import CreateTaskContainer from './containers/inserts/CreateTaskContainer';
@@ -40,6 +41,7 @@ class App extends Component {
               <Route exact path="/clients" render={props => <AllClientsContainer isShare={false} userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/clients/:id" render={props => <AllClientsContainer isShare={true} userInfo={this.props.userInfo} {...props} />} />
               <Route path="/admin" render={props => <AdminDashboardContainer {...props} />} />
+              <Route exact path="/team" render={props => <AllTeamContainer userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/createproject" render={props => <CreateProjectContainer {...props} type="add" title="Novo Projeto"/>} />
               <Route path="/createproject/:id" render={props => <CreateProjectContainer {...props} type="edit" title="Editar Projeto"/>} />
               <Route exact path="/createtask" render={props => <CreateTaskContainer {...props} type="add" title="Nova Tarefa"/>} />
