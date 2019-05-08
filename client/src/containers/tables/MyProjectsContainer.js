@@ -16,8 +16,9 @@ class MyProjectsContainer extends Component {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
     var idUser = JSON.parse(localStorage.getItem('user'));
+    var url = idUser.ref_id_role === 3 || idUser.ref_id_role  === 2 ? `/api/projects` : `/api/projects/${idUser.id_user}`
 
-    axios.get(`/api/projects/${idUser.id_user}`, { headers: { Authorization: AuthStr } }).then(res => {
+    axios.get(url, { headers: { Authorization: AuthStr } }).then(res => {
       if (res.data === 'nodata') {
         this.setState({ projects: null, isLoading: false });
       } else {

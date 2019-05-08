@@ -118,8 +118,10 @@ class AllProjectsContainer extends Component {
               });
           });
       } else {
+
+        var url = this.props.userInfo.ref_id_role === 3 || this.props.userInfo.ref_id_role === 2 ? `/api/projects` : `/api/projects/${idUser.id_user}`
         axios
-          .get(`/api/projects/${idUser.id_user}`, { headers: { Authorization: AuthStr } })
+          .get(url, { headers: { Authorization: AuthStr } })
           .then(res => {
             this.setState({ activeProject: res.data[0].id_project });
           })

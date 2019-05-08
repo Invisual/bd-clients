@@ -17,14 +17,18 @@ router.get('/', checkToken, (req, res) => {
       //If error send Forbidden (403)
       res.sendStatus(403);
     } else {
-      connection.query('Select * from projects', function(error, results, fields) {
+      connection.query("SELECT title_project, id_client, name_client, id_project, creation_date_project, group_concat(DISTINCT projects_has_categories.ref_id_category SEPARATOR ',') as 'categories', projects.ref_id_billing_mode, concluded_project, projects.ref_id_user_account, SUM(CASE WHEN tasks.id_task THEN 1 ELSE 0 END) AS total_tasks, SUM(case WHEN users_has_tasks.ref_id_user_task_status=2 THEN 1 ELSE 0 END) as doing, SUM(case WHEN tasks.concluded_task=1 THEN 1 ELSE 0 END) AS concluded_tasks, SUM(case WHEN tasks.concluded_task=1 THEN 1 ELSE 0 END)/count(*) *100 AS percentage_tasks, group_concat(DISTINCT users_has_tasks.ref_id_user SEPARATOR ',') as 'intervenientes' FROM projects LEFT JOIN tasks ON projects.id_project=tasks.ref_id_project LEFT JOIN users_has_tasks ON tasks.id_task=users_has_tasks.ref_id_task INNER JOIN clients ON clients.id_client=projects.ref_id_client LEFT JOIN projects_has_categories ON projects.id_project=projects_has_categories.ref_id_project WHERE concluded_project = 0 group by projects.id_project",
+      function(error, results, fields) {
         if (error) throw error;
         if (results.length > 0) {
           res.send(results);
+        } else {
+          res.send('nodata')
         }
-      });
-    }
-  });
+      }
+    );
+  }
+});
 });
 
 
