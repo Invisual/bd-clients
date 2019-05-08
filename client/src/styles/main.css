@@ -371,3 +371,96 @@ body.todo-open #overlay {
   0%{opacity: 1;}
   100%{opacity: 0;}
 }
+
+
+
+
+
+/*INPUTS DE PESQUISA*/
+.searchinput{
+  border: none;
+  outline: none;
+  background: none;
+  z-index: 3;
+  width: 150px;
+  border-bottom: 1px solid #0036ff;
+  cursor: text;
+  -webkit-transform: scaleX(.0);
+  -ms-transform: scaleX(.0);
+  transform: scaleX(.0);
+  -webkit-transform-origin: right;
+  -ms-transform-origin: right;
+  transform-origin: right;
+  color: #7f9aff;
+  font-weight: 600;
+  position: relative;
+  bottom: 5px;
+  right: 4px;
+}
+
+.searchinput::-webkit-input-placeholder {
+  color:#7f9aff;
+  font-weight:600;
+  font-size: .9em;
+  font-family: 'Montserrat', sans-serif;
+  position:relative;
+  bottom:4px;
+}
+
+.searchinput::-moz-placeholder {
+  color:#7f9aff;
+  font-weight:600;
+  font-size: .9em;
+  font-family: 'Montserrat', sans-serif;
+  position:relative;
+  bottom:4px;
+}
+
+.searchinput:-ms-input-placeholder {
+  color:#7f9aff;
+  font-weight:600;
+  font-size: .9em;
+  font-family: 'Montserrat', sans-serif;
+  position:relative;
+  bottom:4px;
+}
+
+.searchinput:-moz-placeholder {
+  color:#7f9aff;
+  font-weight:600;
+  font-size: .9em;
+  font-family: 'Montserrat', sans-serif;
+  position:relative;
+  bottom:4px;
+}
+
+.searchinput.showsearch{
+  animation: showInput .3s ease-in-out;
+  animation-fill-mode: forwards;  
+}
+@keyframes showInput{
+  0%{
+    transform: scaleX(.0);
+    opacity:0;
+  }
+  100%{
+    transform: scaleX(1);
+    opacity:1;
+  }
+}
+
+input[type='text'].hidesearch{
+  animation: hideInput .3s ease-in-out;
+  animation-fill-mode: forwards;  
+}
+@keyframes hideInput{
+  0%{
+    transform: scaleX(1);
+    opacity:1;
+  }
+  100%{
+    transform: scaleX(.0);
+    opacity:0;
+  }
+}
+/*INPUTS DE PESQUISA*/

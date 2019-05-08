@@ -4,7 +4,7 @@ import MyTasksContainer from '../../containers/tables/MyTasksContainer';
 import TaskDetailContainer from '../../containers/details/TaskDetailContainer';
 import OptionsContainer from '../../containers/options/OptionsContainer';
 import TaskFilters from '../options/TaskFilters';
-import { FiFilePlus, FiFilter } from 'react-icons/fi';
+import { FiFilePlus, FiFilter, FiUserCheck } from 'react-icons/fi';
 import { Redirect, Link } from 'react-router-dom';
 
 export const AllTasks = props => {
@@ -24,6 +24,10 @@ export const AllTasks = props => {
                 <FiFilePlus />
                 <span className="tooltip">Adicionar Tarefa</span>
               </Link>
+            </div>
+            <div className="tooltip-container">
+                <FiUserCheck className={props.currentTaskList === 'all' ? 'task-view-icon' : 'task-view-icon icon-selected'} onClick={props.changeCurrentTaskList}/>
+                <span className="tooltip">{props.currentTaskList === 'all' ? 'Ver as minhas Tarefas' : 'Ver todas as Tarefas'}</span>
             </div>
             <div className="tooltip-container filter-with-notification">
               {props.getNumberOfActiveFilters() > 0 ? <div className="notification"><span>{props.getNumberOfActiveFilters()}</span></div> : null}
@@ -64,6 +68,7 @@ export const AllTasks = props => {
               getActiveHours={props.getActiveHours}
               filters={props.filters}
               userRole={props.userRole}
+              currentTaskList={props.currentTaskList}
             />
           </div>
         </div>

@@ -173,5 +173,4 @@ export const FiltersDiv = styled.div`
             margin: 0 10px;
         }
     }
-
 `

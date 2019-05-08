@@ -14,6 +14,8 @@ class AllClientsContainer extends Component {
       activeClient: '',
       activeTab: 'clientinfo',
       clientContent: [],
+      searchQuery: '',
+      displaySearchInput: '',
       isLoading: true
     };
   }
@@ -100,6 +102,17 @@ class AllClientsContainer extends Component {
     window.alert('Edit task ' + taskId + '?');
   };
 
+  changeSearchQuery = e => this.setState({searchQuery: e.target.value})
+
+  toggleSearchInput = () => {
+    if(this.state.displaySearchInput === '' || this.state.displaySearchInput === 'hidesearch'){
+      this.setState({displaySearchInput: 'showsearch'})
+    }
+    else if(this.state.displaySearchInput === 'showsearch'){
+      this.setState({displaySearchInput: 'hidesearch'})
+    }
+  }
+
   componentDidMount() {
     this.getClientDetails();
   }
@@ -128,6 +141,10 @@ class AllClientsContainer extends Component {
         copyAlert={this.copyAlert}
         changeActiveTab={this.changeActiveTab}
         activeTab={this.state.activeTab}
+        searchQuery={this.state.searchQuery}
+        changeSearchQuery={this.changeSearchQuery}
+        displaySearchInput={this.state.displaySearchInput}
+        toggleSearchInput={this.toggleSearchInput}
       />
     );
   }

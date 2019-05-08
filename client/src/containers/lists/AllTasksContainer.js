@@ -31,6 +31,7 @@ class AllTasksContainer extends Component {
       projectsList: [],
       taskTypesList: [],
       tasksStatusList: [],
+      currentTaskList: 'all',
       isLoading: true,
       redirect: false
     };
@@ -38,6 +39,8 @@ class AllTasksContainer extends Component {
 
   changeFilters = (filters) => this.setState({filters: filters})
   changeFiltersAreActive = () => this.setState({filtersAreActive: !this.state.filtersAreActive})
+
+  changeCurrentTaskList = () => this.setState({currentTaskList: this.state.currentTaskList === 'all' ? 'self' : 'all' })
 
   getNumberOfActiveFilters = () => {
     var x = 0;
@@ -323,6 +326,8 @@ class AllTasksContainer extends Component {
         billingList={this.state.billingList}
         taskTypesList={this.state.taskTypesList}
         tasksStatusList={this.state.tasksStatusList}
+        currentTaskList={this.state.currentTaskList}
+        changeCurrentTaskList={this.changeCurrentTaskList}
       />
     );
   }
