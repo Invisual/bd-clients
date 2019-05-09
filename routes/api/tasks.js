@@ -34,10 +34,11 @@ router.post('/', checkToken, (req, res) => {
       res.sendStatus(403);
     } else {
       connection.query(
-        'INSERT INTO tasks (title_task, description_task, deadline_date_task, ref_id_client, ref_id_billing_mode, ref_id_project, ref_id_type_task, ref_id_user_account ) VALUES (?,?,?,?,?,?,?,?)',
+        'INSERT INTO tasks (title_task, description_task, starting_date_task, deadline_date_task, ref_id_client, ref_id_billing_mode, ref_id_project, ref_id_type_task, ref_id_user_account ) VALUES (?,?,?,?,?,?,?,?,?)',
         [
           req.body.title,
           req.body.description,
+          req.body.startdate,
           req.body.deadline,
           req.body.client,
           req.body.billing,
@@ -94,10 +95,11 @@ router.put('/', checkToken, (req, res) => {
       res.sendStatus(403);
     } else {
       connection.query(
-        'UPDATE tasks SET title_task = ?, description_task = ?, deadline_date_task = ?, ref_id_client = ?, ref_id_billing_mode = ?, ref_id_project = ?, ref_id_type_task = ?, ref_id_user_account = ? WHERE id_task = ?',
+        'UPDATE tasks SET title_task = ?, description_task = ?,  starting_date_task = ?, deadline_date_task = ?, ref_id_client = ?, ref_id_billing_mode = ?, ref_id_project = ?, ref_id_type_task = ?, ref_id_user_account = ? WHERE id_task = ?',
         [
           req.body.title,
           req.body.description,
+          req.body.startdate,
           req.body.deadline,
           req.body.client,
           req.body.billing,
@@ -176,7 +178,7 @@ router.get('/all', checkToken, (req, res) => {
       res.sendStatus(403);
     } else {
       connection.query(
-        'SELECT id_task, ref_id_user_task_status, title_task, user_task_status.name_user_task_status, deadline_date_task, tasks.ref_id_client, ref_id_type_task, tasks.ref_id_billing_mode, ref_id_project, users_has_tasks.order, users_has_tasks.ref_id_user from tasks LEFT JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task LEFT JOIN task_types on task_types.id_task_type=tasks.ref_id_type_task LEFT JOIN aproval_task_status ON aproval_task_status.id_aproval_task_status=tasks.ref_id_aproval_task_status LEFT JOIN user_task_status ON user_task_status.id_user_task_status=users_has_tasks.ref_id_user_task_status LEFT JOIN projects ON tasks.ref_id_project=projects.id_project LEFT JOIN billing_modes ON billing_modes.id_billing_mode=tasks.ref_id_billing_mode where tasks.concluded_task=0 ORDER by users_has_tasks.order DESC, tasks.id_task ASC',
+        'SELECT id_task, ref_id_user_task_status, title_task, user_task_status.name_user_task_status, starting_date_task, deadline_date_task, tasks.ref_id_client, ref_id_type_task, tasks.ref_id_billing_mode, ref_id_project, users_has_tasks.order, users_has_tasks.ref_id_user from tasks LEFT JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task LEFT JOIN task_types on task_types.id_task_type=tasks.ref_id_type_task LEFT JOIN aproval_task_status ON aproval_task_status.id_aproval_task_status=tasks.ref_id_aproval_task_status LEFT JOIN user_task_status ON user_task_status.id_user_task_status=users_has_tasks.ref_id_user_task_status LEFT JOIN projects ON tasks.ref_id_project=projects.id_project LEFT JOIN billing_modes ON billing_modes.id_billing_mode=tasks.ref_id_billing_mode where tasks.concluded_task=0 ORDER by users_has_tasks.order DESC, tasks.id_task ASC',
         function(error, results, fields) {
           if (error) throw error;
           if (results.length > 0) {
@@ -199,7 +201,7 @@ router.get('/:user', checkToken, (req, res) => {
       res.sendStatus(403);
     } else {
       connection.query(
-        'SELECT id_task, ref_id_user_task_status, title_task, user_task_status.name_user_task_status, deadline_date_task, tasks.ref_id_client, ref_id_type_task, tasks.ref_id_billing_mode, ref_id_project, users_has_tasks.order, users_has_tasks.ref_id_user from tasks LEFT JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task LEFT JOIN task_types on task_types.id_task_type=tasks.ref_id_type_task LEFT JOIN aproval_task_status ON aproval_task_status.id_aproval_task_status=tasks.ref_id_aproval_task_status LEFT JOIN user_task_status ON user_task_status.id_user_task_status=users_has_tasks.ref_id_user_task_status LEFT JOIN projects ON tasks.ref_id_project=projects.id_project LEFT JOIN billing_modes ON billing_modes.id_billing_mode=tasks.ref_id_billing_mode where tasks.concluded_task=0 AND users_has_tasks.ref_id_user= ? ORDER by users_has_tasks.order DESC, tasks.id_task ASC',
+        'SELECT id_task, ref_id_user_task_status, title_task, user_task_status.name_user_task_status, starting_date_task, deadline_date_task, tasks.ref_id_client, ref_id_type_task, tasks.ref_id_billing_mode, ref_id_project, users_has_tasks.order, users_has_tasks.ref_id_user from tasks LEFT JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task LEFT JOIN task_types on task_types.id_task_type=tasks.ref_id_type_task LEFT JOIN aproval_task_status ON aproval_task_status.id_aproval_task_status=tasks.ref_id_aproval_task_status LEFT JOIN user_task_status ON user_task_status.id_user_task_status=users_has_tasks.ref_id_user_task_status LEFT JOIN projects ON tasks.ref_id_project=projects.id_project LEFT JOIN billing_modes ON billing_modes.id_billing_mode=tasks.ref_id_billing_mode where tasks.concluded_task=0 AND users_has_tasks.ref_id_user= ? ORDER by users_has_tasks.order DESC, tasks.id_task ASC',
         id,
         function(error, results, fields) {
           if (error) throw error;

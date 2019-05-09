@@ -17,6 +17,7 @@ class CreateTaskContainer extends Component{
             descInput: '',
             projectInput: '',
             deadlineInput: new Date(),
+            startDateInput: new Date(),
             accountInput: '',
             personInput: '',
             billingInput: '',
@@ -59,6 +60,10 @@ class CreateTaskContainer extends Component{
 
     changeDeadlineInput = (val) => {
         this.setState({ deadlineInput: val })
+    }
+
+    changeStartDateInput = (val) => {
+        this.setState({ startDateInput: val })
     }
 
     changeAccountInput = (e) => {
@@ -153,6 +158,7 @@ class CreateTaskContainer extends Component{
                     descInput:res.data[0].description_task,
                     projectInput:res.data[0].ref_id_project,
                     deadlineInput:res.data[0].deadline_date_task,
+                    startDateInput:res.data[0].starting_date_task,
                     accountInput:res.data[0].ref_id_user_account,
                     personInput: res.data[0].ref_id_user,
                     billingInput: res.data[0].ref_id_billing_mode
@@ -167,6 +173,7 @@ class CreateTaskContainer extends Component{
             title: this.state.titleInput,
             description: this.state.descInput,
             deadline: moment(this.state.deadlineInput).format(),
+            startdate: moment(this.state.startDateInput).format(),
             client: this.state.clientInput,
             billing: this.state.billingInput,
             project: this.state.projectInput,
@@ -203,6 +210,7 @@ class CreateTaskContainer extends Component{
             title: this.state.titleInput,
             description: this.state.descInput,
             deadline: moment(this.state.deadlineInput).format(),
+            startdate: moment(this.state.startDateInput).format(),
             client: this.state.clientInput,
             billing: this.state.billingInput,
             project: this.state.projectInput,
@@ -255,10 +263,12 @@ class CreateTaskContainer extends Component{
                 changeDescInput={this.changeDescInput}
                 changeProjectInput={this.changeProjectInput}
                 changeDeadlineInput={this.changeDeadlineInput}
+                changeStartDateInput={this.changeStartDateInput}
                 changeAccountInput={this.changeAccountInput}
                 changePersonInput={this.changePersonInput}
                 changeBillingInput={this.changeBillingInput}
                 deadlineInput={this.state.deadlineInput}
+                startDateInput={this.state.startDateInput}
                 clientInput={this.state.clientInput}
                 typeInput={this.state.typeInput}
                 titleInput={this.state.titleInput}

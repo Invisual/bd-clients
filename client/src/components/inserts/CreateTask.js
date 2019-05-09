@@ -148,6 +148,7 @@ export const CreateTask = props => {
                             {props.typeInput === '3' ?
                                 null
                             :
+                            <>
                             <div className="innergrid-item">
                                 <div className="input-wrapper">
                                     <fieldset>
@@ -161,6 +162,16 @@ export const CreateTask = props => {
                                     </fieldset>
                                 </div>
                             </div>
+                            
+                            <div className="innergrid-item">
+                                <div className="input-wrapper">
+                                    <fieldset>
+                                        <legend>Data de Início</legend>
+                                        <DatePicker id="task-startinddate" onChange={props.changeStartDateInput} format="y-MM-dd" locale="pt-PT" value={new Date(props.startDateInput)} calendarIcon={<FiCalendar/>}/>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            </>
                             }
                             
                         </div>
