@@ -361,6 +361,44 @@ export const SingleClientDiv = styled.div`
 `;
 
 
+
+
+export const SingleMemberDiv = styled.div`
+  display: flex;
+  color: ${themeConsts.textDarkGrey};
+  min-height: 50px;
+  cursor: pointer;
+
+  .member-avatar{
+    display: flex;
+    align-items: center;
+
+    img{
+      width:27px;
+      border: 2px solid #0036ff;
+      border-radius: 50%;
+    }
+  }
+  .member-name{
+    display: flex;
+    align-items: center;
+    font-size: 1.4em;
+    font-weight: 500;
+    margin-left: 20px;
+  }
+  .member-role{
+    display: flex;
+    align-items: center;
+    font-size: 1.1em;
+    font-weight: 300;
+    margin-left: 20px;
+    color:${themeConsts.secondaryBlue}
+  }
+`;
+
+
+
+
 export const AllMeetingsDiv = styled.div`
 
   .meeting-card-grid{
