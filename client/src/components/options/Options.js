@@ -65,6 +65,7 @@ export const Options =  props => {
             ) : (
               <div className="grid-widget tasks-options"> </div>
             );
+
           case 'projectoptions':
             return props.isLoading ? (
               <div className="grid-widget tasks-options" />
@@ -92,6 +93,7 @@ export const Options =  props => {
             ) : (
               <div className="grid-widget tasks-options"> </div>
             );
+
           case 'clientsoptions':
             return props.isLoading ? (
               <div className="grid-widget tasks-options" />
@@ -121,6 +123,37 @@ export const Options =  props => {
             ) : (
               <div className="grid-widget tasks-options"> </div>
             );
+
+          case 'teamoptions':
+            return props.isLoading ? (
+              <div className="grid-widget tasks-options" />
+            ) : props.memberContent ? (
+              <div className="grid-widget tasks-options">
+                {props.userRole === 3 || props.userRole === 2 ? (
+                  <div className="task-infos">
+                  <div className="tooltip-container">
+                    <FiTrash2
+                      className="task-info-icon"
+                      onClick={() => {
+                        props.deleteActiveMember(props.memberContent.details[0].id_user);
+                      }}
+                    /><span className="tooltip">Eliminar Utilizador</span>
+                    </div>
+                    <div className="tooltip-container">
+                    <FiEdit3
+                      className="task-info-icon"
+                      onClick={() => {
+                        props.editActiveMember(props.memberContent.details[0].id_user);
+                      }}
+                    /><span className="tooltip">Editar Utilizador</span>
+                    </div>
+                  </div>
+                ) : null}
+              </div>
+            ) : (
+              <div className="grid-widget tasks-options"> </div>
+            );
+
           default:
           return props.isLoading ? (
             <div className="grid-widget tasks-options" />

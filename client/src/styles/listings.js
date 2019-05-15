@@ -1225,6 +1225,8 @@ export const ClientDetailsDiv = styled.div`
         margin-top:5px;
       }
       .single-member-project{
+        border-top-left-radius:0;
+        border-top-right-radius:0;
         margin-top: 20px;
         position:relative;
         padding-top: 20px;
@@ -1295,6 +1297,11 @@ export const ClientDetailsDiv = styled.div`
             margin:0;
             margin-right: 12px;
           }
+          h5{
+            margin:0;
+            margin-right:12px;
+            font-size:1em;
+          }
           .single-task-hours{
             display:flex;
             align-items:center;
@@ -1309,8 +1316,6 @@ export const ClientDetailsDiv = styled.div`
               font-weight: 500;
               letter-spacing: .03em;
               font-size: 1.1em;
-              position: relative;
-              top: 1px;
             }
           }
           .single-task-check{

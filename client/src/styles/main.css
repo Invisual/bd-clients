@@ -248,6 +248,9 @@ body.collapsed-sidebar .topbar-goback {
 .no-shadow {
   box-shadow: none;
 }
+.nomargin{
+  margin:0 !important;
+}
 
 .btn {
   color: #fff;
@@ -464,3 +467,25 @@ input[type='text'].hidesearch{
   }
 }
 /*INPUTS DE PESQUISA*/
+
+
+
+
+/*CARDS COM BORDER COM COR PARA CADA TIPO DE TAREFA*/
+.card-project{
+  border-top:5px solid #0036ff;
+}
+.card-diaria{
+  border-top:5px solid #ffeb3b;
+}
+.card-externa{
+  border-top:5px solid #f7ab00;
+}
+.card-isolada{
+  border-top:5px solid #00b1ff;
+}
+
+
+
+
+/*CARDS COM BORDER COM COR PARA CADA TIPO DE TAREFA*/

@@ -15,15 +15,15 @@ export const AllTeam = props => {
                         <input type="text" placeholder="Pesquisa" className={props.displaySearchInput+ ' searchinput'} onChange={props.changeSearchQuery}/>
                         <FiSearch onClick={props.toggleSearchInput}/>
                     </div>
-                    {props.userRole === 3 || props.userRole === 2 ? <div className="tooltip-container"><span className="tooltip">Adicionar Cliente</span><FiUserPlus /></div> : null}
+                    {props.userRole === 3 || props.userRole === 2 ? <div className="tooltip-container"><span className="tooltip">Adicionar Utilizador</span><FiUserPlus /></div> : null}
                 </div>
                     <OptionsContainer
                     userRole={props.userRole}
-                    type={'clientsoptions'}
-                    activeClient={props.activeClient}
-                    clientContent={props.clientContent}
+                    type={'teamoptions'}
+                    activeMember={props.activeMember}
+                    memberContent={props.memberContent}
                     isLoading={props.isLoading}
-                    deleteActiveTask={props.deleteActiveTask}
+                    deleteActiveMember={props.deleteActiveMember}
                     duplicateActiveTask={props.duplicateActiveTask}
                     editActiveTask={props.editActiveTask}
                     />
@@ -34,6 +34,7 @@ export const AllTeam = props => {
                         changeActiveMember={props.changeActiveMember}
                         activeMember={props.activeMember}
                         searchQuery={props.searchQuery}
+                        reloadMembers={props.reloadMembers}
                         />
                     </div>
                 </div>

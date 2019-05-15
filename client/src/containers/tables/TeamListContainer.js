@@ -30,6 +30,12 @@ class TeamListContainer extends Component {
     this.getMembers();
   }
 
+  componentDidUpdate(prevProps){
+    if (prevProps.reloadMembers !== this.props.reloadMembers) {
+      this.getMembers()
+    }
+  }
+
   render() {
     var filteredMembers = this.state.members.filter(member => {
       return this.props.searchQuery === '' ? true : member.name_user.toLowerCase().includes(this.props.searchQuery.toLowerCase())

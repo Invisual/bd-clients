@@ -8,6 +8,7 @@ export const themeConsts = {
     green: '#1de9b6',
     lightGreen: '#d2fbf0',
     purple: '#651fff',
+    yellow: '#ffeb3b',
     pink: '#f50057',
     red: '#F43D3D',
     white: '#ffffff',

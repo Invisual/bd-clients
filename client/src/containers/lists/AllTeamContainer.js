@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import { AllTeam } from '../../components/lists/AllTeam';
 import moment from 'moment';
 import 'moment/locale/pt';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
 
 const axios = require('axios')
 
@@ -15,6 +17,7 @@ class AllTeamContainer extends Component{
             memberContent: [],
             displaySearchInput: '',
             searchQuery: '',
+            reloadMembers: false,
             isLoading: true
         }
     }
@@ -61,7 +64,33 @@ class AllTeamContainer extends Component{
         else if(this.state.displaySearchInput === 'showsearch'){
           this.setState({displaySearchInput: 'hidesearch'})
         }
-      }
+    }
+
+
+    deleteActiveMember = memberId => {
+        var token = JSON.parse(localStorage.getItem('token'));
+        var AuthStr = 'Bearer ' + token;
+        Swal.fire({
+          title: 'Tem a certeza que quer eliminar este Utilizador?',
+          text: 'Esta ação é irreversível',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Sim, eliminar!',
+          cancelButtonText: 'Cancelar'
+        }).then(result => {
+          if (result.value) {
+            Swal.fire('Utilizador Eliminado', '', 'success').then(result => {
+              if (result.value) {
+                axios
+                  .delete(`/api/users/${memberId}`, { headers: { Authorization: AuthStr } })
+                  .then(this.setState({ activeMember: '', reloadMembers: true }));
+              }
+            });
+          }
+        });
+    };
 
     componentDidMount(){
         this.getMemberDetails();
@@ -72,9 +101,13 @@ class AllTeamContainer extends Component{
           this.getMemberDetails();
           this.setState({ activeTab: 'history' });
         }
+        if (prevState.reloadMembers !== this.state.reloadMembers) {
+            this.setState({ reloadMembers: false });
+        }
       }
 
     render(){
+        console.log(this.state.reloadMembers)
         return <AllTeam
                     userRole={this.props.userInfo.ref_id_role}
                     memberContent={this.state.memberContent}
@@ -87,6 +120,8 @@ class AllTeamContainer extends Component{
                     changeSearchQuery={this.changeSearchQuery}
                     displaySearchInput={this.state.displaySearchInput}
                     toggleSearchInput={this.toggleSearchInput}
+                    deleteActiveMember={this.deleteActiveMember}
+                    reloadMembers={this.state.reloadMembers}
                 />
     }
 

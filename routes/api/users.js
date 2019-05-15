@@ -22,7 +22,7 @@ router.get('/', checkToken, (req, res) => {
                 res.sendStatus(403);
             } else {
                 //If token is successfully verified, we can send the autorized data 
-                connection.query("Select * from users INNER JOIN positions ON users.ref_id_position = positions.id_position", function(error, results, fields){
+                connection.query("Select * from users INNER JOIN positions ON users.ref_id_position = positions.id_position WHERE status_user = 1", function(error, results, fields){
                     if(err){throw err}
                     if(results.length>0){ res.send(results);}  
                 })
@@ -146,12 +146,12 @@ router.get('/details/:user/:start/:end', checkToken, (req, res) => {
                 if (error) throw error;
                 if (results.length > 0) { totalResults.details = results; }
             })
-            connection.query("SELECT title_project, id_project, name_client, concluded_project, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS 'total_project_hours', GROUP_CONCAT(DISTINCT CONCAT(users.id_user,',',users.name_user,',',users.avatar_user) SEPARATOR ';') as intervenientes FROM projects LEFT JOIN tasks ON projects.id_project=tasks.ref_id_project LEFT JOIN task_hours ON tasks.id_task = task_hours.ref_id_tasks LEFT JOIN users_has_tasks ON tasks.id_task=users_has_tasks.ref_id_task LEFT JOIN users ON users_has_tasks.ref_id_user= users.id_user LEFT JOIN clients ON projects.ref_id_client = clients.id_client WHERE ref_id_users = ? AND (day BETWEEN ? AND ?) GROUP BY id_project", [user, startDate, endDate], function(error, results, fields) {
+            connection.query("SELECT title_project, id_project, projects.ref_id_client, name_client, concluded_project, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS 'total_project_hours', GROUP_CONCAT(DISTINCT CONCAT(users.id_user,',',users.name_user,',',users.avatar_user) SEPARATOR ';') as intervenientes FROM projects LEFT JOIN tasks ON projects.id_project=tasks.ref_id_project LEFT JOIN task_hours ON tasks.id_task = task_hours.ref_id_tasks LEFT JOIN users_has_tasks ON tasks.id_task=users_has_tasks.ref_id_task LEFT JOIN users ON users_has_tasks.ref_id_user= users.id_user LEFT JOIN clients ON projects.ref_id_client = clients.id_client WHERE ref_id_users = ? AND (day BETWEEN ? AND ?) GROUP BY id_project", [user, startDate, endDate], function(error, results, fields) {
                   if (error) throw error;
                   if (totalResults.details[0].id_user !== null) { totalResults.projects = results }
                   else { res.send('nodata') }
             })
-            connection.query("SELECT id_task, title_task, ref_id_type_task, ref_id_user_task_status, id_user, ref_id_project, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS 'total_task_hours' FROM tasks LEFT JOIN users_has_tasks ON tasks.id_task=users_has_tasks.ref_id_task LEFT JOIN task_hours ON tasks.id_task = task_hours.ref_id_tasks LEFT JOIN users ON users_has_tasks.ref_id_user= users.id_user WHERE id_user=? AND (day BETWEEN ? AND ?) GROUP BY id_task", [user, startDate, endDate], function(error, results, fields) {
+            connection.query("SELECT id_task, title_task, ref_id_type_task, ref_id_user_task_status, id_user, ref_id_project, tasks.ref_id_client, name_client, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS 'total_task_hours' FROM tasks LEFT JOIN users_has_tasks ON tasks.id_task=users_has_tasks.ref_id_task LEFT JOIN task_hours ON tasks.id_task = task_hours.ref_id_tasks LEFT JOIN users ON users_has_tasks.ref_id_user= users.id_user LEFT JOIN clients ON tasks.ref_id_client = clients.id_client WHERE id_user=? AND (day BETWEEN ? AND ?) GROUP BY id_task", [user, startDate, endDate], function(error, results, fields) {
                   if (error) throw error;
                   totalResults.tasks = results;
                   if (totalResults.details[0].id_user !== null) { res.send(totalResults) }
@@ -196,5 +196,21 @@ router.post('/getrandomstring', (req, res) => {
         }
     })
 })
+
+
+router.delete('/:id', checkToken, (req, res) => {
+    id = req.params.id;
+    jwt.verify(req.token, SECRET_KEY, (err, results) => {
+      if (err) {
+        //If error send Forbidden (403)
+        res.sendStatus(403);
+      } else {
+        connection.query('UPDATE users SET status_user = 0 WHERE id_user = ?', id, function(error, results, fields) {
+          if (error) throw error;
+          res.send('deleted');
+        });
+      }
+    });
+  });
 
 module.exports = router;
