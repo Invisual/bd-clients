@@ -2,8 +2,8 @@ import React from 'react';
 import { ClientDetailsDiv } from '../../styles/listings';
 import { FiMoreHorizontal } from 'react-icons/fi';
 import {TeamMemberHistoryTab} from '../tabs/TeamMemberHistoryTab';
-import ClientProjectsTab from '../tabs/ClientProjectsTab';
-import ClientTasksTab from '../tabs/ClientTasksTab';
+import {TeamMemberInfoTab} from '../tabs/TeamMemberInfoTab';
+import {TeamMemberVacationsTab} from '../tabs/TeamMemberVacationsTab';
 
 export const TeamMemberDetail = props => {
   return (
@@ -51,9 +51,9 @@ export const TeamMemberDetail = props => {
                   case 'history':
                     return <TeamMemberHistoryTab memberContent={props.memberContent} />
                   case 'infos':
-                    return <ClientProjectsTab memberContent ={props.memberContent} />
+                    return <TeamMemberInfoTab memberContent ={props.memberContent} />
                   case 'vacations':
-                    return <ClientTasksTab memberContent={props.memberContent} />
+                    return <TeamMemberVacationsTab memberContent={props.memberContent} />
                   default:
                     return null;
                 }
