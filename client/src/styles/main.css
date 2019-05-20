@@ -252,6 +252,15 @@ body.collapsed-sidebar .topbar-goback {
   margin:0 !important;
 }
 
+.limited-width{
+  width:95%;
+  margin:0 auto !important;
+}
+
+.white-bg{
+  background-color:#fff;
+}
+
 .btn {
   color: #fff;
   border: none;
@@ -485,7 +494,18 @@ input[type='text'].hidesearch{
   border-top:5px solid #00b1ff;
 }
 
-
-
-
 /*CARDS COM BORDER COM COR PARA CADA TIPO DE TAREFA*/
+
+
+/*OPTIONS*/
+
+.disabled-filter svg{
+  opacity:.3;
+  cursor: initial !important;
+}
+
+.disabled-filter .tooltip{
+  display:none;
+}
+
+/*OPTIONS*/
