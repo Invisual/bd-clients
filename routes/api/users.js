@@ -146,6 +146,11 @@ router.get('/details/:user/:start/:end', checkToken, (req, res) => {
                 if (error) throw error;
                 if (results.length > 0) { totalResults.details = results; }
             })
+            connection.query("SELECT * FROM user_infos  WHERE ref_id_user=?", user, function(error, results, fields) {
+                if (error) throw error;
+                if (totalResults.details[0].id_user !== null) { totalResults.infos = results }
+                else { res.send('nodata') }
+            })
             connection.query("SELECT title_project, id_project, projects.ref_id_client, name_client, concluded_project, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS 'total_project_hours', GROUP_CONCAT(DISTINCT CONCAT(users.id_user,',',users.name_user,',',users.avatar_user) SEPARATOR ';') as intervenientes FROM projects LEFT JOIN tasks ON projects.id_project=tasks.ref_id_project LEFT JOIN task_hours ON tasks.id_task = task_hours.ref_id_tasks LEFT JOIN users_has_tasks ON tasks.id_task=users_has_tasks.ref_id_task LEFT JOIN users ON users_has_tasks.ref_id_user= users.id_user LEFT JOIN clients ON projects.ref_id_client = clients.id_client WHERE ref_id_users = ? AND (day BETWEEN ? AND ?) GROUP BY id_project", [user, startDate, endDate], function(error, results, fields) {
                   if (error) throw error;
                   if (totalResults.details[0].id_user !== null) { totalResults.projects = results }
@@ -161,6 +166,19 @@ router.get('/details/:user/:start/:end', checkToken, (req, res) => {
     })
 })
 
+router.post('/info', checkToken, (req, res) => {
+    jwt.verify(req.token, SECRET_KEY, (err, results) => {
+      if (err) {
+        //If error send Forbidden (403)
+        res.sendStatus(403);
+      } else {
+        connection.query('INSERT INTO user_infos (user_info_title, user_info_email, user_info_password, user_info_obs, ref_id_user) VALUES(?, ?, ?, ?, ?)', [req.body.infoTitle, req.body.infoEmail, req.body.infoPassword, req.body.infoObs, req.body.activeMemberId], function(error, results, fields) {
+          if (error) throw error;
+            res.send(results);
+        });
+      }
+    });
+  })
 
 
 router.get('/verifyrandomstring', (req, res) => {

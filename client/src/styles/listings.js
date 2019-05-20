@@ -143,33 +143,32 @@ export const AllProjectsDiv = styled.div`
     .tasks-detail {
       position: relative;
     }
-    .filter-with-notification{
-      position:relative;
+    .filter-with-notification {
+      position: relative;
     }
-    .notification{
+    .notification {
       width: 12px;
       height: 12px;
       position: absolute;
       top: -7px;
       right: -4px;
-      background-color: #F43D3D;
+      background-color: #f43d3d;
       border-radius: 50%;
       text-align: center;
-      span{
+      span {
         color: #ffffff;
-        font-size: .75em;
+        font-size: 0.75em;
         position: relative;
         bottom: 1px;
       }
     }
   }
 
-  .meetings-grid{
+  .meetings-grid {
     grid-template-columns: 60% 40%;
 
-    .meetings-calendar{
-
-      .cards-container{
+    .meetings-calendar {
+      .cards-container {
         box-shadow: none;
         border: none;
         padding: 10px 15px;
@@ -184,20 +183,20 @@ export const AllProjectsDiv = styled.div`
     padding: 0;
   }
 
-  .active-day-meetings-container{
-    padding:0 30px;
+  .active-day-meetings-container {
+    padding: 0 30px;
 
-    .day{
+    .day {
       margin: 20px 0;
-      
-      h5{
-        color:${themeConsts.primaryBlue};
-        margin:0;
+
+      h5 {
+        color: ${themeConsts.primaryBlue};
+        margin: 0;
         font-size: 2em;
         font-weight: 500;
       }
-      span{
-        color:${themeConsts.primaryBlue};
+      span {
+        color: ${themeConsts.primaryBlue};
         text-transform: lowercase;
         font-size: 1.3em;
       }
@@ -432,8 +431,8 @@ export const TaskDetailsDiv = styled.div`
 
 export const ProjectDetailsDiv = styled.div`
   color: #797979;
-  height:100%;
-  display:flex;
+  height: 100%;
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
 
@@ -493,46 +492,45 @@ export const ProjectDetailsDiv = styled.div`
       .project-tab {
         padding-right: 45px;
         font-size: 1.1em;
-        font-weight:600;
-        cursor: pointer
+        font-weight: 600;
+        cursor: pointer;
       }
       .project-tab:hover {
-        color:${themeConsts.secondaryBlue};
-        
+        color: ${themeConsts.secondaryBlue};
       }
       .active-tab {
-          color: ${themeConsts.primaryBlue};
-        }
-
-        .project-info-icon {
-          color: ${themeConsts.secondaryBlue};
-          font-size: 1.5em;
-          stroke-width: 2.5;
-          padding-right: 5px;
-          position: relative;
-          top: 2px;
-        }
+        color: ${themeConsts.primaryBlue};
       }
-    
+
+      .project-info-icon {
+        color: ${themeConsts.secondaryBlue};
+        font-size: 1.5em;
+        stroke-width: 2.5;
+        padding-right: 5px;
+        position: relative;
+        top: 2px;
+      }
+    }
+
     .project-task-tab {
       margin-right: 30px;
       padding: 20px 0 10px 0;
       display: grid;
       grid-template-columns: 32% 32% 32%;
-      grid-column-gap:2%;
+      grid-column-gap: 2%;
       span {
-        font-size:1.2em;
-        font-weight:500;
-        color: ${themeConsts.activeBlue}
+        font-size: 1.2em;
+        font-weight: 500;
+        color: ${themeConsts.activeBlue};
       }
       img {
-            margin-top: 7px;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            border: 2px solid ${themeConsts.bordersGrey};
-            margin-right: 10px;
-          }
+        margin-top: 7px;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        border: 2px solid ${themeConsts.bordersGrey};
+        margin-right: 10px;
+      }
     }
     .project-comment-tab {
       margin-right: 30px;
@@ -761,7 +759,6 @@ export const ProjectDetailsDiv = styled.div`
   }
 `;
 
-
 export const AllClientsDiv = styled.div`
   width: 86%;
   min-height: 100vh;
@@ -831,7 +828,7 @@ export const AllClientsDiv = styled.div`
       position: relative;
     }
   }
-  .team-members-grid{
+  .team-members-grid {
     grid-template-columns: 30% 70%;
   }
   .cards-container {
@@ -860,15 +857,15 @@ export const ClientDetailsDiv = styled.div`
       }
     }
 
-    .member-avatar{
-        margin-top:22px;
-        text-align:center;
+    .member-avatar {
+      margin-top: 22px;
+      text-align: center;
 
-        img{
-          width:29px;
-          border:2px solid ${themeConsts.primaryBlue};
-          border-radius:50%;
-        }
+      img {
+        width: 29px;
+        border: 2px solid ${themeConsts.primaryBlue};
+        border-radius: 50%;
+      }
     }
 
     .project-header {
@@ -880,7 +877,7 @@ export const ClientDetailsDiv = styled.div`
         font-weight: 600;
         color: ${themeConsts.titlesDarkGrey};
       }
-      .member-position{
+      .member-position {
         color: ${themeConsts.secondaryBlue};
         font-size: 1.1em;
         margin: 3px 0 0 0;
@@ -1052,6 +1049,49 @@ export const ClientDetailsDiv = styled.div`
         }
       }
     }
+    .user-info-content {
+      margin-right: 30px;
+      padding: 20px 0 10px 0;
+
+      .user-info-basic {
+        font-size: 1.3em;
+        margin-bottom:25px;
+
+        .user-info-email,
+        .user-info-phone {
+          display: flex;
+          align-items: center;
+          margin-bottom:5px;
+          svg {
+            color: ${themeConsts.secondaryBlue};
+            margin-right: 5px;
+            font-size: 1.3em;
+          }
+        }
+      }
+      .user-other-infos {
+        h1 {
+          color: ${themeConsts.titlesDarkGrey};
+        }
+        .user-other-container {
+          font-size: 1.2em;
+          padding-left: 10px;
+          border-bottom: 1px solid #e6e6e6;
+          .user-other-infos-email, .user-other-infos-password, .user-other-infos-obs {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            svg {
+              color: ${themeConsts.secondaryBlue};
+              margin-right: 5px
+            }
+          }
+          .user-other-padding {
+            padding-left: 15px;
+          }
+        }
+      }
+    }
 
     .project-extras {
       display: flex;
@@ -1217,113 +1257,113 @@ export const ClientDetailsDiv = styled.div`
     }
   }
 
-  .member-history-tab{
-      padding-right: 40px;
-      padding-top: 10px;
+  .member-history-tab {
+    padding-right: 40px;
+    padding-top: 10px;
 
-      .single-member-project:nth-child(1){
-        margin-top:5px;
+    .single-member-project:nth-child(1) {
+      margin-top: 5px;
+    }
+    .single-member-project {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      margin-top: 20px;
+      position: relative;
+      padding-top: 20px;
+      padding-bottom: 20px;
+
+      h2 {
+        font-size: 1.4em;
+        font-weight: 500;
+        margin: 0;
       }
-      .single-member-project{
-        border-top-left-radius:0;
-        border-top-right-radius:0;
-        margin-top: 20px;
-        position:relative;
-        padding-top: 20px;
-        padding-bottom: 20px;
 
-        h2{
-          font-size: 1.4em;
+      .project-client {
+        display: flex;
+        align-items: center;
+        margin-top: 6px;
+
+        svg {
+          margin-right: 5px;
+          font-size: 1.3em;
+        }
+        h3 {
+          margin: 0;
+          font-size: 1.1em;
+          color: ${themeConsts.secondaryBlue};
+        }
+      }
+
+      .project-hours {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: ${themeConsts.white};
+        background-color: ${themeConsts.secondaryBlue};
+        padding: 5px 8px;
+        border-radius: 25px;
+        display: flex;
+        align-items: center;
+
+        svg {
+          stroke-width: 4px;
+          margin-right: 5px;
+          font-size: 1.1em;
+        }
+
+        h6 {
+          font-size: 1.1em;
           font-weight: 500;
-          margin:0;
-        }
-
-        .project-client{
-          display:flex;
-          align-items:center;
-          margin-top: 6px;
-
-          svg{
-            margin-right: 5px;
-            font-size:1.3em;
-          }
-          h3{
-            margin:0;
-            font-size: 1.1em;
-            color:${themeConsts.secondaryBlue};
-          }
-        }
-
-        .project-hours{
-          position: absolute;
-          top: 10px;
-          right: 10px;
-          color: ${themeConsts.white};
-          background-color: ${themeConsts.secondaryBlue};
-          padding: 5px 8px;
-          border-radius: 25px;
-          display:flex;
-          align-items:center;
-
-          svg{
-            stroke-width: 4px;
-            margin-right: 5px;
-            font-size: 1.1em;
-          }
-
-          h6{
-            font-size: 1.1em;
-            font-weight: 500;
-            margin: 0;
-            line-height: 1.2em;
-          }
-        }
-
-        .project-single-task{
-          display:flex;
-          align-items:center;
-          padding-left: 20px;
-          margin-top: 15px;
-
-          svg{
-            color:${themeConsts.textLightGrey};
-            font-size: 1.3em;
-            margin-right: 5px;
-          }
-          h4{
-            color:${themeConsts.textLightGrey};
-            font-size: 1.2em;
-            font-weight: 300;
-            margin:0;
-            margin-right: 12px;
-          }
-          h5{
-            margin:0;
-            margin-right:12px;
-            font-size:1em;
-          }
-          .single-task-hours{
-            display:flex;
-            align-items:center;
-
-            svg{
-              font-size:1.2em;
-              color:${themeConsts.secondaryBlue};
-              stroke-width: 3;
-            }
-            span{
-              color: #7f9aff;
-              font-weight: 500;
-              letter-spacing: .03em;
-              font-size: 1.1em;
-            }
-          }
-          .single-task-check{
-            color: rgb(29, 233, 182);
-            stroke-width: 4;
-            margin-left: 13px;
-          }
+          margin: 0;
+          line-height: 1.2em;
         }
       }
+
+      .project-single-task {
+        display: flex;
+        align-items: center;
+        padding-left: 20px;
+        margin-top: 15px;
+
+        svg {
+          color: ${themeConsts.textLightGrey};
+          font-size: 1.3em;
+          margin-right: 5px;
+        }
+        h4 {
+          color: ${themeConsts.textLightGrey};
+          font-size: 1.2em;
+          font-weight: 300;
+          margin: 0;
+          margin-right: 12px;
+        }
+        h5 {
+          margin: 0;
+          margin-right: 12px;
+          font-size: 1em;
+        }
+        .single-task-hours {
+          display: flex;
+          align-items: center;
+
+          svg {
+            font-size: 1.2em;
+            color: ${themeConsts.secondaryBlue};
+            stroke-width: 3;
+          }
+          span {
+            color: #7f9aff;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            font-size: 1.1em;
+          }
+        }
+        .single-task-check {
+          color: rgb(29, 233, 182);
+          stroke-width: 4;
+          margin-left: 13px;
+        }
+      }
+    }
   }
 `;

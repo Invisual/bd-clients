@@ -10,6 +10,7 @@ export const FiltersDiv = styled.div`
         grid-gap: 4%;
     }
 
+
     .filters-grid{
 
         fieldset{
