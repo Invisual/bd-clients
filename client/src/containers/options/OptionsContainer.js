@@ -16,6 +16,11 @@ class OptionsContainer extends Component {
         deleteActiveProject={this.props.deleteActiveProject}
         duplicateActiveTask={this.props.duplicateActiveTask}
         deleteActiveMember={this.props.deleteActiveMember}
+        filtersAreActive={this.props.filtersAreActive}
+        changeFiltersAreActive={this.props.changeFiltersAreActive}
+        filters={this.props.filters}
+        getNumberOfActiveFilters={this.props.getNumberOfActiveFilters}
+        activeTab={this.props.activeTab}
       />
     );
   }

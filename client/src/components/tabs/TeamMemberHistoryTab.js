@@ -6,13 +6,17 @@ import 'moment/locale/pt';
 
 export const TeamMemberHistoryTab = props => {
     console.log(props.memberContent)
-    var tarefasDiarias = props.memberContent.tasks.filter(task => Number(task.ref_id_type_task) === 2)
-    var tarefasExternas = props.memberContent.tasks.filter(task => Number(task.ref_id_type_task) === 3)
-    var tarefasIsoladas = props.memberContent.tasks.filter(task => Number(task.ref_id_type_task) === 4)
+    var filterByClient = task => {
+        return props.filters.client === '' ? true : Number(task.ref_id_client) === Number(props.filters.client)
+    }
+    var projetos = props.memberContent.projects.filter(filterByClient)
+    var tarefasDiarias = props.memberContent.tasks.filter(task => Number(task.ref_id_type_task) === 2).filter(filterByClient)
+    var tarefasExternas = props.memberContent.tasks.filter(task => Number(task.ref_id_type_task) === 3).filter(filterByClient)
+    var tarefasIsoladas = props.memberContent.tasks.filter(task => Number(task.ref_id_type_task) === 4).filter(filterByClient)
     return (
         <div className="member-history-tab">
 
-                {props.memberContent.projects.map(project => {
+                {projetos.map(project => {
                     return (
                         <div className="single-member-project single-card card-project" key={project.id_project}>
                             <Link to={'/projects/'+project.id_project}><h2>{project.title_project}</h2></Link>

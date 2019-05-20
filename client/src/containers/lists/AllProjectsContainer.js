@@ -30,12 +30,15 @@ class AllProjectsContainer extends Component {
       accountsList: [],
       categoriesList: [],
       usersList: [],
+      currentProjectList: 'all',
       isLoading: true
     };
   }
 
   changeFilters = (filters) => this.setState({filters: filters})
   changeFiltersAreActive = () => this.setState({filtersAreActive: !this.state.filtersAreActive})
+
+  changeCurrentProjectList = () => this.setState({currentProjectList: this.state.currentProjectList === 'all' ? 'self' : 'all' })
 
   getNumberOfActiveFilters = () => {
     var x = 0;
@@ -301,6 +304,8 @@ class AllProjectsContainer extends Component {
         usersList={this.state.usersList}
         categoriesList={this.state.categories}
         reloadProjects={this.state.reloadProjects}
+        currentProjectList={this.state.currentProjectList}
+        changeCurrentProjectList={this.changeCurrentProjectList}
       />
     );
   }

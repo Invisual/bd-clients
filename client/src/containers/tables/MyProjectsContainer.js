@@ -13,11 +13,16 @@ class MyProjectsContainer extends Component {
   }
 
   getProjects = () => {
-    var token = JSON.parse(localStorage.getItem('token'));
-    var AuthStr = 'Bearer ' + token;
-    var idUser = JSON.parse(localStorage.getItem('user'));
-    var url = idUser.ref_id_role === 3 || idUser.ref_id_role  === 2 ? `/api/projects` : `/api/projects/${idUser.id_user}`
-
+    var token = JSON.parse(localStorage.getItem('token'))
+    var AuthStr = 'Bearer ' + token
+    var idUser = JSON.parse(localStorage.getItem('user'))
+    var url = ''
+    if(idUser.ref_id_role === 3 || idUser.ref_id_role  === 2){
+      url = this.props.currentProjectList === 'all' ? `/api/projects` : `/api/projects/${idUser.id_user}`
+    }
+    else{
+      url = `/api/projects/${idUser.id_user}`
+    }
     axios.get(url, { headers: { Authorization: AuthStr } }).then(res => {
       if (res.data === 'nodata') {
         this.setState({ projects: null, isLoading: false });
@@ -34,6 +39,9 @@ class MyProjectsContainer extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.reloadProjects !== this.props.reloadProjects) {
       this.getProjects();
+    }
+    if(prevProps.currentProjectList !== this.props.currentProjectList){
+      this.getProjects()
     }
   }
 

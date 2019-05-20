@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FiTrash2, FiCopy, FiEdit3, FiFolder } from 'react-icons/fi';
+import { FiTrash2, FiCopy, FiEdit3, FiFolder, FiFilter } from 'react-icons/fi';
 
 export const Options =  props => {
   return (
@@ -131,21 +131,27 @@ export const Options =  props => {
               <div className="grid-widget tasks-options">
                 {props.userRole === 3 || props.userRole === 2 ? (
                   <div className="task-infos">
-                  <div className="tooltip-container">
-                    <FiTrash2
-                      className="task-info-icon"
-                      onClick={() => {
-                        props.deleteActiveMember(props.memberContent.details[0].id_user);
-                      }}
-                    /><span className="tooltip">Eliminar Utilizador</span>
+                    <div className={props.activeTab === 'history' ? "tooltip-container filter-with-notification" : "tooltip-container filter-with-notification disabled-filter"}>
+                      {props.getNumberOfActiveFilters() > 0 ? <div className="notification"><span>{props.getNumberOfActiveFilters()}</span></div> : null}
+                      <FiFilter
+                        className={props.filtersAreActive ? 'task-filters-icon icon-selected' : 'task-filters-icon'}
+                        onClick={props.activeTab === 'history' ? props.changeFiltersAreActive : null}
+                      />
+                      <span className="tooltip">Filtrar Histórico</span>
                     </div>
                     <div className="tooltip-container">
-                    <FiEdit3
-                      className="task-info-icon"
-                      onClick={() => {
-                        props.editActiveMember(props.memberContent.details[0].id_user);
-                      }}
-                    /><span className="tooltip">Editar Utilizador</span>
+                      <FiTrash2
+                        className="task-info-icon"
+                        onClick={() => {props.deleteActiveMember(props.memberContent.details[0].id_user)}}
+                      />
+                      <span className="tooltip">Eliminar Utilizador</span>
+                    </div>
+                    <div className="tooltip-container">
+                      <FiEdit3
+                        className="task-info-icon"
+                        onClick={() => {props.editActiveMember(props.memberContent.details[0].id_user)}}
+                      />
+                      <span className="tooltip">Editar Utilizador</span>
                     </div>
                   </div>
                 ) : null}

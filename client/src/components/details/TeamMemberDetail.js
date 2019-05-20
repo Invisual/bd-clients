@@ -49,7 +49,7 @@ export const TeamMemberDetail = props => {
               {(() => {
                 switch (props.activeTab) {
                   case 'history':
-                    return <TeamMemberHistoryTab memberContent={props.memberContent} />
+                    return <TeamMemberHistoryTab memberContent={props.memberContent} filters={props.filters}/>
                   case 'infos':
                     return <TeamMemberInfoTab memberContent ={props.memberContent} />
                   case 'vacations':

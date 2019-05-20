@@ -39,7 +39,7 @@ setFilters = () => {
     type: this.state.taskTypeFilter
   }
   this.props.changeFilters(filters)
-  this.props.changeFiltersAreActive();
+  this.props.changeFiltersAreActive()
 }
 
 removeFilters = () => {

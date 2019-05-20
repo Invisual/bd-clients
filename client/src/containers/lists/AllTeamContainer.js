@@ -17,11 +17,31 @@ class AllTeamContainer extends Component{
             memberContent: [],
             displaySearchInput: '',
             searchQuery: '',
+            filtersAreActive: false,
+            filters: {
+              client: '',
+              startDate: new Date().setMonth(new Date().getMonth()-1),
+              endDate: new Date(),
+              isStartDateSet: false,
+              isEndDateSet: false,
+            },
+            clientsList: [],
             reloadMembers: false,
             isLoading: true
         }
     }
+
+    changeFilters = filters => this.setState({filters: filters}, () => console.log(this.state.filters))
+    changeFiltersAreActive = () => this.setState({filtersAreActive: !this.state.filtersAreActive})
     
+    getNumberOfActiveFilters = () => {
+      var x = 0;
+      if(this.state.filters.client !== '') {x++}
+      if(this.state.filters.isStartDateSet) {x++}
+      if(this.state.filters.isEndDateSet) {x++}
+      return x
+    }
+
     getMemberDetails = (startDate=moment(new Date()).subtract(30, 'days').format('YYYY-MM-D'), endDate=moment(new Date()).format('YYYY-MM-D')) => {
         var token = JSON.parse(localStorage.getItem('token'));
         var AuthStr = 'Bearer ' + token
@@ -46,6 +66,14 @@ class AllTeamContainer extends Component{
             });
           });
         }
+    }
+
+    getClients = () => {
+      var token = JSON.parse(localStorage.getItem('token'));
+      var AuthStr = 'Bearer ' + token;
+      axios.get(`/api/clients/basic`, { headers: { Authorization: AuthStr } }).then(res => {
+        this.setState({ clientsList: res.data});
+      });
     }
 
     changeActiveMember = userId => {
@@ -85,7 +113,7 @@ class AllTeamContainer extends Component{
               if (result.value) {
                 axios
                   .delete(`/api/users/${memberId}`, { headers: { Authorization: AuthStr } })
-                  .then(this.setState({ activeMember: '', reloadMembers: true }));
+                  .then(this.setState({ activeMember: '', reloadMembers: true }))
               }
             });
           }
@@ -93,8 +121,10 @@ class AllTeamContainer extends Component{
     };
 
     componentDidMount(){
-        this.getMemberDetails();
+        this.getMemberDetails(moment(this.state.filters.startDate).format('YYYY-MM-D'), moment(this.state.filters.endDate).format('YYYY-MM-D'))
+        this.getClients()
     }
+
 
     componentDidUpdate(prevProps, prevState) {
         if (prevState.activeMember !== this.state.activeMember) {
@@ -104,10 +134,12 @@ class AllTeamContainer extends Component{
         if (prevState.reloadMembers !== this.state.reloadMembers) {
             this.setState({ reloadMembers: false });
         }
+        if(prevState.filters.startDate !== this.state.filters.startDate || prevState.filters.endDate !== this.state.filters.endDate){
+          this.getMemberDetails(moment(this.state.filters.startDate).format('YYYY-MM-D'), moment(this.state.filters.endDate).format('YYYY-MM-D'))
+        }
       }
 
     render(){
-        console.log(this.state.reloadMembers)
         return <AllTeam
                     userRole={this.props.userInfo.ref_id_role}
                     memberContent={this.state.memberContent}
@@ -122,6 +154,12 @@ class AllTeamContainer extends Component{
                     toggleSearchInput={this.toggleSearchInput}
                     deleteActiveMember={this.deleteActiveMember}
                     reloadMembers={this.state.reloadMembers}
+                    changeFilters={this.changeFilters}
+                    filtersAreActive={this.state.filtersAreActive}
+                    changeFiltersAreActive={this.changeFiltersAreActive}
+                    filters={this.state.filters}
+                    getNumberOfActiveFilters={this.getNumberOfActiveFilters}
+                    clientsList={this.state.clientsList}
                 />
     }
 

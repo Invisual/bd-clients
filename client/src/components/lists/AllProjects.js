@@ -5,7 +5,7 @@ import MyProjectsContainer from '../../containers/tables/MyProjectsContainer';
 import ProjectDetailContainer from '../../containers/details/ProjectDetailContainer';
 import OptionsContainer from '../../containers/options/OptionsContainer';
 import ProjectFilters from '../options/ProjectFilters';
-import { FiFolderPlus, FiFilter } from 'react-icons/fi';
+import { FiFolderPlus, FiFilter, FiUserCheck } from 'react-icons/fi';
 
 export const AllProjects = props => {
   if (props.reloadProjects) {
@@ -21,6 +21,10 @@ export const AllProjects = props => {
           <div className="project-icons">
             <div className="tooltip-container">
               <Link to="/createproject"><FiFolderPlus /><span className="tooltip">Adicionar Projeto</span></Link>
+            </div>
+            <div className="tooltip-container">
+                <FiUserCheck className={props.currentProjectList === 'all' ? 'task-view-icon' : 'task-view-icon icon-selected'} onClick={props.changeCurrentProjectList}/>
+                <span className="tooltip">{props.currentProjectList === 'all' ? 'Ver os meus Projetos' : 'Ver todos os Projetos'}</span>
             </div>
             <div className="tooltip-container filter-with-notification">
               {props.getNumberOfActiveFilters() > 0 ? <div className="notification"><span>{props.getNumberOfActiveFilters()}</span></div> : null}
@@ -55,6 +59,7 @@ export const AllProjects = props => {
               type="allprojects"
               changeActiveProject={props.changeActiveProject}
               filters={props.filters}
+              currentProjectList={props.currentProjectList}
               activeProject={props.activeProject}
               copyAlert={props.copyAlert}
               reloadProjects={props.reloadProjects}

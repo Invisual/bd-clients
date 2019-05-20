@@ -10,6 +10,7 @@ class TeamMemberDetailContainer extends Component {
         changeActiveTab={this.props.changeActiveTab}
         activeTab={this.props.activeTab}
         isLoading={this.props.isLoading}
+        filters={this.props.filters}
       />
     );
   }
