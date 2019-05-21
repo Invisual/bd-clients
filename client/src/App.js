@@ -6,6 +6,7 @@ import AdminDashboardContainer from './containers/dashboard/AdminDashboardContai
 import LoginContainer from './containers/auth/LoginContainer';
 import ResetPasswordContainer from './containers/auth/ResetPasswordContainer';
 import AllTasksContainer from './containers/lists/AllTasksContainer';
+import AllBudgetsContainer from './containers/lists/AllBudgetsContainer';
 import AllProjectsContainer from './containers/lists/AllProjectsContainer';
 import AllMeetingsContainer from './containers/lists/AllMeetingsContainer';
 import AllClientsContainer from './containers/lists/AllClientsContainer';
@@ -37,6 +38,7 @@ class App extends Component {
               <Route exact path="/" render={props => <><UserDashboardContainer activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} {...props} /><MyToDoContainer {...props} title="To-do List" type="complete"/></>} />
               <Route exact path="/tasks" render={props => <AllTasksContainer isShare={false} userInfo={this.props.userInfo} {...props} activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours}/>} />
               <Route exact path="/tasks/:id" render={props => <AllTasksContainer isShare={true} userInfo={this.props.userInfo} {...props}  activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours}/>} />
+              <Route exact path="/budgets" render={props => <AllBudgetsContainer isShare={false} userInfo={this.props.userInfo} {...props} activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours}/>} />
               <Route exact path="/projects" render={props => <AllProjectsContainer isShare={false} userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/projects/:id" render={props => <AllProjectsContainer isShare={true} userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/meetings" render={props => <AllMeetingsContainer userInfo={this.props.userInfo} {...props} />} />
