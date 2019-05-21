@@ -12,7 +12,7 @@ class AllClientsContainer extends Component {
     super(props);
     this.state = {
       activeClient: '',
-      activeTab: 'clientinfo',
+      activeTab: 'clientprojects',
       clientContent: [],
       searchQuery: '',
       displaySearchInput: '',
@@ -120,7 +120,7 @@ class AllClientsContainer extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevState.activeClient !== this.state.activeClient) {
       this.getClientDetails();
-      this.setState({ activeTab: 'clientinfo' });
+      this.setState({ activeTab: 'clientprojects' });
     }
   }
 
@@ -145,6 +145,7 @@ class AllClientsContainer extends Component {
         changeSearchQuery={this.changeSearchQuery}
         displaySearchInput={this.state.displaySearchInput}
         toggleSearchInput={this.toggleSearchInput}
+        logout={this.props.logout}
       />
     );
   }

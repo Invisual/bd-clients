@@ -66,6 +66,8 @@ export const InsertFormDiv = styled.div`
 
       input[type='text'],
       input[type='number'],
+      input[type='email'],
+      input[type='password'],
       select,
       textarea,
       .react-date-picker,
@@ -79,6 +81,8 @@ export const InsertFormDiv = styled.div`
 
       input[type='text'],
       input[type='number'],
+      input[type='email'],
+      input[type='password'],
       select,
       .react-date-picker {
         height: 50px;
@@ -295,6 +299,12 @@ export const InsertFormDiv = styled.div`
       button {
         margin: 0 10px;
       }
+    }
+
+    .form-error{
+      text-align: center;
+      color: ${themeConsts.red};
+      font-weight: 500;
     }
   }
 

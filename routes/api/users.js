@@ -24,12 +24,30 @@ router.get('/', checkToken, (req, res) => {
                 //If token is successfully verified, we can send the autorized data 
                 connection.query("Select * from users INNER JOIN positions ON users.ref_id_position = positions.id_position WHERE status_user = 1", function(error, results, fields){
                     if(err){throw err}
-                    if(results.length>0){ res.send(results);}  
+                    if(results.length>0){ res.send(results);}
+                    else{ res.send('nodata') }
                 })
             }
         })
 })
 
+
+router.post('/', checkToken, (req, res) => {
+    jwt.verify(req.token, SECRET_KEY, (err, results) => {
+      var encPassword = bcrypt.hashSync(req.body.password);
+      if (err) {
+        //If error send Forbidden (403)
+        res.sendStatus(403);
+      } else {
+        connection.query('INSERT INTO users (name_user, username_user, email_user, phone_user, avatar_user, password_user, status_user, ref_id_position, ref_id_role) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+        [req.body.name, req.body.username, req.body.email, req.body.phone, req.body.avatar, encPassword, 1, req.body.position, 1],
+        function(error, results, fields) {
+          if (error) throw error;
+            res.send(results);
+        });
+      }
+    });
+  })
 
 
 router.get('/accounts', checkToken, (req, res) => {
@@ -214,6 +232,64 @@ router.post('/getrandomstring', (req, res) => {
         }
     })
 })
+
+
+router.put('/inactive/:user', (req, res) => {
+    jwt.verify(req.token, SECRET_KEY, (err, results) => {
+        connection.query("UPDATE users SET status_user = '0' WHERE id_user = ?", req.params.user, function(error, results, fields){
+            if (error) throw error;
+            res.send(results);
+        })
+    })
+})
+
+
+router.get('/:user', checkToken, (req, res) => {
+    jwt.verify(req.token, SECRET_KEY, (err, results) => {
+        if(err){
+            //If error send Forbidden (403)
+            console.log('ERRO: Route Protegida');
+            res.sendStatus(403);
+        } else {
+            //If token is successfully verified, we can send the autorized data 
+            connection.query("Select * from users INNER JOIN positions ON users.ref_id_position = positions.id_position WHERE status_user = 1 AND id_user = ?", req.params.user, function(error, results, fields){
+                if(err){throw err}
+                if(results.length>0){ res.send(results);}
+                else{ res.send('nodata') }
+            })
+        }
+    })
+})
+
+
+
+router.put('/:user', checkToken, (req, res) => {
+    jwt.verify(req.token, SECRET_KEY, (err, results) => {
+        if(err){
+            res.sendStatus(403);
+        }
+        else {
+            if(req.body.changePassword){
+                var encPassword = bcrypt.hashSync(req.body.password);
+                connection.query("UPDATE users SET name_user = ?, username_user = ?, email_user = ?, phone_user = ?, avatar_user = ?, password_user = ?, ref_id_position = ? WHERE id_user = ?",
+                [req.body.name, req.body.username, req.body.email, req.body.phone, req.body.avatar, encPassword, req.body.position, req.params.user],
+                function(error, results, fields){
+                    if(err){throw err}
+                    res.send(results)  
+                })
+            }
+            else{
+                connection.query("UPDATE users SET name_user = ?, username_user = ?, email_user = ?, phone_user = ?, avatar_user = ?, ref_id_position = ? WHERE id_user = ?",
+                [req.body.name, req.body.username, req.body.email, req.body.phone, req.body.avatar, req.body.position, req.params.user],
+                function(error, results, fields){
+                    if(err){throw err}
+                    res.send(results)
+                })
+            }
+        }
+    })
+})
+
 
 
 router.delete('/:id', checkToken, (req, res) => {

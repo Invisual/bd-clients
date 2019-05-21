@@ -151,6 +151,8 @@ class MyTasksContainer extends Component {
         filteredTasks = this.state.tasks.filter( task => {
           return this.props.filters.client === '' ? true : Number(task.ref_id_client) === Number(this.props.filters.client)
         }).filter(task => {
+          return this.props.searchQuery === '' ? true : task.title_task.toLowerCase().includes(this.props.searchQuery.toLowerCase())
+        }).filter(task => {
           return this.props.filters.billing === '' ? true : Number(task.ref_id_billing_mode) === Number(this.props.filters.billing)
         }).filter(task => {
           return this.props.filters.type === '' ? true : Number(task.ref_id_type_task) === Number(this.props.filters.type)

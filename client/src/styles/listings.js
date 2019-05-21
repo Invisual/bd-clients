@@ -626,6 +626,7 @@ export const ProjectDetailsDiv = styled.div`
           font-weight: 600;
           font-size: 1.1em;
           color: ${themeConsts.titlesDarkGrey};
+          margin-bottom:20px;
           .project-account-title,
           .project-deadline-title {
             margin-bottom: 10px;
@@ -1049,6 +1050,33 @@ export const ClientDetailsDiv = styled.div`
         }
       }
     }
+
+    .client-info-password{
+      width: 70%;
+      margin: 0 auto;
+      margin-top: 150px;
+      text-align: center;
+
+      input{
+        height: 50px;
+        width: 100%;
+        border: none;
+        box-shadow: 0px 1px 6px rgba(0,0,0,.16);
+        border-radius: 10px;
+        text-indent: 12px;
+      }
+
+      .password-error-message{
+        margin-top: 10px;
+        color: ${themeConsts.red};
+        font-weight:500;
+      }
+
+      .form-buttons{
+        margin-top:35px;
+      }
+    }
+
     .user-info-content {
       margin-right: 30px;
       padding: 20px 0 10px 0;

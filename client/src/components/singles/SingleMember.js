@@ -4,10 +4,9 @@ import { SingleMemberDiv } from '../../styles/singles';
 class SingleMember extends Component {
   render() {
     var content = '';
-
     switch (this.props.type) {
       case 'allmembers':
-        let active = this.props.id === this.props.activeMember ? ' active' : '';
+        let active = Number(this.props.id) === Number(this.props.activeMember) ? ' active' : '';
         content = (
           <SingleMemberDiv className={`single-card${active}`} onClick={() => this.props.changeActiveMember(this.props.id)}>
             <div className="member-avatar"><img src={this.props.avatar} alt={this.props.name} title={this.props.name}/></div>

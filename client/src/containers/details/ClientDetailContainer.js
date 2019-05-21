@@ -10,6 +10,7 @@ class ClientDetailContainer extends Component {
         isLoading={this.props.isLoading}
         changeActiveTab={this.props.changeActiveTab}
         activeTab={this.props.activeTab}
+        logout={this.props.logout}
       />
     );
   }

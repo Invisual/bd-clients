@@ -2,11 +2,12 @@ import React, {Component} from 'react'
 import { AllTeam } from '../../components/lists/AllTeam';
 import moment from 'moment';
 import 'moment/locale/pt';
+import { createBrowserHistory } from 'history';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 
 const axios = require('axios')
-
+const history = createBrowserHistory();
 
 class AllTeamContainer extends Component{
     constructor(props){
@@ -18,6 +19,7 @@ class AllTeamContainer extends Component{
             displaySearchInput: '',
             searchQuery: '',
             filtersAreActive: false,
+            infosAreActive: false,
             filters: {
               client: '',
               startDate: new Date().setMonth(new Date().getMonth()-1),
@@ -33,6 +35,7 @@ class AllTeamContainer extends Component{
 
     changeFilters = filters => this.setState({filters: filters}, () => console.log(this.state.filters))
     changeFiltersAreActive = () => this.setState({filtersAreActive: !this.state.filtersAreActive})
+    changeInfosAreActive = () => this.setState({infosAreActive: !this.state.infosAreActive})
     
     getNumberOfActiveFilters = () => {
       var x = 0;
@@ -121,7 +124,13 @@ class AllTeamContainer extends Component{
     };
 
     componentDidMount(){
-        this.getMemberDetails(moment(this.state.filters.startDate).format('YYYY-MM-D'), moment(this.state.filters.endDate).format('YYYY-MM-D'))
+        if(this.props.isShare){this.setState({activeMember: this.props.match.params.id},
+           () => this.getMemberDetails(moment(this.state.filters.startDate).format('YYYY-MM-D'), moment(this.state.filters.endDate).format('YYYY-MM-D')))
+           history.replace({ pathname: '/team' })
+        }
+        else{
+          this.getMemberDetails(moment(this.state.filters.startDate).format('YYYY-MM-D'), moment(this.state.filters.endDate).format('YYYY-MM-D'))
+        }
         this.getClients()
     }
 
@@ -156,7 +165,9 @@ class AllTeamContainer extends Component{
                     reloadMembers={this.state.reloadMembers}
                     changeFilters={this.changeFilters}
                     filtersAreActive={this.state.filtersAreActive}
+                    infosAreActive={this.state.infosAreActive}
                     changeFiltersAreActive={this.changeFiltersAreActive}
+                    changeInfosAreActive={this.changeInfosAreActive}
                     filters={this.state.filters}
                     getNumberOfActiveFilters={this.getNumberOfActiveFilters}
                     clientsList={this.state.clientsList}

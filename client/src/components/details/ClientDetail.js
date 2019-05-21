@@ -26,12 +26,6 @@ export const ClientDetail = props => {
                 <h4 className="project-title">{props.clientContent.details[0].name_client}</h4>
                 <div className="project-infos">
                   <div
-                    className={'project-tab ' + (props.activeTab === 'clientinfo' ? 'active-tab' : '')}
-                    onClick={() => props.changeActiveTab('clientinfo')}
-                  >
-                    Infos
-                  </div>
-                  <div
                     className={'project-tab ' + (props.activeTab === 'clientprojects' ? 'active-tab' : '')}
                     onClick={() => props.changeActiveTab('clientprojects')}
                   >
@@ -44,6 +38,12 @@ export const ClientDetail = props => {
                     Tasks
                   </div>
                   <div
+                    className={'project-tab ' + (props.activeTab === 'clientinfo' ? 'active-tab' : '')}
+                    onClick={() => props.changeActiveTab('clientinfo')}
+                  >
+                    Infos
+                  </div>
+                  <div
                     className={'project-tab ' + (props.activeTab === 'clientdata' ? 'active-tab' : '')}
                     onClick={() => props.changeActiveTab('clientdata')}
                   >
@@ -54,7 +54,7 @@ export const ClientDetail = props => {
               {(() => {
                 switch (props.activeTab) {
                   case 'clientinfo':
-                    return <ClientInfoTab clientContent={props.clientContent} />;
+                    return <ClientInfoTab clientContent={props.clientContent} logout={props.logout}/>;
                   case 'clientprojects':
                     return <ClientProjectsTab clientContent={props.clientContent} />;
                   case 'clienttasks':

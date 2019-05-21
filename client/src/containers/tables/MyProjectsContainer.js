@@ -53,6 +53,8 @@ class MyProjectsContainer extends Component {
         filteredProjects = this.state.projects.filter( project => {
           return this.props.filters.client === '' ? true : Number(project.id_client) === Number(this.props.filters.client)
         }).filter(project => {
+          return this.props.searchQuery === '' ? true : project.title_project.toLowerCase().includes(this.props.searchQuery.toLowerCase())
+        }).filter(project => {
           return this.props.filters.billing === '' ? true : Number(project.ref_id_billing_mode) === Number(this.props.filters.billing)
         }).filter(project => {
           return this.props.filters.account === '' ? true : Number(project.ref_id_user_account) === Number(this.props.filters.account)

@@ -4,7 +4,7 @@ import MyTasksContainer from '../../containers/tables/MyTasksContainer';
 import TaskDetailContainer from '../../containers/details/TaskDetailContainer';
 import OptionsContainer from '../../containers/options/OptionsContainer';
 import TaskFilters from '../options/TaskFilters';
-import { FiFilePlus, FiFilter, FiUserCheck } from 'react-icons/fi';
+import { FiFilePlus, FiFilter, FiUserCheck, FiSearch } from 'react-icons/fi';
 import { Redirect, Link } from 'react-router-dom';
 
 export const AllTasks = props => {
@@ -17,6 +17,11 @@ export const AllTasks = props => {
       <div className="widgets-grid widget cards-container nofixed-height">
         <div className="grid-widget tasks-title">
           <h4 className="widget-title">Tarefas</h4>
+          <div className="tooltip-container tasks-search">
+            <input type="text" placeholder="Pesquisa" className={props.displaySearchInput+ ' searchinput'} onChange={props.changeSearchQuery}/>
+            <FiSearch onClick={props.toggleSearchInput}/>
+            <span className="tooltip">Pesquisar Tarefas</span>
+          </div>
           {props.userRole === 3 || props.userRole === 2 ? (
             <>
             <div className="tooltip-container">
@@ -69,6 +74,7 @@ export const AllTasks = props => {
               filters={props.filters}
               userRole={props.userRole}
               currentTaskList={props.currentTaskList}
+              searchQuery={props.searchQuery}
             />
           </div>
         </div>

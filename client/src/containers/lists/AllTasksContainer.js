@@ -32,6 +32,8 @@ class AllTasksContainer extends Component {
       taskTypesList: [],
       tasksStatusList: [],
       currentTaskList: 'all',
+      searchQuery: '',
+      displaySearchInput: '',
       isLoading: true,
       redirect: false
     };
@@ -39,6 +41,17 @@ class AllTasksContainer extends Component {
 
   changeFilters = (filters) => this.setState({filters: filters})
   changeFiltersAreActive = () => this.setState({filtersAreActive: !this.state.filtersAreActive})
+
+  changeSearchQuery = e => this.setState({searchQuery: e.target.value})
+
+  toggleSearchInput = () => {
+    if(this.state.displaySearchInput === '' || this.state.displaySearchInput === 'hidesearch'){
+      this.setState({displaySearchInput: 'showsearch'})
+    }
+    else if(this.state.displaySearchInput === 'showsearch'){
+      this.setState({displaySearchInput: 'hidesearch'})
+    }
+  }
 
   changeCurrentTaskList = () => this.setState({currentTaskList: this.state.currentTaskList === 'all' ? 'self' : 'all' })
 
@@ -228,6 +241,15 @@ class AllTasksContainer extends Component {
     });
   };
 
+  changeCommentVal = event => {
+    if (event.keyCode === 13 && event.shiftKey === false) {
+      event.preventDefault();
+      this.submitComment();
+    } else {
+      this.setState({ commentVal: event.target.value });
+    }
+  };
+
   submitComment = () => {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
@@ -328,6 +350,10 @@ class AllTasksContainer extends Component {
         tasksStatusList={this.state.tasksStatusList}
         currentTaskList={this.state.currentTaskList}
         changeCurrentTaskList={this.changeCurrentTaskList}
+        searchQuery={this.state.searchQuery}
+        changeSearchQuery={this.changeSearchQuery}
+        displaySearchInput={this.state.displaySearchInput}
+        toggleSearchInput={this.toggleSearchInput}
       />
     );
   }
