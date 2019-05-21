@@ -172,6 +172,10 @@ body.collapsed-sidebar .topbar-goback {
   margin-top: 15px;
 }
 
+.mt20 {
+  margin-top: 20px;
+}
+
 .nofixed-height {
   height: auto !important;
 }
