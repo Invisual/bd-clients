@@ -18,18 +18,18 @@ import {
   FiMoreHorizontal
 } from 'react-icons/fi';
 
-export const TaskDetail = props => {
+export const BudgetDetail = props => {
   return (
     <>
       {props.isLoading ? (
         <TaskDetailsDiv>
           <img src="/img/loading.svg" alt="loading" className="loading-spinner" />
         </TaskDetailsDiv>
-      ) : props.taskContent ? (
+      ) : props.budgetContent ? (
         <TaskDetailsDiv
           hours={
-            props.taskContent.details[0].total_hours
-              ? moment.duration(props.taskContent.details[0].total_hours, 'hours').format('*HH[h]mm[m]', {
+            props.budgetContent.details[0].total_hours
+              ? moment.duration(props.budgetContent.details[0].total_hours, 'hours').format('*HH[h]mm[m]', {
                   forceLength: true
                 })
               : '00h00m'
@@ -44,30 +44,19 @@ export const TaskDetail = props => {
 
             <div className="grid-item">
               <div className="task-header">
-                <h4 className="task-title">{props.taskContent.details[0].title_task}</h4>
+                <h4 className="task-title">{props.budgetContent.details[0].title_budget}</h4>
                 <div className="task-date">
-                  <FiClock /> <span>{moment(props.taskContent.details[0].creation_date_task).format('D/MM/YYYY')}</span>
+                  <FiClock /> <span>{moment(props.budgetContent.details[0].creation_date_budget).format('D/MM/YYYY')}</span>
                 </div>
                 <div className="task-infos">
-                  {props.taskContent.details[0].title_project ? (
-                    <span>
-                      <FiFolder className="task-info-icon" /> {props.taskContent.details[0].title_project}
-                    </span>
-                  ) : null}
                   <span>
-                    <FiUser className="task-info-icon" /> {props.taskContent.details[0].name_client}
-                  </span>
-                  <span>
-                    <FiInfo className="task-info-icon" /> {props.taskContent.details[0].name_task_types}
-                  </span>
-                  <span>
-                    <FiCreditCard className="task-info-icon" /> {props.taskContent.details[0].name_billing_mode}
+                    <FiUser className="task-info-icon" /> {props.budgetContent.details[0].name_client}
                   </span>
                 </div>
               </div>
               <div className="task-descr">
                 <h4 className="task-descr-title">Descrição</h4>
-                <div className="task-descr-text">{props.taskContent.details[0].description_task}</div>
+                <div className="task-descr-text">{props.budgetContent.details[0].description_budget}</div>
               </div>
               <div className="task-extras">
                 <div className="task-hour-container">
@@ -77,12 +66,12 @@ export const TaskDetail = props => {
                 </div>
                 <div className="task-comments">
                   <h4 className="task-comment-title">Comentários</h4>
-                  {props.taskContent.comments.length ? (
-                    props.taskContent.comments.slice(0, 3).map(comment => {
+                  {props.budgetContent.comments.length ? (
+                    props.budgetContent.comments.slice(0, 3).map(comment => {
                       return (
                         <SingleTaskComment
-                          key={comment.id_task_comment}
-                          id={comment.id_task_comment}
+                          key={comment.id_budget_comment}
+                          id={comment.id_budget_comment}
                           text={comment.text_comments}
                           author={comment.name_user}
                           date={moment(comment.date_comment).format('D/MM/YYYY')}
@@ -139,4 +128,4 @@ export const TaskDetail = props => {
   );
 };
 
-export default TaskDetail;
+export default BudgetDetail;

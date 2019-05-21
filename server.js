@@ -7,6 +7,7 @@ require('dotenv').config()
 const usersRoutes = require('./routes/api/users');
 const clientRoutes = require('./routes/api/clients');
 const taskRoutes = require('./routes/api/tasks');
+const budgetsRoutes = require('./routes/api/budgets');
 const projectRoutes = require('./routes/api/projects');
 const goalRoutes = require('./routes/api/goals');
 const meetingRoutes = require('./routes/api/meetings');
@@ -28,6 +29,7 @@ app.use(function(req, res, next) {
 app.use('/api/users', usersRoutes);
 app.use('/api/clients', clientRoutes);
 app.use('/api/tasks', taskRoutes);
+app.use('/api/budgets', budgetsRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/goals', goalRoutes);
 app.use('/api/meetings', meetingRoutes);

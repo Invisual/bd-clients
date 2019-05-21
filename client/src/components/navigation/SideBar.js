@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {SidebarDiv} from '../../styles/navigation';
-import { FiHome, FiFolder, FiFileText, FiCalendar, FiBookmark, FiUsers, FiEdit, FiLogOut, FiUser } from 'react-icons/fi';
+import { FiHome, FiFolder, FiFileText, FiCalendar, FiBookmark, FiUsers, FiEdit, FiLogOut, FiUser, FiClipboard } from 'react-icons/fi';
 import { NavLink} from 'react-router-dom';
 
 class SideBar extends Component {
@@ -37,6 +37,7 @@ class SideBar extends Component {
                 <NavLink exact={true} to="/" activeClassName='is-active'><li><FiHome/> <span>Dashboard</span></li></NavLink> 
                 <NavLink to="/projects" activeClassName='is-active'><li><FiFolder/> <span>Projetos</span></li></NavLink> 
                 <NavLink to="/tasks" activeClassName='is-active'><li><FiFileText/> <span>Tarefas</span></li></NavLink>
+                <NavLink to="/budgets" activeClassName='is-active'><li><FiClipboard/> <span>Orçamentos</span></li></NavLink>
                 <NavLink to="/clients" activeClassName='is-active'><li><FiUser/> <span>Clientes</span></li></NavLink>
                 <NavLink to="/meetings" activeClassName='is-active'><li><FiCalendar/> <span>Reuniões</span></li></NavLink>
                 <NavLink to="/ds" activeClassName='is-active'><li><FiBookmark/> <span>Objectivos</span></li></NavLink>

@@ -5,6 +5,7 @@ import { FiFolder, FiClock, FiLink2 } from 'react-icons/fi';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 class SingleTask extends Component {
+  
   render() {
     var taskColor = '';
     switch (this.props.stateVal) {
@@ -36,7 +37,8 @@ class SingleTask extends Component {
     var singleContent = '';
     //Verifica se está a ser renderizada na rota de todas as Tarefas
     if (this.props.type) {
-      let active = this.props.id === this.props.activeTask ? ' active' : '';
+      if (this.props.type === 'alltasks'){
+        let active = this.props.id === this.props.activeTask ? ' active' : '';
       singleContent = (
         <AllSingleTaskDiv className={`single-card-task${active}`} taskColor={taskColor}>
           <div className="task-title title-click" onClick={() => this.props.changeActiveTask(this.props.id)}>
@@ -57,6 +59,30 @@ class SingleTask extends Component {
           </div>
         </AllSingleTaskDiv>
       );
+      } else { // All Budgets
+        let active = this.props.id === this.props.activeBudget ? ' active' : '';
+      singleContent = (
+        <AllSingleTaskDiv className={`single-card-task${active}`} taskColor={taskColor}>
+          <div className="task-title title-click" onClick={() => this.props.changeActiveBudget(this.props.id)}>
+            {this.props.title}
+          </div>
+          <div className="task-watch"></div>
+          <div className="task-link">
+          <div className="tooltip-container">
+            <CopyToClipboard text={window.location.href + '/' +this.props.id} onCopy={() => this.props.copyAlert()}>
+              <FiLink2 />
+            </CopyToClipboard><span className="tooltip">Copiar Link</span></div>
+          </div>
+          <div className="task-watch">
+          <div className="tooltip-container"><FiClock onClick={this.props.hourState === 1 ? () => this.props.stopCountingHours(this.props.hourId, this.props.title) : () => this.props.startCountingHours(this.props.id, this.props.title)} className={this.props.hourState === 1 ? 'active-clock' : 'inactive-clock'} />
+          <span className="tooltip">{this.props.hourState === 1 ? "Parar contagem de horas" : "Iniciar contagem de horas"}</span></div></div>
+          <div className="task-state" onClick={() => this.props.changeBudgetStatus(this.props.id, this.props.stateVal)}>
+          {this.props.stateTitle}
+          </div>
+        </AllSingleTaskDiv>
+      );
+      }
+      
     } else {
       //dashboard
       singleContent = (

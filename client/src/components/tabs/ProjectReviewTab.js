@@ -26,31 +26,37 @@ class ProjectReviewTab extends React.Component {
         </div>
         <div className="project-extras">
           <div className="project-members-infos">
-            <div className="project-members">
-              <div className="project-members-title">Membros</div>
-              <div className="project-members-avatar">
-                {this.props.projectContent.details[0].intervenientes
-                  ? this.props.projectContent.details[0].intervenientes
-                      .split(';')
-                      .map(e => e.split(','))
-                      .map(avatar => {
-                        return <img key={avatar[0]} src={avatar[2]} alt={avatar[1]} />;
-                      })
-                  : null}
-              </div>
-            </div>
-
-            <div className="project-account-deadline">
-              <div className="project-account">
-                <div className="project-account-title">Account</div>
-                <img src={this.props.projectContent.details[0].avatar_user} alt="Avatar" />
-              </div>
-              <div className="project-deadline">
-                {' '}
-                <div className="project-deadline-title">Deadline</div>
-                <span>{moment(this.props.projectContent.details[0].deadline_project).format('D/MM/YYYY')}</span>
-              </div>
-            </div>
+              <div className="project-account-deadline">
+                 <div className="project-account">
+                   <div className="project-account-title">Account</div>
+                   <img src={this.props.projectContent.details[0].avatar_user} alt="Avatar" />
+                 </div>
+                 <div className="project-account">
+                   <div className="project-account-title">Horas</div>
+                   <span>{this.props.projectContent.details[0].total_project_hours ?
+                            moment.duration(this.props.projectContent.details[0].total_project_hours, 'hours').format('*HH[h]mm[m]', {
+                            forceLength: true})
+                          : '00h00m'}</span>
+                 </div>
+                 <div className="project-deadline">
+                   {' '}
+                   <div className="project-deadline-title">Deadline</div>
+                   <span>{moment(this.props.projectContent.details[0].deadline_project).format('D/MM/YYYY')}</span>
+                 </div>
+               </div>
+               <div className="project-members">
+                 <div className="project-members-title">Membros</div>
+                 <div className="project-members-avatar">
+                   {this.props.projectContent.details[0].intervenientes
+                     ? this.props.projectContent.details[0].intervenientes
+                         .split(';')
+                         .map(e => e.split(','))
+                         .map(avatar => {
+                           return <img key={avatar[0]} src={avatar[2]} alt={avatar[1]} />;
+                         })
+                     : null}
+                 </div>
+               </div>
           </div>
           <div className="project-status">
             <div className="project-status-title">Estado</div>

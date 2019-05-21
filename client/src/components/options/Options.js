@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FiTrash2, FiCopy, FiEdit3, FiFolder, FiFilter } from 'react-icons/fi';
+import { FiTrash2, FiCopy, FiEdit3, FiFolder, FiFilter, FiPlusCircle } from 'react-icons/fi';
 
 export const Options =  props => {
   return (
@@ -138,6 +138,13 @@ export const Options =  props => {
                         onClick={props.activeTab === 'history' ? props.changeFiltersAreActive : null}
                       />
                       <span className="tooltip">Filtrar Histórico</span>
+                    </div>
+                    <div className={props.activeTab === 'infos' ? "tooltip-container" : "tooltip-container disabled-filter"}>
+                      <FiPlusCircle
+                        className="task-info-icon"
+                        onClick={props.activeTab === 'infos' ? props.changeInfosAreActive : null}
+                      />
+                      <span className="tooltip">Adicionar informação</span>
                     </div>
                     <div className="tooltip-container">
                       <FiTrash2

@@ -4,6 +4,8 @@ import MyMeetingsContainer from '../../containers/tables/MyMeetingsContainer';
 import OptionsContainer from '../../containers/options/OptionsContainer';
 import MyCalendarContainer from '../../containers/tables/MyCalendarContainer';
 import MeetingsOnActiveDay from '../misc/MeetingsOnActiveDay';
+import { FiPlusSquare } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 
 export const AllMeetings = props => {
   return (
@@ -11,6 +13,16 @@ export const AllMeetings = props => {
       <div className="widgets-grid widget cards-container nofixed-height no-shadow meetings-grid">
         <div className="grid-widget tasks-title">
           <h4 className="widget-title">Reuniões</h4>
+          {props.userRole === 3 || props.userRole === 2 ? (
+         
+            <div className="tooltip-container">
+              <Link to="/createmeeting">
+                <FiPlusSquare />
+                <span className="tooltip">Adicionar Reunião</span>
+              </Link>
+            </div>
+          )
+            : null }
         </div>
           <OptionsContainer
           userRole={props.userRole}
