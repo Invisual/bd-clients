@@ -16,6 +16,7 @@ import CreateProjectContainer from './containers/inserts/CreateProjectContainer'
 import CreateTaskContainer from './containers/inserts/CreateTaskContainer';
 import CreateMeetingContainer from './containers/inserts/CreateMeetingContainer';
 import CreateClientContainer from './containers/inserts/CreateClientContainer';
+import CreateUserContainer from './containers/inserts/CreateUserContainer';
 import CreateClientInfoContainer from './containers/inserts/CreateClientInfoContainer';
 import './styles/main.css';
 import { Switch, Route } from 'react-router-dom';
@@ -39,10 +40,11 @@ class App extends Component {
               <Route exact path="/projects" render={props => <AllProjectsContainer isShare={false} userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/projects/:id" render={props => <AllProjectsContainer isShare={true} userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/meetings" render={props => <AllMeetingsContainer userInfo={this.props.userInfo} {...props} />} />
-              <Route exact path="/clients" render={props => <AllClientsContainer isShare={false} userInfo={this.props.userInfo} {...props} />} />
+              <Route exact path="/clients" render={props => <AllClientsContainer isShare={false} userInfo={this.props.userInfo} logout={this.props.logout} {...props} />} />
               <Route exact path="/clients/:id" render={props => <AllClientsContainer isShare={true} userInfo={this.props.userInfo} {...props} />} />
               <Route path="/admin" render={props => <GantTasksContainer {...props} />} />
-              <Route exact path="/team" render={props => <AllTeamContainer userInfo={this.props.userInfo} {...props} />} />
+              <Route exact path="/team" render={props => <AllTeamContainer userInfo={this.props.userInfo} isShare={false} {...props} />} />
+              <Route exact path="/team/:id" render={props => <AllTeamContainer userInfo={this.props.userInfo} isShare={true} {...props} />} />
               <Route exact path="/gant" render={props => <GantTasksContainer userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/createproject" render={props => <CreateProjectContainer {...props} type="add" title="Novo Projeto"/>} />
               <Route path="/createproject/:id" render={props => <CreateProjectContainer {...props} type="edit" title="Editar Projeto"/>} />
@@ -53,6 +55,8 @@ class App extends Component {
               <Route exact path="/createclient" render={props => <CreateClientContainer {...props} type="add" title="Novo Cliente"/>} />
               <Route path="/createclient/:id" render={props => <CreateClientContainer {...props} type="edit" title="Editar Cliente"/>} />
               <Route path="/createclientinfo/:id" render={props => <CreateClientInfoContainer {...props} type="edit" title="Editar Infos do Cliente "/>} />
+              <Route exact path="/createuser" render={props => <CreateUserContainer {...props} type="add" title="Novo Utilizador"/>} />
+              <Route path="/createuser/:id" render={props => <CreateUserContainer {...props} type="edit" title="Editar Utilizador"/>} />
             </Switch>
           </div>
         ) : (

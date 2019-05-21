@@ -31,12 +31,25 @@ class AllProjectsContainer extends Component {
       categoriesList: [],
       usersList: [],
       currentProjectList: 'all',
+      searchQuery: '',
+      displaySearchInput: '',
       isLoading: true
     };
   }
 
   changeFilters = (filters) => this.setState({filters: filters})
   changeFiltersAreActive = () => this.setState({filtersAreActive: !this.state.filtersAreActive})
+
+  changeSearchQuery = e => this.setState({searchQuery: e.target.value})
+
+  toggleSearchInput = () => {
+    if(this.state.displaySearchInput === '' || this.state.displaySearchInput === 'hidesearch'){
+      this.setState({displaySearchInput: 'showsearch'})
+    }
+    else if(this.state.displaySearchInput === 'showsearch'){
+      this.setState({displaySearchInput: 'hidesearch'})
+    }
+  }
 
   changeCurrentProjectList = () => this.setState({currentProjectList: this.state.currentProjectList === 'all' ? 'self' : 'all' })
 
@@ -306,6 +319,10 @@ class AllProjectsContainer extends Component {
         reloadProjects={this.state.reloadProjects}
         currentProjectList={this.state.currentProjectList}
         changeCurrentProjectList={this.changeCurrentProjectList}
+        searchQuery={this.state.searchQuery}
+        changeSearchQuery={this.changeSearchQuery}
+        displaySearchInput={this.state.displaySearchInput}
+        toggleSearchInput={this.toggleSearchInput}
       />
     );
   }

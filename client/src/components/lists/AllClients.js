@@ -4,6 +4,7 @@ import ClientsListContainer from '../../containers/tables/ClientsListContainer';
 import ClientDetailContainer from '../../containers/details/ClientDetailContainer';
 import OptionsContainer from '../../containers/options/OptionsContainer';
 import { FiUserPlus, FiSearch } from 'react-icons/fi';
+import {Link} from 'react-router-dom'
 
 export const AllClients = props => {
   return (
@@ -11,11 +12,21 @@ export const AllClients = props => {
       <div className="widgets-grid widget cards-container nofixed-height no-shadow">
         <div className="grid-widget tasks-title">
           <h4 className="widget-title">Clientes</h4>
-          <div className="client-search">
+          <div className="tooltip-container client-search">
             <input type="text" placeholder="Pesquisa" className={props.displaySearchInput+ ' searchinput'} onChange={props.changeSearchQuery}/>
             <FiSearch onClick={props.toggleSearchInput}/>
+            <span className="tooltip">Pesquisar Clientes</span>
           </div>
-          {props.userRole === 3 || props.userRole === 2 ? <div className="tooltip-container"><span className="tooltip">Adicionar Cliente</span><FiUserPlus /></div> : null}
+          {props.userRole === 3 || props.userRole === 2 ? 
+            <div className="tooltip-container">
+              <Link to="/createclient">
+                <span className="tooltip">Adicionar Cliente</span>
+                <FiUserPlus />
+              </Link>
+            </div>
+          : 
+          null
+          }
         </div>
         <OptionsContainer
           userRole={props.userRole}
@@ -45,6 +56,7 @@ export const AllClients = props => {
             changeActiveTab={props.changeActiveTab}
             activeTab={props.activeTab}
             isLoading={props.isLoading}
+            logout={props.logout}
           />
         </div>
       </div>
