@@ -29,6 +29,17 @@ componentDidUpdate(prevProps){
             }
         })
         
+    } else if (prevProps.latestActiveBudgetHour !== this.props.latestActiveBudgetHour){     
+        this.setState({latestActiveHour: this.props.latestActiveBudgetHour}, () => {
+            if(this.state.latestActiveHour !== '' && this.state.latestActiveHour !== null){
+                this.interval = setInterval(() => this.showActiveHoursOnTitle(), 1000);
+            }
+            if(this.state.latestActiveHour === null){
+                document.title = 'INVISUAL - TAREFAS';
+                clearInterval(this.interval);
+            }
+        })
+        
     }
 }
 

@@ -50,6 +50,26 @@ router.get('/active/:user', checkToken, (req, res) => {
     });
   });
 
+  
+router.get('/active/budget/:user', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+    } else {
+      connection.query('SELECT id_budget, title_budget, beginning_hour, id_budget_hour FROM budgets LEFT JOIN budget_hours ON budgets.id_budget=budget_hours.ref_id_budget WHERE ref_id_user = ? AND beginning_hour IS NOT NULL AND ending_hour IS NULL', req.params.user, function(error, results, fields) {
+        if (error) throw error;
+        if (results.length > 0) {
+          res.send(results);
+        }
+        else{
+            res.send('nohours');
+        }
+      });
+    }
+  });
+});
+
 
 router.post('/', checkToken, (req, res) => {
     jwt.verify(req.token, SECRET_KEY, (err, results) => {
@@ -59,6 +79,21 @@ router.post('/', checkToken, (req, res) => {
       } else {
         connection.query('INSERT INTO task_hours (beginning_hour, day, ref_id_users, ref_id_tasks) VALUES (?, ?, ?, ?)',
         [req.body.beginningHour, req.body.day, req.body.user, req.body.task], function(error, results, fields) {
+          if (error) throw error;
+          res.send(results);
+        });
+      }
+    });
+  });
+
+  router.post('/budget', checkToken, (req, res) => {
+    jwt.verify(req.token, SECRET_KEY, (err, results) => {
+      if (err) {
+        //If error send Forbidden (403)
+        res.sendStatus(403);
+      } else {
+        connection.query('INSERT INTO budget_hours (beginning_hour, day, ref_id_user, ref_id_budget) VALUES (?, ?, ?, ?)',
+        [req.body.beginningHour, req.body.day, req.body.user, req.body.budget], function(error, results, fields) {
           if (error) throw error;
           res.send(results);
         });
@@ -81,6 +116,22 @@ jwt.verify(req.token, SECRET_KEY, (err, results) => {
     }
 });
 });
+
+router.put('/budget', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+      if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+      } else {
+      connection.query('UPDATE budget_hours SET ending_hour = ? WHERE id_budget_hour = ?',
+      [req.body.endingHour, req.body.idHour], function(error, results, fields) {
+          if (error) throw error;
+          res.send(results);
+      });
+      }
+  });
+  });
+  
 
 
 

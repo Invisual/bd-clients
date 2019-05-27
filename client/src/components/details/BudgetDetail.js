@@ -5,18 +5,7 @@ import moment from 'moment';
 import 'moment/locale/pt';
 import 'moment-duration-format';
 import { Circle } from 'rc-progress';
-import {
-  FiClock,
-  FiFolder,
-  FiUser,
-  FiInfo,
-  FiCreditCard,
-  FiArrowRight,
-  FiAlertTriangle,
-  FiSend,
-  FiFileText,
-  FiMoreHorizontal
-} from 'react-icons/fi';
+import { FiClock, FiUser, FiSend, FiClipboard, FiMoreHorizontal } from 'react-icons/fi';
 
 export const BudgetDetail = props => {
   return (
@@ -38,7 +27,7 @@ export const BudgetDetail = props => {
           <div className="task-details-grid">
             <div className="grid-item">
               <div className="task-icon">
-                <FiFileText />
+                <FiClipboard />
               </div>
             </div>
 
@@ -50,7 +39,10 @@ export const BudgetDetail = props => {
                 </div>
                 <div className="task-infos">
                   <span>
-                    <FiUser className="task-info-icon" /> {props.budgetContent.details[0].name_client}
+                    <FiUser className="task-info-icon" />{' '}
+                    {props.budgetContent.details[0].name_client
+                      ? props.budgetContent.details[0].name_client
+                      : props.budgetContent.details[0].name_potential_client}
                   </span>
                 </div>
               </div>
@@ -79,24 +71,30 @@ export const BudgetDetail = props => {
                       );
                     })
                   ) : (
-                    <div>Esta Tarefa ainda não tem comentários</div>
+                    <div>Este Orçamento ainda não tem comentários</div>
                   )}
                 </div>
               </div>
-              <div className="task-billing-section">
-                <div className="billing-icon">
-                  <FiAlertTriangle color="#5e78dd" />
-                </div>
-                <div className="billing-title">
-                  <h4>Custos para Faturação</h4>
-                  <div className="billing-descr">Esta Tarefa ainda não tem um Registo de Custos associado.</div>
-                </div>
-                <div className="billing-icon">
-                  <FiAlertTriangle color="#5e78dd" />
-                </div>
-                <div className="billing-title">
-                  <h4>Observações para Faturação</h4>
-                  <div className="billing-descr">Esta Tarefa não tem qualquer Observação para Faturação.</div>
+              <div className="budget-external-status">
+                <h4>Estado do Orçamento</h4>
+                <div className="status-container">
+                  {props.externalList.map(status => {
+                    return (
+                      <div
+                        key={status.id_budget_external_status}
+                        onClick={() =>
+                          props.changeExternalStatus(props.budgetContent.details[0].id_budget, status.id_budget_external_status)
+                        }
+                        className={`single-status ${
+                          status.id_budget_external_status === props.budgetContent.details[0].ref_id_budget_external_status
+                            ? `active-status`
+                            : ''
+                        }`}
+                      >
+                        {status.name_budget_external_status}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>

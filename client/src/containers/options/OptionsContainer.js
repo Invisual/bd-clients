@@ -21,6 +21,9 @@ class OptionsContainer extends Component {
         changeInfosAreActive={this.props.changeInfosAreActive}
         filters={this.props.filters}
         getNumberOfActiveFilters={this.props.getNumberOfActiveFilters}
+        activeBudget={this.props.activeBudget}
+        budgetContent={this.props.budgetContent}
+        deleteActiveBudget={this.props.deleteActiveBudget}
         activeTab={this.props.activeTab}
       />
     );

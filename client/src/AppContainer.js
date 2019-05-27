@@ -15,6 +15,8 @@ class AppContainer extends Component {
       token: '',
       activeHours:'',
       latestActiveHour: '', 
+      activeBudgetHours:'',
+      latestActiveBudgetHour: '', 
       canGoBack: false
     }
   }
@@ -86,10 +88,24 @@ class AppContainer extends Component {
     });
   }
 
+  getActiveBudgetHours = () => {
+    var token = JSON.parse(localStorage.getItem('token'));
+    var AuthStr = 'Bearer ' + token;
+    var user = JSON.parse(localStorage.getItem('user'));
+
+    axios.get(`/api/hours/active/budget/${user.id_user}`, { headers: { Authorization: AuthStr } }).then(res => {
+      if (res.data === 'nohours') {
+        this.setState({ activeBudgetHours: null, latestActiveBudgetHour: null});
+      } else {
+        this.setState({ activeBudgetHours: res.data, latestActiveBudgetHour: res.data[0].beginning_hour});
+      }
+    });
+  }
+
 
   componentDidMount() {
     this.hydrateStateWithLocalStorage();
-    if (localStorage.hasOwnProperty('user')) {this.getActiveHours();}
+    if (localStorage.hasOwnProperty('user')) {this.getActiveHours();this.getActiveBudgetHours();}
     if(this.props.location.pathname.indexOf('tasks/') !== -1){
       this.setState({canGoBack : true})
     }
@@ -110,8 +126,8 @@ class AppContainer extends Component {
   render() {
     return (
             <>
-              <TitleTimer latestActiveHour={this.state.latestActiveHour}/>
-              <App canGoBack={this.state.canGoBack} loggedIn={this.state.loggedIn} login={this.login} logout={this.logout} userInfo={this.state.userInfo} activeHours={this.state.activeHours} getActiveHours={this.getActiveHours}/>
+              <TitleTimer latestActiveHour={this.state.latestActiveHour} latestActiveBudgetHour={this.state.latestActiveBudgetHour} />
+              <App canGoBack={this.state.canGoBack} loggedIn={this.state.loggedIn} login={this.login} logout={this.logout} userInfo={this.state.userInfo} activeHours={this.state.activeHours} getActiveHours={this.getActiveHours} activeBudgetHours={this.state.activeBudgetHours} getActiveBudgetHours={this.getActiveBudgetHours}/>
             </>
             )
   }

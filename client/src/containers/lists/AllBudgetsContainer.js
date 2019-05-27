@@ -111,13 +111,13 @@ class AllBudgetsContainer extends Component {
     var idUser = JSON.parse(localStorage.getItem('user'));
     if (this.state.activeBudget) {
       axios.get(`/api/budgets/content/${this.state.activeBudget}`, { headers: { Authorization: AuthStr } }).then(res => {
-        this.setState({ budgetContent: res.data, isLoading: false }/*, () => this.scrollToElementD()*/);
+        this.setState({ budgetContent: res.data, isLoading: false }, () => this.scrollToElementD());
       });
     } else {
       if (this.props.isShare) {
         history.replace({ pathname: '/budgets' });
         axios
-          .get(`/api/budgets/link/${params.id}`, { headers: { Authorization: AuthStr } })
+          .get(`/api/budgets/content/${params.id}`, { headers: { Authorization: AuthStr } })
           .then(res => {
             if (res.data === 'nodata') {
               Swal.fire({
@@ -131,11 +131,11 @@ class AllBudgetsContainer extends Component {
             }
           })
           .then(res => {
-            axios.get(`/api/budgets/link/${this.state.activeBudget}`, { headers: { Authorization: AuthStr } }).then(res => {
+            axios.get(`/api/budgets/content/${this.state.activeBudget}`, { headers: { Authorization: AuthStr } }).then(res => {
               if (res.data === 'nodata') {
                 this.setState({ budgetContent: null, isLoading: false });
               } else {
-                this.setState({ budgetContent: res.data, isLoading: false }/*, () => this.scrollToElementD()*/);
+                this.setState({ budgetContent: res.data, isLoading: false }, () => this.scrollToElementD());
               }
             });
           });
@@ -148,7 +148,7 @@ class AllBudgetsContainer extends Component {
           })
           .then(res => {
             axios
-              .get(`/api/budget/content/${this.state.activeBudget}`, { headers: { Authorization: AuthStr } })
+              .get(`/api/budgets/content/${this.state.activeBudget}`, { headers: { Authorization: AuthStr } })
               .then(res => {
                 if (res.data === 'nodata') {
                   this.setState({ budgetContent: null, isLoading: false });
@@ -197,11 +197,11 @@ class AllBudgetsContainer extends Component {
       cancelButtonText: 'Cancelar'
     }).then(result => {
       if (result.value) {
-        Swal.fire('Tarefa eliminada!', '', 'success').then(result => {
+        Swal.fire('Orçamento eliminado!', '', 'success').then(result => {
           if (result.value) {
             axios
-              .delete(`/api/budget/${budgetId}`, { headers: { Authorization: AuthStr } })
-              .then(this.setState({ activeBudget: '', reloadTasks: true }));
+              .delete(`/api/budgets/${budgetId}`, { headers: { Authorization: AuthStr } })
+              .then(this.setState({ activeBudget: '', reloadBudgets: true }));
           }
         });
       }
@@ -282,7 +282,7 @@ class AllBudgetsContainer extends Component {
       this.getBudgetDetails();
     }
     if (prevState.reloadBudgets !== this.state.reloadBudgets) {
-      this.setState({ reloadTasks: false });
+      this.setState({ reloadBudgets: false });
     }
   }
 
@@ -300,6 +300,8 @@ class AllBudgetsContainer extends Component {
         isShare={this.props.isShare}
         copyAlert={this.copyAlert}
         redirect={this.state.redirect}
+        activeBudgetHours={this.props.activeBudgetHours}
+        getActiveBudgetHours={this.props.getActiveBudgetHours}
         activeHours={this.props.activeHours}
         getActiveHours={this.props.getActiveHours}
         reloadBudgets={this.state.reloadBudgets}
@@ -314,6 +316,8 @@ class AllBudgetsContainer extends Component {
         billingList={this.state.billingList}
         taskTypesList={this.state.taskTypesList}
         tasksStatusList={this.state.tasksStatusList}
+        getBudgetDetails={this.getBudgetDetails}
+        
       />
     );
   }

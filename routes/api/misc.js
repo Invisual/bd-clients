@@ -72,6 +72,34 @@ router.get('/status', checkToken, (req, res) => {
   });
 });
 
+router.get('/internalStatus', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+    } else {
+      connection.query('Select * from budget_internal_status', function(error, results, fields) {
+        if (error) throw error;
+          res.send(results);
+      });
+    }
+  });
+});
+
+router.get('/externalStatus', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+    } else {
+      connection.query('Select * from budget_external_status', function(error, results, fields) {
+        if (error) throw error;
+          res.send(results);
+      });
+    }
+  });
+});
+
 
 
 router.get('/positions', checkToken, (req, res) => {
@@ -104,5 +132,53 @@ router.get('/pws/clientsinfos', checkToken, (req, res) => {
   });
 });
 
+
+router.post('/costs', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {res.sendStatus(403)}
+    else {
+      if(req.body.type === 'task'){
+        for(var i=0, count=req.body.services.length; i<count;i++){
+          var countRows = 0
+          var priceDifference = req.body.sellPrices[i].input -  req.body.providerPrices[i].input
+          connection.query('INSERT INTO costs (service, provider, cost_provider, price_sale, price_difference, ref_id_task, type_cost) VALUES(?, ?, ?, ?, ?, ?, ?)', 
+          [req.body.services[i].input, req.body.providers[i].input, req.body.providerPrices[i].input, req.body.sellPrices[i].input, Math.round(priceDifference * 100) / 100, req.body.taskId,  req.body.costTypes[i].input],
+          function(error, results, fields) {
+            countRows ++
+            if (error) throw error
+            if(countRows === count){res.send(results)}
+          });
+        }
+      }
+      else{
+        for(var i=0, count=req.body.services.length; i<count;i++){
+          var countRows = 0
+          var priceDifference = req.body.sellPrices[i].input -  req.body.providerPrices[i].input
+          connection.query('INSERT INTO costs (service, provider, cost_provider, price_sale, price_difference, ref_id_project, type_cost) VALUES(?, ?, ?, ?, ?, ?, ?)', 
+          [req.body.services[i].input, req.body.providers[i].input, req.body.providerPrices[i].input, req.body.sellPrices[i].input, Math.round(priceDifference * 100) / 100, req.body.projId,  req.body.costTypes[i].input],
+          function(error, results, fields) {
+            countRows ++
+            if (error) throw error;
+            if(countRows === count){res.send(results)}
+          });
+        }
+      }
+    }
+  });
+})
+
+
+router.delete('/costs/:id', checkToken, (req, res) => {
+  var id = req.params.id;
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {res.sendStatus(403)}
+    else {
+      connection.query('DELETE FROM costs WHERE id_cost=?', id, function(error, results, fields) {
+        if (error) throw error;
+        res.send('deleted');
+      });
+    }
+  });
+});
 
 module.exports = router;
