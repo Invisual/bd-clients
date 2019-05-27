@@ -15,6 +15,7 @@ import GantTasksContainer from './containers/lists/GantTasksContainer';
 import MyToDoContainer from './containers/tables/MyToDoContainer';
 import CreateProjectContainer from './containers/inserts/CreateProjectContainer';
 import CreateTaskContainer from './containers/inserts/CreateTaskContainer';
+import CreateBudgetContainer from './containers/inserts/CreateBudgetContainer';
 import CreateMeetingContainer from './containers/inserts/CreateMeetingContainer';
 import CreateClientContainer from './containers/inserts/CreateClientContainer';
 import CreateUserContainer from './containers/inserts/CreateUserContainer';
@@ -35,11 +36,13 @@ class App extends Component {
           <div className="app-container">
             <TopBarContainer canGoBack={this.props.canGoBack} userInfo={this.props.userInfo} />
             <SideBar logout={this.props.logout} />
+            <MyToDoContainer title="To-do List" type="complete"/>
             <Switch>
-              <Route exact path="/" render={props => <><UserDashboardContainer activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} {...props} /><MyToDoContainer {...props} title="To-do List" type="complete"/></>} />
-              <Route exact path="/tasks" render={props => <AllTasksContainer isShare={false} userInfo={this.props.userInfo} {...props} activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours}/>} />
-              <Route exact path="/tasks/:id" render={props => <AllTasksContainer isShare={true} userInfo={this.props.userInfo} {...props}  activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours}/>} />
-              <Route exact path="/budgets" render={props => <AllBudgetsContainer isShare={false} userInfo={this.props.userInfo} {...props} activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours}/>} />
+              <Route exact path="/" render={props => <UserDashboardContainer activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} {...props} />} />
+              <Route exact path="/tasks" render={props => <AllTasksContainer isShare={false} userInfo={this.props.userInfo} {...props} activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} activeBudgetHours={this.props.activeBudgetHours} getActiveBudgetHours={this.props.getActiveBudgetHours}/>} />
+              <Route exact path="/tasks/:id" render={props => <AllTasksContainer isShare={true} userInfo={this.props.userInfo} {...props}  activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} activeBudgetHours={this.props.activeBudgetHours} getActiveBudgetHours={this.props.getActiveBudgetHours}/>} />
+              <Route exact path="/budgets" render={props => <AllBudgetsContainer isShare={false} userInfo={this.props.userInfo} {...props}  activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} activeBudgetHours={this.props.activeBudgetHours} getActiveBudgetHours={this.props.getActiveBudgetHours}/>} />
+              <Route exact path="/budgets/:id" render={props => <AllBudgetsContainer isShare={true} userInfo={this.props.userInfo} {...props} activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} activeBudgetHours={this.props.activeBudgetHours} getActiveBudgetHours={this.props.getActiveBudgetHours}/>} />
               <Route exact path="/projects" render={props => <AllProjectsContainer isShare={false} userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/projects/:id" render={props => <AllProjectsContainer isShare={true} userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/meetings" render={props => <AllMeetingsContainer userInfo={this.props.userInfo} {...props} />} />
@@ -54,6 +57,8 @@ class App extends Component {
               <Route path="/createproject/:id" render={props => <CreateProjectContainer {...props} type="edit" title="Editar Projeto"/>} />
               <Route exact path="/createtask" render={props => <CreateTaskContainer {...props} type="add" title="Nova Tarefa"/>} />
               <Route path="/createtask/:id" render={props => <CreateTaskContainer {...props} type="edit" title="Editar Tarefa"/>} />
+              <Route exact path="/createbudget" render={props => <CreateBudgetContainer {...props} type="add" title="Novo Orçamento"/>} />
+              <Route path="/createbudget/:id" render={props => <CreateBudgetContainer {...props} type="edit" title="Editar Orçamento"/>} />
               <Route exact path="/createmeeting" render={props => <CreateMeetingContainer {...props} type="add" title="Nova Reunião"/>} />
               <Route path="/createmeeting/:id" render={props => <CreateMeetingContainer {...props} type="edit" title="Editar Reunião"/>} />
               <Route exact path="/createclient" render={props => <CreateClientContainer {...props} type="add" title="Novo Cliente"/>} />

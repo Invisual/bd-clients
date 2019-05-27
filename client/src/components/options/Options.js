@@ -166,6 +166,44 @@ export const Options =  props => {
             ) : (
               <div className="grid-widget tasks-options"> </div>
             );
+            case 'budgetoptions':
+            return props.isLoading ? (
+              <div className="grid-widget tasks-options" />
+            ) : props.budgetContent ? (
+              <div className="grid-widget tasks-options">
+                {props.userRole === 3 || props.userRole === 2 ? (
+                  <div className="task-infos">
+                  <div className="tooltip-container">
+                    <FiTrash2
+                      className="task-info-icon"
+                      onClick={() => {
+                        props.deleteActiveBudget(props.budgetContent.details[0].id_budget);
+                      }}
+                    /><span className="tooltip">Eliminar Orçamento</span>
+                    </div>
+                    <div className="tooltip-container">
+                    <Link to={`/createbudget/`+props.budgetContent.details[0].id_budget}><FiEdit3
+                      className="task-info-icon"
+                    /><span className="tooltip">Editar Orçamento</span></Link>
+                    </div>
+                  </div>
+                ) 
+                : null
+                }
+                <div className="account-avatar">
+                  <img
+                    src={props.budgetContent.details[0].avatar_user}
+                    alt="Avatar"
+                    style={{ borderRadius: '50%' }}
+                    width="20px"
+                    height="20px"
+                    title={props.budgetContent.details[0].name_user}
+                  />
+                </div>
+              </div>
+            ) : (
+              <div className="grid-widget tasks-options"> </div>
+            );
 
           default:
           return props.isLoading ? (

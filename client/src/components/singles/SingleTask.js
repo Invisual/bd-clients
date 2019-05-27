@@ -18,6 +18,9 @@ class SingleTask extends Component {
       case 3:
         taskColor = '#651FFF';
         break;
+      case 4:
+        taskColor = '#0036ff';
+        break;
       default:
         taskColor = '#F50057';
     }
@@ -55,7 +58,7 @@ class SingleTask extends Component {
           <div className="tooltip-container"><FiClock onClick={this.props.hourState === 1 ? () => this.props.stopCountingHours(this.props.hourId, this.props.title) : () => this.props.startCountingHours(this.props.id, this.props.title)} className={this.props.hourState === 1 ? 'active-clock' : 'inactive-clock'} />
           <span className="tooltip">{this.props.hourState === 1 ? "Parar contagem de horas" : "Iniciar contagem de horas"}</span></div></div>
           <div className="task-state" onClick={() => this.props.changeTaskStatus(this.props.id, this.props.stateVal)}>
-          {this.props.stateTitle}
+          <span>{this.props.stateTitle}</span>
           </div>
         </AllSingleTaskDiv>
       );
@@ -77,7 +80,7 @@ class SingleTask extends Component {
           <div className="tooltip-container"><FiClock onClick={this.props.hourState === 1 ? () => this.props.stopCountingHours(this.props.hourId, this.props.title) : () => this.props.startCountingHours(this.props.id, this.props.title)} className={this.props.hourState === 1 ? 'active-clock' : 'inactive-clock'} />
           <span className="tooltip">{this.props.hourState === 1 ? "Parar contagem de horas" : "Iniciar contagem de horas"}</span></div></div>
           <div className="task-state" onClick={() => this.props.changeBudgetStatus(this.props.id, this.props.stateVal)}>
-          {this.props.stateTitle}
+          <span>{this.props.stateTitle}</span>
           </div>
         </AllSingleTaskDiv>
       );
@@ -93,7 +96,7 @@ class SingleTask extends Component {
           <div className="tooltip-container"><FiClock onClick={this.props.hourState === 1 ? () => this.props.stopCountingHours(this.props.hourId, this.props.title) : () => this.props.startCountingHours(this.props.id, this.props.title)} className={this.props.hourState === 1 ? 'active-clock' : 'inactive-clock'} />
           <span className="tooltip">{this.props.hourState === 1 ? "Parar contagem de horas" : "Iniciar contagem de horas"}</span></div></div>
           <div className="task-state" onClick={() => this.props.changeTaskStatus(this.props.id, this.props.stateVal)}>
-            {this.props.stateTitle}
+            <span>{this.props.stateTitle}</span>
           </div>
         </SingleTaskDiv>
       );

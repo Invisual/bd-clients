@@ -29,6 +29,9 @@ class MyBudgetsContainer extends Component {
         nextStatus = 3;
         break;
       case 3:
+        nextStatus = 4;
+        break;
+      case 4:
         nextStatus = 1;
         break;
       default:
@@ -60,17 +63,26 @@ class MyBudgetsContainer extends Component {
     });
   };
 
-  startCountingHours = (taskId, taskTitle) => {
-    if(this.props.activeHours !== undefined && this.props.activeHours !== null){
-      if(this.props.activeHours.length > 0){
+  startCountingHours = (budgetId, budgetTitle) => {
+    if(this.props.activeBudgetHours !== undefined && this.props.activeBudgetHours !== null){
+      console.log('primeiro if')
+      if(this.props.activeBudgetHours.length > 0 || this.props.activeHours.length > 0){
+        console.log('tem horas ja')
         Swal.fire({
           type: 'error',
           title: 'Erro!',
-          text: `Já existe uma contagem de horas iniciada na Tarefa '${taskTitle}'`
+          text: `Já existe uma contagem de horas iniciada no Orçamento '${budgetTitle}'`
         })
       }
-    } 
-    else{
+    } else if (this.props.activeHours !== undefined && this.props.activeHours !== null)
+    {
+      Swal.fire({
+        type: 'error',
+        title: 'Erro!',
+        text: `Já existe uma contagem de horas iniciada numa Tarefa!`
+      })
+    }
+    else {
       var token = JSON.parse(localStorage.getItem('token'));
       var AuthStr = 'Bearer ' + token;
       var user = JSON.parse(localStorage.getItem('user'));
@@ -79,11 +91,11 @@ class MyBudgetsContainer extends Component {
         beginningHour: moment().format('H:mm:ss'),
         day: moment().format('D/MM/YYYY'),
         user: user.id_user,
-        task: taskId
+        budget: budgetId
       }
 
-      axios.post(`/api/hours/`, data, { headers: { Authorization: AuthStr } }).then(res => {
-        this.props.getActiveHours();
+      axios.post(`/api/hours/budget`, data, { headers: { Authorization: AuthStr } }).then(res => {
+        this.props.getActiveBudgetHours();
         //document.title = 'Tem um registo de Horas a contar'
         const Toast = Swal.mixin({
           toast: true,
@@ -93,13 +105,13 @@ class MyBudgetsContainer extends Component {
         });
         Toast.fire({
           type: 'success',
-          title: `Contagem de Horas iniciada na Tarefa '${taskTitle}'`
+          title: `Contagem de Horas iniciada no Orçamento '${budgetTitle}'`
         })
       });
     }
   }
 
-  stopCountingHours = (hourId, taskTitle) => {
+  stopCountingHours = (hourId, budgetTitle) => {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
 
@@ -108,8 +120,8 @@ class MyBudgetsContainer extends Component {
       idHour: hourId
     }
 
-    axios.put(`/api/hours/`, data, { headers: { Authorization: AuthStr } }).then(res => {
-      this.props.getActiveHours();
+    axios.put(`/api/hours/budget`, data, { headers: { Authorization: AuthStr } }).then(res => {
+      this.props.getActiveBudgetHours();
       const Toast = Swal.mixin({
         toast: true,
         position: 'top',
@@ -118,7 +130,7 @@ class MyBudgetsContainer extends Component {
       });
       Toast.fire({
         type: 'error',
-        title: `Contagem de Horas parada na Tarefa '${taskTitle}'`
+        title: `Contagem de Horas parada no Orçamento '${budgetTitle}'`
       })
     });
   }
@@ -135,7 +147,6 @@ class MyBudgetsContainer extends Component {
 
 
   render() {
-    console.log(this.state.budgets)
     var filteredBudgets
     switch(this.props.type){
       case 'alltasks':
@@ -178,7 +189,7 @@ class MyBudgetsContainer extends Component {
         copyAlert={this.props.copyAlert}
         startCountingHours={this.startCountingHours}
         stopCountingHours={this.stopCountingHours}
-        activeHours={this.props.activeHours}
+        activeBudgetHours={this.props.activeBudgetHours}
       />
     );
   }

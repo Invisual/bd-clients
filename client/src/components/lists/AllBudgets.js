@@ -59,6 +59,8 @@ export const AllBudgets = props => {
               changeActiveBudget={props.changeActiveBudget}
               activeBudget={props.activeBudget}
               copyAlert={props.copyAlert}
+              activeBudgetHours={props.activeBudgetHours}
+              getActiveBudgetHours={props.getActiveBudgetHours}
               activeHours={props.activeHours}
               getActiveHours={props.getActiveHours}
               filters={props.filters}
@@ -86,6 +88,7 @@ export const AllBudgets = props => {
             changeCommentVal={props.changeCommentVal}
             submitComment={props.submitComment}
             isLoading={props.isLoading}
+            getBudgetDetails={props.getBudgetDetails}
           />
         }
         </div>

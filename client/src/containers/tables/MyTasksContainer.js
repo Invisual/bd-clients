@@ -74,7 +74,14 @@ class MyTasksContainer extends Component {
           text: `Já existe uma contagem de horas iniciada na Tarefa '${taskTitle}'`
         })
       }
-    } 
+    } else if (this.props.activeBudgetHours !== undefined && this.props.activeBudgetHours !== null)
+    {
+      Swal.fire({
+        type: 'error',
+        title: 'Erro!',
+        text: `Já existe uma contagem de horas iniciada num Orçamento!`
+      })
+    }
     else{
       var token = JSON.parse(localStorage.getItem('token'));
       var AuthStr = 'Bearer ' + token;
@@ -189,6 +196,7 @@ class MyTasksContainer extends Component {
         startCountingHours={this.startCountingHours}
         stopCountingHours={this.stopCountingHours}
         activeHours={this.props.activeHours}
+        activeBudgetHours={this.props.activeBudgetHours}
       />
     );
   }

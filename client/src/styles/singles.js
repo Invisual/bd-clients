@@ -48,6 +48,9 @@ export const SingleTaskDiv = styled.div`
     text-align: center;
     background-color: ${props => props.taskColor};
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   svg {
     font-size: 2em;
@@ -106,12 +109,15 @@ export const AllSingleTaskDiv = styled.div`
   .task-state {
     color: #fff;
     border-radius: ${themeConsts.borderRadius};
-    font-size: 1.5em;
+    font-size: 1.3em;
     font-weight: 600;
     padding: 18px 0;
     text-align: center;
     background-color: ${props => props.taskColor};
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   svg {
     font-size: 2em;

@@ -384,6 +384,54 @@ export const TaskDetailsDiv = styled.div`
         .billing-descr{
           margin-top: 1px;
         }
+        .billing-add-icon{
+          font-size: 1.4em;
+          color: ${themeConsts.secondaryBlue};
+          stroke-width: 3;
+          padding-left: 8px;
+          position: relative;
+          top: 3px;
+        }
+      }
+      .budget-external-status{
+        margin-right: 30px;
+        border-top: 1px solid #e6e6e6;
+        padding: 25px 0;
+
+        h4 {
+          margin-top: 0;
+          font-weight: 600;
+          font-size: 1.1em;
+          color: #4b4b4b;
+          margin-bottom: 10px;
+        }
+        .status-container {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          font-size: 1.3em;
+          
+            .single-status {
+              border-radius: 2em;
+              margin: 10px;
+              padding: 5px 15px;
+              border: 2px solid ${themeConsts.secondaryBlue}; 
+              color: ${themeConsts.secondaryBlue};
+              cursor: pointer;
+            }
+            .single-status:hover {
+              color: white;
+              background-color: ${themeConsts.secondaryBlue};
+              box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.16);
+              transform: translateY(-2px);
+              transition: all .5s;
+            }
+            .active-status { 
+              color:white;
+              background-color: ${themeConsts.secondaryBlue}
+            }
+        }
+        
       }
   }
   
