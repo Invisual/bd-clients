@@ -79,7 +79,7 @@ export const TodoListDashboardDiv = styled.div`
 
 
 export const TodoListCompleteDiv = styled.div`
-    position:absolute !important;
+    position:fixed !important;
     top:50%;
     left:0;
     right:0;

@@ -294,11 +294,6 @@ export const InsertFormDiv = styled.div`
 
     .form-buttons {
       margin-top: 50px;
-      text-align: center;
-
-      button {
-        margin: 0 10px;
-      }
     }
 
     .form-error{

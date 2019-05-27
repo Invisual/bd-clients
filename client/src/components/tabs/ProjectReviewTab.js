@@ -1,6 +1,6 @@
 import React from 'react';
 import { Line } from 'rc-progress';
-import { FiAlertTriangle } from 'react-icons/fi';
+import { FiAlertTriangle, FiPlus, FiArrowRight } from 'react-icons/fi';
 import moment from 'moment';
 import 'moment/locale/pt';
 import 'moment-duration-format';
@@ -91,14 +91,12 @@ class ProjectReviewTab extends React.Component {
           </div>
           <div className="billing-title">
             <h4>Custos para Faturação</h4>
-            <div className="billing-descr">Esta Tarefa ainda não tem um Registo de Custos associado.</div>
-          </div>
-          <div className="billing-icon">
-            <FiAlertTriangle color="#5e78dd" />
-          </div>
-          <div className="billing-title">
-            <h4>Observações para Faturação</h4>
-            <div className="billing-descr">Esta Tarefa não tem qualquer Observação para Faturação.</div>
+            {this.props.projectContent.costs ? 
+              <div className="see-all-costs" onClick={() => this.props.openCostsModal('projectlist')}>Consulte aqui os Custos associados a este Projecto <FiArrowRight /></div>
+            :
+              <div className="billing-descr">Este Projecto ainda não tem um Registo de Custos associado.</div>
+            }
+            <FiPlus className="billing-add-icon" onClick={() =>this.props.openCostsModal('project')}/>
           </div>
         </div>
       </>

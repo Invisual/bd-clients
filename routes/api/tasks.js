@@ -324,13 +324,17 @@ router.get('/content/:task', checkToken, (req, res) => {
       res.sendStatus(403);
     } else {
       connection.query(
-        'SELECT id_task, avatar_user, name_user, title_task, creation_date_task, title_project, ref_id_project, name_client, name_task_types, name_billing_mode, description_task,SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS "total_hours" from tasks LEFT JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task LEFT JOIN task_types on task_types.id_task_type=tasks.ref_id_type_task LEFT JOIN aproval_task_status ON aproval_task_status.id_aproval_task_status=tasks.ref_id_aproval_task_status LEFT JOIN user_task_status ON user_task_status.id_user_task_status=users_has_tasks.ref_id_user_task_status LEFT JOIN projects ON tasks.ref_id_project=projects.id_project LEFT JOIN billing_modes ON billing_modes.id_billing_mode=tasks.ref_id_billing_mode LEFT JOIN clients ON clients.id_client=tasks.ref_id_client LEFT JOIN users ON users.id_user=users_has_tasks.ref_id_user LEFT JOIN task_hours ON task_hours.ref_id_tasks=tasks.id_task where tasks.id_task=?',
+        'SELECT id_task, avatar_user, name_user, title_task, creation_date_task, title_project, ref_id_type_task, ref_id_project, name_client, name_task_types, name_billing_mode, description_task,SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS "total_hours" from tasks LEFT JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task LEFT JOIN task_types on task_types.id_task_type=tasks.ref_id_type_task LEFT JOIN aproval_task_status ON aproval_task_status.id_aproval_task_status=tasks.ref_id_aproval_task_status LEFT JOIN user_task_status ON user_task_status.id_user_task_status=users_has_tasks.ref_id_user_task_status LEFT JOIN projects ON tasks.ref_id_project=projects.id_project LEFT JOIN billing_modes ON billing_modes.id_billing_mode=tasks.ref_id_billing_mode LEFT JOIN clients ON clients.id_client=tasks.ref_id_client LEFT JOIN users ON users.id_user=users_has_tasks.ref_id_user LEFT JOIN task_hours ON task_hours.ref_id_tasks=tasks.id_task where tasks.id_task=?',
         task,
         function(error, results, fields) {
           if (error) throw error;
-          if (results.length > 0) {
-            totalResults.details = results;
-          }
+          if (results.length > 0) { totalResults.details = results }
+        }
+      );
+      connection.query(
+        'SELECT * FROM costs WHERE ref_id_task = ?', task, function(error, results, fields) {
+          if (error) throw error;
+          if (results.length > 0) { totalResults.costs = results }
         }
       );
       connection.query(
@@ -339,11 +343,8 @@ router.get('/content/:task', checkToken, (req, res) => {
         function(error, results, fields) {
           if (error) throw error;
           totalResults.comments = results;
-          if (totalResults.details[0].id_task !== null) {
-            res.send(totalResults);
-          } else {
-            res.send('nodata');
-          }
+          if (totalResults.details[0].id_task !== null) { res.send(totalResults) }
+          else { res.send('nodata') }
         }
       );
     }

@@ -1,21 +1,22 @@
-import React from 'react';
-import SingleTaskComment from '../singles/SingleTaskComment';
-import { TaskDetailsDiv } from '../../styles/listings';
-import moment from 'moment';
-import 'moment/locale/pt';
-import 'moment-duration-format';
-import { Circle } from 'rc-progress';
+import React from 'react'
+import SingleTaskComment from '../singles/SingleTaskComment'
+import { TaskDetailsDiv } from '../../styles/listings'
+import moment from 'moment'
+import 'moment/locale/pt'
+import 'moment-duration-format'
+import { Circle } from 'rc-progress'
 import {
   FiClock,
   FiFolder,
   FiUser,
   FiInfo,
   FiCreditCard,
-  FiArrowRight,
+  FiPlus,
   FiAlertTriangle,
   FiSend,
   FiFileText,
-  FiMoreHorizontal
+  FiMoreHorizontal,
+  FiArrowRight
 } from 'react-icons/fi';
 
 export const TaskDetail = props => {
@@ -94,22 +95,24 @@ export const TaskDetail = props => {
                   )}
                 </div>
               </div>
-              <div className="task-billing-section">
-                <div className="billing-icon">
-                  <FiAlertTriangle color="#5e78dd" />
+              {props.taskContent.details[0].ref_id_type_task === 3 ?
+                <div className="task-billing-section">
+                  <div className="billing-icon">
+                    <FiAlertTriangle color="#5e78dd" />
+                  </div>
+                  <div className="billing-title">
+                    <h4>Custos para Faturação</h4>
+                    {props.taskContent.costs ? 
+                      <div className="see-all-costs" onClick={() => props.openCostsModal('tasklist')}>Consulte aqui os Custos associados a esta Tarefa <FiArrowRight /></div>
+                    :
+                      <div className="billing-descr">Esta Tarefa ainda não tem um Registo de Custos associado.</div>
+                    }
+                    <FiPlus className="billing-add-icon" onClick={() => props.openCostsModal('task')}/>
+                  </div>
                 </div>
-                <div className="billing-title">
-                  <h4>Custos para Faturação</h4>
-                  <div className="billing-descr">Esta Tarefa ainda não tem um Registo de Custos associado.</div>
-                </div>
-                <div className="billing-icon">
-                  <FiAlertTriangle color="#5e78dd" />
-                </div>
-                <div className="billing-title">
-                  <h4>Observações para Faturação</h4>
-                  <div className="billing-descr">Esta Tarefa não tem qualquer Observação para Faturação.</div>
-                </div>
-              </div>
+              :
+                null
+              }
             </div>
           </div>
 

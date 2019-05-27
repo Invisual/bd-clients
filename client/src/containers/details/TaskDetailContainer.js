@@ -10,6 +10,7 @@ class TaskDetailContainer extends Component {
         isLoading={this.props.isLoading}
         changeCommentVal={this.props.changeCommentVal}
         submitComment={this.props.submitComment}
+        openCostsModal={this.props.openCostsModal}
       />
     );
   }

@@ -35,7 +35,9 @@ class AllTasksContainer extends Component {
       searchQuery: '',
       displaySearchInput: '',
       isLoading: true,
-      redirect: false
+      redirect: false,
+      costsModalOpen: false,
+      costsModalType: 'task'
     };
   }
 
@@ -299,6 +301,18 @@ class AllTasksContainer extends Component {
 	return -c/2 * (t*(t-2) - 1) + b;
   };
   
+  openCostsModal = (type) => {
+    document.body.classList.add('costs-open', 'modal-open')
+    document.getElementById('overlay').addEventListener('click', () => this.closeCostsModal())
+    this.setState({costsModalOpen: true, costsModalType: type})
+  }
+
+  closeCostsModal = () => {
+    document.body.classList.remove('costs-open', 'modal-open')
+    document.getElementById('overlay').removeEventListener('click', () => this.closeCostsModal());
+    this.setState({costsModalOpen: false})
+  }
+
 
   componentDidMount() {
     this.getTaskDetails();
@@ -320,6 +334,7 @@ class AllTasksContainer extends Component {
   }
 
   render() {
+    console.log(this.state.taskContent)
     return (
       <AllTasks
         userRole={this.props.userInfo.ref_id_role}
@@ -336,6 +351,8 @@ class AllTasksContainer extends Component {
         redirect={this.state.redirect}
         activeHours={this.props.activeHours}
         getActiveHours={this.props.getActiveHours}
+        activeBudgetHours={this.props.activeBudgetHours}
+        getActiveBudgetHours={this.props.getActiveBudgetHours}
         reloadTasks={this.state.reloadTasks}
         filtersAreActive={this.state.filtersAreActive}
         changeFiltersAreActive={this.changeFiltersAreActive}
@@ -354,6 +371,11 @@ class AllTasksContainer extends Component {
         changeSearchQuery={this.changeSearchQuery}
         displaySearchInput={this.state.displaySearchInput}
         toggleSearchInput={this.toggleSearchInput}
+        openCostsModal={this.openCostsModal}
+        closeCostsModal={this.closeCostsModal}
+        isCostsModalOpen={this.state.costsModalOpen}
+        costsModalType={this.state.costsModalType}
+        getTaskDetails={this.getTaskDetails}
       />
     );
   }

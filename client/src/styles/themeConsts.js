@@ -22,5 +22,7 @@ export const themeConsts = {
     bordersGrey: '#ececec',
     mainShadow: '0px 1px 6px rgba(0,0,0, .16)',
     activeShadow: '0px 3px 6px rgba(0,0,0,.16)',
-    borderRadius:'10px'
+    borderRadius:'10px',
+    tableColor1: '#eef1ff',
+    tableColor2: '#f5f7ff'
 }

@@ -184,7 +184,7 @@ class CreateTaskContainer extends Component{
         var chosenProject = this.state.projectsData.filter(proj => Number(proj.id_project) === Number(this.state.projectInput))
         if(this.state.typeInput === '1'){ data.account = null; data.billing = chosenProject[0].ref_id_billing_mode; }
         else if(this.state.typeInput === '2' || this.state.typeInput === '4'){ data.project = null;}
-        else if(this.state.typeInput === '3'){ data.project = null; data.user = null;}
+        else if(this.state.typeInput === '3'){ data.project = null; data.user = this.state.accountInput;}
         var token = JSON.parse(localStorage.getItem('token'));
         var AuthStr = 'Bearer ' + token;
         axios.post('/api/tasks/', data, { headers: { Authorization: AuthStr } })

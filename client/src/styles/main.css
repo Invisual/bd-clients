@@ -317,16 +317,29 @@ body.collapsed-sidebar .topbar-goback {
 }
 
 
+.form-buttons {
+  text-align: center;
+}
+.form-buttons button{
+  margin: 0 10px;
+}
+
 body .complete-todo {
   display: none;
   opacity: 0;
 }
-body.todo-open .complete-todo {
+body.todo-open .complete-todo{
   display: block;
   animation: opacityAnimation 0.4s ease, slideFromTopAnimation 0.4s ease;
   animation-fill-mode: forwards;
 }
-body.todo-open #overlay {
+
+body.modal-open .costs-modal{
+  display: block;
+  animation: opacityAnimation 0.4s ease, slideFromTopAnimation 0.4s ease;
+  animation-fill-mode: forwards;
+}
+body.modal-open #overlay {
   position: fixed;
   top: 0;
   right: 0;

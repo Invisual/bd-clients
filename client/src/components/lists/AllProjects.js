@@ -4,6 +4,7 @@ import { AllProjectsDiv } from '../../styles/listings';
 import MyProjectsContainer from '../../containers/tables/MyProjectsContainer';
 import ProjectDetailContainer from '../../containers/details/ProjectDetailContainer';
 import OptionsContainer from '../../containers/options/OptionsContainer';
+import CostsModalContainer from '../../containers/inserts/CostsModalContainer'
 import ProjectFilters from '../options/ProjectFilters';
 import { FiFolderPlus, FiFilter, FiUserCheck, FiSearch } from 'react-icons/fi';
 
@@ -14,6 +15,17 @@ export const AllProjects = props => {
   
   return (
     <AllProjectsDiv className="dashboard-container">
+      {props.isCostsModalOpen ? 
+        <CostsModalContainer 
+          closeCostsModal={props.closeCostsModal} 
+          projId={props.activeProject} 
+          type={props.costsModalType} 
+          costs={props.projectContent.costs}
+          getProjectDetails={props.getProjectDetails}
+        />
+      : 
+        null
+      }
       <div className="widgets-grid widget cards-container nofixed-height no-shadow">
         <div className="grid-widget tasks-title">
           <h4 className="widget-title">Projetos</h4>
@@ -91,6 +103,7 @@ export const AllProjects = props => {
             isLoading={props.isLoading}
             changeCommentVal={props.changeCommentVal}
             submitComment={props.submitComment}
+            openCostsModal={props.openCostsModal}
           />
         }
         </div>

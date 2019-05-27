@@ -1,5 +1,6 @@
 import React from 'react';
 import { AllTasksDiv } from '../../styles/listings';
+import CostsModalContainer from '../../containers/inserts/CostsModalContainer'
 import MyTasksContainer from '../../containers/tables/MyTasksContainer';
 import TaskDetailContainer from '../../containers/details/TaskDetailContainer';
 import OptionsContainer from '../../containers/options/OptionsContainer';
@@ -14,6 +15,17 @@ export const AllTasks = props => {
 
   return (
     <AllTasksDiv className="dashboard-container">
+      {props.isCostsModalOpen ? 
+        <CostsModalContainer 
+          closeCostsModal={props.closeCostsModal} 
+          taskId={props.activeTask} 
+          type={props.costsModalType} 
+          costs={props.taskContent.costs}
+          getTaskDetails={props.getTaskDetails}
+        /> 
+      : 
+        null
+      }
       <div className="widgets-grid widget cards-container nofixed-height">
         <div className="grid-widget tasks-title">
           <h4 className="widget-title">Tarefas</h4>
@@ -71,6 +83,8 @@ export const AllTasks = props => {
               copyAlert={props.copyAlert}
               activeHours={props.activeHours}
               getActiveHours={props.getActiveHours}
+              activeBudgetHours={props.activeBudgetHours}
+              getActiveBudgetHours={props.getActiveBudgetHours}
               filters={props.filters}
               userRole={props.userRole}
               currentTaskList={props.currentTaskList}
@@ -98,6 +112,7 @@ export const AllTasks = props => {
             changeCommentVal={props.changeCommentVal}
             submitComment={props.submitComment}
             isLoading={props.isLoading}
+            openCostsModal={props.openCostsModal}
           />
         }
         </div>

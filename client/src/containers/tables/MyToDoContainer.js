@@ -60,13 +60,13 @@ class MyToDoContainer extends Component {
   };
 
   openFullModal = () => {
-    document.body.classList.add('todo-open');
+    document.body.classList.add('todo-open', 'modal-open');
     document.getElementById('overlay').addEventListener('click', () => this.closeFullModal());
     this.forceUpdate();
   };
 
   closeFullModal = () => {
-    document.body.classList.remove('todo-open');
+    document.body.classList.remove('todo-open', 'modal-open');
     document.getElementById('overlay').removeEventListener('click', () => this.closeFullModal());
     this.closeTextAreaModal();
   };

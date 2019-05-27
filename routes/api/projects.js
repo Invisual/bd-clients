@@ -72,7 +72,7 @@ router.post('/', checkToken, (req, res) => {
 })
 
 router.delete('/:id', checkToken, (req, res) => {
-  id = req.params.id;
+  var id = req.params.id;
   jwt.verify(req.token, SECRET_KEY, (err, results) => {
     if (err) {
       //If error send Forbidden (403)
@@ -191,6 +191,12 @@ router.get('/details/:project', checkToken, (req, res) => {
           } else {
             res.send('nodata');
           }
+        }
+      );
+      connection.query(
+        'SELECT * FROM costs WHERE ref_id_project = ?', project, function(error, results, fields) {
+          if (error) throw error;
+          if (results.length > 0) { totalResults.costs = results }
         }
       );
       connection.query(

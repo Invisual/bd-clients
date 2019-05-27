@@ -33,7 +33,9 @@ class AllProjectsContainer extends Component {
       currentProjectList: 'all',
       searchQuery: '',
       displaySearchInput: '',
-      isLoading: true
+      isLoading: true,
+      costsModalOpen: false,
+      costsModalType: 'project'
     };
   }
 
@@ -272,6 +274,19 @@ class AllProjectsContainer extends Component {
 	return -c/2 * (t*(t-2) - 1) + b;
   };
 
+  openCostsModal = (type) => {
+    document.body.classList.add('costs-open', 'modal-open')
+    document.getElementById('overlay').addEventListener('click', () => this.closeCostsModal())
+    this.setState({costsModalOpen: true, costsModalType: type})
+  }
+
+  closeCostsModal = () => {
+    document.body.classList.remove('costs-open', 'modal-open')
+    document.getElementById('overlay').removeEventListener('click', () => this.closeCostsModal());
+    this.setState({costsModalOpen: false})
+  }
+
+
   componentDidMount() {
     this.getProjectDetails();
     this.getClients();
@@ -323,6 +338,11 @@ class AllProjectsContainer extends Component {
         changeSearchQuery={this.changeSearchQuery}
         displaySearchInput={this.state.displaySearchInput}
         toggleSearchInput={this.toggleSearchInput}
+        openCostsModal={this.openCostsModal}
+        closeCostsModal={this.closeCostsModal}
+        isCostsModalOpen={this.state.costsModalOpen}
+        costsModalType={this.state.costsModalType}
+        getProjectDetails={this.getProjectDetails}
       />
     );
   }
