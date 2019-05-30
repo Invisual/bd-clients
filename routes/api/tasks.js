@@ -296,8 +296,8 @@ router.post('/comments/:task', checkToken, (req, res) => {
 });
 
 router.get('/link/:task', checkToken, (req, res) => {
-  vartask = req.params.task;
-  vartotalResults = {};
+  var task = req.params.task;
+  var totalResults = {};
   jwt.verify(req.token, SECRET_KEY, (err, results) => {
     if (err) {
       //If error send Forbidden (403)
@@ -355,8 +355,8 @@ router.get('/basic/:task', checkToken, (req, res) => {
 });
 
 router.get('/content/:task', checkToken, (req, res) => {
-  vartask = req.params.task;
-  vartotalResults = {};
+  var task = req.params.task;
+  var totalResults = {};
   jwt.verify(req.token, SECRET_KEY, (err, results) => {
     if (err) {
       //If error send Forbidden (403)
