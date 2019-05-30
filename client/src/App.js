@@ -11,6 +11,7 @@ import AllProjectsContainer from './containers/lists/AllProjectsContainer';
 import AllMeetingsContainer from './containers/lists/AllMeetingsContainer';
 import AllClientsContainer from './containers/lists/AllClientsContainer';
 import AllTeamContainer from './containers/lists/AllTeamContainer';
+import AllBillingContainer from './containers/lists/AllBillingContainer';
 import GantTasksContainer from './containers/lists/GantTasksContainer';
 import MyToDoContainer from './containers/tables/MyToDoContainer';
 import CreateProjectContainer from './containers/inserts/CreateProjectContainer';
@@ -34,7 +35,7 @@ class App extends Component {
       <>
         {this.props.loggedIn ? (
           <div className="app-container">
-            <TopBarContainer canGoBack={this.props.canGoBack} userInfo={this.props.userInfo} />
+            <TopBarContainer canGoBack={this.props.canGoBack} userInfo={this.props.userInfo} notifications={this.props.notifications} setNotificationsSeen={this.props.setNotificationsSeen} setNotificationOpened={this.props.setNotificationOpened}/>
             <SideBar logout={this.props.logout} />
             <MyToDoContainer title="To-do List" type="complete"/>
             <Switch>
@@ -46,9 +47,11 @@ class App extends Component {
               <Route exact path="/projects" render={props => <AllProjectsContainer isShare={false} userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/projects/:id" render={props => <AllProjectsContainer isShare={true} userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/meetings" render={props => <AllMeetingsContainer userInfo={this.props.userInfo} {...props} />} />
+              <Route exact path="/meetings/:date" render={props => <AllMeetingsContainer userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/clients" render={props => <AllClientsContainer isShare={false} userInfo={this.props.userInfo} logout={this.props.logout} {...props} />} />
               <Route exact path="/clients/:id" render={props => <AllClientsContainer isShare={true} userInfo={this.props.userInfo} {...props} />} />
               <Route path="/admin" render={props => <GantTasksContainer {...props} />} />
+              <Route exact path="/billing" render={props => <AllBillingContainer userInfo={this.props.userInfo} isShare={false} {...props} />} />
               <Route exact path="/team" render={props => <AllTeamContainer userInfo={this.props.userInfo} isShare={false} {...props} />} />
               <Route exact path="/team/:id" render={props => <AllTeamContainer userInfo={this.props.userInfo} isShare={true} {...props} />} />
               <Route exact path="/gant" render={props => <GantTasksContainer userInfo={this.props.userInfo} {...props} />} />

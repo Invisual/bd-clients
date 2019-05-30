@@ -35,7 +35,9 @@ class AllProjectsContainer extends Component {
       displaySearchInput: '',
       isLoading: true,
       costsModalOpen: false,
-      costsModalType: 'project'
+      costsModalType: 'project',
+      concludedModalOpen: false,
+      concludedModalType: 'project',
     };
   }
 
@@ -286,6 +288,18 @@ class AllProjectsContainer extends Component {
     this.setState({costsModalOpen: false})
   }
 
+  openConcludeModal = (type) => {
+    document.body.classList.add('costs-open', 'modal-open')
+    document.getElementById('overlay').addEventListener('click', () => this.closeConcludeModal())
+    this.setState({concludeModalOpen: true, concludeModalType: type})
+  }
+
+  closeConcludeModal = () => {
+    document.body.classList.remove('costs-open', 'modal-open')
+    document.getElementById('overlay').removeEventListener('click', () => this.closeConcludeModal());
+    this.setState({concludeModalOpen: false})
+  }
+
 
   componentDidMount() {
     this.getProjectDetails();
@@ -342,6 +356,10 @@ class AllProjectsContainer extends Component {
         closeCostsModal={this.closeCostsModal}
         isCostsModalOpen={this.state.costsModalOpen}
         costsModalType={this.state.costsModalType}
+        openConcludeModal={this.openConcludeModal}
+        closeConcludeModal={this.closeConcludeModal}
+        isConcludeModalOpen={this.state.concludeModalOpen}
+        concludeModalType={this.state.concludeModalType}
         getProjectDetails={this.getProjectDetails}
       />
     );

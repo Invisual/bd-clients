@@ -25,6 +25,7 @@ class OptionsContainer extends Component {
         budgetContent={this.props.budgetContent}
         deleteActiveBudget={this.props.deleteActiveBudget}
         activeTab={this.props.activeTab}
+        openConcludeModal={this.props.openConcludeModal}
       />
     );
   }

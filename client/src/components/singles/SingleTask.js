@@ -57,11 +57,32 @@ class SingleTask extends Component {
           <div className="task-watch">
           <div className="tooltip-container"><FiClock onClick={this.props.hourState === 1 ? () => this.props.stopCountingHours(this.props.hourId, this.props.title) : () => this.props.startCountingHours(this.props.id, this.props.title)} className={this.props.hourState === 1 ? 'active-clock' : 'inactive-clock'} />
           <span className="tooltip">{this.props.hourState === 1 ? "Parar contagem de horas" : "Iniciar contagem de horas"}</span></div></div>
-          <div className="task-state" onClick={() => this.props.changeTaskStatus(this.props.id, this.props.stateVal)}>
+          <div className="task-state" onClick={() => this.props.changeTaskStatus(this.props.id, this.props.stateVal, this.props.projectState, this.props.account)}>
           <span>{this.props.stateTitle}</span>
           </div>
         </AllSingleTaskDiv>
       );
+      } else if (this.props.type === 'allbilling') {
+        let active = this.props.id === this.props.activeItem ? ' active' : '';
+        singleContent = (
+          <AllSingleTaskDiv className={`single-card-task${active}`}>
+            <div className="task-title title-click" onClick={() => this.props.changeActiveItem(this.props.id, this.props.itemType)}>
+              {this.props.title}
+            </div>
+            <div className="task-watch"></div>
+            <div className="task-link">
+            <div className="tooltip-container">
+              <CopyToClipboard text={window.location.href + '/' +this.props.id} onCopy={() => this.props.copyAlert()}>
+                <FiLink2 />
+              </CopyToClipboard><span className="tooltip">Copiar Link</span></div>
+            </div>
+            <div className="task-watch">
+            <div className="tooltip-container"><FiClock onClick={this.props.hourState === 1 ? () => this.props.stopCountingHours(this.props.hourId, this.props.title) : () => this.props.startCountingHours(this.props.id, this.props.title)} className={this.props.hourState === 1 ? 'active-clock' : 'inactive-clock'} />
+            <span className="tooltip">{this.props.hourState === 1 ? "Parar contagem de horas" : "Iniciar contagem de horas"}</span></div></div>
+            <div className="task-state" onClick={() => this.props.changeBudgetStatus(this.props.id, this.props.stateVal)}>
+            <span>{this.props.stateTitle}</span>
+            </div>
+          </AllSingleTaskDiv>)
       } else { // All Budgets
         let active = this.props.id === this.props.activeBudget ? ' active' : '';
       singleContent = (
@@ -94,8 +115,8 @@ class SingleTask extends Component {
           <div className="task-watch"><div className="tooltip-container"><Link to={`/projects/`+this.props.projectState}>{projectFolder}</Link><span className="tooltip">Ir para o Projeto</span></div></div>
           <div className="task-watch">
           <div className="tooltip-container"><FiClock onClick={this.props.hourState === 1 ? () => this.props.stopCountingHours(this.props.hourId, this.props.title) : () => this.props.startCountingHours(this.props.id, this.props.title)} className={this.props.hourState === 1 ? 'active-clock' : 'inactive-clock'} />
-          <span className="tooltip">{this.props.hourState === 1 ? "Parar contagem de horas" : "Iniciar contagem de horas"}</span></div></div>
-          <div className="task-state" onClick={() => this.props.changeTaskStatus(this.props.id, this.props.stateVal)}>
+          <span className="tooltip">{this.props.hourState === 1 ? "Parar contagem de horas" : "Iniciar contagem de horas"}</span></div></div>   
+          <div className="task-state" onClick={() => this.props.changeTaskStatus(this.props.id, this.props.stateVal, this.props.projectState, this.props.account)}>
             <span>{this.props.stateTitle}</span>
           </div>
         </SingleTaskDiv>
