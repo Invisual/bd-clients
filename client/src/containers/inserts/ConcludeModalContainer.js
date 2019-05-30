@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { ConcludeModal } from '../../components/inserts/ConcludeModal'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+import moment from 'moment'
 
 const axios = require('axios')
 
@@ -41,6 +42,8 @@ class ConcludeModalContainer extends Component{
             billing: this.state.billingInput,
             obs: this.state.obsInput,
             taskId: this.props.taskId,
+            user: JSON.parse(localStorage.getItem('user')).id_user,
+            date: moment(new Date()).format('Y-MM-DD'),
             type: 'task'
         }
 
@@ -75,6 +78,8 @@ class ConcludeModalContainer extends Component{
             billing: this.state.billingInput,
             obs: this.state.obsInput,
             projId: this.props.projId,
+            user: JSON.parse(localStorage.getItem('user')).id_user,
+            date: moment(new Date()).format('Y-MM-DD'),
             type: 'project'
         }
 

@@ -126,7 +126,7 @@ export const CreateUser = props => {
                             <div className="input-wrapper">
                                 <fieldset>
                                     <legend>Cargo</legend>
-                                    <select required id="user-account" onChange={props.changePositionInput} defaultValue={props.type === 'edit' ? props.positionInput : undefined}>
+                                    <select required id="user-account" onChange={props.changePositionInput} defaultValue={props.type === 'edit' ? props.positionInput : ''}>
                                         <option value="" disabled>Selecionar</option>
                                         {props.positionsData.map(position => {
                                             return <option key={position.id_position} value={position.id_position}>{position.name_position}</option>

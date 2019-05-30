@@ -193,23 +193,77 @@ router.put('/conclude', checkToken, (req, res) => {
       var taskId = req.body.taskId
       var projId = req.body.projId 
       var type = req.body.type
+      var user = req.body.user
+      var date = req.body.date
 
       if (type === 'task') {
         connection.query(
-          'UPDATE tasks SET concluded_task=?, billed_task=?, comment_billed_task=? WHERE id_task=?',
-          [approval, billing, obs, taskId],
+          'UPDATE tasks SET concluded_task=?, billed_task=?, comment_billed_task=?, conclusion_date_task=?, user_billed_task=? WHERE id_task=?',
+          [approval, billing, obs, date, user, taskId],
           function(error, results, fields) {
             if (error) throw error;
+            if(Number(approval) === 1){
+              connection.query('SELECT * from users INNER JOIN positions ON users.ref_id_position = positions.id_position WHERE id_position = 1',
+                function(error, results, fields) {
+                  if (error) throw error;
+                  connection.query('INSERT INTO notifications (type_notification, ref_id_user, ref_id_task) VALUES (?,?,?)',
+                    [4, results[0].id_user, taskId],
+                    function(error, results, fields) {
+                      if (error) throw error;
+                    }
+                  );
+                }
+              );
+            }
+            if(Number(billing) === 1){
+              connection.query('SELECT * from users INNER JOIN positions ON users.ref_id_position = positions.id_position WHERE id_position = 3',
+                function(error, results, fields) {
+                  if (error) throw error;
+                  connection.query('INSERT INTO notifications (type_notification, ref_id_user, ref_id_task) VALUES (?,?,?)',
+                    [6, results[0].id_user, taskId],
+                    function(error, results, fields) {
+                      if (error) throw error;
+                    }
+                  );
+                }
+              );
+            }
             res.send(results);
           }
         );
       }
       else {
         connection.query(
-          'UPDATE projects SET concluded_project=?, billed_project=?, comment_billed_project=? WHERE id_project=?',
-          [approval, billing, obs, projId],
+          'UPDATE projects SET concluded_project=?, billed_project=?, comment_billed_project=?, conclusion_date_project=?, user_billed_project=?  WHERE id_project=?',
+          [approval, billing, obs, date, user, projId],
           function(error, results, fields) {
             if (error) throw error;
+            if(Number(approval) === 1){
+              connection.query('SELECT * from users INNER JOIN positions ON users.ref_id_position = positions.id_position WHERE id_position = 1',
+                function(error, results, fields) {
+                  if (error) throw error;
+                  connection.query('INSERT INTO notifications (type_notification, ref_id_user, ref_id_project) VALUES (?,?,?)',
+                    [5, results[0].id_user, projId],
+                    function(error, results, fields) {
+                      if (error) throw error;
+                    }
+                  );
+                }
+              );
+            }
+            if(Number(billing) === 1){
+              connection.query('SELECT * from users INNER JOIN positions ON users.ref_id_position = positions.id_position WHERE id_position = 3',
+                function(error, results, fields) {
+                  if (error) throw error;
+                  connection.query('INSERT INTO notifications (type_notification, ref_id_user, ref_id_project) VALUES (?,?,?)',
+                    [7, results[0].id_user, projId],
+                    function(error, results, fields) {
+                      if (error) throw error;
+                    }
+                  );
+                }
+              );
+            }
             res.send(results);
           }
         );
@@ -263,5 +317,6 @@ router.put('/notifications/opened', checkToken, (req, res) => {
     }
   });
 });
+
 
 module.exports = router;

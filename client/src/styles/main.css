@@ -86,6 +86,15 @@ body.collapsed-sidebar .topbar-goback {
   border-radius: 10px;
   box-shadow: 1px 1px 10px #d2d2d2;
 }
+
+.single-card-billing {
+  padding:00020px;
+  background-color:#fff;
+  margin-top:15px;
+  border-radius:10px;
+  box-shadow:1px1px10px#d2d2d2;
+  }
+
 .single-card-task.active {
   background-color: #f5f7fd;
 }
@@ -401,7 +410,18 @@ body.modal-open #overlay {
   100%{opacity: 0;}
 }
 
+.show-notifications{
+  transition:all .3s ease;
+  transform-origin: top center; 
+  animation: increaseHeight .3s ease;
+  animation-fill-mode: forwards;
+}
 
+
+@keyframes increaseHeight{
+  0%{transform: scaleY(0) translateX(-50%) translateZ(1px)}
+  100%{transform: scaleY(1) translateX(-50%) translateZ(1px)}
+}
 
 
 

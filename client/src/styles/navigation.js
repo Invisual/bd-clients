@@ -277,6 +277,10 @@ export const TopBarDiv = styled.div`
             font-size: 2.2em;
             margin-right: 15px;
           }
+          .frown-icon{
+            width: 20px;
+            margin-right: 15px;
+          }
           .notification-info{
             p{
               font-size: 1.15em;
@@ -290,10 +294,6 @@ export const TopBarDiv = styled.div`
               letter-spacing: .03em;
             }
           }
-        }
-        li:last-child {
-          border-bottom-left-radius: 6px;
-          border-bottom-right-radius: 6px;
         }
       }
       .notification.opened{
@@ -310,10 +310,6 @@ export const TopBarDiv = styled.div`
       li:last-child {
         border-bottom: none;
       }
-      li:hover {
-        background-color: #e5e5e5;
-        color: white;
-      }
     }
   }
   .notifications-dropdown:after{
@@ -329,4 +325,11 @@ export const TopBarDiv = styled.div`
         border-radius: 6px 0px 0px 0px;
         transform: rotate(45deg);
   }
+  .notification:hover{
+    background-color: #f7f7f7 !important;
+  }
+  .notificationlink:last-child li{
+          border-bottom-left-radius: 6px;
+          border-bottom-right-radius: 6px;
+        }
 `;
