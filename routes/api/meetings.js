@@ -93,6 +93,13 @@ router.post('/', checkToken, (req, res) => {
           function(error, results2, fields){
             if (error) throw error;
           })
+          connection.query(
+            'INSERT INTO notifications (type_notification, ref_id_user, ref_id_meeting) VALUES (?,?,?)',
+            [2, req.body.users[i], results.insertId],
+            function(error, results2, fields) {
+              if (error) throw error;
+            }
+          );
         }
         res.send(results);
       });

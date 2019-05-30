@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { AllMeetings } from '../../components/lists/AllMeetings';
 import moment from 'moment';
+import { createBrowserHistory } from 'history';
 
 const axios = require('axios');
+const history = createBrowserHistory();
 
 class AllMeetingsContainer extends Component {
   constructor(props) {
@@ -33,6 +35,10 @@ class AllMeetingsContainer extends Component {
 
   componentDidMount() {
     this.getMeetings();
+    if(this.props.match.params.date){ 
+      this.changeActiveDay(this.props.match.params.date) 
+      history.replace({ pathname: '/meetings' })
+    }
   }
 
   render() {

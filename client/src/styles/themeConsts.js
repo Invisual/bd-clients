@@ -24,5 +24,6 @@ export const themeConsts = {
     activeShadow: '0px 3px 6px rgba(0,0,0,.16)',
     borderRadius:'10px',
     tableColor1: '#eef1ff',
-    tableColor2: '#f5f7ff'
+    tableColor2: '#f5f7ff',
+    notificationsBg: '#f0f3fd'
 }

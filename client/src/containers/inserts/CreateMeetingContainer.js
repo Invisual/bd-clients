@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {CreateMeeting} from '../../components/inserts/CreateMeeting';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+import moment from 'moment';
+
 const axios = require('axios');
 
 class CreateMeetingContainer extends Component{
@@ -118,7 +120,7 @@ class CreateMeetingContainer extends Component{
     insertMeeting = (e) => {
         e.preventDefault();
         var data = {
-            date: this.state.dateInput,
+            date: moment(this.state.dateInput).format('Y-MM-DD'),
             startHour: this.state.startHourInput,
             endHour: this.state.endHourInput,
             client: this.state.clientInput,

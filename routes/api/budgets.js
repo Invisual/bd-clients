@@ -218,7 +218,7 @@ router.get('/all', checkToken, (req, res) => {
       res.sendStatus(403);
     } else {
       connection.query(
-        'SELECT id_budget, ref_id_budget_internal_status, ref_id_budget_external_status, title_budget, budget_internal_status.name_budget_internal_status, budget_external_status.name_budget_external_status, creation_date_budget, conclusion_date_budget, ref_id_client, ref_id_potential_client from budgets LEFT JOIN budget_internal_status ON budgets.ref_id_budget_internal_status=budget_internal_status.id_budget_internal_status LEFT JOIN budget_external_status ON budgets.ref_id_budget_external_status=budget_external_status.id_budget_external_status ORDER BY budgets.id_budget ASC',
+        'SELECT id_budget, ref_id_budget_internal_status, ref_id_budget_external_status, title_budget, budget_internal_status.name_budget_internal_status, budget_external_status.name_budget_external_status, creation_date_budget, conclusion_date_budget, ref_id_client, ref_id_potential_client, ref_id_user from budgets LEFT JOIN budget_internal_status ON budgets.ref_id_budget_internal_status=budget_internal_status.id_budget_internal_status LEFT JOIN budget_external_status ON budgets.ref_id_budget_external_status=budget_external_status.id_budget_external_status LEFT JOIN users_has_budgets ON budgets.id_budget = users_has_budgets.ref_id_budget ORDER BY budgets.id_budget ASC',
         function(error, results, fields) {
           if (error) throw error;
           if (results.length > 0) {

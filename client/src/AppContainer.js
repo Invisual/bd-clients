@@ -16,7 +16,8 @@ class AppContainer extends Component {
       activeHours:'',
       latestActiveHour: '', 
       activeBudgetHours:'',
-      latestActiveBudgetHour: '', 
+      latestActiveBudgetHour: '',
+      notifications:[],
       canGoBack: false
     }
   }
@@ -26,7 +27,7 @@ class AppContainer extends Component {
       loggedIn: true,
       userInfo: user,
       token: token
-    })
+    }, () => this.getNotifications())
   }
 
   logout = () => {
@@ -57,9 +58,9 @@ class AppContainer extends Component {
       let loggedUserStorage = localStorage.getItem('user');
       loggedUserStorage = JSON.parse(loggedUserStorage);
       try {
-        this.setState({ userInfo: loggedUserStorage });
+        this.setState({ userInfo: loggedUserStorage }, () => this.getNotifications());
       } catch (e) {
-        this.setState({ userInfo: loggedUserStorage });
+        this.setState({ userInfo: loggedUserStorage }, () => this.getNotifications());
       }
     }
 
@@ -102,6 +103,41 @@ class AppContainer extends Component {
     });
   }
 
+  notificationsInterval = 0
+
+  getNotifications = () => {
+      var token = JSON.parse(localStorage.getItem('token'));
+      var AuthStr = 'Bearer ' + token;
+      axios.get(`/api/misc/notifications/${this.state.userInfo.id_user}`, { headers: { Authorization: AuthStr } }).then(res => {
+        if (res.data !== 'nodata') {
+          this.setState({ notifications: res.data});
+        }
+      });
+  }
+
+  setNotificationsSeen = () => {
+      var notificationsIds = []
+      this.state.notifications.map(not => notificationsIds.push(not.id_notification))
+      var token = JSON.parse(localStorage.getItem('token'));
+      var AuthStr = 'Bearer ' + token;
+      axios.put('/api/misc/notifications/seen', {notifications: notificationsIds}, { headers: { Authorization: AuthStr } })
+      .then((res) => { 
+        if(res.data !== 'error'){this.getNotifications() }
+        else{console.log('error')}
+      })
+  }
+
+  setNotificationOpened = (id) => {
+    var token = JSON.parse(localStorage.getItem('token'));
+    var AuthStr = 'Bearer ' + token;
+    axios.put('/api/misc/notifications/opened', {id: id}, { headers: { Authorization: AuthStr } })
+    .then((res) => { 
+      if(res.data !== 'error'){
+        this.getNotifications()
+      }
+      else{console.log('error')}
+    })
+  }
 
   componentDidMount() {
     this.hydrateStateWithLocalStorage();
@@ -109,6 +145,7 @@ class AppContainer extends Component {
     if(this.props.location.pathname.indexOf('tasks/') !== -1){
       this.setState({canGoBack : true})
     }
+    this.notificationsInterval = setInterval(this.getNotifications, 30000)
   }
 
   componentDidUpdate(prevProps){
@@ -123,11 +160,29 @@ class AppContainer extends Component {
   }
 
 
+  componentWillUnmount(){
+    clearInterval(this.notificationsInterval)
+  }
+
+
   render() {
     return (
             <>
               <TitleTimer latestActiveHour={this.state.latestActiveHour} latestActiveBudgetHour={this.state.latestActiveBudgetHour} />
-              <App canGoBack={this.state.canGoBack} loggedIn={this.state.loggedIn} login={this.login} logout={this.logout} userInfo={this.state.userInfo} activeHours={this.state.activeHours} getActiveHours={this.getActiveHours} activeBudgetHours={this.state.activeBudgetHours} getActiveBudgetHours={this.getActiveBudgetHours}/>
+              <App 
+                canGoBack={this.state.canGoBack} 
+                loggedIn={this.state.loggedIn} 
+                login={this.login} 
+                logout={this.logout} 
+                userInfo={this.state.userInfo} 
+                activeHours={this.state.activeHours} 
+                getActiveHours={this.getActiveHours} 
+                activeBudgetHours={this.state.activeBudgetHours} 
+                getActiveBudgetHours={this.getActiveBudgetHours}
+                notifications={this.state.notifications}
+                setNotificationsSeen={this.setNotificationsSeen}
+                setNotificationOpened={this.setNotificationOpened}
+              />
             </>
             )
   }

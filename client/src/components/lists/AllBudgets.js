@@ -3,7 +3,7 @@ import { AllTasksDiv } from '../../styles/listings';
 import MyBudgetsContainer from '../../containers/tables/MyBudgetsContainer';
 import BudgetDetailContainer from '../../containers/details/BudgetDetailContainer';
 import OptionsContainer from '../../containers/options/OptionsContainer';
-import TaskFilters from '../options/TaskFilters';
+import BudgetFilters from '../options/BudgetFilters';
 import { FiFilePlus, FiFilter, FiUserCheck } from 'react-icons/fi';
 import { Redirect, Link } from 'react-router-dom';
 
@@ -70,15 +70,13 @@ export const AllBudgets = props => {
         </div>
         <div className="grid-widget tasks-detail">
         {props.filtersAreActive ?
-          <TaskFilters 
+          <BudgetFilters 
             changeFilters={props.changeFilters}
             changeFiltersAreActive={props.changeFiltersAreActive}
             clientsList={props.clientsList}
-            billingList={props.billingList}
-            projectsList={props.projectsList}
-            usersList={props.usersList}
-            taskTypesList={props.taskTypesList}
-            tasksStatusList={props.tasksStatusList}
+            accountsList={props.accountsList}
+            internalStatusList={props.internalStatusList}
+            externalStatusList={props.externalStatusList}
             filters={props.filters}
           />
         :

@@ -17,7 +17,7 @@ router.get('/', checkToken, (req, res) => {
       //If error send Forbidden (403)
       res.sendStatus(403);
     } else {
-      connection.query('Select * from tasks', function(error, results, fields) {
+      connection.query('Select * from tasks', function (error, results, fields) {
         if (error) throw error;
         if (results.length > 0) {
           res.send(results);
@@ -46,12 +46,19 @@ router.post('/', checkToken, (req, res) => {
           req.body.type,
           req.body.account
         ],
-        function(error, results, fields) {
+        function (error, results, fields) {
           if (error) throw error;
           connection.query(
             'INSERT INTO users_has_tasks (ref_id_user, ref_id_task, ref_id_user_task_status ) VALUES (?,?,?)',
             [req.body.user, results.insertId, 1],
-            function(error, results2, fields) {
+            function (error, results2, fields) {
+              if (error) throw error;
+            }
+          );
+          connection.query(
+            'INSERT INTO notifications (type_notification, ref_id_task, ref_id_user) VALUES (?,?,?)',
+            [1, results.insertId, req.body.user],
+            function (error, results2, fields) {
               if (error) throw error;
             }
           );
@@ -72,12 +79,12 @@ router.post('/:id', checkToken, (req, res) => {
     } else {
       connection.query(
         'CREATE TEMPORARY TABLE tmptable SELECT * FROM tasks WHERE id_task = ?; UPDATE tmptable SET id_task = NULL, title_task = IFNULL (CONCAT( title_task , " - Duplicada" ), " - Duplicada"); INSERT INTO tasks SELECT * FROM tmptable; DROP TEMPORARY TABLE IF EXISTS tmptable;', id,
-        function(error, results, fields) {
+        function (error, results, fields) {
           if (error) throw error;
           connection.query(
             'CREATE TEMPORARY TABLE tmptable_1 SELECT * FROM users_has_tasks WHERE ref_id_task = ?; UPDATE tmptable_1 SET ref_id_task = ?; INSERT INTO users_has_tasks SELECT * FROM tmptable_1; DROP TEMPORARY TABLE IF EXISTS tmptable_1;',
             [id, results[2].insertId],
-            function(error, results2, fields) {
+            function (error, results2, fields) {
               if (error) throw error;
             }
           );
@@ -108,18 +115,18 @@ router.put('/', checkToken, (req, res) => {
           req.body.account,
           req.body.id
         ],
-        function(error, results, fields) {
+        function (error, results, fields) {
           if (error) throw error;
           if (req.body.changeUser) {
             connection.query(
               'DELETE FROM users_has_tasks WHERE ref_id_user = ? AND ref_id_task = ?',
               [req.body.oldUser, req.body.id],
-              function(error, results2, fields) {
+              function (error, results2, fields) {
                 if (error) throw error;
                 connection.query(
                   'INSERT INTO users_has_tasks (ref_id_user, ref_id_task, ref_id_user_task_status ) VALUES (?,?,?)',
                   [req.body.user, req.body.id, 1],
-                  function(error, results3, fields) {
+                  function (error, results3, fields) {
                     if (error) throw error;
                   }
                 );
@@ -140,13 +147,14 @@ router.delete('/:id', checkToken, (req, res) => {
       //If error send Forbidden (403)
       res.sendStatus(403);
     } else {
-      connection.query('DELETE FROM tasks WHERE id_task=?', id, function(error, results, fields) {
+      connection.query('DELETE FROM tasks WHERE id_task=?', id, function (error, results, fields) {
         if (error) throw error;
         res.send('deleted');
       });
     }
   });
 });
+
 
 router.put('/userTaskStatus', checkToken, (req, res) => {
   jwt.verify(req.token, SECRET_KEY, (err, results) => {
@@ -157,12 +165,43 @@ router.put('/userTaskStatus', checkToken, (req, res) => {
       var status = req.body.status;
       var task = req.body.task;
       var user = req.body.user;
+      var project = req.body.project;
+      var account = req.body.account;
 
       connection.query(
         'UPDATE users_has_tasks SET ref_id_user_task_status=? WHERE ref_id_task=? AND ref_id_user=?',
         [status, task, user],
-        function(error, results, fields) {
+        function (error, results, fields) {
           if (error) throw error;
+          if (project !== null && status === 4) {
+            connection.query(
+              'SELECT id_project, SUM(case WHEN users_has_tasks.ref_id_user_task_status=4 THEN 1 ELSE 0 END)/count(*) *100 AS percentage_tasks FROM projects LEFT JOIN tasks ON projects.id_project=tasks.ref_id_project LEFT JOIN users_has_tasks ON tasks.id_task=users_has_tasks.ref_id_task WHERE id_project = ?',
+              project,
+              function (error, results, fields) {
+                if (error) throw error;
+                if (Number(results[0].percentage_tasks) === 100) {
+                  setTimeout(() => {
+                    connection.query(
+                      'SELECT id_project, SUM(case WHEN users_has_tasks.ref_id_user_task_status=4 THEN 1 ELSE 0 END)/count(*) *100 AS percentage_tasks FROM projects LEFT JOIN tasks ON projects.id_project=tasks.ref_id_project LEFT JOIN users_has_tasks ON tasks.id_task=users_has_tasks.ref_id_task WHERE id_project = ?',
+                      project,
+                      function (error, results, fields) {
+                        if (error) throw error;
+                        if (Number(results[0].percentage_tasks) === 100) {
+                          connection.query(
+                            'INSERT INTO notifications (type_notification, ref_id_user, ref_id_project) VALUES (?,?,?)',
+                            [3, account, project],
+                            function (error, results, fields) {
+                              if (error) throw error;
+                            }
+                          );
+                        }
+                      }
+                    );
+                  }, 10000)
+                }
+              }
+            );
+          }
           res.send({ message: status });
         }
       );
@@ -178,8 +217,8 @@ router.get('/all', checkToken, (req, res) => {
       res.sendStatus(403);
     } else {
       connection.query(
-        'SELECT id_task, ref_id_user_task_status, title_task, user_task_status.name_user_task_status, starting_date_task, deadline_date_task, tasks.ref_id_client, ref_id_type_task, tasks.ref_id_billing_mode, ref_id_project, users_has_tasks.order, users_has_tasks.ref_id_user from tasks LEFT JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task LEFT JOIN task_types on task_types.id_task_type=tasks.ref_id_type_task LEFT JOIN aproval_task_status ON aproval_task_status.id_aproval_task_status=tasks.ref_id_aproval_task_status LEFT JOIN user_task_status ON user_task_status.id_user_task_status=users_has_tasks.ref_id_user_task_status LEFT JOIN projects ON tasks.ref_id_project=projects.id_project LEFT JOIN billing_modes ON billing_modes.id_billing_mode=tasks.ref_id_billing_mode where tasks.concluded_task=0 ORDER by users_has_tasks.order DESC, tasks.id_task ASC',
-        function(error, results, fields) {
+        'SELECT id_task, ref_id_user_task_status, title_task, user_task_status.name_user_task_status, starting_date_task, deadline_date_task, projects.ref_id_user_account, tasks.ref_id_client, ref_id_type_task, tasks.ref_id_billing_mode, ref_id_project, users_has_tasks.order, users_has_tasks.ref_id_user from tasks LEFT JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task LEFT JOIN task_types on task_types.id_task_type=tasks.ref_id_type_task LEFT JOIN aproval_task_status ON aproval_task_status.id_aproval_task_status=tasks.ref_id_aproval_task_status LEFT JOIN user_task_status ON user_task_status.id_user_task_status=users_has_tasks.ref_id_user_task_status LEFT JOIN projects ON tasks.ref_id_project=projects.id_project LEFT JOIN billing_modes ON billing_modes.id_billing_mode=tasks.ref_id_billing_mode where tasks.concluded_task=0 ORDER by users_has_tasks.order DESC, tasks.id_task ASC',
+        function (error, results, fields) {
           if (error) throw error;
           if (results.length > 0) {
             res.send(results);
@@ -201,9 +240,9 @@ router.get('/:user', checkToken, (req, res) => {
       res.sendStatus(403);
     } else {
       connection.query(
-        'SELECT id_task, ref_id_user_task_status, title_task, user_task_status.name_user_task_status, starting_date_task, deadline_date_task, tasks.ref_id_client, ref_id_type_task, tasks.ref_id_billing_mode, ref_id_project, users_has_tasks.order, users_has_tasks.ref_id_user from tasks LEFT JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task LEFT JOIN task_types on task_types.id_task_type=tasks.ref_id_type_task LEFT JOIN aproval_task_status ON aproval_task_status.id_aproval_task_status=tasks.ref_id_aproval_task_status LEFT JOIN user_task_status ON user_task_status.id_user_task_status=users_has_tasks.ref_id_user_task_status LEFT JOIN projects ON tasks.ref_id_project=projects.id_project LEFT JOIN billing_modes ON billing_modes.id_billing_mode=tasks.ref_id_billing_mode where tasks.concluded_task=0 AND users_has_tasks.ref_id_user= ? ORDER by users_has_tasks.order DESC, tasks.id_task ASC',
+        'SELECT id_task, ref_id_user_task_status, title_task, user_task_status.name_user_task_status, starting_date_task, deadline_date_task, projects.ref_id_user_account, tasks.ref_id_client, ref_id_type_task, tasks.ref_id_billing_mode, ref_id_project, users_has_tasks.order, users_has_tasks.ref_id_user from tasks LEFT JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task LEFT JOIN task_types on task_types.id_task_type=tasks.ref_id_type_task LEFT JOIN aproval_task_status ON aproval_task_status.id_aproval_task_status=tasks.ref_id_aproval_task_status LEFT JOIN user_task_status ON user_task_status.id_user_task_status=users_has_tasks.ref_id_user_task_status LEFT JOIN projects ON tasks.ref_id_project=projects.id_project LEFT JOIN billing_modes ON billing_modes.id_billing_mode=tasks.ref_id_billing_mode where tasks.concluded_task=0 AND users_has_tasks.ref_id_user= ? ORDER by users_has_tasks.order DESC, tasks.id_task ASC',
         id,
-        function(error, results, fields) {
+        function (error, results, fields) {
           if (error) throw error;
           if (results.length > 0) {
             res.send(results);
@@ -227,7 +266,7 @@ router.get('/comments/:task', checkToken, (req, res) => {
       connection.query(
         'SELECT id_task_comment, text_comments, date_comment, name_user from task_comments INNER JOIN users ON task_comments.ref_id_user=users.id_user WHERE ref_id_task= ?',
         task,
-        function(error, results, fields) {
+        function (error, results, fields) {
           if (error) throw error;
           res.send(results);
         }
@@ -248,7 +287,7 @@ router.post('/comments/:task', checkToken, (req, res) => {
       //If error send Forbidden (403)
       res.sendStatus(403);
     } else {
-      connection.query('INSERT INTO task_comments SET ?', comment, function(error, results, fields) {
+      connection.query('INSERT INTO task_comments SET ?', comment, function (error, results, fields) {
         if (error) throw error;
         res.send(results);
       });
@@ -257,18 +296,18 @@ router.post('/comments/:task', checkToken, (req, res) => {
 });
 
 router.get('/link/:task', checkToken, (req, res) => {
-  var task = req.params.task;
-  var totalResults = {};
+  vartask = req.params.task;
+  vartotalResults = {};
   jwt.verify(req.token, SECRET_KEY, (err, results) => {
     if (err) {
       //If error send Forbidden (403)
       res.sendStatus(403);
     } else {
       connection.query(
-        'SELECT id_task, avatar_user, name_user, title_task, creation_date_task, title_project, ref_id_project, name_client, name_task_types, name_billing_mode, description_task,SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS "total_hours" from tasks LEFT JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task LEFT JOIN task_types on task_types.id_task_type=tasks.ref_id_type_task LEFT JOIN aproval_task_status ON aproval_task_status.id_aproval_task_status=tasks.ref_id_aproval_task_status LEFT JOIN user_task_status ON user_task_status.id_user_task_status=users_has_tasks.ref_id_user_task_status LEFT JOIN projects ON tasks.ref_id_project=projects.id_project LEFT JOIN billing_modes ON billing_modes.id_billing_mode=tasks.ref_id_billing_mode LEFT JOIN clients ON clients.id_client=tasks.ref_id_client LEFT JOIN users ON users.id_user=users_has_tasks.ref_id_user LEFT JOIN task_hours ON task_hours.ref_id_tasks=tasks.id_task where tasks.id_task=?',
+        'SELECT id_task, avatar_user, name_user, title_task, creation_date_task, title_project, ref_id_project, name_client, name_task_types, name_billing_mode, tasks.ref_id_billing_mode, description_task,SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS "total_hours" from tasks LEFT JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task LEFT JOIN task_types on task_types.id_task_type=tasks.ref_id_type_task LEFT JOIN aproval_task_status ON aproval_task_status.id_aproval_task_status=tasks.ref_id_aproval_task_status LEFT JOIN user_task_status ON user_task_status.id_user_task_status=users_has_tasks.ref_id_user_task_status LEFT JOIN projects ON tasks.ref_id_project=projects.id_project LEFT JOIN billing_modes ON billing_modes.id_billing_mode=tasks.ref_id_billing_mode LEFT JOIN clients ON clients.id_client=tasks.ref_id_client LEFT JOIN users ON users.id_user=users_has_tasks.ref_id_user LEFT JOIN task_hours ON task_hours.ref_id_tasks=tasks.id_task where tasks.id_task=?',
         task,
-        function(error, results, fields) {
-          if (error) throw error;
+        function (error, results, fields) {
+          if (error) throwerror;
           if (results.length > 0) {
             totalResults.details = results;
           }
@@ -277,8 +316,8 @@ router.get('/link/:task', checkToken, (req, res) => {
       connection.query(
         'SELECT id_task_comment, text_comments, date_comment, name_user from task_comments INNER JOIN users ON task_comments.ref_id_user=users.id_user WHERE ref_id_task= ?',
         task,
-        function(error, results, fields) {
-          if (error) throw error;
+        function (error, results, fields) {
+          if (error) throwerror;
           totalResults.comments = results;
           if (totalResults.details[0].id_task !== null) {
             res.send(totalResults);
@@ -302,7 +341,7 @@ router.get('/basic/:task', checkToken, (req, res) => {
       connection.query(
         'SELECT * FROM tasks INNER JOIN users_has_tasks ON tasks.id_task = users_has_tasks.ref_id_task WHERE id_task=?',
         task,
-        function(error, results, fields) {
+        function (error, results, fields) {
           if (error) throw error;
           if (results.length > 0) {
             res.send(results);
@@ -316,32 +355,32 @@ router.get('/basic/:task', checkToken, (req, res) => {
 });
 
 router.get('/content/:task', checkToken, (req, res) => {
-  var task = req.params.task;
-  var totalResults = {};
+  vartask = req.params.task;
+  vartotalResults = {};
   jwt.verify(req.token, SECRET_KEY, (err, results) => {
     if (err) {
       //If error send Forbidden (403)
       res.sendStatus(403);
     } else {
       connection.query(
-        'SELECT id_task, avatar_user, name_user, title_task, creation_date_task, title_project, ref_id_type_task, ref_id_project, name_client, name_task_types, name_billing_mode, description_task,SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS "total_hours" from tasks LEFT JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task LEFT JOIN task_types on task_types.id_task_type=tasks.ref_id_type_task LEFT JOIN aproval_task_status ON aproval_task_status.id_aproval_task_status=tasks.ref_id_aproval_task_status LEFT JOIN user_task_status ON user_task_status.id_user_task_status=users_has_tasks.ref_id_user_task_status LEFT JOIN projects ON tasks.ref_id_project=projects.id_project LEFT JOIN billing_modes ON billing_modes.id_billing_mode=tasks.ref_id_billing_mode LEFT JOIN clients ON clients.id_client=tasks.ref_id_client LEFT JOIN users ON users.id_user=users_has_tasks.ref_id_user LEFT JOIN task_hours ON task_hours.ref_id_tasks=tasks.id_task where tasks.id_task=?',
+        'SELECT id_task, avatar_user, name_user, title_task, creation_date_task, title_project, ref_id_type_task, ref_id_project, name_client, name_task_types, name_billing_mode, tasks.ref_id_billing_mode, description_task,SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS "total_hours" from tasks LEFT JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task LEFT JOIN task_types on task_types.id_task_type=tasks.ref_id_type_task LEFT JOIN aproval_task_status ON aproval_task_status.id_aproval_task_status=tasks.ref_id_aproval_task_status LEFT JOIN user_task_status ON user_task_status.id_user_task_status=users_has_tasks.ref_id_user_task_status LEFT JOIN projects ON tasks.ref_id_project=projects.id_project LEFT JOIN billing_modes ON billing_modes.id_billing_mode=tasks.ref_id_billing_mode LEFT JOIN clients ON clients.id_client=tasks.ref_id_client LEFT JOIN users ON users.id_user=users_has_tasks.ref_id_user LEFT JOIN task_hours ON task_hours.ref_id_tasks=tasks.id_task where tasks.id_task=?',
         task,
-        function(error, results, fields) {
-          if (error) throw error;
+        function (error, results, fields) {
+          if (error) throwerror;
           if (results.length > 0) { totalResults.details = results }
         }
       );
       connection.query(
-        'SELECT * FROM costs WHERE ref_id_task = ?', task, function(error, results, fields) {
-          if (error) throw error;
+        'SELECT * FROM costs WHERE ref_id_task = ?', task, function (error, results, fields) {
+          if (error) throwerror;
           if (results.length > 0) { totalResults.costs = results }
         }
       );
       connection.query(
         'SELECT id_task_comment, text_comments, date_comment, name_user from task_comments INNER JOIN users ON task_comments.ref_id_user=users.id_user WHERE ref_id_task= ?',
         task,
-        function(error, results, fields) {
-          if (error) throw error;
+        function (error, results, fields) {
+          if (error) throwerror;
           totalResults.comments = results;
           if (totalResults.details[0].id_task !== null) { res.send(totalResults) }
           else { res.send('nodata') }

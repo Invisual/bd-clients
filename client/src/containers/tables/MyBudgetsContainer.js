@@ -151,20 +151,14 @@ class MyBudgetsContainer extends Component {
     switch(this.props.type){
       case 'alltasks':
       if(this.state.budgets !== null){
-        filteredBudgets = this.state.budgets.filter( task => {
-          return this.props.filters.client === '' ? true : Number(task.ref_id_client) === Number(this.props.filters.client)
-        }).filter(task => {
-          return this.props.filters.billing === '' ? true : Number(task.ref_id_billing_mode) === Number(this.props.filters.billing)
-        }).filter(task => {
-          return this.props.filters.type === '' ? true : Number(task.ref_id_type_task) === Number(this.props.filters.type)
-        }).filter(task => {
-          return this.props.filters.user === '' ? true : Number(task.ref_id_user) === Number(this.props.filters.user)
-        }).filter(task => {
-          return this.props.filters.status === '' ? true : Number(task.ref_id_user_task_status) === Number(this.props.filters.status)
-        }).filter(task => {
-          return this.props.filters.project === '' ? true : Number(task.ref_id_project) === Number(this.props.filters.project)
-        }).filter(task => {
-          return this.props.filters.isDeadlineSet === false ? true : moment(task.deadline_date_task).isSameOrBefore(this.props.filters.deadline, 'day')
+        filteredBudgets = this.state.budgets.filter( budget => {
+          return this.props.filters.client === '' ? true : Number(budget.ref_id_client) === Number(this.props.filters.client)
+        }).filter( budget => {
+          return this.props.filters.account === '' ? true : Number(budget.ref_id_user) === Number(this.props.filters.account)
+        }).filter( budget => {
+          return this.props.filters.internalStatus === '' ? true : Number(budget.ref_id_budget_internal_status) === Number(this.props.filters.internalStatus)
+        }).filter( budget => {
+          return this.props.filters.externalStatus === '' ? true : Number(budget.ref_id_budget_external_status) === Number(this.props.filters.externalStatus)
         })
       }
       else{
@@ -176,7 +170,7 @@ class MyBudgetsContainer extends Component {
       default:
       filteredBudgets = this.state.budgets
     }
-
+    
     return (
       <MyBudgets
         budget={filteredBudgets}

@@ -1,8 +1,11 @@
-import React from 'react';
-import { TopBarDiv } from '../../styles/navigation';
-import { FiSearch, FiMessageCircle, FiBell, FiChevronLeft } from 'react-icons/fi';
+import React from 'react'
+import { TopBarDiv } from '../../styles/navigation'
+import { FiSearch, FiMessageCircle, FiBell, FiChevronLeft, FiFolder, FiFileText, FiCalendar } from 'react-icons/fi'
+import { Link } from 'react-router-dom'
+import moment from 'moment'
 
 export const TopBar = props => {
+  var notSeenNotifications = props.notifications.filter(not => not.seen === 0)
   return (
     <TopBarDiv>
       
@@ -13,19 +16,56 @@ export const TopBar = props => {
           <FiSearch onClick={props.toggleSearchInput}/>
         </li>
 
-        <li className="topbar-notifications" onClick={() => props.showDropdownMenu('displayDropdownNotifications')}>
-          <div className="notification-number"><span>10</span></div>
+        <li className="topbar-notifications" id="notificationsli" onClick={() => {props.showDropdownMenu(); props.setNotificationsSeen()}}>
+          {notSeenNotifications.length > 0 ? 
+            <div className="notification-number"><span id="notificationsnumber">{notSeenNotifications.length}</span></div>
+          : null }
           <span>
-            <FiBell />
+            <FiBell id="notificationsicon" />
           </span>
           {props.displayDropdownNotifications ? (
-            <ul>
+            <ul className="notifications-dropdown">
+              <li className="notification-header">Notificações</li>
               {props.notifications.map(notification => {
-                return (
-                  <li key={notification.id} id={notification.id}>
-                    {notification.title}
-                  </li>
-                );
+                  if(notification.type_notification === 1){
+                    return (
+                      <Link key={notification.id_notification} className="notificationlink" to={`/tasks/${notification.ref_id_task}`} onClick={notification.opened === 1 ? null : () => props.setNotificationOpened(notification.id_notification)}>
+                        <li className={notification.opened === 1 ? 'notification opened' : 'notification'}>
+                            <FiFileText />
+                            <div className="notification-info">
+                              <p>Tem uma nova Tarefa - {notification.title_task}</p>
+                              <span>{moment(notification.creation_date_notification).format('DD')} de {moment(notification.creation_date_notification).format('MMMM')}</span>
+                            </div>
+                        </li>
+                      </Link>
+                    )
+                  }
+                  if(notification.type_notification === 2){
+                    return (
+                      <Link key={notification.id_notification} className="notificationlink" to={`/meetings/${notification.date_meeting}`} onClick={notification.opened === 1 ? null : () => props.setNotificationOpened(notification.id_notification)}>
+                      <li className={notification.opened === 1 ? 'notification opened' : 'notification'}>
+                        <FiCalendar />
+                        <div className="notification-info">
+                          <p>Tem uma nova Reunião - {notification.title_meeting}</p>
+                          <span>{moment(notification.creation_date_notification).format('DD')} de {moment(notification.creation_date_notification).format('MMMM')}</span>
+                        </div>
+                      </li>
+                      </Link>
+                    )
+                  }
+                  if(notification.type_notification === 3){
+                    return (
+                      <Link key={notification.id_notification} className="notificationlink" to={`/projects/${notification.ref_id_project}`} onClick={notification.opened === 1 ? null : () => props.setNotificationOpened(notification.id_notification)}>
+                        <li className={notification.opened === 1 ? 'notification opened' : 'notification'}>
+                          <FiFolder />
+                          <div className="notification-info">
+                            <p>Um Projeto está concluído - {notification.title_project}</p>
+                            <span>{moment(notification.creation_date_notification).format('DD')} de {moment(notification.creation_date_notification).format('MMMM')}</span>
+                          </div>
+                        </li>
+                      </Link>
+                    )
+                  }
               })}
             </ul>
           ) : null}
@@ -38,13 +78,7 @@ export const TopBar = props => {
           </span>
           {props.displayDropdownMessages ? (
             <ul>
-              {props.messages.map(message => {
-                return (
-                  <li key={message.id} id={message.id}>
-                    {message.title}
-                  </li>
-                );
-              })}
+              <li>Nada</li>
             </ul>
           ) : null}
         </li>

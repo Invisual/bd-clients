@@ -15,7 +15,7 @@ class MyTasksContainer extends Component {
     };
   }
 
-  changeTaskStatus = (taskId, currStatus) => {
+  changeTaskStatus = (taskId, currStatus, projectId, account) => {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
     var idUser = JSON.parse(localStorage.getItem('user'));
@@ -29,6 +29,9 @@ class MyTasksContainer extends Component {
         nextStatus = 3;
         break;
       case 3:
+        nextStatus = 4;
+        break;
+      case 4:
         nextStatus = 1;
         break;
       default:
@@ -37,9 +40,10 @@ class MyTasksContainer extends Component {
     const data = {
       task: taskId,
       status: nextStatus,
-      user: idUser.id_user
+      user: idUser.id_user,
+      project: projectId,
+      account: account,
     };
-
     axios.put('/api/tasks/userTaskStatus', data, { headers: { Authorization: AuthStr } }).then(res => {
       this.getTasks();
     });
@@ -150,7 +154,6 @@ class MyTasksContainer extends Component {
 
 
   render() {
-    console.log(this.state.tasks)
     var filteredTasks
     switch(this.props.type){
       case 'alltasks':

@@ -13,53 +13,15 @@ class TopBarContainer extends Component {
       displayDropdownNotifications: false,
       displayDropdownUser: false,
       displaySearchInput: '',
-      messages : [
-        {
-          id: 1,
-          title: 'Boa tarde'
-        },
-        {
-          id: 2,
-          title: 'Boa Noite'
-        },
-        {
-          id: 3,
-          title: 'Bom dia'
-        },
-        {
-          id: 4,
-          title: 'Mekieeee'
-        },
-        {
-          id: 5,
-          title: 'Hola señor'
-        }
-      ],
-    notifications : [
-        {
-          id: 1,
-          title: 'Notificação 1'
-        },
-        {
-          id: 2,
-          title: 'Notificação 2'
-        },
-        {
-          id: 3,
-          title: 'Notificação 3'
-        }
-      ]
-  }
+    }
   }
 
-  showDropdownMenu = (s) => {
-    this.setState(prevState => ({
-      [s]: !prevState[s]
-    }));
+  showDropdownMenu = () => {
+    this.setState({displayDropdownNotifications: !this.state.displayDropdownNotifications})
   }
 
-  hideDropdownMenu = () => {
-    if(this._isMounted){
+  hideDropdownMenu = (e) => {
+    if(this._isMounted && e.target.id !== 'notificationsli' && e.target.id !== 'notificationsicon' && e.target.id !== 'notificationsnumber' && e.target.classList[0] !== 'notification' && e.target.classList[0] !== 'notificationlink'){
       this.setState({
         displayDropdownMessages: false,
         displayDropdownNotifications: false,
@@ -79,7 +41,7 @@ class TopBarContainer extends Component {
 
   componentDidMount(){
     this._isMounted = true;
-    document.body.addEventListener('click', (e)=>{this.hideDropdownMenu()})
+    document.body.addEventListener('click', (e)=>{this.hideDropdownMenu(e)})
   }
 
   componentWillUnmount(){
@@ -94,18 +56,19 @@ class TopBarContainer extends Component {
   render() {  
     return (
       <TopBar 
-      showDropdownMenu={this.showDropdownMenu}
-      hideDropdownMenu={this.hideDropdownMenu}
-      displayDropdownMessages={this.state.displayDropdownMessages}
-      displayDropdownNotifications={this.state.displayDropdownNotifications}
-      displayDropdownUser={this.state.displayDropdownUser}
-      displaySearchInput={this.state.displaySearchInput}
-      toggleSearchInput={this.toggleSearchInput}
-      messages={this.state.messages} 
-      notifications={this.state.notifications}
-      userInfo={this.props.userInfo}
-      canGoBack={this.props.canGoBack}
-      goBackHistory={this.goBackHistory}
+        showDropdownMenu={this.showDropdownMenu}
+        hideDropdownMenu={this.hideDropdownMenu}
+        displayDropdownMessages={this.state.displayDropdownMessages}
+        displayDropdownNotifications={this.state.displayDropdownNotifications}
+        displayDropdownUser={this.state.displayDropdownUser}
+        displaySearchInput={this.state.displaySearchInput}
+        toggleSearchInput={this.toggleSearchInput}
+        notifications={this.props.notifications}
+        userInfo={this.props.userInfo}
+        canGoBack={this.props.canGoBack}
+        goBackHistory={this.goBackHistory}
+        setNotificationsSeen={this.props.setNotificationsSeen}
+        setNotificationOpened={this.props.setNotificationOpened}
       />
     );
   }

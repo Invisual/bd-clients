@@ -206,9 +206,13 @@ export const TopBarDiv = styled.div`
 
         span{
           color: ${themeConsts.white};
-          font-size: .75em;
-          position: relative;
-          bottom: 1px;
+          font-size: .76em;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          left: 0;
+          right: 0;
+          text-align: center;
         }
       }
     }
@@ -234,14 +238,66 @@ export const TopBarDiv = styled.div`
         list-style-type: none;
         margin: 0;
         padding: 0;
-        top: 45px;
-        right: 0px;
-        width: 200px;
+        top: 53px;
+        left:50%;
+        transform:translateX(-50%);
+        width: 350px;
         background-color: white;
         font-weight: bold;
         position: absolute;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-        z-index: 1;
+        z-index: 11;
+        border-radius: 6px;
+
+        .notification-header{
+          height: 20px;
+          min-height: unset;
+          font-size: 1.17em;
+          font-weight: 600;
+          letter-spacing: .03em;
+          background-color: ${themeConsts.secondaryBlue};
+          color:${themeConsts.white};
+          border-top-left-radius: 6px;
+          border-top-right-radius: 6px;
+        }
+        .notification-header:hover{
+          background-color: ${themeConsts.secondaryBlue};
+        }
+
+        li{
+          margin-left:0;
+          text-align:left;
+          border-bottom: 1px solid #f7f7f7f7 !important;
+          min-height: 50px;
+          display: flex;
+          align-items: center;
+          background-color:${themeConsts.notificationsBg};
+
+          svg{
+            font-size: 2.2em;
+            margin-right: 15px;
+          }
+          .notification-info{
+            p{
+              font-size: 1.15em;
+              letter-spacing: .01em;
+              font-weight: 300;
+              margin: 4px 0;
+            }
+            span{
+              color: ${themeConsts.textLighterGrey};
+              font-weight: 300;
+              letter-spacing: .03em;
+            }
+          }
+        }
+        li:last-child {
+          border-bottom-left-radius: 6px;
+          border-bottom-right-radius: 6px;
+        }
+      }
+      .notification.opened{
+        background-color:${themeConsts.white};
       }
       li {
         color: #666;
@@ -259,5 +315,18 @@ export const TopBarDiv = styled.div`
         color: white;
       }
     }
+  }
+  .notifications-dropdown:after{
+        content:'';
+        position:absolute;
+        left:0;
+        right:0;
+        margin:0 auto;
+        background-color: ${themeConsts.secondaryBlue};
+        top: -8px;
+        height: 15px;
+        width: 15px;
+        border-radius: 6px 0px 0px 0px;
+        transform: rotate(45deg);
   }
 `;

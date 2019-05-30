@@ -17,27 +17,21 @@ class AllBudgetsContainer extends Component {
       filtersAreActive: false,
       filters: {
         client: '',
-        billing: '',
-        user: '',
-        status: '',
-        project: '',
-        deadline: new Date(),
-        isDeadlineSet: false,
-        type: ''
+        account: '',
+        internalStatus: '',
+        externalStatus: ''
       },
       clientsList: [],
-      billingList: [],
-      usersList: [],
-      projectsList: [],
-      taskTypesList: [],
-      tasksStatusList: [],
+      accountsList: [],
+      internalStatusList: [],
+      externalStatusList: [],
       currentTaskList: 'all',
       isLoading: true,
       redirect: false
     };
   }
 
-  changeFilters = (filters) => this.setState({filters: filters})
+  changeFilters = filters => this.setState({filters: filters})
   changeFiltersAreActive = () => this.setState({filtersAreActive: !this.state.filtersAreActive})
 
   changeCurrentTaskList = () => this.setState({currentTaskList: this.state.currentTaskList === 'all' ? 'self' : 'all' })
@@ -45,12 +39,9 @@ class AllBudgetsContainer extends Component {
   getNumberOfActiveFilters = () => {
     var x = 0;
     if(this.state.filters.client !== '') {x++}
-    if(this.state.filters.billing !== '') {x++}
-    if(this.state.filters.user !== '') {x++}
-    if(this.state.filters.status !== '') {x++}
-    if(this.state.filters.project !== '') {x++}
-    if(this.state.filters.isDeadlineSet) {x++}
-    if(this.state.filters.type !== '') {x++}
+    if(this.state.filters.account !== '') {x++}
+    if(this.state.filters.internalStatus !== '') {x++}
+    if(this.state.filters.externalStatus !== '') {x++}
     return x
   }
 
@@ -62,43 +53,27 @@ class AllBudgetsContainer extends Component {
     });
   }
 
-  getBillingModes = () => {
+  getAccounts = () => {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
-    axios.get(`/api/misc/billing`, { headers: { Authorization: AuthStr } }).then(res => {
-      this.setState({ billingList: res.data});
+    axios.get(`/api/users/accounts`, { headers: { Authorization: AuthStr } }).then(res => {
+      this.setState({ accountsList: res.data});
     });
   }
 
-  getUsers = () => {
+  getInternalStatus = () => {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
-    axios.get(`/api/users`, { headers: { Authorization: AuthStr } }).then(res => {
-      this.setState({ usersList: res.data});
+    axios.get(`/api/misc/internalStatus`, { headers: { Authorization: AuthStr } }).then(res => {
+      this.setState({ internalStatusList: res.data});
     });
   }
 
-  getProjects = () =>{
+  getExternalStatus = () => {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
-    axios.get(`/api/projects`, { headers: { Authorization: AuthStr } }).then(res => {
-      this.setState({ projectsList: res.data});
-    });
-  }
-
-  getTaskTypes = () => {
-    var token = JSON.parse(localStorage.getItem('token'));
-    var AuthStr = 'Bearer ' + token;
-    axios.get(`/api/misc/types`, { headers: { Authorization: AuthStr } }).then(res => {
-      this.setState({ taskTypesList: res.data});
-    });
-  }
-
-  getTaskStatus = () => {
-    var token = JSON.parse(localStorage.getItem('token'));
-    var AuthStr = 'Bearer ' + token;
-    axios.get(`/api/misc/status`, { headers: { Authorization: AuthStr } }).then(res => {
-      this.setState({ tasksStatusList: res.data});
+    axios.get(`/api/misc/externalStatus`, { headers: { Authorization: AuthStr } }).then(res => {
+      this.setState({ externalStatusList: res.data});
     });
   }
 
@@ -268,13 +243,11 @@ class AllBudgetsContainer extends Component {
   
 
   componentDidMount() {
-    this.getBudgetDetails();
-    this.getClients();
-    this.getBillingModes();
-    this.getUsers();
-    this.getProjects();
-    this.getTaskTypes();
-    this.getTaskStatus();
+    this.getBudgetDetails()
+    this.getClients()
+    this.getAccounts()
+    this.getInternalStatus()
+    this.getExternalStatus()
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -311,13 +284,10 @@ class AllBudgetsContainer extends Component {
         changeFilters={this.changeFilters}
         getNumberOfActiveFilters={this.getNumberOfActiveFilters}
         clientsList={this.state.clientsList}
-        projectsList={this.state.projectsList}
-        usersList={this.state.usersList}
-        billingList={this.state.billingList}
-        taskTypesList={this.state.taskTypesList}
-        tasksStatusList={this.state.tasksStatusList}
+        accountsList={this.state.accountsList}
+        internalStatusList={this.state.internalStatusList}
+        externalStatusList={this.state.externalStatusList}
         getBudgetDetails={this.getBudgetDetails}
-        
       />
     );
   }
