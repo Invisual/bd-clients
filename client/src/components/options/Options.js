@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FiTrash2, FiCopy, FiEdit3, FiFolder, FiFilter, FiPlusCircle } from 'react-icons/fi';
+import { FiTrash2, FiCopy, FiEdit3, FiFolder, FiFilter, FiPlusCircle, FiCheckSquare } from 'react-icons/fi';
 
 export const Options =  props => {
   return (
@@ -14,6 +14,14 @@ export const Options =  props => {
               <div className="grid-widget tasks-options">
                 {props.userRole === 3 || props.userRole === 2 ? (
                   <div className="task-infos">
+                    <div className="tooltip-container">
+                    <FiCheckSquare
+                      className="task-info-icon"
+                      onClick={() => {
+                       props.openConcludeModal('task');
+                      }}
+                    /><span className="tooltip">Concluir Tarefa</span>
+                    </div>
                   <div className="tooltip-container">
                     <FiTrash2
                       className="task-info-icon"
@@ -73,6 +81,14 @@ export const Options =  props => {
               <div className="grid-widget tasks-options">
                 {props.userRole === 3 || props.userRole === 2 ? (
                   <div className="task-infos">
+                     <div className="tooltip-container">
+                    <FiCheckSquare
+                      className="task-info-icon"
+                      onClick={() => {
+                       props.openConcludeModal('project');
+                      }}
+                    /><span className="tooltip">Concluir Tarefa</span>
+                    </div>
                     <div className="tooltip-container">
                     <span className="tooltip">Eliminar Projeto</span>
                     <FiTrash2

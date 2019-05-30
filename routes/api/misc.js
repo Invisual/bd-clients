@@ -181,4 +181,87 @@ router.delete('/costs/:id', checkToken, (req, res) => {
   });
 });
 
+router.put('/conclude', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+    } else {
+      var approval = req.body.approval
+      var billing = req.body.billing
+      var obs = req.body.obs
+      var taskId = req.body.taskId
+      var projId = req.body.projId 
+      var type = req.body.type
+
+      if (type === 'task') {
+        connection.query(
+          'UPDATE tasks SET concluded_task=?, billed_task=?, comment_billed_task=? WHERE id_task=?',
+          [approval, billing, obs, taskId],
+          function(error, results, fields) {
+            if (error) throw error;
+            res.send(results);
+          }
+        );
+      }
+      else {
+        connection.query(
+          'UPDATE projects SET concluded_project=?, billed_project=?, comment_billed_project=? WHERE id_project=?',
+          [approval, billing, obs, projId],
+          function(error, results, fields) {
+            if (error) throw error;
+            res.send(results);
+          }
+        );
+      }
+    }
+  });
+});
+
+
+router.get('/notifications/:user', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) { res.sendStatus(403) }
+    else {
+      connection.query('SELECT id_notification, type_notification, ref_id_task, ref_id_user, notifications.ref_id_project, ref_id_meeting, seen, opened, creation_date_notification, title_task, title_project, title_meeting, date_meeting FROM notifications LEFT JOIN tasks ON notifications.ref_id_task = tasks.id_task LEFT JOIN projects ON notifications.ref_id_project = projects.id_project LEFT JOIN meetings ON notifications.ref_id_meeting = meetings.id_meeting WHERE ref_id_user=? ORDER BY id_notification DESC LIMIT 10', req.params.user, function(error, results, fields) {
+        if (error) throw error;
+        if (results.length > 0) {
+          res.send(results);
+        } else {
+          res.send('nodata');
+        }
+      });
+    }
+  });
+});
+
+
+router.put('/notifications/seen', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {res.sendStatus(403)}
+    else {
+      for(var i=0, count=req.body.notifications.length; i<count; i++){
+        connection.query('UPDATE notifications SET seen=1 WHERE id_notification = ?', req.body.notifications[i], function(error, results, fields) {
+          if (error) throw error;
+        });
+      }
+      res.send('done')
+    }
+  });
+});
+
+
+
+router.put('/notifications/opened', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {res.sendStatus(403)}
+    else {
+      connection.query('UPDATE notifications SET opened=1 WHERE id_notification = ?', req.body.id, function(error, results, fields) {
+        if (error) throw error;
+        res.send(results)
+      });
+    }
+  });
+});
+
 module.exports = router;

@@ -37,7 +37,9 @@ class AllTasksContainer extends Component {
       isLoading: true,
       redirect: false,
       costsModalOpen: false,
-      costsModalType: 'task'
+      costsModalType: 'task',
+      concludedModalOpen: false,
+      concludedModalType: 'task',
     };
   }
 
@@ -118,9 +120,7 @@ class AllTasksContainer extends Component {
   }
 
   getTaskDetails = () => {
-    const {
-      match: { params }
-    } = this.props;
+    const { match: { params } } = this.props;
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
     var idUser = JSON.parse(localStorage.getItem('user'));
@@ -313,6 +313,18 @@ class AllTasksContainer extends Component {
     this.setState({costsModalOpen: false})
   }
 
+  openConcludeModal = (type) => {
+    document.body.classList.add('costs-open', 'modal-open')
+    document.getElementById('overlay').addEventListener('click', () => this.closeConcludeModal())
+    this.setState({concludeModalOpen: true, concludeModalType: type})
+  }
+
+  closeConcludeModal = () => {
+    document.body.classList.remove('costs-open', 'modal-open')
+    document.getElementById('overlay').removeEventListener('click', () => this.closeConcludeModal());
+    this.setState({concludeModalOpen: false})
+  }
+
 
   componentDidMount() {
     this.getTaskDetails();
@@ -334,7 +346,6 @@ class AllTasksContainer extends Component {
   }
 
   render() {
-    console.log(this.state.taskContent)
     return (
       <AllTasks
         userRole={this.props.userInfo.ref_id_role}
@@ -375,6 +386,10 @@ class AllTasksContainer extends Component {
         closeCostsModal={this.closeCostsModal}
         isCostsModalOpen={this.state.costsModalOpen}
         costsModalType={this.state.costsModalType}
+        openConcludeModal={this.openConcludeModal}
+        closeConcludeModal={this.closeConcludeModal}
+        isConcludeModalOpen={this.state.concludeModalOpen}
+        concludeModalType={this.state.concludeModalType}
         getTaskDetails={this.getTaskDetails}
       />
     );

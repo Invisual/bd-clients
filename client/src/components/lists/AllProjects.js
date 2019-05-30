@@ -5,6 +5,7 @@ import MyProjectsContainer from '../../containers/tables/MyProjectsContainer';
 import ProjectDetailContainer from '../../containers/details/ProjectDetailContainer';
 import OptionsContainer from '../../containers/options/OptionsContainer';
 import CostsModalContainer from '../../containers/inserts/CostsModalContainer'
+import ConcludeModalContainer from '../../containers/inserts/ConcludeModalContainer'
 import ProjectFilters from '../options/ProjectFilters';
 import { FiFolderPlus, FiFilter, FiUserCheck, FiSearch } from 'react-icons/fi';
 
@@ -24,7 +25,16 @@ export const AllProjects = props => {
           getProjectDetails={props.getProjectDetails}
         />
       : 
-        null
+        props.isConcludeModalOpen ? 
+          <ConcludeModalContainer 
+            closeConcludeModal={props.closeConcludeModal} 
+            projId={props.activeProject}
+            projectContent={props.projectContent}
+            type={props.concludeModalType} 
+            getProjectDetails={props.getProjectDetails}
+          /> 
+        : 
+          null
       }
       <div className="widgets-grid widget cards-container nofixed-height no-shadow">
         <div className="grid-widget tasks-title">
@@ -60,6 +70,8 @@ export const AllProjects = props => {
         <OptionsContainer
           userRole={props.userRole}
           type={'projectoptions'}
+          openConcludeModal={props.openConcludeModal}
+          closeConcludeModal={props.closeConcludeModal}
           activeProject={props.activeProject}
           projectContent={props.projectContent}
           isLoading={props.isLoading}
