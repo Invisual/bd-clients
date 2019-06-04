@@ -6,7 +6,7 @@ import ProjectCommentsTab from '../../components/tabs/ProjectCommentsTab';
 import moment from 'moment';
 import 'moment/locale/pt';
 import 'moment-duration-format';
-import { FiClock, FiUser, FiMoreHorizontal, FiSend, FiFolder } from 'react-icons/fi';
+import { FiClock, FiUser, FiMoreHorizontal, FiSend, FiFolder, FiCreditCard } from 'react-icons/fi';
 
 export const ProjectDetail = props => {
   return (
@@ -15,7 +15,7 @@ export const ProjectDetail = props => {
         <ProjectDetailsDiv>
           <img src="/img/loading.svg" alt="loading" className="loading-spinner" />
         </ProjectDetailsDiv>
-      ) : props.projectContent ? (
+      ) : props.projectContent.details.id_project ? (
         <ProjectDetailsDiv>
           <div className="project-details-grid">
             <div className="grid-item">
@@ -33,6 +33,8 @@ export const ProjectDetail = props => {
                     <FiUser className="project-date" />{' '}
                     <span className="name-client">{props.projectContent.details[0].name_client}</span>
                   </span>
+                    <FiCreditCard className="project-date" />{' '}
+                    <span>{props.projectContent.details[0].name_billing_mode}</span>
                 </div>
                 <div className="project-infos">
                   <div
@@ -87,11 +89,7 @@ export const ProjectDetail = props => {
           ) : null}
         </ProjectDetailsDiv>
       ) : (
-        <div>
-          <div className="no-content">
-            <FiMoreHorizontal />
-          </div>
-        </div>
+          <div className="no-content" />
       )}
     </>
   );

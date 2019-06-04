@@ -41,7 +41,7 @@ export const AllTasksDiv = styled.div`
     .tasks-list {
       border-right: 1px solid #e6e6e6;
       padding: 0 15px 15px 15px;
-      max-height: 79vh;
+      height: 79vh;
       overflow-y: scroll;
       position: relative;
     }
@@ -341,6 +341,10 @@ export const TaskDetailsDiv = styled.div`
         }
       }
 
+      .no-border {
+        border: 0;
+      }
+
       .task-comments{
         width:50%;
         margin: 0 30px;
@@ -363,6 +367,59 @@ export const TaskDetailsDiv = styled.div`
         }
       }
 
+      }
+
+      .billing-costs-section{
+        margin-right: 30px;
+        border-top: 1px solid #e6e6e6;
+        padding: 25px 0;
+
+        h2{
+          font-weight: 600;
+          font-size: 1.1em;
+          color: ${themeConsts.titlesDarkGrey};
+          margin: 0;
+          margin-bottom: 10px;
+        }
+
+        .modal-costs-listing{
+        width: 95%;
+        margin: 0 auto;
+        padding-top: 1px;
+      
+          .costs-list-header{
+              display:grid;
+              grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+              background: ${themeConsts.tableColor1};
+              border-bottom: 2px solid ${themeConsts.white};
+              border-radius: 4px;
+
+              h5{
+                  text-align:center;
+                  color:${themeConsts.textDarkGrey};
+                  font-size: 1.04em;
+              }
+          }
+          .costs-list-row{
+              display:grid;
+              grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+              padding: 6px 0;
+              border-bottom: 2px solid ${themeConsts.white};
+              border-radius: 4px;
+
+              p{
+                  text-align:center;
+                  color:${themeConsts.textLightGrey};
+                  font-size: 1em;
+              }
+          }
+          .costs-list-row:nth-child(odd){
+              background-color:${themeConsts.tableColor1}
+          }
+          .costs-list-row:nth-child(even){
+              background-color:${themeConsts.tableColor2}
+          }
+        }
       }
       .task-billing-section {
         display: grid;
@@ -674,7 +731,7 @@ export const ProjectDetailsDiv = styled.div`
           font-weight: 600;
           font-size: 1.1em;
           color: ${themeConsts.titlesDarkGrey};
-          margin-bottom:20px;
+          margin-bottom: 20px;
           .project-account-title,
           .project-deadline-title {
             margin-bottom: 10px;
@@ -1099,29 +1156,29 @@ export const ClientDetailsDiv = styled.div`
       }
     }
 
-    .client-info-password{
+    .client-info-password {
       width: 70%;
       margin: 0 auto;
       margin-top: 150px;
       text-align: center;
 
-      input{
+      input {
         height: 50px;
         width: 100%;
         border: none;
-        box-shadow: 0px 1px 6px rgba(0,0,0,.16);
+        box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.16);
         border-radius: 10px;
         text-indent: 12px;
       }
 
-      .password-error-message{
+      .password-error-message {
         margin-top: 10px;
         color: ${themeConsts.red};
-        font-weight:500;
+        font-weight: 500;
       }
 
-      .form-buttons{
-        margin-top:35px;
+      .form-buttons {
+        margin-top: 35px;
       }
     }
 
@@ -1131,13 +1188,13 @@ export const ClientDetailsDiv = styled.div`
 
       .user-info-basic {
         font-size: 1.3em;
-        margin-bottom:25px;
+        margin-bottom: 25px;
 
         .user-info-email,
         .user-info-phone {
           display: flex;
           align-items: center;
-          margin-bottom:5px;
+          margin-bottom: 5px;
           svg {
             color: ${themeConsts.secondaryBlue};
             margin-right: 5px;
@@ -1153,17 +1210,46 @@ export const ClientDetailsDiv = styled.div`
           font-size: 1.2em;
           padding-left: 10px;
           border-bottom: 1px solid #e6e6e6;
-          .user-other-infos-email, .user-other-infos-password, .user-other-infos-obs {
+          .user-other-infos-email,
+          .user-other-infos-password,
+          .user-other-infos-obs {
             display: flex;
             align-items: center;
             margin-bottom: 5px;
             svg {
               color: ${themeConsts.secondaryBlue};
-              margin-right: 5px
+              margin-right: 5px;
             }
           }
           .user-other-padding {
             padding-left: 15px;
+          }
+        }
+      }
+    }
+
+    .user-vacations-content {
+      .vacations-section {
+        margin-bottom: 50px;
+
+        .single-vacation {
+          display: flex;
+          align-items: center;
+
+          .vac-ball {
+            width: 12px;
+            height: 12px;
+            border-radius: 50px;
+            margin-right: 10px;
+          }
+          .approved-vac-ball {
+            background-color: ${themeConsts.green};
+          }
+          .awaiting-vac-ball {
+            background-color: ${themeConsts.secondaryBlue};
+          }
+          .refused-vac-ball {
+            background-color: ${themeConsts.red};
           }
         }
       }

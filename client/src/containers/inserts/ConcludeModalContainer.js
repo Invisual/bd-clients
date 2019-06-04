@@ -41,6 +41,8 @@ class ConcludeModalContainer extends Component{
             billing: this.state.billingInput,
             obs: this.state.obsInput,
             taskId: this.props.taskId,
+            title: this.props.taskContent.details[0].title_task,
+            mode: this.props.taskContent.details[0].name_billing_mode,
             type: 'task'
         }
 
@@ -57,11 +59,11 @@ class ConcludeModalContainer extends Component{
             if(res.data.affectedRows){
                 Swal.fire({
                     type: 'success',
-                    title: 'Novo Orçamento Inserido',
+                    title: 'Concluído',
                     text: `Cheirinho dji sucesso!`
                   })
                   .then(click => {
-                      console.log('nice')
+                      this.props.closeConcludeModal('concluded')
                   })
             }
         })
@@ -75,6 +77,8 @@ class ConcludeModalContainer extends Component{
             billing: this.state.billingInput,
             obs: this.state.obsInput,
             projId: this.props.projId,
+            title: this.props.projectContent.details[0].title_project,
+            mode: this.props.projectContent.details[0].name_billing_mode,
             type: 'project'
         }
 
@@ -90,11 +94,11 @@ class ConcludeModalContainer extends Component{
             if(res.data.affectedRows){
                 Swal.fire({
                     type: 'success',
-                    title: 'Novo Orçamento Inserido',
-                    text: `Cheirinho dji sucesso!`
+                    title: 'Concluído',
+                    text: `Congratunations!`
                   })
                   .then(click => {
-                      console.log('nice')
+                    this.props.closeConcludeModal('concluded')
                   })
             }
         })

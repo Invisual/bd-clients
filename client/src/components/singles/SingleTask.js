@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { AllSingleTaskDiv, SingleTaskDiv } from '../../styles/singles';
-import { FiFolder, FiClock, FiLink2 } from 'react-icons/fi';
+import { AllSingleTaskDiv, SingleTaskDiv, AllSingleBillingDiv } from '../../styles/singles';
+import { FiFolder, FiClock, FiLink2, FiFileText, FiCheck } from 'react-icons/fi';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 class SingleTask extends Component {
@@ -65,24 +65,14 @@ class SingleTask extends Component {
       } else if (this.props.type === 'allbilling') {
         let active = this.props.id === this.props.activeItem ? ' active' : '';
         singleContent = (
-          <AllSingleTaskDiv className={`single-card-task${active}`}>
-            <div className="task-title title-click" onClick={() => this.props.changeActiveItem(this.props.id, this.props.itemType)}>
-              {this.props.title}
+          <AllSingleBillingDiv className={`single-card-billing${active} card-billed-border`}>
+            <div className="billing-type-icon">{this.props.itemType==='task'? <FiFileText/> : <FiFolder />}</div>
+            <div className="billing-title title-click" onClick={() => this.props.changeActiveItem(this.props.id, this.props.itemType)}>
+              <span>{this.props.title}</span> <span className="billing-client-name">{this.props.clientName}</span>
             </div>
-            <div className="task-watch"></div>
-            <div className="task-link">
-            <div className="tooltip-container">
-              <CopyToClipboard text={window.location.href + '/' +this.props.id} onCopy={() => this.props.copyAlert()}>
-                <FiLink2 />
-              </CopyToClipboard><span className="tooltip">Copiar Link</span></div>
-            </div>
-            <div className="task-watch">
-            <div className="tooltip-container"><FiClock onClick={this.props.hourState === 1 ? () => this.props.stopCountingHours(this.props.hourId, this.props.title) : () => this.props.startCountingHours(this.props.id, this.props.title)} className={this.props.hourState === 1 ? 'active-clock' : 'inactive-clock'} />
-            <span className="tooltip">{this.props.hourState === 1 ? "Parar contagem de horas" : "Iniciar contagem de horas"}</span></div></div>
-            <div className="task-state" onClick={() => this.props.changeBudgetStatus(this.props.id, this.props.stateVal)}>
-            <span>{this.props.stateTitle}</span>
-            </div>
-          </AllSingleTaskDiv>)
+            <div className="billed-status">{this.props.status === 2 ?<div className="tooltip-container"><FiCheck/><span className="tooltip">Já Faturado</span></div>
+              : null }</div>
+          </AllSingleBillingDiv>)
       } else { // All Budgets
         let active = this.props.id === this.props.activeBudget ? ' active' : '';
       singleContent = (

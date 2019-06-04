@@ -43,7 +43,6 @@ export const MyBilling = props => {
       );
       break;
     case 'allbilling':
-        console.log(props.items)
       if (props.isLoading) {
         content = <img src="/img/loading.svg" alt="Loading" className="loading-spinner" />;
       } else {
@@ -56,6 +55,8 @@ export const MyBilling = props => {
                     key={item.id}
                     id={item.id}
                     title={item.title}
+                    clientName={item.name_client}
+                    status={item.billed_status}
                     itemType={item.type}
                     activeItem={props.activeItem}
                     changeActiveItem={props.changeActiveItem}

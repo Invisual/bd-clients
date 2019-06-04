@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FiTrash2, FiCopy, FiEdit3, FiFolder, FiFilter, FiPlusCircle, FiCheckSquare } from 'react-icons/fi';
+import { FiTrash2, FiCopy, FiEdit3, FiFolder, FiFilter, FiPlusCircle, FiCheckSquare, FiXSquare } from 'react-icons/fi';
 
 export const Options =  props => {
   return (
@@ -14,14 +14,16 @@ export const Options =  props => {
               <div className="grid-widget tasks-options">
                 {props.userRole === 3 || props.userRole === 2 ? (
                   <div className="task-infos">
-                    <div className="tooltip-container">
+                    {props.taskContent.details[0].ref_id_project ? 
+                    null
+                    : <div className="tooltip-container">
                     <FiCheckSquare
                       className="task-info-icon"
                       onClick={() => {
                        props.openConcludeModal('task');
                       }}
                     /><span className="tooltip">Concluir Tarefa</span>
-                    </div>
+                    </div>}
                   <div className="tooltip-container">
                     <FiTrash2
                       className="task-info-icon"
@@ -81,13 +83,13 @@ export const Options =  props => {
               <div className="grid-widget tasks-options">
                 {props.userRole === 3 || props.userRole === 2 ? (
                   <div className="task-infos">
-                     <div className="tooltip-container">
+                    <div className="tooltip-container">
                     <FiCheckSquare
                       className="task-info-icon"
                       onClick={() => {
                        props.openConcludeModal('project');
                       }}
-                    /><span className="tooltip">Concluir Tarefa</span>
+                    /><span className="tooltip">Concluir Projeto</span>
                     </div>
                     <div className="tooltip-container">
                     <span className="tooltip">Eliminar Projeto</span>
@@ -183,9 +185,9 @@ export const Options =  props => {
               <div className="grid-widget tasks-options"> </div>
             );
             case 'budgetoptions':
-            return props.isLoading ? (
+              return props.isLoading ? (
               <div className="grid-widget tasks-options" />
-            ) : props.budgetContent ? (
+              ) : props.budgetContent ? (
               <div className="grid-widget tasks-options">
                 {props.userRole === 3 || props.userRole === 2 ? (
                   <div className="task-infos">
@@ -220,7 +222,42 @@ export const Options =  props => {
             ) : (
               <div className="grid-widget tasks-options"> </div>
             );
-
+          case 'billingoptions':
+            return props.isLoading ? (
+              <div className="grid-widget tasks-options" />
+              ) : props.itemContent ? (
+              <div className="grid-widget tasks-options">
+                  <div className="task-infos">
+                  <div className="tooltip-container">
+                    {props.itemContent.details[0].billed_status === 1 ? 
+                    <>
+                    <FiCheckSquare className="task-info-icon" onClick={() => { props.billActiveItem(props.itemContent.details[0].id, props.itemContent.details[0].type); }} />
+                    <span className="tooltip">Marcar como faturado</span>
+                    </>
+                    : 
+                    <>
+                    <FiXSquare className="task-info-icon" onClick={() => { props.unBillActiveItem(props.itemContent.details[0].id, props.itemContent.details[0].type); }} />
+                    <span className="tooltip">Marcar como não faturado</span>
+                    </>
+                    }
+                      
+                    </div>
+                  </div>
+                
+                <div className="account-avatar">
+                  <img
+                    src={props.itemContent.details[0].avatar_user}
+                    alt="Avatar"
+                    style={{ borderRadius: '50%' }}
+                    width="20px"
+                    height="20px"
+                    title={props.itemContent.details[0].name_user}
+                  />
+                </div>
+              </div>
+            ) : (
+              <div className="grid-widget tasks-options"> </div>
+            );
           default:
           return props.isLoading ? (
             <div className="grid-widget tasks-options" />
