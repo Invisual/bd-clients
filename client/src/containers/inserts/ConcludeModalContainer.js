@@ -42,6 +42,8 @@ class ConcludeModalContainer extends Component{
             billing: this.state.billingInput,
             obs: this.state.obsInput,
             taskId: this.props.taskId,
+            title: this.props.taskContent.details[0].title_task,
+            mode: this.props.taskContent.details[0].name_billing_mode,
             user: JSON.parse(localStorage.getItem('user')).id_user,
             date: moment(new Date()).format('Y-MM-DD'),
             type: 'task'
@@ -60,8 +62,8 @@ class ConcludeModalContainer extends Component{
             if(res.data.affectedRows){
                 Swal.fire({
                     type: 'success',
-                    title: 'Novo Orçamento Inserido',
-                    text: `Cheirinho dji sucesso!`
+                    title: 'Concluído',
+                    text: `A Tarefa foi concluída com sucesso!`
                   })
                   .then(click => {
                       console.log('nice')
@@ -78,6 +80,8 @@ class ConcludeModalContainer extends Component{
             billing: this.state.billingInput,
             obs: this.state.obsInput,
             projId: this.props.projId,
+            title: this.props.projectContent.details[0].title_project,
+            mode: this.props.projectContent.details[0].name_billing_mode,
             user: JSON.parse(localStorage.getItem('user')).id_user,
             date: moment(new Date()).format('Y-MM-DD'),
             type: 'project'
@@ -95,8 +99,8 @@ class ConcludeModalContainer extends Component{
             if(res.data.affectedRows){
                 Swal.fire({
                     type: 'success',
-                    title: 'Novo Orçamento Inserido',
-                    text: `Cheirinho dji sucesso!`
+                    title: 'Concluído',
+                    text: `O projeto foi concluído com sucesso!`
                   })
                   .then(click => {
                       console.log('nice')
