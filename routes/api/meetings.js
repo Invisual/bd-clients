@@ -22,6 +22,9 @@ router.get('/', checkToken, (req, res) => {
         if (results.length > 0) {
           res.send(results);
         }
+        else{
+          res.send('nomeeting')
+        }
       });
     }
   });
@@ -135,5 +138,22 @@ router.put('/', checkToken, (req, res) => {
   });
 });
 
+
+router.delete('/:id', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+    } else {
+      connection.query('DELETE FROM meetings_has_users WHERE ref_id_meeting = ?',req.params.id, function(error, results, fields) {
+        if (error) throw error;
+        connection.query('DELETE FROM meetings WHERE id_meeting = ?',req.params.id, function(error, results, fields) {
+          if (error) throw error;
+          res.send(results);
+        });
+      });
+    }
+  });
+});
 
 module.exports = router;

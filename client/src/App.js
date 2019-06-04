@@ -21,7 +21,10 @@ import CreateMeetingContainer from './containers/inserts/CreateMeetingContainer'
 import CreateClientContainer from './containers/inserts/CreateClientContainer';
 import CreateUserContainer from './containers/inserts/CreateUserContainer';
 import CreateClientInfoContainer from './containers/inserts/CreateClientInfoContainer';
+import CreateVacationContainer from './containers/inserts/CreateVacationContainer';
 import ChatTaskContainer from './containers/chat/ChatTaskContainer';
+import VacationsApprovalContainer from './containers/approvals/VacationsApprovalContainer';
+import VacationsRejectContainer from './containers/approvals/VacationsRejectContainer';
 import './styles/main.css';
 import { Switch, Route } from 'react-router-dom';
 import moment from 'moment'
@@ -52,6 +55,7 @@ class App extends Component {
               <Route exact path="/clients/:id" render={props => <AllClientsContainer isShare={true} userInfo={this.props.userInfo} {...props} />} />
               <Route path="/admin" render={props => <GantTasksContainer {...props} />} />
               <Route exact path="/billing" render={props => <AllBillingContainer userInfo={this.props.userInfo} isShare={false} {...props} />} />
+              <Route exact path="/billing/:type/:id" render={props => <AllBillingContainer userInfo={this.props.userInfo} isShare={true} {...props} />} />
               <Route exact path="/team" render={props => <AllTeamContainer userInfo={this.props.userInfo} isShare={false} {...props} />} />
               <Route exact path="/team/:id" render={props => <AllTeamContainer userInfo={this.props.userInfo} isShare={true} {...props} />} />
               <Route exact path="/gant" render={props => <GantTasksContainer userInfo={this.props.userInfo} {...props} />} />
@@ -69,6 +73,9 @@ class App extends Component {
               <Route path="/createclientinfo/:id" render={props => <CreateClientInfoContainer {...props} type="edit" title="Editar Infos do Cliente "/>} />
               <Route exact path="/createuser" render={props => <CreateUserContainer {...props} type="add" title="Novo Utilizador"/>} />
               <Route path="/createuser/:id" render={props => <CreateUserContainer {...props} type="edit" title="Editar Utilizador"/>} />
+              <Route exact path="/createvacations" render={props => <CreateVacationContainer {...props} type="add" title="Pedir Férias"/>} />
+              <Route exact path="/approvevacations/:type/:id" render={props => <VacationsApprovalContainer {...props} />} />
+              <Route exact path="/rejectvacations/:type/:id" render={props => <VacationsRejectContainer {...props} />} />
             </Switch>
           </div>
         ) : (

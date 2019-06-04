@@ -55,7 +55,7 @@ export const MyTasks = props => {
           ) : (
             <div>
               <h4 className="widget-title">{props.title}</h4>
-              <div className="empty-placeholder">Ainda não tem nenhuma tarefa atribuida.</div>
+              <div className="no-tasks-dash no-content-dash"><div className="empty-placeholder">Ainda não tem nenhuma tarefa atribuída</div></div>
             </div>
           )}
         </div>

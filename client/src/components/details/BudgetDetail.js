@@ -75,28 +75,32 @@ export const BudgetDetail = props => {
                   )}
                 </div>
               </div>
-              <div className="budget-external-status">
-                <h4>Estado do Orçamento</h4>
-                <div className="status-container">
-                  {props.externalList.map(status => {
-                    return (
-                      <div
-                        key={status.id_budget_external_status}
-                        onClick={() =>
-                          props.changeExternalStatus(props.budgetContent.details[0].id_budget, status.id_budget_external_status)
-                        }
-                        className={`single-status ${
-                          status.id_budget_external_status === props.budgetContent.details[0].ref_id_budget_external_status
-                            ? `active-status`
-                            : ''
-                        }`}
-                      >
-                        {status.name_budget_external_status}
-                      </div>
-                    );
-                  })}
+              {Number(props.budgetContent.details[0].ref_id_budget_internal_status) === 4 ?
+                <div className="budget-external-status">
+                  <h4>Estado do Orçamento</h4>
+                  <div className="status-container">
+                    {props.externalList.map(status => {
+                      return (
+                        <div
+                          key={status.id_budget_external_status}
+                          onClick={() =>
+                            props.changeExternalStatus(props.budgetContent.details[0].id_budget, status.id_budget_external_status)
+                          }
+                          className={`single-status ${
+                            status.id_budget_external_status === props.budgetContent.details[0].ref_id_budget_external_status
+                              ? `active-status`
+                              : ''
+                          }`}
+                        >
+                          {status.name_budget_external_status}
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
+              :
+                  null
+              }
             </div>
           </div>
 
@@ -117,9 +121,7 @@ export const BudgetDetail = props => {
         </TaskDetailsDiv>
       ) : (
         <div>
-          <div className="no-content">
-            <FiMoreHorizontal />
-          </div>
+          <div className="no-content"></div>
         </div>
       )}
     </>

@@ -45,6 +45,7 @@ class MyBudgetsContainer extends Component {
 
     axios.put('/api/budgets/internalBudgetStatus', data, { headers: { Authorization: AuthStr } }).then(res => {
       this.getBudgets();
+      this.props.getBudgetDetails()
     });
   };
 

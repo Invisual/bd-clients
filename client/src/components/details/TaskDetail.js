@@ -132,11 +132,7 @@ export const TaskDetail = props => {
           </div>
         </TaskDetailsDiv>
       ) : (
-        <div>
-          <div className="no-content">
-            <FiMoreHorizontal />
-          </div>
-        </div>
+          <div className="no-content"></div>
       )}
     </>
   );

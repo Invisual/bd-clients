@@ -82,7 +82,7 @@ export const AllProjects = props => {
         <div className="grid-widget tasks-list">
           <div className="tasks-list-container">
             <MyProjectsContainer
-              title="Tarefas"
+              title="Projetos"
               type="allprojects"
               changeActiveProject={props.changeActiveProject}
               filters={props.filters}

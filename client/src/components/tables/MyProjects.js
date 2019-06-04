@@ -48,7 +48,7 @@ export const MyProjects = props => {
           ) : (
             <div>
               <h4 className="widget-title">{props.title}</h4>
-              <div className="empty-placeholder">Ainda não está inserido em nenhum projecto.</div>
+              <div className="no-projects-dash no-content-dash"><div className="empty-placeholder">Ainda não está inserido em nenhum Projeto.</div></div>
             </div>
           )}
         </div>
@@ -82,7 +82,6 @@ export const MyProjects = props => {
             })
           ) : (
             <div>
-              <h4 className="widget-title">{props.title}</h4>
               <div className="empty-placeholder">Ainda não está inserido em nenhum projecto.</div>
             </div>
           )}

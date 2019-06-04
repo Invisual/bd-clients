@@ -157,6 +157,7 @@ router.get('/details/:user/:start/:end', checkToken, (req, res) => {
     var startDate = req.params.start
     var endDate = req.params.end
     var totalResults = {}
+    var CURRYEAR = new Date().getFullYear()
     jwt.verify(req.token, SECRET_KEY, (err, results) => {
         if (err) { res.sendStatus(403) }
         else{
@@ -167,6 +168,11 @@ router.get('/details/:user/:start/:end', checkToken, (req, res) => {
             connection.query("SELECT * FROM user_infos  WHERE ref_id_user=?", user, function(error, results, fields) {
                 if (error) throw error;
                 if (totalResults.details[0].id_user !== null) { totalResults.infos = results }
+                else { res.send('nodata') }
+            })
+            connection.query("SELECT * FROM vacations WHERE ref_id_user=? AND start_date LIKE '%?%'", [user, CURRYEAR], function(error, results, fields) {
+                if (error) throw error;
+                if (totalResults.details[0].id_user !== null) { totalResults.vacations = results }
                 else { res.send('nodata') }
             })
             connection.query("SELECT title_project, id_project, projects.ref_id_client, name_client, concluded_project, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS 'total_project_hours', GROUP_CONCAT(DISTINCT CONCAT(users.id_user,',',users.name_user,',',users.avatar_user) SEPARATOR ';') as intervenientes FROM projects LEFT JOIN tasks ON projects.id_project=tasks.ref_id_project LEFT JOIN task_hours ON tasks.id_task = task_hours.ref_id_tasks LEFT JOIN users_has_tasks ON tasks.id_task=users_has_tasks.ref_id_task LEFT JOIN users ON users_has_tasks.ref_id_user= users.id_user LEFT JOIN clients ON projects.ref_id_client = clients.id_client WHERE ref_id_users = ? AND (day BETWEEN ? AND ?) GROUP BY id_project", [user, startDate, endDate], function(error, results, fields) {

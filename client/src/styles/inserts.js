@@ -315,4 +315,73 @@ export const InsertFormDiv = styled.div`
       margin-top: 25px;
     }
   }
+
+  .input-radio-container{
+    width: 100%;
+    border: none;
+    box-shadow: 0px 1px 6px rgba(0,0,0,.16);
+    border-radius: 10px;
+    text-indent: 6px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+
+    .label-container{
+      display: block;
+      position: relative;
+      padding-left: 15px;
+      cursor: pointer;
+      font-size: 1.3em;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      margin-right: 20px;
+
+      span{
+        cursor: pointer;
+        font-size: 1.1em;
+      }
+
+      input{
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+      }
+
+      .checkradio{
+        position: absolute;
+        top: 50%;
+        bottom: 0;
+        left: 0;
+        height: 12px;
+        width: 12px;
+        border-radius: 50%;
+        border: 2px solid ${themeConsts.secondaryBlue};
+        background-color: transparent;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+      }
+
+      .label-span{
+        padding-left:6px;
+      }
+    }
+
+    .label-container:hover .checkradio{
+      background-color:${themeConsts.secondaryBlue};
+    }
+
+    .checkradio.checked {
+    background-color: ${themeConsts.secondaryBlue};
+    }
+
+  }
 `;

@@ -4,10 +4,11 @@ import moment from 'moment'
 
 export const MyMeetings = props => {
   var content = '';
-  var now = moment(new Date()).format('Y-MM-DD');
-  var nextMeetings = props.meetings.filter(meeting => {
+  var now = moment(new Date()).subtract(1, "days").format('Y-MM-DD');
+  var nextMeetings = props.meetings ? props.meetings.filter(meeting => {
     return meeting.start > now
-  })
+  }) : props.meetings
+  
   switch (props.type) {
     case 'allmeetings':
       content = (
@@ -15,7 +16,7 @@ export const MyMeetings = props => {
           {props.isLoading ? 
             <img src="img/loading.svg" alt="loading" className="loading-spinner" />
           : 
-            props.meetings ? (
+            props.nextMeetings ? (
               nextMeetings.map(meeting => {
                 return (
                   <SingleMeeting
@@ -30,13 +31,13 @@ export const MyMeetings = props => {
                     endHour={meeting.end_hour_meeting}
                     intervenientes={meeting.intervenientes}
                     type="large"
+                    deleteMeeting={props.deleteMeeting}
                   />
                 );
               })
           ) : (
             <div>
-              <h4 className="widget-title">{props.title}</h4>
-              <div className="empty-placeholder">Não tem reuniões marcadas.</div>
+              <div className="no-meeting"><div className="empty-placeholder">Não tem reuniões marcadas.</div></div>
             </div>
           )}
         </div>

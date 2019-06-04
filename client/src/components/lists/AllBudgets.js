@@ -65,6 +65,7 @@ export const AllBudgets = props => {
               getActiveHours={props.getActiveHours}
               filters={props.filters}
               userRole={props.userRole}
+              getBudgetDetails={props.getBudgetDetails}
             />
           </div>
         </div>

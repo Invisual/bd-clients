@@ -8,6 +8,7 @@ import { FiPlusSquare } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 export const AllMeetings = props => {
+  var nomeetings = [{id_meeting: 1, start: '2010-06-01', end: '2010-06-01', title: 'Boom'}]
   return (
     <AllProjectsDiv className="dashboard-container">
       <div className="widgets-grid widget cards-container nofixed-height no-shadow meetings-grid">
@@ -39,6 +40,7 @@ export const AllMeetings = props => {
               type="allmeetings"
               meetings={props.meetings}
               isLoading={props.isLoading}
+              deleteMeeting={props.deleteMeeting}
             />
           </div>
         </div>
@@ -46,7 +48,7 @@ export const AllMeetings = props => {
           <MyCalendarContainer 
           type="allmeetings"
           changeActiveDay={props.changeActiveDay}
-          meetings={props.meetings}
+          meetings={props.meetings ? props.meetings : nomeetings}
           />
           <MeetingsOnActiveDay 
           activeDay={props.activeDay}

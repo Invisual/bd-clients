@@ -2,13 +2,6 @@ import React, { Component } from 'react';
 import { MyMeetings } from '../../components/tables/MyMeetings';
 
 class MyMeetingsContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: true
-    };
-  }
-
   render() {
     return (
       <MyMeetings
@@ -16,6 +9,7 @@ class MyMeetingsContainer extends Component {
         title={this.props.title}
         isLoading={this.props.isLoading}
         type={this.props.type}
+        deleteMeeting={this.props.deleteMeeting}
       />
     );
   }

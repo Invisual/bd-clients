@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {AllMeetingsDiv} from '../../styles/singles';
 import { FiMapPin, FiUser, FiTrash2, FiEdit3, FiPlusSquare, FiMinusSquare } from 'react-icons/fi';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 class SingleMeeting extends Component {
     constructor(props){
@@ -14,8 +15,10 @@ class SingleMeeting extends Component {
     toggleCard = (boolean) => {
         this.setState({extended: boolean})
     }
-
+    
     render() {
+        var user = JSON.parse(localStorage.getItem('user'));
+        console.log(user)
         if(this.props.type === 'large'){
             return (
                 <AllMeetingsDiv className={`single-card`}>
@@ -39,11 +42,15 @@ class SingleMeeting extends Component {
                                 <div className="meeting-extra-place"><FiMapPin /><span>{this.props.place}</span></div>
                             </div>
                         </div>
-
-                        <div className="meeting-card-actions">
-                            <FiEdit3 />
-                            <FiTrash2 />
-                        </div>
+                        
+                        {Number(user.ref_id_role) === 2 || Number(user.ref_id_role) === 3 ?
+                            <div className="meeting-card-actions">
+                                <Link to={`createmeeting/${this.props.id}`}><FiEdit3 /></Link>
+                                <FiTrash2 onClick={() => this.props.deleteMeeting(this.props.id)}/>
+                            </div>
+                        :
+                            null
+                        }
 
                     </div>    
                 </AllMeetingsDiv>
@@ -74,10 +81,11 @@ class SingleMeeting extends Component {
                                     </div>
                                 </div>
                         </div>
-
+                        
                         <div className="meeting-card-actions">
                             {this.state.extended ? <FiMinusSquare onClick={() => this.toggleCard(false)}/> : <FiPlusSquare onClick={() => this.toggleCard(true)}/>}
                         </div>
+                        
 
                     </div>    
                 </AllMeetingsDiv>

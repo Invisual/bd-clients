@@ -4,10 +4,9 @@ import moment from 'moment'
 
 class MeetingsOnActiveDay extends Component{
     render(){
-        if(this.props.isLoading){return <img src="img/loading.svg" alt="loading" className="loading-spinner" />}
-        var activeDayMeetings = this.props.meetings.filter(meeting => {
+        var activeDayMeetings = this.props.meetings ? this.props.meetings.filter(meeting => {
            return meeting.start.substring(0,10) === this.props.activeDay
-        })
+        }) : this.props.meetings
         return (
                 <div className="active-day-meetings-container">
                     <div className="day">
@@ -15,7 +14,7 @@ class MeetingsOnActiveDay extends Component{
                         <span>{moment(this.props.activeDay).format('dddd')}</span>
                     </div>
                     <div className="meetings">
-                        {activeDayMeetings.length > 0 ?
+                        {activeDayMeetings ?
                             activeDayMeetings.map(meeting => {
                                 return (
                                     <SingleMeeting

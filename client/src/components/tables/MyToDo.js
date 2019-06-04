@@ -39,7 +39,7 @@ export const MyToDo = props => {
           ) : (
             <div>
               <h4 className="widget-title">{props.title}</h4>
-              <div className="empty-placeholder">Ainda não tem nenhum item na sua lista de to-dos.</div>
+              <div className="no-todos-dash no-content-dash"><div className="empty-placeholder">Ainda não tem nenhum item na sua lista de to-dos.</div></div>
               <div
                 className={props.textAreaOpen ? 'todo-textarea slidebottomanimation' : 'nodisplay todo-textarea'}
               >
@@ -93,7 +93,31 @@ export const MyToDo = props => {
                 </div>
               )}
             </div>
-          ) : null}
+          ) 
+          :
+          (
+            <div className="todo-content-container">
+              <h4 className="widget-title">{props.title}</h4>
+              <div className="todo-scroll-container posrelative">
+                <div className="no-todos">
+                  <div className="empty-placeholder">Ainda não tem nenhuma To-Do. Adicione aqui a sua primeira.</div>
+                </div>
+              </div>
+              <div className={props.textAreaOpen ? 'todo-textarea slidebottomanimation' : 'nodisplay todo-textarea'}>
+                <textarea placeholder="Escreve um To-Do..." onChange={props.changeTextAreaVal} id="textarea-fullmodal" />
+              </div>
+              {props.textAreaOpen ? (
+                <div className="todo-add" onClick={props.addToDo}>
+                  <FiSend className="todo-send-icon" />
+                </div>
+              ) : (
+                <div className="todo-add" onClick={props.openTextAreaModal}>
+                  <FiPlus />
+                </div>
+              )}
+            </div>
+          )
+          }
         </TodoListCompleteDiv>
       )}
     </>
