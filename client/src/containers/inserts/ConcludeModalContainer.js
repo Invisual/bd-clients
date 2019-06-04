@@ -1,7 +1,9 @@
+
 import React, {Component} from 'react'
 import { ConcludeModal } from '../../components/inserts/ConcludeModal'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+import moment from 'moment'
 
 const axios = require('axios')
 
@@ -43,6 +45,8 @@ class ConcludeModalContainer extends Component{
             taskId: this.props.taskId,
             title: this.props.taskContent.details[0].title_task,
             mode: this.props.taskContent.details[0].name_billing_mode,
+            user: JSON.parse(localStorage.getItem('user')).id_user,
+            date: moment(new Date()).format('Y-MM-DD'),
             type: 'task'
         }
 
@@ -60,10 +64,10 @@ class ConcludeModalContainer extends Component{
                 Swal.fire({
                     type: 'success',
                     title: 'Concluído',
-                    text: `Cheirinho dji sucesso!`
+                    text: `A Tarefa foi concluída com sucesso!`
                   })
                   .then(click => {
-                      this.props.closeConcludeModal('concluded')
+                      console.log('nice')
                   })
             }
         })
@@ -79,6 +83,8 @@ class ConcludeModalContainer extends Component{
             projId: this.props.projId,
             title: this.props.projectContent.details[0].title_project,
             mode: this.props.projectContent.details[0].name_billing_mode,
+            user: JSON.parse(localStorage.getItem('user')).id_user,
+            date: moment(new Date()).format('Y-MM-DD'),
             type: 'project'
         }
 
@@ -95,10 +101,10 @@ class ConcludeModalContainer extends Component{
                 Swal.fire({
                     type: 'success',
                     title: 'Concluído',
-                    text: `Congratunations!`
+                    text: `O projeto foi concluído com sucesso!`
                   })
                   .then(click => {
-                    this.props.closeConcludeModal('concluded')
+                      console.log('nice')
                   })
             }
         })
