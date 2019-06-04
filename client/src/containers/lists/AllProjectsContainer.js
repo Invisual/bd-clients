@@ -294,9 +294,12 @@ class AllProjectsContainer extends Component {
     this.setState({concludeModalOpen: true, concludeModalType: type})
   }
 
-  closeConcludeModal = () => {
+  closeConcludeModal = (concluded) => {
     document.body.classList.remove('costs-open', 'modal-open')
     document.getElementById('overlay').removeEventListener('click', () => this.closeConcludeModal());
+    if(concluded=== 'concluded'){
+      this.setState({activeProject: '', reloadProjects: true})
+    }
     this.setState({concludeModalOpen: false})
   }
 

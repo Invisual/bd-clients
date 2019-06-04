@@ -1,3 +1,4 @@
+
 import React, {Component} from 'react'
 import { ConcludeModal } from '../../components/inserts/ConcludeModal'
 import Swal from 'sweetalert2/dist/sweetalert2.js'

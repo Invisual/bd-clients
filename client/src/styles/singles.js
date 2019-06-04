@@ -532,3 +532,50 @@ export const AllMeetingsDiv = styled.div`
     100%{padding-bottom: 0;}
 }
 `
+export const AllSingleBillingDiv = styled.div`
+    display: grid;
+  grid-template-columns: 10% 80% 10%;
+  padding-left: 20px;
+  margin-top: 15px;
+  color: ${themeConsts.textDarkGrey};
+  
+  .billing-type-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg {
+      font-size: 2em;
+      color: ${themeConsts.secondaryBlue}
+    }
+  }
+  .billing-title {
+    margin: 0;
+    padding: 18px 0;
+    position: relative;
+    top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 1.3em;
+    .billing-client-name {
+      margin-left: 10px;
+      border-left: 1px solid ${themeConsts.bordersGrey};
+      padding-left: 10px;
+      color: ${themeConsts.secondaryBlue}
+    }
+  }
+  .title-click {
+    cursor: pointer;
+  }
+  .billed-status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg {
+      font-size: 2em;
+      color: ${themeConsts.green}
+    }
+  }
+
+  
+`;

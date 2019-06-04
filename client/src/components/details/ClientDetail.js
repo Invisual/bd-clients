@@ -4,6 +4,7 @@ import { FiUser, FiMoreHorizontal } from 'react-icons/fi';
 import ClientInfoTab from '../tabs/ClientInfoTab';
 import ClientProjectsTab from '../tabs/ClientProjectsTab';
 import ClientTasksTab from '../tabs/ClientTasksTab';
+import ClientDataTab from '../tabs/ClientDataTab';
 
 export const ClientDetail = props => {
   return (
@@ -60,7 +61,7 @@ export const ClientDetail = props => {
                   case 'clienttasks':
                     return <ClientTasksTab clientContent={props.clientContent} />;
                   case 'clientdata':
-                    return <div> DATA </div>;
+                    return <ClientDataTab clientContent={props.clientContent} />;
                   default:
                     return null;
                 }

@@ -9,9 +9,10 @@ import {
   FiUser,
   FiPlus,
   FiAlertTriangle,
-  FiSend,
+  FiUsers,
   FiFileText,
-  FiMoreHorizontal
+  FiMoreHorizontal,
+  FiFolder
 } from 'react-icons/fi';
 
 export const BillingDetail = props => {
@@ -24,8 +25,8 @@ export const BillingDetail = props => {
       ) : props.itemContent ? (
         <TaskDetailsDiv
           hours={
-            props.itemContent[0].total_hours
-              ? moment.duration(props.itemContent[0].total_hours, 'hours').format('*HH[h]mm[m]', {
+            props.itemContent.details[0].total_hours
+              ? moment.duration(props.itemContent.details[0].total_hours, 'hours').format('*HH[h]mm[m]', {
                   forceLength: true
                 })
               : '00h00m'
@@ -34,63 +35,78 @@ export const BillingDetail = props => {
           <div className="task-details-grid">
             <div className="grid-item">
               <div className="task-icon">
-                <FiFileText />
+                {props.itemContent.details[0].type=== 'task'? <FiFileText /> : <FiFolder/>}
               </div>
             </div>
 
             <div className="grid-item">
               <div className="task-header">
-                <h4 className="task-title">{props.itemContent[0].title}</h4>
+                <h4 className="task-title">{props.itemContent.details[0].title}</h4>
                 <div className="task-date">
-                  <FiClock /> <span>{moment(props.itemContent[0].title).format('D/MM/YYYY')}</span>
+                  <FiClock /> <span>{moment(props.itemContent.details[0].conclusion_date).format('D/MM/YYYY')}</span>
                 </div>
                 <div className="task-infos">
                   <span>
-                    <FiUser className="task-info-icon" /> {props.itemContent[0].name_client}
+                    <FiUser className="task-info-icon" /> {props.itemContent.details[0].name_client}
                   </span>
+                  {props.itemContent.details[0].billing_name_client ?
+                    <span>
+                      <FiUsers className="task-info-icon" /> {props.itemContent.details[0].billing_name_client}
+                    </span>
+                    : null}
                 </div>
               </div>
               <div className="task-descr">
                 <h4 className="task-descr-title">Observações</h4>
-                <div className="task-descr-text">{props.itemContent[0].obs}</div>
+                <div className="task-descr-text">{props.itemContent.details[0].obs}</div>
               </div>
               <div className="task-extras">
-                <div className="task-hour-container">
+                <div className="task-hour-container no-border">
                   <div className="task-hour-counter">
                     <Circle percent="100" strokeWidth="8" strokeColor="#1de9b6" trailColor="#d2fbf0" trailWidth="8" />
                   </div>
                 </div>
-                <div className="task-comments">
-                  <h4 className="task-comment-title">Comentários</h4>
-                  <div>{props.itemContent[0].obs}</div>
-                </div>
               </div>
             
-                <div className="task-billing-section">
-                  <div className="billing-icon">
-                    <FiAlertTriangle color="#5e78dd" />
-                  </div>
-                  <div className="billing-title">
-                    <h4>Custos para Faturação</h4>
-                      <div className="billing-descr">Esta Tarefa ainda não tem um Registo de Custos associado.</div>
-                    <FiPlus className="billing-add-icon" onClick={() => props.openCostsModal('task')}/>
-                  </div>
-                </div>
-            </div>
-          </div>
+              <div className="billing-costs-section">
+                  <h2>Registo de Custos</h2>
 
-          <div className="task-add-comment">
-            <div />
-            <div className="comment-input">
-              <textarea
-                placeholder="Escreve um comentário..."
-                id="comment-textarea"
-                onChange={props.changeCommentVal}
-                onKeyDown={props.changeCommentVal}
-              />
-            </div>
-            <div className="comment-submit" onClick={props.submitComment}>
-              <FiSend />
+                {props.itemContent.costs ?  
+               
+                    <div className="modal-costs-listing">
+                        <div className="costs-list-header">
+                            <h5>Serviço</h5>
+                            <h5>Fornecedor</h5>
+                            <h5>Custo Fornecedor</h5>
+                            <h5>Preço Venda</h5>
+                            <h5>Diferença</h5>
+                            <h5>Tipo de Custo</h5>
+                        </div>
+                        {props.itemContent.costs.map(cost => {
+                            var type = ''
+                            switch(cost.type_cost){
+                                case 1: type = 'Externo'
+                                break;
+                                case 2: type = 'Interno'
+                                break;
+                                default: type ='Externo' 
+                            }
+                            return (
+                                <div className="costs-list-row" key={cost.id_cost}>
+                                    <p>{cost.service}</p>
+                                    <p>{cost.provider}</p>
+                                    <p>{cost.cost_provider}</p>
+                                    <p>{cost.price_sale}</p>
+                                    <p>{cost.price_difference}</p>
+                                    <p>{type}</p>
+                                </div>
+                            )
+                        })}
+                    </div>
+                :
+                    <div>Sem custos registados</div>
+                }
+              </div>
             </div>
           </div>
         </TaskDetailsDiv>

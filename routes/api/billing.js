@@ -3,6 +3,7 @@ const router = express.Router();
 const connection = require('../../dbconnect');
 const mysql = require('mysql');
 const jwt = require('jsonwebtoken');
+const nodeMailer = require('nodemailer');
 const cors = require('cors');
 require('dotenv').config();
 
@@ -19,7 +20,7 @@ router.get('/', checkToken, (req, res) => {
       //If error send Forbidden (403)
       res.sendStatus(403);
     } else {
-      connection.query('Select id_task as id, title_task as title, "task" as type from tasks WHERE billed_task=1', function(error, results, fields) {
+      connection.query('Select id_task as id, title_task as title, "task" as type, billed_task as billed_status, name_client, conclusion_date_task as conclusion_date from tasks LEFT JOIN clients ON tasks.ref_id_client=clients.id_client WHERE billed_task=1 OR billed_task=2', function(error, results, fields) {
         if (error) throw error;
         if (results.length > 0) {
           totalResults.tasks = results;
@@ -27,7 +28,7 @@ router.get('/', checkToken, (req, res) => {
           totalResults.tasks = []
         }
       });
-      connection.query('Select id_project as id, title_project as title, "project" as type from projects WHERE billed_project=1', function(error, results, fields) {
+      connection.query('Select id_project as id, title_project as title, "project" as type, billed_project as billed_status, name_client, conclusion_date_project as conclusion_date from projects LEFT JOIN clients ON projects.ref_id_client=clients.id_client WHERE billed_project=1 OR billed_project=2', function(error, results, fields) {
         if (error) throw error;
         totalResults.projects = results;
         if (totalResults.tasks.length > 0 || totalResults.projects.length > 0) {
@@ -48,15 +49,30 @@ router.get('/:type/:id', checkToken, (req, res) => {
       res.sendStatus(403);
     } else {
       var id = req.params.id
+      totalResults = {}
       if(req.params.type === 'task'){
-        connection.query('SELECT id_task as id, title_task as title, "task" as type, name_client, creation_date_task as creation_date, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS "total_hours", comment_billed_task as obs FROM tasks LEFT JOIN clients ON clients.id_client=tasks.ref_id_client LEFT JOIN task_hours ON task_hours.ref_id_tasks=tasks.id_task WHERE id_task=?', id, function(error, results, fields) {
+        connection.query('SELECT id_task as id, title_task as title, "task" as type, name_client, billing_name_client, conclusion_date_task as conclusion_date, avatar_user, creation_date_task as creation_date, billed_task as billed_status, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS "total_hours", comment_billed_task as obs, name_user, user_billed_task as user_billed FROM tasks LEFT JOIN clients ON clients.id_client=tasks.ref_id_client LEFT JOIN task_hours ON task_hours.ref_id_tasks=tasks.id_task LEFT JOIN users ON tasks.user_billed_task=users.id_user WHERE id_task=?', id, function(error, results, fields) {
         if (error) throw error;
-          res.send(results);
+        if (results.length > 0) { totalResults.details = results }
+        connection.query(
+          'SELECT * FROM costs WHERE ref_id_task = ?', id, function (error, results, fields) {
+            if (error) throwerror;
+            if (results.length > 0) { totalResults.costs = results }
+            res.send(totalResults)
+          }
+        );
       });
       } else {
-        connection.query('SELECT id_project as id, title_project as title, "project" as type, comment_billed_project as obs, name_client, (SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) from projects LEFT JOIN tasks ON projects.id_project=tasks.ref_id_project LEFT JOIN task_hours ON task_hours.ref_id_tasks=tasks.id_task WHERE id_project = ?) as total_hours FROM projects LEFT JOIN clients ON clients.id_client=projects.ref_id_client WHERE id_project=?', [id, id], function(error, results, fields) {
+        connection.query('SELECT id_project as id, title_project as title, "project" as type, comment_billed_project as obs, conclusion_date_project as conclusion_date, avatar_user, name_client, billing_name_client, name_user, billed_project as billed_status, user_billed_project as user_billed, (SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) from projects LEFT JOIN tasks ON projects.id_project=tasks.ref_id_project LEFT JOIN task_hours ON task_hours.ref_id_tasks=tasks.id_task WHERE id_project = ?) as total_hours FROM projects LEFT JOIN clients ON clients.id_client=projects.ref_id_client LEFT JOIN users ON projects.user_billed_project=users.id_user WHERE id_project=?', [id, id], function(error, results, fields) {
           if (error) throw error;
-            res.send(results);
+          if (results.length > 0) { totalResults.details = results }
+        connection.query(
+          'SELECT * FROM costs WHERE ref_id_task = ?', id, function (error, results, fields) {
+            if (error) throwerror;
+            if (results.length > 0) { totalResults.costs = results }
+            res.send(totalResults)
+          }
+        );
         });
       }
       
@@ -64,82 +80,38 @@ router.get('/:type/:id', checkToken, (req, res) => {
   });
 });
 
-
-
-router.get('/types', checkToken, (req, res) => {
+router.put('/', checkToken, (req, res) => {
   jwt.verify(req.token, SECRET_KEY, (err, results) => {
     if (err) {
       //If error send Forbidden (403)
       res.sendStatus(403);
     } else {
-      connection.query('Select * from task_types', function(error, results, fields) {
-        if (error) throw error;
-          res.send(results);
-      });
+      var id = req.body.id
+      var billedStatus = req.body.billed_status
+      var type = req.body.type
+      if (type === 'task') {
+        connection.query(
+          'UPDATE tasks SET billed_task=? WHERE id_task=?',
+          [billedStatus, id],
+          function(error, results, fields) {
+            if (error) throw error;
+            res.send(results);
+          }
+        );
+      }
+      else {
+        connection.query(
+          'UPDATE projects SET billed_project=? WHERE id_project=?',
+          [billedStatus, id],
+          function(error, results, fields) {
+            if (error) throw error;
+            res.send(results);
+          }
+        );
+      }
     }
   });
 });
-
-
-
-router.get('/status', checkToken, (req, res) => {
-  jwt.verify(req.token, SECRET_KEY, (err, results) => {
-    if (err) {
-      //If error send Forbidden (403)
-      res.sendStatus(403);
-    } else {
-      connection.query('Select * from user_task_status', function(error, results, fields) {
-        if (error) throw error;
-          res.send(results);
-      });
-    }
-  });
-});
-
-router.get('/internalStatus', checkToken, (req, res) => {
-  jwt.verify(req.token, SECRET_KEY, (err, results) => {
-    if (err) {
-      //If error send Forbidden (403)
-      res.sendStatus(403);
-    } else {
-      connection.query('Select * from budget_internal_status', function(error, results, fields) {
-        if (error) throw error;
-          res.send(results);
-      });
-    }
-  });
-});
-
-router.get('/externalStatus', checkToken, (req, res) => {
-  jwt.verify(req.token, SECRET_KEY, (err, results) => {
-    if (err) {
-      //If error send Forbidden (403)
-      res.sendStatus(403);
-    } else {
-      connection.query('Select * from budget_external_status', function(error, results, fields) {
-        if (error) throw error;
-          res.send(results);
-      });
-    }
-  });
-});
-
-
-
-router.get('/positions', checkToken, (req, res) => {
-  jwt.verify(req.token, SECRET_KEY, (err, results) => {
-    if (err) {
-      //If error send Forbidden (403)
-      res.sendStatus(403);
-    } else {
-      connection.query('Select * from positions', function(error, results, fields) {
-        if (error) throw error;
-          res.send(results);
-      });
-    }
-  });
-});
-
 
 router.put('/conclude', checkToken, (req, res) => {
   jwt.verify(req.token, SECRET_KEY, (err, results) => {

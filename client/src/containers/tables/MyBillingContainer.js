@@ -20,12 +20,12 @@ class MyBillingContainer extends Component {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
     var user = JSON.parse(localStorage.getItem('user'));
-    
-    axios.get(`api/billing/${this.props.activeType}/${this.props.activeItem}`, { headers: { Authorization: AuthStr } }).then(res => {
+    axios.get(`api/billing/`, { headers: { Authorization: AuthStr } }).then(res => {
       if (res.data === 'nodata') {
         this.setState({ items: null, isLoading: false });
       } else {
         var newItems = [...res.data.tasks, ...res.data.projects]
+        newItems = newItems.sort((a, b) =>  a.conclusion_date>b.conclusion_date ? 1 : a.conclusion_date<b.conclusion_date ? -1 : 0)
         this.setState({ items: newItems, isLoading: false });
       }
     });
@@ -36,11 +36,8 @@ class MyBillingContainer extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.reloadTasks !== this.props.reloadTasks) {
-      this.getTasks()
-    }
-    if(prevProps.currentTaskList !== this.props.currentTaskList){
-      this.getTasks()
+    if (prevProps.reloadItems !== this.props.reloadItems) {
+      this.getItems()
     }
   }
 

@@ -4,7 +4,9 @@ const connection = require('../../dbconnect');
 const mysql = require('mysql');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
+var moment = require('moment');
 require('dotenv').config();
+require('moment/locale/pt');
 
 router.use(cors());
 
@@ -26,6 +28,50 @@ router.get('/', checkToken, (req, res) => {
           }
         }
       );
+    }
+  });
+});
+
+
+router.get('/annual/:id', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+    } else {
+      var totalResults = [];
+      var counter = 1;
+      for (var i = 1; i < 13; i++) {
+        tVal = i;//some manipulation of someArr[i]
+         (function(val){
+           connection.query( 'SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS total_hours FROM clients LEFT JOIN tasks ON clients.id_client=tasks.ref_id_client LEFT JOIN task_hours ON task_hours.ref_id_tasks=tasks.id_task WHERE id_client=? AND MONTH(day)=?',
+           [req.params.id, i], function(err, results, fields) {
+               if ( err ) {
+                 console.log( err );
+               } else {
+                var obj = {}
+                obj.mes = moment(val, 'M').format('MMMM')
+                obj.horas = results[0].total_hours !== null ? 
+                              moment(results[0].total_hours, 'HH:mm:ss').format('HH') < 01 ?
+                                    moment(results[0].total_hours, 'HH:mm:ss').format('mm') > 01 ?
+                                      parseInt(results[0].total_hours, 10)+1 
+                                    : parseInt(results[0].total_hours, 10) 
+                                : moment(results[0].total_hours, 'HH:mm:ss').format('mm') > 30 ?
+                                parseInt(results[0].total_hours, 10)+1 
+                              : parseInt(results[0].total_hours, 10) 
+                            : 0
+                
+                totalResults.push(obj)
+               }
+               if(val === 12){
+                  sendResults(totalResults)
+              }
+           });
+         })(tVal);
+      }
+      function sendResults(results){
+        res.send(totalResults)
+      }
     }
   });
 });

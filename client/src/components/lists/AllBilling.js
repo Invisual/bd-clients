@@ -57,18 +57,19 @@ export const AllBilling = props => {
           type={'billingoptions'}
           openConcludeModal={props.openConcludeModal}
           closeConcludeModal={props.closeConcludeModal}
-          activeTask={props.activeTask}
-          taskContent={props.taskContent}
+          activeItem={props.activeTask}
+          activeType={props.activeType}
+          itemContent={props.itemContent}
           isLoading={props.isLoading}
-          deleteActiveTask={props.deleteActiveTask}
-          duplicateActiveTask={props.duplicateActiveTask}
+          billActiveItem={props.billActiveItem}
+          unBillActiveItem={props.unBillActiveItem}
         />
         <div className="grid-widget tasks-list">
           <div className="tasks-list-container">
             <MyBillingContainer
               title="Contabilidade"
               type="allbilling"
-              reloadItems={props.reloadTasks}
+              reloadItems={props.reloadItems}
               changeActiveItem={props.changeActiveItem}
               activeItem={props.activeItem}
               activeType={props.activeType}
