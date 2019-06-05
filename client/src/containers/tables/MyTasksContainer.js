@@ -60,6 +60,7 @@ class MyTasksContainer extends Component {
     else{
       url = `/api/tasks/${user.id_user}`
     }
+    console.log(url)
     axios.get(url, { headers: { Authorization: AuthStr } }).then(res => {
       if (res.data === 'nodata') {
         this.setState({ tasks: null, isLoading: false });

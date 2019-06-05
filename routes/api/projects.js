@@ -38,7 +38,7 @@ router.get('/basic', checkToken, (req, res) => {
       //If error send Forbidden (403)
       res.sendStatus(403);
     } else {
-      connection.query('Select id_project, title_project, ref_id_client, ref_id_billing_mode from projects', function(error, results, fields) {
+      connection.query('Select id_project, title_project, ref_id_client, ref_id_billing_mode from projects WHERE concluded_project = 0', function(error, results, fields) {
         if (error) throw error;
         if (results.length > 0) {
           res.send(results);

@@ -5,6 +5,7 @@ import { FiArrowRight } from 'react-icons/fi';
 
 export const MyProjects = props => {
   var content = '';
+  console.log(props.projects)
   switch (props.type) {
     case 'dashboard':
       content = (

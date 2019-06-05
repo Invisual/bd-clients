@@ -8,12 +8,12 @@ import 'sweetalert2/src/sweetalert2.scss';
 const axios = require('axios');
 const history = createBrowserHistory();
 
-class AllMeetingsContainer extends Component {
+class AllVacationsContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       activeDay: moment(new Date()).format('Y-MM-DD'),
-      meetings: [],
+      vacations: [],
       isLoading: true
     };
   }
@@ -22,20 +22,15 @@ class AllMeetingsContainer extends Component {
     this.setState({ activeDay: day });
   };
 
-  getMeetings = () => {
+  getVacations = () => {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
-
-    axios.get(`/api/meetings/`, { headers: { Authorization: AuthStr } }).then(res => {
-      if (res.data === 'nomeeting') {
-        this.setState({ meetings: null, isLoading: false });
-      } else {
+    axios.get(`/api/misc/vacations`, { headers: { Authorization: AuthStr } }).then(res => {
         this.setState({ meetings: res.data, isLoading: false });
-      }
     });
   };
 
-  deleteMeeting = id => {
+  deleteVacation = id => {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
     Swal.fire({
@@ -48,18 +43,18 @@ class AllMeetingsContainer extends Component {
       confirmButtonText: 'Sim, eliminar!',
       cancelButtonText: 'Cancelar'
     }).then(click => {
-      axios.delete(`/api/meetings/${id}`, { headers: { Authorization: AuthStr } }).then(res => {
-        Swal.fire('Reunião eliminada!', '', 'success')
-        this.getMeetings()
+      axios.delete(`/api/misc/vacations/${id}`, { headers: { Authorization: AuthStr } }).then(res => {
+        Swal.fire('Férias eliminadas!', '', 'success')
+        this.getVacations()
       });
     })
   }
 
   componentDidMount() {
-    this.getMeetings();
-    if(this.props.match.params.date){ 
+    this.getVacations();
+    if(this.props.type === 'date'){ 
       this.changeActiveDay(this.props.match.params.date) 
-      history.replace({ pathname: '/meetings' })
+      history.replace({ pathname: '/vacations' })
     }
   }
 
@@ -67,14 +62,14 @@ class AllMeetingsContainer extends Component {
     return (
       <AllMeetings
         userRole={this.props.userInfo.ref_id_role}
-        meetings={this.state.meetings}
+        vacations={this.state.vacations}
         isLoading={this.state.isLoading}
         activeDay={this.state.activeDay}
         changeActiveDay={this.changeActiveDay}
-        deleteMeeting={this.deleteMeeting}
+        deleteVacation={this.deleteVacation}
       />
     );
   }
 }
 
-export default AllMeetingsContainer;
+export default AllVacationsContainer;

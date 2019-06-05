@@ -23,6 +23,7 @@ class MyProjectsContainer extends Component {
     else{
       url = `/api/projects/${idUser.id_user}`
     }
+    console.log(url)
     axios.get(url, { headers: { Authorization: AuthStr } }).then(res => {
       if (res.data === 'nodata') {
         this.setState({ projects: null, isLoading: false });

@@ -12,6 +12,7 @@ import AllMeetingsContainer from './containers/lists/AllMeetingsContainer';
 import AllClientsContainer from './containers/lists/AllClientsContainer';
 import AllTeamContainer from './containers/lists/AllTeamContainer';
 import AllBillingContainer from './containers/lists/AllBillingContainer';
+import AllVacationsContainer from './containers/lists/AllVacationsContainer';
 import GantTasksContainer from './containers/lists/GantTasksContainer';
 import MyToDoContainer from './containers/tables/MyToDoContainer';
 import CreateProjectContainer from './containers/inserts/CreateProjectContainer';
@@ -58,6 +59,8 @@ class App extends Component {
               <Route exact path="/billing/:type/:id" render={props => <AllBillingContainer userInfo={this.props.userInfo} isShare={true} {...props} />} />
               <Route exact path="/team" render={props => <AllTeamContainer userInfo={this.props.userInfo} isShare={false} {...props} />} />
               <Route exact path="/team/:id" render={props => <AllTeamContainer userInfo={this.props.userInfo} isShare={true} {...props} />} />
+              <Route exact path="/vacations" render={props => <AllVacationsContainer type="all" {...props} />} />
+              <Route exact path="/vacations/:date" render={props => <AllVacationsContainer type="date" {...props} />} />
               <Route exact path="/gant" render={props => <GantTasksContainer userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/chat" render={props => <ChatTaskContainer userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/createproject" render={props => <CreateProjectContainer {...props} type="add" title="Novo Projeto"/>} />

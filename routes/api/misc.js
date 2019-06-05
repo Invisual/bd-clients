@@ -198,18 +198,24 @@ router.put('/conclude', checkToken, (req, res) => {
       var type = req.body.type
       var title = req.body.title
       var mode = req.body.mode
+      var user = req.body.user
+      var date = req.body.date
       var subject
       var body
+      var link
       switch (type) {
         case 'task':
           subject = 'Nova Tarefa para Faturação'
           body = `A Tarefa '${title}' foi Processada e definida como '${mode}'.`
+          link = taskId
           break;
         case 'project':
           subject = 'Novo Projeto para Faturação'
           body = `O Projeto '${title}' foi processado e definido como '${mode}'.`
+          link = projId
+          
       }
-      consttransporter = nodeMailer.createTransport({
+      const transporter = nodeMailer.createTransport({
         host: 'sv01.invisual.pt',
         port: 465,
         secure: true,
@@ -218,22 +224,22 @@ router.put('/conclude', checkToken, (req, res) => {
           pass: 'lausivni#tarefas'
         }
       });
-      constmailOptions = {
+      const mailOptions = {
         from: '"TAREFAS INVISUAL" <tarefas@invisual.pt>',
         to: 'tiago.ribeiro@invisual.pt',
         subject: `${subject}`,
         html: `
-  <h4>Tarefas - Invisual</h4>
-  <br>
-  <p>${body}</p>
-  <p>Pode visualiza-la e fatura-la <a href="http://localhost:3000/billing/${type}/${taskId}">aqui</a>.</p>
-  <br>
-  `
+          <h4>Tarefas - Invisual</h4>
+          <br>
+          <p>${body}</p>
+          <p>Pode visualiza-la e fatura-la <a href="http://localhost:3000/billing/${type}/${link}">aqui</a>.</p>
+          <br>
+          `
       };
       if (type === 'task') {
         connection.query(
-          'UPDATE tasks SET concluded_task=?, billed_task=?, comment_billed_task=? WHERE id_task=?',
-          [approval, billing, obs, taskId],
+          'UPDATE tasks SET concluded_task=?, billed_task=?, comment_billed_task=?, user_billed_task = ?, conclusion_date_task = ? WHERE id_task=?',
+          [approval, billing, obs, user, date, taskId],
           function (error, results, fields) {
             if (error) throwerror;
             if (billing === 1) {
@@ -252,8 +258,8 @@ router.put('/conclude', checkToken, (req, res) => {
       }
       else {
         connection.query(
-          'UPDATE projects SET concluded_project=?, billed_project=?, comment_billed_project=? WHERE id_project=?',
-          [approval, billing, obs, projId],
+          'UPDATE projects SET concluded_project=?, billed_project=?, comment_billed_project=?, user_billed_project = ?, conclusion_date_project = ? WHERE id_project=?',
+          [approval, billing, obs, user, date, projId],
           function (error, results, fields) {
             if (error) throwerror;
             if (billing === 1) {
@@ -262,6 +268,7 @@ router.put('/conclude', checkToken, (req, res) => {
                   console.log(error);
                   res.status(400).send({ success: false })
                 } else {
+                  console.log('entrou na query')
                   res.status(200).send({ success: true });
                 }
               });
@@ -322,6 +329,21 @@ router.put('/notifications/opened', checkToken, (req, res) => {
 
 
 
+router.get('/vacations', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    var currYear = new Date().getFullYear()
+    if (err) { res.sendStatus(403) }
+    else {
+      connection.query('SELECT * from vacations INNER JOIN users ON vacations.ref_id_user = users.id_user WHERE start_date LIKE "%?%"', currYear, function (error, results, fields) {
+        if (error) throw error;
+        res.send(results)
+      });
+    }
+  });
+});
+
+
+
 router.get('/vacations/:id', checkToken, (req, res) => {
   jwt.verify(req.token, SECRET_KEY, (err, results) => {
     if (err) { res.sendStatus(403) }
@@ -329,6 +351,21 @@ router.get('/vacations/:id', checkToken, (req, res) => {
       connection.query('SELECT * from vacations INNER JOIN users ON vacations.ref_id_user = users.id_user WHERE id_vacation = ?', req.params.id, function (error, results, fields) {
         if (error) throw error;
         res.send(results)
+      });
+    }
+  });
+});
+
+
+
+router.delete('/vacations/:id', checkToken, (req, res) => {
+  var id = req.params.id;
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) { res.sendStatus(403) }
+    else {
+      connection.query('DELETE FROM vacations WHERE id_vacation=?', id, function (error, results, fields) {
+        if (error) throw error;
+        res.send('deleted');
       });
     }
   });

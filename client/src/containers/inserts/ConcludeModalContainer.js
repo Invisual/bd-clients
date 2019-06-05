@@ -67,7 +67,7 @@ class ConcludeModalContainer extends Component{
                     text: `A Tarefa foi concluída com sucesso!`
                   })
                   .then(click => {
-                      console.log('nice')
+                      this.props.closeConcludeModal('concluded')
                   })
             }
         })
@@ -104,7 +104,7 @@ class ConcludeModalContainer extends Component{
                     text: `O projeto foi concluído com sucesso!`
                   })
                   .then(click => {
-                      console.log('nice')
+                        this.props.closeConcludeModal('concluded')
                   })
             }
         })
