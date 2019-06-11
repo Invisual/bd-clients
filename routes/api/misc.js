@@ -334,7 +334,7 @@ router.get('/vacations', checkToken, (req, res) => {
     var currYear = new Date().getFullYear()
     if (err) { res.sendStatus(403) }
     else {
-      connection.query('SELECT * from vacations INNER JOIN users ON vacations.ref_id_user = users.id_user WHERE start_date LIKE "%?%"', currYear, function (error, results, fields) {
+      connection.query('SELECT * from vacations INNER JOIN users ON vacations.ref_id_user = users.id_user INNER JOIN positions ON users.ref_id_position = positions.id_position WHERE start_date LIKE "%?%" AND management_approval = 2 ORDER BY start_date ASC', currYear, function (error, results, fields) {
         if (error) throw error;
         res.send(results)
       });
@@ -382,7 +382,6 @@ router.post('/vacations', checkToken, (req, res) => {
         [req.body.startDate, req.body.endDate, req.body.dayType, req.body.type, req.body.user, 1, 1],
         function (error, results, fields) {
           if (error) throw error;
-          console.log(results)
 
           var dayType = ''
           switch (Number(req.body.dayType)) {
@@ -411,7 +410,7 @@ router.post('/vacations', checkToken, (req, res) => {
 
           const mailOptions = {
             from: '"TAREFAS INVISUAL" <tarefas@invisual.pt>',
-            to: `contabilidade@invisual.pt`,
+            to: `eduardo.araujo@invisual.pt`,
             subject: 'Pedido de Férias para Aprovação',
             html: `
                 <h4>Tarefas - Invisual</h4>
@@ -419,12 +418,14 @@ router.post('/vacations', checkToken, (req, res) => {
                 <p>O utilizador '${req.body.nameUser}' fez um pedido de férias.</p>
                 <br>
                 <p>O dia pedido é o dia ${moment(req.body.startDate).format('ll')}, ${dayType}.</p>
-                <p>Veja aqui o estado atual das férias de todos utilizadores: <a href="http://localhost:3000/vacations">Ver Férias</a></p>
+                <p>Veja aqui o estado atual das férias de todos utilizadores: <a href="http://localhost:3000/vacations/${moment(req.body.startDate)}">Ver Férias</a></p>
                 <br>
                 <br>
                 <p>Aprove aqui: <strong><a href="http://localhost:3000/approvevacations/accounting/${results.insertId}">Aprovar</a></strong></p>
                 <br>
                 <p>Rejeite aqui: <strong><a href="http://localhost:3000/rejectvacations/accounting/${results.insertId}">Rejeitar</a></strong></p>
+                <br><br>
+                <p><strong>Invisual Branding Solutions</strong></p>
                 `
           };
 
@@ -441,6 +442,8 @@ router.post('/vacations', checkToken, (req, res) => {
             <p>Aprove aqui: <strong><a href="http://localhost:3000/approvevacations/accounting/${results.insertId}">Aprovar</a></strong></p>
             <br>
             <p>Rejeite aqui: <strong><a href="http://localhost:3000/rejectvacations/accounting/${results.insertId}">Rejeitar</a></strong></p>
+            <br><br>
+            <p><strong>Invisual Branding Solutions</strong></p>
             `
           }
 
@@ -496,7 +499,7 @@ router.put('/approvevacation/accounting', checkToken, (req, res) => {
 
             const mailOptions = {
               from: '"TAREFAS INVISUAL" <tarefas@invisual.pt>',
-              to: `nuno.carvalho@invisual.pt`,
+              to: `eduardo.araujo@invisual.pt`,
               subject: 'Pedido de Férias para Aprovação',
               html: `
                   <h4>Tarefas - Invisual</h4>
@@ -510,6 +513,8 @@ router.put('/approvevacation/accounting', checkToken, (req, res) => {
                   <p>Aprove aqui: <strong><a href="http://localhost:3000/approvevacations/management/${req.body.id}">Aprovar</a></strong></p>
                   <br>
                   <p>Rejeite aqui: <strong><a href="http://localhost:3000/rejectvacations/management/${req.body.id}">Rejeitar</a></strong></p>
+                  <br><br>
+                  <p><strong>Invisual Branding Solutions</strong></p>
                   `
             };
 
@@ -526,6 +531,8 @@ router.put('/approvevacation/accounting', checkToken, (req, res) => {
               <p>Aprove aqui: <strong><a href="http://localhost:3000/approvevacations/management/${req.body.id}">Aprovar</a></strong></p>
               <br>
               <p>Rejeite aqui: <strong><a href="http://localhost:3000/rejectvacations/management/${req.body.id}">Rejeitar</a></strong></p>
+              <br><br>
+              <p><strong>Invisual Branding Solutions</strong></p>
               `
             }
 
@@ -565,7 +572,76 @@ router.put('/approvevacation/management', checkToken, (req, res) => {
             connection.query('UPDATE users SET free_days_user = free_days_user -1 WHERE id_user = ?', req.body.idUser,
               function (error, results, fields) {
                 if (error) throw error;
+
+                const transporter = nodeMailer.createTransport({
+                  host: 'sv01.invisual.pt',
+                  port: 465,
+                  secure: true,
+                  auth: {
+                    user: 'tarefas@invisual.pt',
+                    pass: 'lausivni#tarefas'
+                  }
+                });
+    
+                const mailOptions = {
+                  from: '"TAREFAS INVISUAL" <tarefas@invisual.pt>',
+                  to: `${req.body.emailUser}`,
+                  subject: 'Pedido de Férias Aprovado !',
+                  html: `
+                      <h4>Tarefas - Invisual</h4>
+                      <br>
+                      <p>O seu pedido de férias foi aprovado pela Administração.</p>
+                      <p>Boas Férias!</p>
+                      <br><br>
+                      <p><strong>Invisual Branding Solutions</strong></p>
+                      `
+                };
+
+                transporter.sendMail(mailOptions, (error, info) => {
+                  if (error) {
+                    console.log(error);
+                    res.status(400).send({ success: false })
+                  } else {
+                    res.status(200).send({ success: true });
+                  }
+                });
+
               });
+          }
+          else if(Number(req.body.approv) === 0){
+
+            const transporter = nodeMailer.createTransport({
+              host: 'sv01.invisual.pt',
+              port: 465,
+              secure: true,
+              auth: {
+                user: 'tarefas@invisual.pt',
+                pass: 'lausivni#tarefas'
+              }
+            });
+
+            const mailOptions = {
+              from: '"TAREFAS INVISUAL" <tarefas@invisual.pt>',
+              to: `${req.body.emailUser}`,
+              subject: 'Pedido de Férias Não Aprovado !',
+              html: `
+                  <h4>Tarefas - Invisual</h4>
+                  <br>
+                  <p>Lamentamos, mas o seu pedido de férias não foi aprovado pela Administração.</p>
+                  <br><br>
+                  <p><strong>Invisual Branding Solutions</strong></p>
+                  `
+            };
+
+            transporter.sendMail(mailOptions, (error, info) => {
+              if (error) {
+                console.log(error);
+                res.status(400).send({ success: false })
+              } else {
+                res.status(200).send({ success: true });
+              }
+            });
+
           }
           res.send(results)
         });

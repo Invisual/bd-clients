@@ -94,6 +94,13 @@ export const CalendarDiv = styled.div`
         cursor:pointer;
     }
 
+    .rbc-date-cell div.has-vacation{
+        background-color: ${themeConsts.thirdBlue};
+        color: ${themeConsts.white};
+        border-radius: 50%;
+        cursor:pointer;
+    }
+
     .rbc-date-cell div.has-out-meeting{
         background-color: ${themeConsts.thirdBlue};
         cursor:pointer;

@@ -58,6 +58,7 @@ class VacationsApprovalContainer extends Component{
             approv: 2,
             idUser: this.state.vacationContent[0].id_user,
             nameUser: this.state.vacationContent[0].name_user,
+            emailUser: this.state.vacationContent[0].email_user,
             startDate: this.state.vacationContent[0].start_date,
             endDate: this.state.vacationContent[0].end_date,
             dayType: this.state.vacationContent[0].type_single_day,

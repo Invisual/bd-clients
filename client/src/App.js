@@ -40,7 +40,7 @@ class App extends Component {
         {this.props.loggedIn ? (
           <div className="app-container">
             <TopBarContainer canGoBack={this.props.canGoBack} userInfo={this.props.userInfo} notifications={this.props.notifications} setNotificationsSeen={this.props.setNotificationsSeen} setNotificationOpened={this.props.setNotificationOpened}/>
-            <SideBar logout={this.props.logout} />
+            <SideBar userInfo={this.props.userInfo} logout={this.props.logout}/>
             <MyToDoContainer title="To-do List" type="complete"/>
             <Switch>
               <Route exact path="/" render={props => <UserDashboardContainer activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} {...props} />} />
@@ -59,8 +59,8 @@ class App extends Component {
               <Route exact path="/billing/:type/:id" render={props => <AllBillingContainer userInfo={this.props.userInfo} isShare={true} {...props} />} />
               <Route exact path="/team" render={props => <AllTeamContainer userInfo={this.props.userInfo} isShare={false} {...props} />} />
               <Route exact path="/team/:id" render={props => <AllTeamContainer userInfo={this.props.userInfo} isShare={true} {...props} />} />
-              <Route exact path="/vacations" render={props => <AllVacationsContainer type="all" {...props} />} />
-              <Route exact path="/vacations/:date" render={props => <AllVacationsContainer type="date" {...props} />} />
+              <Route exact path="/vacations" render={props => <AllVacationsContainer type="all" userInfo={this.props.userInfo} {...props} />} />
+              <Route exact path="/vacations/:date" render={props => <AllVacationsContainer type="date" userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/gant" render={props => <GantTasksContainer userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/chat" render={props => <ChatTaskContainer userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/createproject" render={props => <CreateProjectContainer {...props} type="add" title="Novo Projeto"/>} />

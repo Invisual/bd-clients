@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AllMeetings } from '../../components/lists/AllMeetings';
+import { AllVacations } from '../../components/lists/AllVacations';
 import moment from 'moment';
 import { createBrowserHistory } from 'history';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -26,7 +26,7 @@ class AllVacationsContainer extends Component {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
     axios.get(`/api/misc/vacations`, { headers: { Authorization: AuthStr } }).then(res => {
-        this.setState({ meetings: res.data, isLoading: false });
+        this.setState({ vacations: res.data, isLoading: false }, () => console.log(this.state.vacations));
     });
   };
 
@@ -60,7 +60,7 @@ class AllVacationsContainer extends Component {
 
   render() {
     return (
-      <AllMeetings
+      <AllVacations
         userRole={this.props.userInfo.ref_id_role}
         vacations={this.state.vacations}
         isLoading={this.state.isLoading}
