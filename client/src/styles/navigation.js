@@ -57,7 +57,24 @@ export const SidebarDiv = styled.div`
         border-top-left-radius: ${themeConsts.borderRadius};
         border-bottom-left-radius: ${themeConsts.borderRadius};
         transition: all .4s ease;
+        overflow: hidden;
         cursor:pointer;
+
+          .submenu{
+            margin: 0 0 0 40px;
+            overflow:hidden;
+            transition: height 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+
+            .submenu-item{
+              font-size: .9em;
+              padding: 0;
+              margin: 15px 0px;
+              font-weight: 300;
+              letter-spacing: .02em;
+            }
+          }
+          .closed-submenu{ height:0; }
+          .opened-submenu{ height:100px; }
 
         svg{
           /*padding-right: 23px;*/
@@ -155,7 +172,7 @@ export const TopBarDiv = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding-right: 20px;
+    padding-right: 5px;
     
     .topbar-goback {
       position:absolute;
@@ -218,6 +235,14 @@ export const TopBarDiv = styled.div`
     }
     li:hover {
       color: #5093e1;
+    }
+
+    .topbar-notifications{
+      margin-right: 10px;
+    }
+
+    .topbar-todo svg{
+      font-size: 2.6em;
     }
 
     .topbar-search {

@@ -579,3 +579,85 @@ export const AllSingleBillingDiv = styled.div`
 
   
 `;
+
+
+
+
+export const SingleVacationDiv = styled.div`
+  padding: 0 !important;
+
+  .vacation-card-grid{
+    display:grid;
+    grid-template-columns:50% 45% 5%;
+    padding: 20px 5px 20px 14px !important;
+
+    .user-info{
+      display: flex;
+      align-items: center;
+
+      img{
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        border: 2px solid ${themeConsts.primaryBlue};
+        margin-right: 10px;
+      }
+      .user-name{
+        margin-right: 14px;
+        color: ${themeConsts.textDarkGrey};
+        font-size: 1.3em;
+      }
+      .user-position{
+        font-weight: 600;
+        text-transform: uppercase;
+        color: ${themeConsts.secondaryBlue};
+        letter-spacing: .02em;
+      }
+    }
+    
+    .vacation-info{
+      display: flex;
+      align-items: center;
+
+      span{
+        font-size: 1.3em;
+        color:${themeConsts.white};
+        padding:5px 10px;
+        background:${themeConsts.secondaryBlue};
+        border-radius:25px;
+      }
+      span.vacation-type{
+        background:${themeConsts.thirdBlue};
+        margin-left:10px;
+      }
+    }
+
+    .vacation-actions{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      svg{
+        font-size: 1.75em;
+        color: ${themeConsts.secondaryBlue};
+        margin: 9px 0;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .small-vacations-card{
+    grid-template-columns: 35% 75%;
+    padding: 10px 5px 10px 10px !important;
+
+    .user-info img{
+      width:30px;
+      height:30px;
+    }
+
+    .vacation-info span{
+        font-size: 1.2em;
+    }
+  }
+
+`;

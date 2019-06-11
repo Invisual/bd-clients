@@ -1,6 +1,6 @@
 import React from 'react'
 import { TopBarDiv } from '../../styles/navigation'
-import { FiSearch, FiMessageCircle, FiBell, FiChevronLeft, FiFolder, FiFileText, FiCalendar } from 'react-icons/fi'
+import { FiBell, FiChevronLeft, FiFolder, FiFileText, FiCalendar, FiEdit, FiLogOut } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 
@@ -11,9 +11,9 @@ export const TopBar = props => {
       
       <ul className="main-nav">
       {props.canGoBack ? <li className="topbar-goback"> <FiChevronLeft onClick={props.goBackHistory}/></li> : null}
-        <li className="topbar-search">
-          <input type="text" placeholder="Pesquisa" className={props.displaySearchInput+' searchinput'} />
-          <FiSearch onClick={props.toggleSearchInput}/>
+
+        <li className="topbar-todo" onClick={() => {document.body.classList.add('todo-open', 'modal-open')}}>
+          <span><FiEdit/></span>
         </li>
 
         <li className="topbar-notifications" id="notificationsli" onClick={() => {props.showDropdownMenu(); props.setNotificationsSeen()}}>
@@ -128,18 +128,6 @@ export const TopBar = props => {
                   </div>
                 </li>
               }
-            </ul>
-          ) : null}
-        </li>
-
-        <li className="topbar-messages" onClick={() => {props.showDropdownMenu('displayDropdownMessages')}}>
-          <div className="notification-number"><span>2</span></div>
-          <span>
-            <FiMessageCircle />
-          </span>
-          {props.displayDropdownMessages ? (
-            <ul>
-              <li>Nada</li>
             </ul>
           ) : null}
         </li>

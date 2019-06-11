@@ -7,8 +7,9 @@ export const MyMeetings = props => {
   var now = moment(new Date()).subtract(1, "days").format('Y-MM-DD');
   var nextMeetings = props.meetings ? props.meetings.filter(meeting => {
     return meeting.start > now
-  }) : props.meetings
-  
+  }) : []
+  console.log(props.meetings)
+  console.log(nextMeetings)
   switch (props.type) {
     case 'allmeetings':
       content = (
@@ -16,7 +17,7 @@ export const MyMeetings = props => {
           {props.isLoading ? 
             <img src="img/loading.svg" alt="loading" className="loading-spinner" />
           : 
-            props.nextMeetings ? (
+            nextMeetings.length > 0 ? (
               nextMeetings.map(meeting => {
                 return (
                   <SingleMeeting
