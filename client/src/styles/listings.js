@@ -1092,6 +1092,31 @@ export const ClientDetailsDiv = styled.div`
       }
     }
 
+    .client-data {
+      width: 100%;
+      height: 100%;
+      margin-top: 10px;
+      position: absolute;
+      .client-data-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .client-data-year select {
+          width: 100%;
+          border: none;
+          box-shadow: ${themeConsts.mainShadow};
+          border-radius: ${themeConsts.borderRadius};
+          padding: 10px 45px 10px 15px;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          appearance: none;
+          background: url(/img/seta-circulo.svg) 89% / 15% no-repeat #fff;
+          background-size: 20px;
+          cursor: pointer;
+        }
+      }
+    }
+
     .client-content {
       margin-right: 30px;
       padding: 20px 0 10px 0;

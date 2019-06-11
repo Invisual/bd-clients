@@ -4,8 +4,8 @@ import { Line } from 'rc-progress';
 import moment from 'moment';
 import 'moment/locale/pt';
 
-class SingleClient extends Component {
-  render() {
+class  SingleClient extends Component {
+render() {
     var content = '';
     if (this.props.monthly_hours !== '0') {
       if (this.props.total_hours === null) {

@@ -51,7 +51,7 @@ class AllClientsContainer extends Component {
         axios
           .get(`/api/clients`, { headers: { Authorization: AuthStr } })
           .then(res => {
-            this.setState({ activeClient: res.data[0].id_client });
+            this.setState({ activeClient: res.data.details[0].id_client });
           })
           .then(res => {
             axios.get(`/api/clients/details/${this.state.activeClient}`, { headers: { Authorization: AuthStr } }).then(res => {

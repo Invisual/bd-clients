@@ -21,7 +21,14 @@ class ClientsListContainer extends Component {
       if (res.data === 'nodata') {
         this.setState({ clients: null, isLoading: false });
       } else {
-        this.setState({ clients: res.data, isLoading: false });
+        var clientsData = res.data.details
+        var newClientsData = clientsData.map(client => {
+          var clientHoursObj = res.data.hours.filter(hour => hour.id_client === client.id_client)
+          client.total_hours = clientHoursObj.length > 0 ? clientHoursObj[0].total_hours : null
+          return client
+          //client.hours = clientHoursObj[0].total_hours
+        })
+        this.setState({ clients: newClientsData, isLoading: false });
       }
     });
   };

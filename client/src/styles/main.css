@@ -639,3 +639,17 @@ input[type='text'].hidesearch{
 }
 
 /*OPTIONS*/
+
+/*RECHARTS LABEL*/
+.custom-tooltip {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+}
+.custom-tooltip .label {
+  font-weight: 700
+}
+
+/*RECHARTS LABEL*/
