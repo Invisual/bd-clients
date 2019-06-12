@@ -39,7 +39,6 @@ class CreateVacationContainer extends Component{
         else{
             data.dayType = 0
         }
-        console.log(data)
         var token = JSON.parse(localStorage.getItem('token'));
         var AuthStr = 'Bearer ' + token;
         axios.post('/api/misc/vacations', data, { headers: { Authorization: AuthStr } })

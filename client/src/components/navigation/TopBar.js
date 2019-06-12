@@ -132,24 +132,22 @@ export const TopBar = props => {
           ) : null}
         </li>
 
-        <li className="topbar-avatar" onClick={() => props.showDropdownMenu('displayDropdownUser')}>
-          <span>{props.userInfo.name_user}</span>
+        <li className="topbar-avatar" onClick={() => props.showDropdownUser()}>
+          <span id="topbar-user-name">{props.userInfo.name_user}</span>
           <img
             src={props.userInfo.avatar_user}
             alt="Avatar"
             style={{ borderRadius: '50%' }}
             width="35px"
             height="35px"
+            id="topbar-user-img"
           />
           {props.displayDropdownUser ? (
-            <ul>
-              {props.messages.map(message => {
-                return (
-                  <li key={message.id} id={message.id}>
-                    {message.title}
-                  </li>
-                );
-              })}
+            <ul className="notifications-dropdown show-notifications user-dropdown">
+              <Link to={`/team/${props.userInfo.id_user}`}><li id="topbar-user-link1">Ver Utilizador</li></Link>
+              <Link to="/createvacations"><li id="topbar-user-link2">Pedir Férias</li></Link>
+              <Link to="/createtrip"><li id="topbar-user-link3">Inserir Deslocação</li></Link>
+              <li id="topbar-user-link4" onClick={props.logout}>Terminar Sessão</li>
             </ul>
           ) : null}
         </li>

@@ -1554,3 +1554,147 @@ export const ClientDetailsDiv = styled.div`
     }
   }
 `;
+
+
+export const AllTripsDiv = styled.div`
+    width: 86%;
+    min-height: 100vh;
+    background-color: #f7f7f7;
+    overflow-y: scroll;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    margin-top: 45px;
+
+    .trips-container{
+      width:92%;
+      margin: 40px auto 0 auto;
+      padding: 0;
+      min-height: 500px;
+
+      .row-title{
+        border-bottom: 1px solid #e6e6e6;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        
+        .trips-actions{
+          svg{
+            color: #7f9aff;
+            font-size: 2em;
+          }
+        }
+      }
+
+      .trips-row{
+        padding: 20px 22px 15px 22px;
+        margin: 0;
+
+        .single-trip{
+          padding: 10px 20px;
+
+          .trip-grid{
+            display:grid;
+            grid-template-columns: 10% 85% 5%;
+
+            .trip-user{
+              display:flex;
+              align-items:center;
+
+              img{
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                border: 2px solid #0036ff;
+                margin-right: 10px;
+              }
+            }
+
+            .trip-info{
+
+              h4{
+                margin:0;
+                color:${themeConsts.primaryBlue};
+                font-size:1.1em;
+                font-weight:600;
+                margin-top: 8px;
+
+                span{
+                  margin-left: 20px;
+                  color:${themeConsts.textDarkGrey};
+                }
+              }
+
+              p{
+                color:${themeConsts.textLightGrey};
+                font-size: 1.4em;
+                margin-top: 10px;
+                margin-bottom: 20px;
+              }
+
+              .trip-meta{
+                margin-bottom: 10px;
+
+                .trip-date{
+                  font-size: 1.2em;
+                  color: #ffffff;
+                  padding: 5px 10px;
+                  background: ${themeConsts.secondaryBlue};
+                  border-radius: 25px;
+                }
+                .trip-kms{
+                  margin-left:15px;
+                  font-size: 1.1em;
+                  color:${themeConsts.secondaryBlue};
+                }
+              }
+              
+            }
+
+            .trip-actions{
+              display:flex;
+              align-items:center;
+              justify-content:center;
+              flex-direction:column;
+
+              svg{
+                font-size: 1.75em;
+                color: #7f9aff;
+                margin: 9px 0;
+                cursor: pointer;
+              }
+            }
+          }
+        }
+      }
+      
+      .trips-container-grid{
+        display:grid;
+        grid-template-columns: 60% 40%;
+
+        .trips-content{
+          border-right: 1px solid #e6e6e6;
+          height: 79vh;
+          overflow-y: scroll;
+        }
+
+        .car-mileage{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align:center;
+
+          p{
+            font-size: 2em;
+            color:${themeConsts.textLightGrey};
+          }
+
+          span{
+            font-size: 2.5em;
+            font-weight: 600;
+            color:${themeConsts.secondaryBlue};
+          }
+        }
+      }
+
+    }
+`;

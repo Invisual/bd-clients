@@ -18,7 +18,6 @@ class SingleMeeting extends Component {
     
     render() {
         var user = JSON.parse(localStorage.getItem('user'));
-        console.log(user)
         if(this.props.type === 'large'){
             return (
                 <AllMeetingsDiv className={`single-card`}>

@@ -650,4 +650,101 @@ router.put('/approvevacation/management', checkToken, (req, res) => {
 })
 
 
+
+router.get('/vehicles', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    var currYear = new Date().getFullYear()
+    if (err) { res.sendStatus(403) }
+    else {
+      connection.query('SELECT * from vehicles WHERE inactive = 0', function (error, results, fields) {
+        if (error) throw error;
+        res.send(results)
+      });
+    }
+  });
+});
+
+
+router.get('/trips', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    var currYear = new Date().getFullYear()
+    if (err) { res.sendStatus(403) }
+    else {
+      connection.query('SELECT * from trips INNER JOIN vehicles ON trips.ref_id_vehicle = vehicles.id_vehicle INNER JOIN users ON trips.ref_id_user = users.id_user ORDER BY date_trip ASC', function (error, results, fields) {
+        if (error) throw error;
+        if (results.length > 0) {
+          res.send(results);
+        } else {
+          res.send('notrips');
+        }
+      });
+    }
+  });
+});
+
+
+router.get('/trips/:id', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    var currYear = new Date().getFullYear()
+    if (err) { res.sendStatus(403) }
+    else {
+      connection.query('SELECT * from trips WHERE id_trip = ?', req.params.id, function (error, results, fields) {
+        if (error) throw error;
+        if (results.length > 0) {
+          res.send(results);
+        } else {
+          res.send('notrip');
+        }
+      });
+    }
+  });
+});
+
+
+router.post('/trips', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) { res.sendStatus(403) }
+    else {
+      var kmsDifference = req.body.endKms-req.body.startKms
+      connection.query('INSERT INTO trips (start_hour, end_hour, start_kms, end_kms, kms_trip, description_trip, date_trip, ref_id_vehicle, ref_id_user) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        [req.body.startHour, req.body.endHour, req.body.startKms, req.body.endKms,  Math.round(kmsDifference * 100) / 100, req.body.description, req.body.date, req.body.vehicle, req.body.user],
+        function (error, results, fields) {
+          if (error) throw error
+          res.send(results)
+      });
+    }
+  });
+})
+
+
+router.put('/trips', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) { res.sendStatus(403) }
+    else {
+      var kmsDifference = req.body.endKms-req.body.startKms
+      connection.query('UPDATE trips SET start_hour = ?, end_hour = ?, start_kms = ?, end_kms = ?, kms_trip = ?, description_trip = ?, date_trip = ?, ref_id_vehicle = ? WHERE id_trip = ?',
+        [req.body.startHour, req.body.endHour, req.body.startKms, req.body.endKms, Math.round(kmsDifference * 100) / 100, req.body.description, req.body.date, req.body.vehicle, req.body.idTrip],
+        function (error, results, fields) {
+          if (error) throw error
+          res.send(results)
+      });
+    }
+  });
+})
+
+
+
+router.delete('/trips/:id', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) { res.sendStatus(403) }
+    else {
+      connection.query('DELETE FROM trips WHERE id_trip=?', req.params.id, function (error, results, fields) {
+        if (error) throw error;
+        res.send('deleted');
+      });
+    }
+  });
+});
+
+
 module.exports = router;

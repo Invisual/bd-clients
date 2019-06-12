@@ -25,7 +25,7 @@ export const InsertFormDiv = styled.div`
       border-bottom: 1px solid ${themeConsts.bordersGrey};
     }
 
-    .form-grid {
+    .form-grid:nth-child(1){
       margin-top: 50px;
     }
 

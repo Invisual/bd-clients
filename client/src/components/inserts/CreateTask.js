@@ -115,10 +115,22 @@ export const CreateTask = props => {
 
                             <div className="innergrid-item">
                                 <div className="input-wrapper">
+                                    {props.typeInput === '3' ?
                                     <fieldset>
                                         <legend>Deadline</legend>
                                         <DatePicker id="task-deadline" onChange={props.changeDeadlineInput} format="y-MM-dd" locale="pt-PT" value={new Date(props.deadlineInput)} calendarIcon={<FiCalendar/>}/>
                                     </fieldset>
+                                    :
+                                    <fieldset>
+                                        <legend>Pessoa</legend>
+                                        <select id="task-user" onChange={props.changePersonInput} defaultValue={props.type === 'edit' ? props.personInput : '0'}>
+                                            <option value="0" disabled>Selecionar</option>
+                                            {props.usersData.map(user => {
+                                                return <option key={user.id_user} value={user.id_user}>{user.name_user}</option>
+                                            })}
+                                        </select>
+                                    </fieldset>
+                                    }
                                 </div>
                             </div>
 
@@ -152,13 +164,8 @@ export const CreateTask = props => {
                             <div className="innergrid-item">
                                 <div className="input-wrapper">
                                     <fieldset>
-                                        <legend>Pessoa</legend>
-                                        <select id="task-user" onChange={props.changePersonInput} defaultValue={props.type === 'edit' ? props.personInput : '0'}>
-                                            <option value="0" disabled>Selecionar</option>
-                                            {props.usersData.map(user => {
-                                                return <option key={user.id_user} value={user.id_user}>{user.name_user}</option>
-                                            })}
-                                        </select>
+                                        <legend>Data de Início</legend>
+                                        <DatePicker id="task-startinddate" onChange={props.changeStartDateInput} format="y-MM-dd" locale="pt-PT" value={new Date(props.startDateInput)} calendarIcon={<FiCalendar/>}/>
                                     </fieldset>
                                 </div>
                             </div>
@@ -166,8 +173,8 @@ export const CreateTask = props => {
                             <div className="innergrid-item">
                                 <div className="input-wrapper">
                                     <fieldset>
-                                        <legend>Data de Início</legend>
-                                        <DatePicker id="task-startinddate" onChange={props.changeStartDateInput} format="y-MM-dd" locale="pt-PT" value={new Date(props.startDateInput)} calendarIcon={<FiCalendar/>}/>
+                                        <legend>Deadline</legend>
+                                        <DatePicker id="task-deadline" onChange={props.changeDeadlineInput} format="y-MM-dd" locale="pt-PT" value={new Date(props.deadlineInput)} calendarIcon={<FiCalendar/>}/>
                                     </fieldset>
                                 </div>
                             </div>
