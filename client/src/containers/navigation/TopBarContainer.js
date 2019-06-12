@@ -20,8 +20,17 @@ class TopBarContainer extends Component {
     this.setState({displayDropdownNotifications: !this.state.displayDropdownNotifications})
   }
 
+  showDropdownUser = () => {
+    this.setState({displayDropdownUser: !this.state.displayDropdownUser})
+  }
+
   hideDropdownMenu = (e) => {
-    if(this._isMounted && e.target.id !== 'notificationsli' && e.target.id !== 'notificationsicon' && e.target.id !== 'notificationsnumber' && e.target.classList[0] !== 'notification' && e.target.classList[0] !== 'notificationlink'){
+    if(this._isMounted && e.target.id !== 'notificationsli' && e.target.id !== 'notificationsicon' 
+      && e.target.id !== 'notificationsnumber' && e.target.classList[0] !== 'notification' 
+      && e.target.classList[0] !== 'notificationlink' && e.target.id !== 'topbar-user-name'
+      && e.target.id !== 'topbar-user-img' && e.target.id !== 'topbar-user-link1'
+      && e.target.id !== 'topbar-user-link2' && e.target.id !== 'topbar-user-link3'
+      && e.target.id !== 'topbar-user-link4'){
       this.setState({
         displayDropdownMessages: false,
         displayDropdownNotifications: false,
@@ -57,6 +66,7 @@ class TopBarContainer extends Component {
     return (
       <TopBar 
         showDropdownMenu={this.showDropdownMenu}
+        showDropdownUser={this.showDropdownUser}
         hideDropdownMenu={this.hideDropdownMenu}
         displayDropdownMessages={this.state.displayDropdownMessages}
         displayDropdownNotifications={this.state.displayDropdownNotifications}
@@ -69,6 +79,7 @@ class TopBarContainer extends Component {
         goBackHistory={this.goBackHistory}
         setNotificationsSeen={this.props.setNotificationsSeen}
         setNotificationOpened={this.props.setNotificationOpened}
+        logout={this.props.logout}
       />
     );
   }

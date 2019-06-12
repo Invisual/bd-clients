@@ -13,6 +13,7 @@ import AllClientsContainer from './containers/lists/AllClientsContainer';
 import AllTeamContainer from './containers/lists/AllTeamContainer';
 import AllBillingContainer from './containers/lists/AllBillingContainer';
 import AllVacationsContainer from './containers/lists/AllVacationsContainer';
+import AllTripsContainer from './containers/lists/AllTripsContainer';
 import GantTasksContainer from './containers/lists/GantTasksContainer';
 import MyToDoContainer from './containers/tables/MyToDoContainer';
 import CreateProjectContainer from './containers/inserts/CreateProjectContainer';
@@ -23,6 +24,7 @@ import CreateClientContainer from './containers/inserts/CreateClientContainer';
 import CreateUserContainer from './containers/inserts/CreateUserContainer';
 import CreateClientInfoContainer from './containers/inserts/CreateClientInfoContainer';
 import CreateVacationContainer from './containers/inserts/CreateVacationContainer';
+import CreateTripContainer from './containers/inserts/CreateTripContainer';
 import ChatTaskContainer from './containers/chat/ChatTaskContainer';
 import VacationsApprovalContainer from './containers/approvals/VacationsApprovalContainer';
 import VacationsRejectContainer from './containers/approvals/VacationsRejectContainer';
@@ -39,16 +41,20 @@ class App extends Component {
       <>
         {this.props.loggedIn ? (
           <div className="app-container">
-            <TopBarContainer canGoBack={this.props.canGoBack} userInfo={this.props.userInfo} notifications={this.props.notifications} setNotificationsSeen={this.props.setNotificationsSeen} setNotificationOpened={this.props.setNotificationOpened}/>
+            <TopBarContainer canGoBack={this.props.canGoBack} userInfo={this.props.userInfo} notifications={this.props.notifications} setNotificationsSeen={this.props.setNotificationsSeen} setNotificationOpened={this.props.setNotificationOpened} logout={this.props.logout}/>
             <SideBar userInfo={this.props.userInfo} logout={this.props.logout}/>
             <MyToDoContainer title="To-do List" type="complete"/>
             <Switch>
               <Route exact path="/" render={props => <UserDashboardContainer activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} {...props} />} />
-              <Route exact path="/tasks" render={props => <AllTasksContainer isShare={false} userInfo={this.props.userInfo} {...props} activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} activeBudgetHours={this.props.activeBudgetHours} getActiveBudgetHours={this.props.getActiveBudgetHours}/>} />
+              <Route key="all-tasks" exact path="/tasks" render={ props => <AllTasksContainer isShare={false} userInfo={this.props.userInfo} {...props} activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} activeBudgetHours={this.props.activeBudgetHours} getActiveBudgetHours={this.props.getActiveBudgetHours}/> } />
+              <Route key="concluded-tasks" exact path="/concludedtasks" render={ props => <AllTasksContainer isShare={false} concluded={true} userInfo={this.props.userInfo} {...props} activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} activeBudgetHours={this.props.activeBudgetHours} getActiveBudgetHours={this.props.getActiveBudgetHours}/> } />
+              <Route key="concluded-tasks" exact path="/concludedtasks/:id" render={ props =><AllTasksContainer isShare={true} concluded={true} userInfo={this.props.userInfo} {...props} activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} activeBudgetHours={this.props.activeBudgetHours} getActiveBudgetHours={this.props.getActiveBudgetHours}/> } />
               <Route exact path="/tasks/:id" render={props => <AllTasksContainer isShare={true} userInfo={this.props.userInfo} {...props}  activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} activeBudgetHours={this.props.activeBudgetHours} getActiveBudgetHours={this.props.getActiveBudgetHours}/>} />
               <Route exact path="/budgets" render={props => <AllBudgetsContainer isShare={false} userInfo={this.props.userInfo} {...props}  activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} activeBudgetHours={this.props.activeBudgetHours} getActiveBudgetHours={this.props.getActiveBudgetHours}/>} />
               <Route exact path="/budgets/:id" render={props => <AllBudgetsContainer isShare={true} userInfo={this.props.userInfo} {...props} activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} activeBudgetHours={this.props.activeBudgetHours} getActiveBudgetHours={this.props.getActiveBudgetHours}/>} />
-              <Route exact path="/projects" render={props => <AllProjectsContainer isShare={false} userInfo={this.props.userInfo} {...props} />} />
+              <Route key="all-projects" exact path="/projects" render={ props => <AllProjectsContainer isShare={false} userInfo={this.props.userInfo} {...props}/> } />
+              <Route key="concluded-projects" exact path="/concludedprojects" render={ props=> <AllProjectsContainer isShare={false} concluded={true} userInfo={this.props.userInfo} {...props}/> } />
+              <Route key="concluded-projects" exact path="/concludedprojects/:id" render={ props => <AllProjectsContainer isShare={false} concluded={true} userInfo={this.props.userInfo} {...props}/> } />
               <Route exact path="/projects/:id" render={props => <AllProjectsContainer isShare={true} userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/meetings" render={props => <AllMeetingsContainer userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/meetings/:date" render={props => <AllMeetingsContainer userInfo={this.props.userInfo} {...props} />} />
@@ -61,6 +67,7 @@ class App extends Component {
               <Route exact path="/team/:id" render={props => <AllTeamContainer userInfo={this.props.userInfo} isShare={true} {...props} />} />
               <Route exact path="/vacations" render={props => <AllVacationsContainer type="all" userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/vacations/:date" render={props => <AllVacationsContainer type="date" userInfo={this.props.userInfo} {...props} />} />
+              <Route exact path="/trips" render={props => <AllTripsContainer userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/gant" render={props => <GantTasksContainer userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/chat" render={props => <ChatTaskContainer userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/createproject" render={props => <CreateProjectContainer {...props} type="add" title="Novo Projeto"/>} />
@@ -77,6 +84,8 @@ class App extends Component {
               <Route exact path="/createuser" render={props => <CreateUserContainer {...props} type="add" title="Novo Utilizador"/>} />
               <Route path="/createuser/:id" render={props => <CreateUserContainer {...props} type="edit" title="Editar Utilizador"/>} />
               <Route exact path="/createvacations" render={props => <CreateVacationContainer {...props} type="add" title="Pedir Férias"/>} />
+              <Route exact path="/createtrip" render={props => <CreateTripContainer {...props} type="add" title="Adicionar Deslocação"/>} />
+              <Route exact path="/createtrip/:id" render={props => <CreateTripContainer {...props} type="edit" title="Editar Deslocação"/>} />
               <Route exact path="/approvevacations/:type/:id" render={props => <VacationsApprovalContainer {...props} />} />
               <Route exact path="/rejectvacations/:type/:id" render={props => <VacationsRejectContainer {...props} />} />
             </Switch>

@@ -41,6 +41,8 @@ export const SidebarDiv = styled.div`
       margin:0 auto;
 
       .is-active{
+        background-color: ${themeConsts.activeBlue};
+          box-shadow: ${themeConsts.activeShadow};
         li{
           background-color: ${themeConsts.activeBlue};
           box-shadow: ${themeConsts.activeShadow};
@@ -75,6 +77,7 @@ export const SidebarDiv = styled.div`
           }
           .closed-submenu{ height:0; }
           .opened-submenu{ height:100px; }
+          .opened-submenu.company-submenu{ height:170px; }
 
         svg{
           /*padding-right: 23px;*/
@@ -91,6 +94,10 @@ export const SidebarDiv = styled.div`
   }
 
   .sidebar-toggle {
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    right: 0;
     text-align: center;
 
       .switch {

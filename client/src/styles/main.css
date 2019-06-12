@@ -334,6 +334,10 @@ body.collapsed-sidebar .topbar-goback {
   background-image:url('/img/todo.svg');
 }
 
+.no-trips{
+  background-image:url('/img/boat.svg');
+}
+
 .no-content-dash .empty-placeholder{
   position: absolute;
   bottom: -20px;
@@ -346,6 +350,14 @@ body.collapsed-sidebar .topbar-goback {
 .no-todos-dash .empty-placeholder{
   min-width: 200px;
   bottom: -35px;
+}
+
+.no-trips .empty-placeholder{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
 }
 
 .nodisplay {
