@@ -22,7 +22,7 @@ export const ConcludeModal = props => {
                                     </fieldset>
                 </div>
                 { props.type === 'task' ?
-                    Number(props.taskContent.details[0].ref_id_billing_mode) == 2 || Number(props.taskContent.details[0].ref_id_billing_mode) == 4 ?
+                    Number(props.taskContent.details[0].ref_id_billing_mode) === 2 || Number(props.taskContent.details[0].ref_id_billing_mode) === 4 ?
                         <div className="inputwrapper">
                             <fieldset>
                                 <legend>Enviar para Faturação</legend>

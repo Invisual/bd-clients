@@ -38,7 +38,7 @@ export const AllTasks = props => {
       }
       <div className="widgets-grid widget cards-container nofixed-height">
         <div className="grid-widget tasks-title">
-          <h4 className="widget-title">Tarefas</h4>
+          <h4 className="widget-title">{props.concluded? 'Tarefas concluídas' : 'Tarefas'}</h4>
           <div className="tooltip-container tasks-search">
             <input type="text" placeholder="Pesquisa" className={props.displaySearchInput+ ' searchinput'} onChange={props.changeSearchQuery}/>
             <FiSearch onClick={props.toggleSearchInput}/>
@@ -46,16 +46,19 @@ export const AllTasks = props => {
           </div>
           {props.userRole === 3 || props.userRole === 2 ? (
             <>
-            <div className="tooltip-container">
-              <Link to="/createtask">
-                <FiFilePlus />
-                <span className="tooltip">Adicionar Tarefa</span>
-              </Link>
-            </div>
-            <div className="tooltip-container">
-                <FiUserCheck className={props.currentTaskList === 'all' ? 'task-view-icon' : 'task-view-icon icon-selected'} onClick={props.changeCurrentTaskList}/>
-                <span className="tooltip">{props.currentTaskList === 'all' ? 'Ver as minhas Tarefas' : 'Ver todas as Tarefas'}</span>
-            </div>
+            {props.concluded? null : 
+            <>
+              <div className="tooltip-container">
+                <Link to="/createtask">
+                  <FiFilePlus />
+                  <span className="tooltip">Adicionar Tarefa</span>
+                </Link>
+              </div>
+              <div className="tooltip-container">
+                  <FiUserCheck className={props.currentTaskList === 'all' ? 'task-view-icon' : 'task-view-icon icon-selected'} onClick={props.changeCurrentTaskList}/>
+                  <span className="tooltip">{props.currentTaskList === 'all' ? 'Ver as minhas Tarefas' : 'Ver todas as Tarefas'}</span>
+              </div>
+            </>}
             <div className="tooltip-container filter-with-notification">
               {props.getNumberOfActiveFilters() > 0 ? <div className="notification"><span>{props.getNumberOfActiveFilters()}</span></div> : null}
               <FiFilter className={props.filtersAreActive ? 'task-filters-icon icon-selected' : 'task-filters-icon'} onClick={props.changeFiltersAreActive}/>
@@ -76,6 +79,7 @@ export const AllTasks = props => {
         <OptionsContainer
           userRole={props.userRole}
           type={'taskoptions'}
+          concluded={props.concluded}
           openConcludeModal={props.openConcludeModal}
           closeConcludeModal={props.closeConcludeModal}
           activeTask={props.activeTask}
@@ -83,12 +87,14 @@ export const AllTasks = props => {
           isLoading={props.isLoading}
           deleteActiveTask={props.deleteActiveTask}
           duplicateActiveTask={props.duplicateActiveTask}
+          undoActiveTask={props.undoActiveTask}
         />
         <div className="grid-widget tasks-list">
           <div className="tasks-list-container">
             <MyTasksContainer
               title="Tarefas"
               type="alltasks"
+              concluded={props.concluded}
               reloadTasks={props.reloadTasks}
               changeActiveTask={props.changeActiveTask}
               activeTask={props.activeTask}

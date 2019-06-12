@@ -130,7 +130,13 @@ class AllTasksContainer extends Component {
       });
     } else {
       if (this.props.isShare) {
-        history.replace({ pathname: '/tasks' });
+
+        if(this.props.concluded){
+          this.props.history.push('/concludedtasks')
+        } else {
+          this.props.history.push('/tasks')
+        }
+        
         axios
           .get(`/api/tasks/link/${params.id}`, { headers: { Authorization: AuthStr } })
           .then(res => {
@@ -155,7 +161,11 @@ class AllTasksContainer extends Component {
             });
           });
       } else {
-        var url = this.props.userInfo.ref_id_role === 3 || this.props.userInfo.ref_id_role === 2 ? `/api/tasks/all` : `/api/tasks/${idUser.id_user}`
+        if(this.props.concluded){
+          var url = '/api/tasks/concluded'
+        } else {
+          var url = this.props.userInfo.ref_id_role === 3 || this.props.userInfo.ref_id_role === 2 ? `/api/tasks/all` : `/api/tasks/${idUser.id_user}`
+        }
         axios
           .get(url, { headers: { Authorization: AuthStr } })
           .then(res => {
@@ -196,6 +206,31 @@ class AllTasksContainer extends Component {
       type: 'success',
       title: 'Link copiado com sucesso!'
     });
+  };
+
+  undoActiveTask = (taskId) => {
+    var token = JSON.parse(localStorage.getItem('token'));
+    var AuthStr = 'Bearer ' + token;
+    Swal.fire({
+    title: 'Marcar Tarefa como "Não concluída"',
+    text: 'Tem a certeza?',
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sim, marcar!',
+    cancelButtonText: 'Cancelar'
+    }).then(result => {
+    if (result.value) {
+      Swal.fire('Marcado', '', 'success').then(result => {
+        if (result.value) {
+          axios
+            .put(`/api/tasks/undo`, {id:taskId}, { headers: { Authorization: AuthStr } })
+            .then(this.setState({ activeTask: '', reloadTasks: true }));
+        }
+      });
+    }
+  });
   };
 
   deleteActiveTask = taskId => {
@@ -394,6 +429,8 @@ class AllTasksContainer extends Component {
         isConcludeModalOpen={this.state.concludeModalOpen}
         concludeModalType={this.state.concludeModalType}
         getTaskDetails={this.getTaskDetails}
+        concluded={this.props.concluded}
+        undoActiveTask={this.undoActiveTask}
       />
     );
   }

@@ -6,7 +6,7 @@ import BillingDetailContainer from '../../containers/details/BillingDetailContai
 import OptionsContainer from '../../containers/options/OptionsContainer';
 import TaskFilters from '../options/TaskFilters';
 import {FiFilter, FiSearch } from 'react-icons/fi';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 export const AllBilling = props => {
   if (props.redirect) {
     return <Redirect to="/" />;

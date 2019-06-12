@@ -98,12 +98,13 @@ export const MyTasks = props => {
                     type={'alltasks'}
                     startCountingHours={props.startCountingHours}
                     stopCountingHours={props.stopCountingHours}
+                    concluded={props.concluded}
                   />
                 );
               })
             ) : (
               <div>
-                <div className="empty-placeholder">Ainda não tem nenhuma tarefa atribuida.</div>
+                <div className="empty-placeholder">{props.concluded? 'Sem tarefas concluídas' : 'Ainda não tem nenhuma tarefa atribuída'}</div>
               </div>
             )}
           </div>

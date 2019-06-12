@@ -231,6 +231,49 @@ router.get('/all', checkToken, (req, res) => {
   });
 });
 
+router.get('/concluded', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+    } else {
+      connection.query(
+        'SELECT id_task, ref_id_user_task_status, title_task, user_task_status.name_user_task_status, starting_date_task, deadline_date_task, projects.ref_id_user_account, tasks.ref_id_client, ref_id_type_task, tasks.ref_id_billing_mode, ref_id_project, users_has_tasks.order, users_has_tasks.ref_id_user from tasks LEFT JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task LEFT JOIN task_types on task_types.id_task_type=tasks.ref_id_type_task LEFT JOIN aproval_task_status ON aproval_task_status.id_aproval_task_status=tasks.ref_id_aproval_task_status LEFT JOIN user_task_status ON user_task_status.id_user_task_status=users_has_tasks.ref_id_user_task_status LEFT JOIN projects ON tasks.ref_id_project=projects.id_project LEFT JOIN billing_modes ON billing_modes.id_billing_mode=tasks.ref_id_billing_mode WHERE tasks.concluded_task=2 AND (concluded_project = 2 OR concluded_project IS NULL) ORDER by users_has_tasks.order DESC, tasks.id_task ASC',
+        function (error, results, fields) {
+          if (error) throw error;
+          if (results.length > 0) {
+            res.send(results);
+          } else {
+            res.send('nodata');
+          }
+        }
+      );
+    }
+  });
+});
+
+router.put('/undo', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+    } else {
+      console.log(req.body)
+      connection.query(
+        'UPDATE tasks SET concluded_task=0, billed_task=NULL, comment_billed_task=NULL, user_billed_task = NULL, conclusion_date_task = NULL WHERE id_task=?', req.body.id,
+        function (error, results, fields) {
+          if (error) throw error;
+          if (results.length > 0) {
+            res.send(results);
+          } else {
+            res.send('nodata');
+          }
+        }
+      );
+    }
+  });
+});
+
 
 router.get('/:user', checkToken, (req, res) => {
   var id = req.params.user;

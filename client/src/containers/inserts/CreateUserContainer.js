@@ -144,7 +144,7 @@ class CreateUserContainer extends Component{
             }
             else{
                 this.setState({error: false, errorMsg: ''})
-                var data = {
+                 data = {
                     name: this.state.nameInput,
                     username: this.state.usernameInput,
                     password: this.state.passwordInput,
@@ -154,8 +154,8 @@ class CreateUserContainer extends Component{
                     avatar: this.state.avatarInput,
                     changePassword:true
                 }      
-                var token = JSON.parse(localStorage.getItem('token'));
-                var AuthStr = 'Bearer ' + token;
+                 token = JSON.parse(localStorage.getItem('token'));
+                 AuthStr = 'Bearer ' + token;
                 axios.put(`/api/users/${this.state.userData.id_user}`, data, { headers: { Authorization: AuthStr } })
                 .then(res => {
                     if(res.data.affectedRows){

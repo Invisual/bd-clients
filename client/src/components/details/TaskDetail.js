@@ -15,7 +15,6 @@ import {
   FiAlertTriangle,
   FiSend,
   FiFileText,
-  FiMoreHorizontal,
   FiArrowRight
 } from 'react-icons/fi';
 

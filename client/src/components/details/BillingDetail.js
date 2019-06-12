@@ -7,8 +7,6 @@ import { Circle } from 'rc-progress'
 import {
   FiClock,
   FiUser,
-  FiPlus,
-  FiAlertTriangle,
   FiUsers,
   FiFileText,
   FiMoreHorizontal,

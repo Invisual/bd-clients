@@ -119,8 +119,13 @@ class AllProjectsContainer extends Component {
       });
     } else {
       if (this.props.isShare) {
-        history.replace({pathname:'/projects'}
-        )
+
+        if(this.props.concluded){
+          this.props.history.push('/concludedprojects')
+        } else {
+          this.props.history.push('/projects')
+        }
+
         axios
           .get(`/api/projects/details/${params.id}`, { headers: { Authorization: AuthStr } })
           .then(res => {
@@ -138,8 +143,11 @@ class AllProjectsContainer extends Component {
               });
           });
       } else {
-
-        var url = this.props.userInfo.ref_id_role === 3 || this.props.userInfo.ref_id_role === 2 ? `/api/projects` : `/api/projects/${idUser.id_user}`
+        if(this.props.concluded){
+          var url = '/api/projects/concluded'
+        } else {
+          var url = this.props.userInfo.ref_id_role === 3 || this.props.userInfo.ref_id_role === 2 ? `/api/projects` : `/api/projects/${idUser.id_user}`
+        }
         axios
           .get(url, { headers: { Authorization: AuthStr } })
           .then(res => {
@@ -197,6 +205,31 @@ class AllProjectsContainer extends Component {
       title: 'Link copiado com sucesso!'
     })
   }
+
+  undoActiveProject = (projId) => {
+    var token = JSON.parse(localStorage.getItem('token'));
+    var AuthStr = 'Bearer ' + token;
+    Swal.fire({
+    title: 'Marcar Projeto como "Não concluído"',
+    text: 'Tem a certeza?',
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sim, marcar!',
+    cancelButtonText: 'Cancelar'
+    }).then(result => {
+    if (result.value) {
+      Swal.fire('Marcado', '', 'success').then(result => {
+        if (result.value) {
+          axios
+            .put(`/api/projects/undo`, { id: projId }, { headers: { Authorization: AuthStr } })
+            .then(this.setState({ reloadProjects: true }));
+        }
+      });
+    }
+  });
+  };
 
   deleteActiveProject = projectId => {
     var token = JSON.parse(localStorage.getItem('token'));
@@ -364,6 +397,8 @@ class AllProjectsContainer extends Component {
         isConcludeModalOpen={this.state.concludeModalOpen}
         concludeModalType={this.state.concludeModalType}
         getProjectDetails={this.getProjectDetails}
+        concluded={this.props.concluded}
+        undoActiveProject={this.undoActiveProject}
       />
     );
   }

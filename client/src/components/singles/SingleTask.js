@@ -54,12 +54,26 @@ class SingleTask extends Component {
               <FiLink2 />
             </CopyToClipboard><span className="tooltip">Copiar Link</span></div>
           </div>
-          <div className="task-watch">
-          <div className="tooltip-container"><FiClock onClick={this.props.hourState === 1 ? () => this.props.stopCountingHours(this.props.hourId, this.props.title) : () => this.props.startCountingHours(this.props.id, this.props.title)} className={this.props.hourState === 1 ? 'active-clock' : 'inactive-clock'} />
-          <span className="tooltip">{this.props.hourState === 1 ? "Parar contagem de horas" : "Iniciar contagem de horas"}</span></div></div>
-          <div className="task-state" onClick={() => this.props.changeTaskStatus(this.props.id, this.props.stateVal, this.props.projectState, this.props.account)}>
-          <span>{this.props.stateTitle}</span>
+          {this.props.concluded ? 
+          <>
+          <div className="task-watch"></div>
+          <div className="task-state">
+            <span>{this.props.stateTitle}</span>
           </div>
+          </>
+          :
+          <>
+            <div className="task-watch">
+              <div className="tooltip-container">
+                <FiClock onClick={this.props.hourState === 1 ? () => this.props.stopCountingHours(this.props.hourId, this.props.title) : () => this.props.startCountingHours(this.props.id, this.props.title)} className={this.props.hourState === 1 ? 'active-clock' : 'inactive-clock'} />
+              <span className="tooltip">{this.props.hourState === 1 ? "Parar contagem de horas" : "Iniciar contagem de horas"}</span>
+              </div>
+            </div>
+            <div className="task-state" onClick={() => this.props.changeTaskStatus(this.props.id, this.props.stateVal, this.props.projectState, this.props.account)}>
+              <span>{this.props.stateTitle}</span>
+            </div>
+          </> }
+          
         </AllSingleTaskDiv>
       );
       } else if (this.props.type === 'allbilling') {

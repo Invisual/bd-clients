@@ -54,13 +54,16 @@ class MyTasksContainer extends Component {
     var AuthStr = 'Bearer ' + token;
     var user = JSON.parse(localStorage.getItem('user'));
     var url = ''
-    if(this.props.userRole === 2 || this.props.userRole === 3){
+    if(this.props.concluded){
+      url = '/api/tasks/concluded'
+    } else {
+      if(this.props.userRole === 2 || this.props.userRole === 3){
       url = this.props.currentTaskList === 'all' ? `/api/tasks/all` : `/api/tasks/${user.id_user}`
+      }
+      else{
+        url = `/api/tasks/${user.id_user}`
+      }
     }
-    else{
-      url = `/api/tasks/${user.id_user}`
-    }
-    console.log(url)
     axios.get(url, { headers: { Authorization: AuthStr } }).then(res => {
       if (res.data === 'nodata') {
         this.setState({ tasks: null, isLoading: false });
@@ -201,6 +204,7 @@ class MyTasksContainer extends Component {
         stopCountingHours={this.stopCountingHours}
         activeHours={this.props.activeHours}
         activeBudgetHours={this.props.activeBudgetHours}
+        concluded={this.props.concluded}
       />
     );
   }

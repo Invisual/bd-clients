@@ -5,7 +5,7 @@ import { FiArrowRight } from 'react-icons/fi';
 
 export const MyProjects = props => {
   var content = '';
-  console.log(props.projects)
+
   switch (props.type) {
     case 'dashboard':
       content = (
@@ -83,7 +83,7 @@ export const MyProjects = props => {
             })
           ) : (
             <div>
-              <div className="empty-placeholder">Ainda não está inserido em nenhum projecto.</div>
+              <div className="empty-placeholder">{props.concluded? 'Sem Projetos concuídos.' : 'Ainda não está inserido em nenhum projecto.' }</div>
             </div>
           )}
         </div>

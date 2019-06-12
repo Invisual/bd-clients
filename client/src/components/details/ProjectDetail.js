@@ -6,17 +6,16 @@ import ProjectCommentsTab from '../../components/tabs/ProjectCommentsTab';
 import moment from 'moment';
 import 'moment/locale/pt';
 import 'moment-duration-format';
-import { FiClock, FiUser, FiMoreHorizontal, FiSend, FiFolder, FiCreditCard } from 'react-icons/fi';
+import { FiClock, FiUser, FiSend, FiFolder, FiCreditCard } from 'react-icons/fi';
 
 export const ProjectDetail = props => {
-  console.log(props.projectContent)
   return (
     <>
       {props.isLoading ? (
         <ProjectDetailsDiv>
           <img src="/img/loading.svg" alt="loading" className="loading-spinner" />
         </ProjectDetailsDiv>
-      ) : props.projectContent.details[0].id_project ? (
+      ) : props.projectContent ? (
         <ProjectDetailsDiv>
           <div className="project-details-grid">
             <div className="grid-item">

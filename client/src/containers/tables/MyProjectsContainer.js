@@ -17,13 +17,16 @@ class MyProjectsContainer extends Component {
     var AuthStr = 'Bearer ' + token
     var idUser = JSON.parse(localStorage.getItem('user'))
     var url = ''
-    if(idUser.ref_id_role === 3 || idUser.ref_id_role  === 2){
-      url = this.props.currentProjectList === 'all' ? `/api/projects` : `/api/projects/${idUser.id_user}`
+    if(this.props.concluded){
+      url = '/api/projects/concluded'
+    } else {
+        if(idUser.ref_id_role === 3 || idUser.ref_id_role  === 2){
+        url = this.props.currentProjectList === 'all' ? `/api/projects` : `/api/projects/${idUser.id_user}`
+      }
+      else{
+        url = `/api/projects/${idUser.id_user}`
+      }
     }
-    else{
-      url = `/api/projects/${idUser.id_user}`
-    }
-    console.log(url)
     axios.get(url, { headers: { Authorization: AuthStr } }).then(res => {
       if (res.data === 'nodata') {
         this.setState({ projects: null, isLoading: false });
@@ -111,6 +114,7 @@ class MyProjectsContainer extends Component {
         type={this.props.type}
         changeActiveProject={this.props.changeActiveProject}
         activeProject={this.props.activeProject}
+        concluded={this.props.concluded}
       />
     );
   }

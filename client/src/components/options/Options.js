@@ -14,42 +14,51 @@ export const Options =  props => {
               <div className="grid-widget tasks-options">
                 {props.userRole === 3 || props.userRole === 2 ? (
                   <div className="task-infos">
+                    
+                  {props.concluded?
+                  <>
+                    <div className="tooltip-container">
+                      <FiXSquare className="task-info-icon" onClick={() => { props.undoActiveTask(props.taskContent.details[0].id_task); }}/>
+                      <span className="tooltip">Marcar Tarefa como não concluída</span>
+                    </div>
+                    <div className="tooltip-container">
+                      <FiTrash2 className="task-info-icon" onClick={() => { props.deleteActiveTask(props.taskContent.details[0].id_task) }}/>
+                      <span className="tooltip">Eliminar Tarefa</span>
+                    </div>
+                  </>  
+                  :
+                    <>
                     {props.taskContent.details[0].ref_id_project ? 
-                    null
+                      null
                     : <div className="tooltip-container">
-                    <FiCheckSquare
-                      className="task-info-icon"
-                      onClick={() => {
-                       props.openConcludeModal('task');
-                      }}
-                    /><span className="tooltip">Concluir Tarefa</span>
-                    </div>}
-                  <div className="tooltip-container">
-                    <FiTrash2
-                      className="task-info-icon"
-                      onClick={() => {
-                        props.deleteActiveTask(props.taskContent.details[0].id_task);
-                      }}
-                    /><span className="tooltip">Eliminar Tarefa</span>
+                        <FiCheckSquare className="task-info-icon" onClick={() => { props.openConcludeModal('task'); }}/>
+                        <span className="tooltip">Concluir Tarefa</span>
+                      </div>
+
+                    }
+                    <div className="tooltip-container">
+                      <FiTrash2 className="task-info-icon" onClick={() => { props.deleteActiveTask(props.taskContent.details[0].id_task) }}/>
+                      <span className="tooltip">Eliminar Tarefa</span>
                     </div>
                     <div className="tooltip-container">
-                    <FiCopy
-                      className="task-info-icon"
-                      onClick={() => {
-                        props.duplicateActiveTask(props.taskContent.details[0].id_task);
-                      }}
-                    /><span className="tooltip">Duplicar Tarefa</span>
+                      <FiCopy className="task-info-icon" onClick={() => { props.duplicateActiveTask(props.taskContent.details[0].id_task) }}/>
+                      <span className="tooltip">Duplicar Tarefa</span>
                     </div>
                     <div className="tooltip-container">
-                    <Link to={`/createtask/`+props.taskContent.details[0].id_task}><FiEdit3
-                      className="task-info-icon"
-                    /><span className="tooltip">Editar Tarefa</span></Link>
+                      <Link to={`/createtask/`+props.taskContent.details[0].id_task}>
+                        <FiEdit3 className="task-info-icon" />
+                        <span className="tooltip">Editar Tarefa</span>
+                      </Link>
                     </div>
-                   <div className="tooltip-container">
-                    <Link to={`/projects/`+props.taskContent.details[0].ref_id_project}><FiFolder
-                      className="task-info-icon"
-                    /><span className="tooltip">Ir para Projeto</span></Link>
+                    </>}
+                  {props.taskContent.details[0].ref_id_project || (props.concluded && props.taskContent.details[0].ref_id_project) ? 
+                    <div className="tooltip-container">
+                      <Link to={`/projects/`+props.taskContent.details[0].ref_id_project}>
+                        <FiFolder className="task-info-icon" />
+                        <span className="tooltip">Ir para Projeto</span>
+                      </Link>
                     </div>
+                  : null}
                   </div>
                 ) 
                 : 
@@ -83,6 +92,20 @@ export const Options =  props => {
               <div className="grid-widget tasks-options">
                 {props.userRole === 3 || props.userRole === 2 ? (
                   <div className="task-infos">
+                      
+                  {props.concluded ? 
+                  <>
+                    <div className="tooltip-container">
+                      <FiXSquare className="task-info-icon" onClick={() => { props.undoActiveProject(props.projectContent.details[0].id_project); }} />
+                      <span className="tooltip">Marca Projeto como não concluído.</span>
+                    </div>
+
+                    <div className="tooltip-container">
+                      <span className="tooltip">Eliminar Projeto</span>
+                      <FiTrash2 className="task-info-icon" onClick={() => { props.deleteActiveProject(props.projectContent.details[0].id_project); }} />
+                    </div>
+                  </>
+                    : <>
                     <div className="tooltip-container">
                     <FiCheckSquare
                       className="task-info-icon"
@@ -105,6 +128,8 @@ export const Options =  props => {
                       className="task-info-icon"
                     /><span className="tooltip">Editar Projeto</span></Link>
                     </div>
+                    </>}
+                    
                   </div>
                 ) : null}
               </div>

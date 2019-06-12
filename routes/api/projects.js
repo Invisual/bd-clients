@@ -31,6 +31,48 @@ router.get('/', checkToken, (req, res) => {
 });
 });
 
+router.put('/undo', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+    } else {
+      console.log(req.body)
+      connection.query(
+        'UPDATE projects SET concluded_project=0, billed_project=NULL, comment_billed_project=NULL, user_billed_project = NULL, conclusion_date_project = NULL WHERE id_project=?', req.body.id,
+        function (error, results, fields) {
+          if (error) throw error;
+          if (results.length > 0) {
+            res.send(results);
+          } else {
+            res.send('nodata');
+          }
+        }
+      );
+    }
+  });
+});
+
+router.get('/concluded', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+    } else {
+      connection.query("SELECT title_project, id_client, name_client, id_project, creation_date_project, group_concat(DISTINCT projects_has_categories.ref_id_category SEPARATOR ',') as 'categories', projects.ref_id_billing_mode, concluded_project, projects.ref_id_user_account, SUM(CASE WHEN tasks.id_task THEN 1 ELSE 0 END) AS total_tasks, SUM(case WHEN users_has_tasks.ref_id_user_task_status=2 OR users_has_tasks.ref_id_user_task_status=3 THEN 1 ELSE 0 END) as doing, SUM(case WHEN users_has_tasks.ref_id_user_task_status=4 THEN 1 ELSE 0 END) AS concluded_tasks, SUM(case WHEN users_has_tasks.ref_id_user_task_status=4 THEN 1 ELSE 0 END)/count(*) *100 AS percentage_tasks, group_concat(DISTINCT users_has_tasks.ref_id_user SEPARATOR ',') as 'intervenientes' FROM projects LEFT JOIN tasks ON projects.id_project=tasks.ref_id_project LEFT JOIN users_has_tasks ON tasks.id_task=users_has_tasks.ref_id_task INNER JOIN clients ON clients.id_client=projects.ref_id_client LEFT JOIN projects_has_categories ON projects.id_project=projects_has_categories.ref_id_project WHERE concluded_project = 2 group by projects.id_project",
+      function(error, results, fields) {
+        if (error) throw error;
+        if (results.length > 0) {
+          res.send(results);
+        } else {
+          res.send('nodata')
+        }
+      }
+    );
+  }
+});
+});
+
 
 router.get('/basic', checkToken, (req, res) => {
   jwt.verify(req.token, SECRET_KEY, (err, results) => {
@@ -186,10 +228,8 @@ router.get('/details/:project', checkToken, (req, res) => {
         project,
         function(error, results, fields) {
           if (error) throw error;
-          if (totalResults.details[0].project !== null) {
-            totalResults.comments = results
-          } else {
-            res.send('nodata');
+          if (results.length > 0) {
+            totalResults.comments = results;
           }
         }
       );
@@ -205,7 +245,7 @@ router.get('/details/:project', checkToken, (req, res) => {
         function(error, results, fields) {
           if (error) throw error;
           totalResults.tasks = results;
-          if (totalResults.details[0].id_task !== null) {
+          if (totalResults.details[0].id_project !== null) {
             res.send(totalResults);
           } else {
             res.send('nodata');

@@ -10,9 +10,9 @@ import ProjectFilters from '../options/ProjectFilters';
 import { FiFolderPlus, FiFilter, FiUserCheck, FiSearch } from 'react-icons/fi';
 
 export const AllProjects = props => {
-  if (props.reloadProjects) {
+  /*if (props.reloadProjects) {
     return <Redirect to='/projects' />;
-  }
+  }*/
   
   return (
     <AllProjectsDiv className="dashboard-container">
@@ -38,7 +38,7 @@ export const AllProjects = props => {
       }
       <div className="widgets-grid widget cards-container nofixed-height no-shadow">
         <div className="grid-widget tasks-title">
-          <h4 className="widget-title">Projetos</h4>
+          <h4 className="widget-title">{props.concluded? 'Projetos concluídos' : 'Projetos'}</h4>
           <div className="tooltip-container projects-search">
             <input type="text" placeholder="Pesquisa" className={props.displaySearchInput+ ' searchinput'} onChange={props.changeSearchQuery}/>
             <FiSearch onClick={props.toggleSearchInput}/>
@@ -46,13 +46,17 @@ export const AllProjects = props => {
           </div>
           {props.userRole === 3 || props.userRole === 2 ?
             <>
-            <div className="tooltip-container">
-              <Link to="/createproject"><FiFolderPlus /><span className="tooltip">Adicionar Projeto</span></Link>
-            </div>
-            <div className="tooltip-container">
-                <FiUserCheck className={props.currentProjectList === 'all' ? 'task-view-icon' : 'task-view-icon icon-selected'} onClick={props.changeCurrentProjectList}/>
-                <span className="tooltip">{props.currentProjectList === 'all' ? 'Ver os meus Projetos' : 'Ver todos os Projetos'}</span>
-            </div>
+            {props.concluded? null :
+            <>
+              <div className="tooltip-container">
+                <Link to="/createproject"><FiFolderPlus /><span className="tooltip">Adicionar Projeto</span></Link>
+              </div>
+              <div className="tooltip-container">
+                  <FiUserCheck className={props.currentProjectList === 'all' ? 'task-view-icon' : 'task-view-icon icon-selected'} onClick={props.changeCurrentProjectList}/>
+                  <span className="tooltip">{props.currentProjectList === 'all' ? 'Ver os meus Projetos' : 'Ver todos os Projetos'}</span>
+              </div>
+            </>
+            }
             <div className="tooltip-container filter-with-notification">
               {props.getNumberOfActiveFilters() > 0 ? <div className="notification"><span>{props.getNumberOfActiveFilters()}</span></div> : null}
               <FiFilter className={props.filtersAreActive ? 'task-filters-icon icon-selected' : 'task-filters-icon'} onClick={props.changeFiltersAreActive}/>
@@ -70,6 +74,8 @@ export const AllProjects = props => {
         <OptionsContainer
           userRole={props.userRole}
           type={'projectoptions'}
+          concluded={props.concluded}
+          undoActiveProject={props.undoActiveProject}
           openConcludeModal={props.openConcludeModal}
           closeConcludeModal={props.closeConcludeModal}
           activeProject={props.activeProject}
@@ -84,6 +90,7 @@ export const AllProjects = props => {
             <MyProjectsContainer
               title="Projetos"
               type="allprojects"
+              concluded={props.concluded}
               changeActiveProject={props.changeActiveProject}
               filters={props.filters}
               currentProjectList={props.currentProjectList}

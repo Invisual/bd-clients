@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Options } from '../../components/options/Options';
 
 class OptionsContainer extends Component {
+  
   render() {
     return (
       <Options
@@ -31,6 +32,9 @@ class OptionsContainer extends Component {
         itemContent={this.props.itemContent}
         billActiveItem={this.props.billActiveItem}
         unBillActiveItem={this.props.unBillActiveItem}
+        concluded={this.props.concluded}
+        undoActiveTask={this.props.undoActiveTask}
+        undoActiveProject={this.props.undoActiveProject}
       />
     );
   }
