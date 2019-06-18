@@ -77,6 +77,7 @@ export const MyProjects = props => {
                   percentage_tasks={project.percentage_tasks}
                   changeActiveProject={props.changeActiveProject}
                   activeProject={props.activeProject}
+                  billedProject={project.billed_project}
                   type={props.type}
                 />
               );

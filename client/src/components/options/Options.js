@@ -17,10 +17,15 @@ export const Options =  props => {
                     
                   {props.concluded?
                   <>
-                    <div className="tooltip-container">
-                      <FiXSquare className="task-info-icon" onClick={() => { props.undoActiveTask(props.taskContent.details[0].id_task); }}/>
-                      <span className="tooltip">Marcar Tarefa como não concluída</span>
-                    </div>
+
+                   {props.taskContent.details[0].ref_id_project ? 
+                      null 
+                    :
+                      <div className="tooltip-container">
+                        <FiXSquare className="task-info-icon" onClick={() => { props.undoActiveTask(props.taskContent.details[0].id_task); }}/>
+                        <span className="tooltip">Marcar Tarefa como não concluída</span>
+                      </div> 
+                    }
                     <div className="tooltip-container">
                       <FiTrash2 className="task-info-icon" onClick={() => { props.deleteActiveTask(props.taskContent.details[0].id_task) }}/>
                       <span className="tooltip">Eliminar Tarefa</span>
@@ -31,7 +36,7 @@ export const Options =  props => {
                     {props.taskContent.details[0].ref_id_project ? 
                       null
                     : <div className="tooltip-container">
-                        <FiCheckSquare className="task-info-icon" onClick={() => { props.openConcludeModal('task'); }}/>
+                        <FiCheckSquare className="task-info-icon" onClick={() => { props.openConcludeModal('task'); props.openModal('conclude') }}/>
                         <span className="tooltip">Concluir Tarefa</span>
                       </div>
 
@@ -53,7 +58,7 @@ export const Options =  props => {
                     </>}
                   {props.taskContent.details[0].ref_id_project || (props.concluded && props.taskContent.details[0].ref_id_project) ? 
                     <div className="tooltip-container">
-                      <Link to={`/projects/`+props.taskContent.details[0].ref_id_project}>
+                      <Link to={props.concluded ? `/concludedprojects/`+props.taskContent.details[0].ref_id_project : `/projects/`+props.taskContent.details[0].ref_id_project}>
                         <FiFolder className="task-info-icon" />
                         <span className="tooltip">Ir para Projeto</span>
                       </Link>
@@ -110,7 +115,8 @@ export const Options =  props => {
                     <FiCheckSquare
                       className="task-info-icon"
                       onClick={() => {
-                       props.openConcludeModal('project');
+                       props.openConcludeModal('project'); 
+                       props.openModal('conclude');
                       }}
                     /><span className="tooltip">Concluir Projeto</span>
                     </div>

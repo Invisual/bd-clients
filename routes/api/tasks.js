@@ -258,7 +258,6 @@ router.put('/undo', checkToken, (req, res) => {
       //If error send Forbidden (403)
       res.sendStatus(403);
     } else {
-      console.log(req.body)
       connection.query(
         'UPDATE tasks SET concluded_task=0, billed_task=NULL, comment_billed_task=NULL, user_billed_task = NULL, conclusion_date_task = NULL WHERE id_task=?', req.body.id,
         function (error, results, fields) {

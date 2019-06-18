@@ -75,13 +75,23 @@ class ProjectReviewTab extends React.Component {
               </div>
             </div>
             <div className="project-progress">
-              <Line
-                percent={this.props.projectContent.details[0].percentage_tasks}
+            {Number(this.props.projectContent.details[0].concluded_project) === 2 ? 
+                <Line
+                percent={100}
                 strokeWidth="5"
                 strokeColor="#1de9b6"
-                trailColor="#d2fbf0"
+                trailColor="#1de9b6"
                 trailWidth="5"
+                />
+              :
+              <Line
+              percent={this.props.projectContent.details[0].percentage_tasks}
+              strokeWidth="5"
+              strokeColor={this.props.projectContent.details[0].percentage_tasks === 0 ? this.props.projectContent.details[0].doing >0 ? "#1de9b6":"#f5f7fd"  : "#1de9b6"}
+              trailColor={this.props.projectContent.details[0].percentage_tasks === 0 ? this.props.projectContent.details[0].doing >0 ? "#d2fbf0":"#f5f7fd"  : "#d2fbf0"}
+              trailWidth="5"
               />
+            }
             </div>
           </div>
         </div>
@@ -92,11 +102,11 @@ class ProjectReviewTab extends React.Component {
           <div className="billing-title">
             <h4>Custos para Faturação</h4>
             {this.props.projectContent.costs ? 
-              <div className="see-all-costs" onClick={() => this.props.openCostsModal('projectlist')}>Consulte aqui os Custos associados a este Projecto <FiArrowRight /></div>
+              <div className="see-all-costs" onClick={() => { this.props.openCostsModal('projectlist'); this.props.openModal('costs') }}>Consulte aqui os Custos associados a este Projecto <FiArrowRight /></div>
             :
               <div className="billing-descr">Este Projecto ainda não tem um Registo de Custos associado.</div>
             }
-            <FiPlus className="billing-add-icon" onClick={() =>this.props.openCostsModal('project')}/>
+            <FiPlus className="billing-add-icon" onClick={() => {this.props.openCostsModal('project'); this.props.openModal('costs')}}/>
           </div>
         </div>
       </>

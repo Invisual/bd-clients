@@ -55,7 +55,7 @@ export const ClientDetail = props => {
               {(() => {
                 switch (props.activeTab) {
                   case 'clientinfo':
-                    return <ClientInfoTab clientContent={props.clientContent} logout={props.logout}/>;
+                    return <ClientInfoTab clientContent={props.clientContent} logout={props.logout} />;
                   case 'clientprojects':
                     return <ClientProjectsTab clientContent={props.clientContent} />;
                   case 'clienttasks':

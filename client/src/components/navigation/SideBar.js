@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {SidebarDiv} from '../../styles/navigation';
-import { FiHome, FiFolder, FiLogOut, FiFileText, FiCalendar, FiBookmark, FiUsers, FiEdit, FiUser } from 'react-icons/fi';
+import { FiHome, FiFolder, FiLogOut, FiFileText, FiCalendar, FiBookmark, FiUsers, FiEdit, FiUser, FiInbox } from 'react-icons/fi';
 import { NavLink, withRouter } from 'react-router-dom';
 
 class SideBar extends Component {
@@ -57,7 +57,8 @@ class SideBar extends Component {
         </div>
         <div className="navigation">
             <ul>
-                <NavLink exact={true} to="/" activeClassName='is-active'><li><FiHome/> <span>Dashboard</span></li></NavLink>
+                <NavLink exact={true} to="/" activeClassName='is-active'><li><FiHome/><span>Dashboard</span></li></NavLink>
+                <NavLink exact={true} to="/approvals" activeClassName='is-active'><li><FiInbox/><span>Aprovações</span></li></NavLink>
                 <li className={this.isProjectsRoute() ? 'is-active has-submenu' : 'has-submenu'} onClick={this.toggleProjectsDropdown}>
                   <FiFolder/>
                   <span>Projetos</span>
@@ -76,12 +77,11 @@ class SideBar extends Component {
                     <NavLink to="/concludedtasks" activeClassName='is-active'><div className="submenu-item">Ver Concluídas</div></NavLink>
                   </div>
                 </li>
-                <NavLink to="/clients" activeClassName='is-active'><li><FiUser/> <span>Clientes</span></li></NavLink>
-                <NavLink to="/meetings" activeClassName='is-active'><li><FiCalendar/> <span>Reuniões</span></li></NavLink>
-                <NavLink to="/billing" activeClassName='is-active'><li><FiBookmark/> <span>Contabilidade</span></li></NavLink>
+                <NavLink to="/clients" activeClassName='is-active'><li><FiUser/><span>Clientes</span></li></NavLink>
+                <NavLink to="/meetings" activeClassName='is-active'><li><FiCalendar/><span>Reuniões</span></li></NavLink>
+                <NavLink to="/billing" activeClassName='is-active'><li><FiBookmark/><span>Contabilidade</span></li></NavLink>
                 <li className={this.isCompanyRoute() ? 'is-active has-submenu' : 'has-submenu'} onClick={this.toggleCompanyDropdown}>
-                  <FiUsers/>
-                  <span>Empresa</span>
+                  <FiUsers/><span>Empresa</span>
                   <div className={this.state.companyDropDown ? 'submenu opened-submenu company-submenu' : 'submenu closed-submenu company-submenu'}>
                     <NavLink to="/budgets" activeClassName='is-active'><div className="submenu-item">Orçamentos</div></NavLink>
                     <NavLink to="/vacations" activeClassName='is-active'><div className="submenu-item">Férias</div></NavLink>

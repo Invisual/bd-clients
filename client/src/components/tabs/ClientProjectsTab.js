@@ -23,6 +23,7 @@ class ClientProjectsTab extends React.Component {
                   id={project.id_project}
                   title={project.title_project}
                   stateVal={project.concluded_project}
+                  billedProject={project.billed_project}
                   intervenientes={project.intervenientes}
                   client={project.name_client}
                   total_tasks={project.total_tasks}

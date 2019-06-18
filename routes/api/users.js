@@ -182,10 +182,15 @@ router.get('/details/:user/:start/:end', checkToken, (req, res) => {
             })
             connection.query("SELECT id_task, title_task, ref_id_type_task, ref_id_user_task_status, id_user, ref_id_project, tasks.ref_id_client, name_client, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS 'total_task_hours' FROM tasks LEFT JOIN users_has_tasks ON tasks.id_task=users_has_tasks.ref_id_task LEFT JOIN task_hours ON tasks.id_task = task_hours.ref_id_tasks LEFT JOIN users ON users_has_tasks.ref_id_user= users.id_user LEFT JOIN clients ON tasks.ref_id_client = clients.id_client WHERE id_user=? AND (day BETWEEN ? AND ?) GROUP BY id_task", [user, startDate, endDate], function(error, results, fields) {
                   if (error) throw error;
-                  totalResults.tasks = results;
-                  if (totalResults.details[0].id_user !== null) { res.send(totalResults) }
+                  if (totalResults.details[0].id_user !== null) { totalResults.tasks = results; }
                   else { res.send('nodata') }
             })
+            connection.query("SELECT id_task_hour, id_task, beginning_hour, ending_hour, day, title_task, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(ending_hour, beginning_hour)))) as difference from task_hours INNER JOIN tasks ON task_hours.ref_id_tasks = tasks.id_task WHERE ref_id_users = ? AND (day BETWEEN ? AND ?) GROUP BY id_task_hour ORDER BY id_task_hour ASC", [user, startDate, endDate], function(error, results, fields) {
+                if (error) throw error;
+                totalResults.hours = results;
+                if (totalResults.details[0].id_user !== null) { res.send(totalResults) }
+                else { res.send('nodata') }
+          })
         }
     })
 })

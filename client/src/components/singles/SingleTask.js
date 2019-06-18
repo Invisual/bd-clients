@@ -47,7 +47,7 @@ class SingleTask extends Component {
           <div className="task-title title-click" onClick={() => this.props.changeActiveTask(this.props.id)}>
             {this.props.title}
           </div>
-          <div className="task-watch"><div className="tooltip-container"><Link to={`/projects/`+this.props.projectState}>{projectFolder}</Link><span className="tooltip">Ir para o Projeto</span></div></div>
+          <div className="task-watch"><div className="tooltip-container"><Link to={this.props.concluded ? `/concludedprojects/`+this.props.projectState : `/projects/`+this.props.projectState}>{projectFolder}</Link><span className="tooltip">Ir para o Projeto</span></div></div>
           <div className="task-link">
           <div className="tooltip-container">
             <CopyToClipboard text={window.location.href + '/' +this.props.id} onCopy={() => this.props.copyAlert()}>

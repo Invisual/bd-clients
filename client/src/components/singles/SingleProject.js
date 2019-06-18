@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { SingleProjectDiv, AllSingleProjectDiv, ClientProjectDiv} from '../../styles/singles';
 import { Line } from 'rc-progress';
-import { FiCircle, FiClock, FiUser } from 'react-icons/fi';
+import { FiCircle, FiClock, FiUser, FiCheck } from 'react-icons/fi';
 import { Link } from 'react-router-dom'
 import moment from 'moment';
 import 'moment/locale/pt';
@@ -29,7 +29,7 @@ class SingleProject extends Component {
           <AllSingleProjectDiv className={`single-card${active}`} onClick={() => this.props.changeActiveProject(this.props.id)}>
             <div className="project-header">
               <div className="project-title">
-                {projectStatus}
+                <span className={Number(this.props.billedProject)=== 2? 'billed' : ''}>{Number(this.props.stateVal) === 2 ? <FiCircle fill="#0036ff" color="#0036ff" /> : this.props.percentage_tasks === 0 ? <FiCircle color="#5e78dd" /> : <FiCircle fill="#1de9b6" color="#1de9b6" />}</span>
                 <span className="title-click">{this.props.title}</span>
               </div>
               <div className="project-client-date">
@@ -58,23 +58,34 @@ class SingleProject extends Component {
               </div>
             </div>
             <div className="project-progress">
-              <Line
-                percent={this.props.percentage_tasks}
+            {Number(this.props.stateVal) === 2 ? 
+                <Line
+                percent={100}
                 strokeWidth="5"
-                strokeColor={this.props.percentage_tasks === 0 ? this.props.doing >0 ? "#1de9b6":"#f5f7fd"  : "#1de9b6"}
-                trailColor={this.props.percentage_tasks === 0 ? this.props.doing >0 ? "#d2fbf0":"#f5f7fd"  : "#d2fbf0"}
+                strokeColor="#1de9b6"
+                trailColor="#1de9b6"
                 trailWidth="5"
+                />
+              :
+              <Line
+              percent={this.props.percentage_tasks}
+              strokeWidth="5"
+              strokeColor={this.props.percentage_tasks === 0 ? this.props.doing >0 ? "#1de9b6":"#f5f7fd"  : "#1de9b6"}
+              trailColor={this.props.percentage_tasks === 0 ? this.props.doing >0 ? "#d2fbf0":"#f5f7fd"  : "#d2fbf0"}
+              trailWidth="5"
               />
+            }
+              
             </div>
           </AllSingleProjectDiv>
         );
         break;
       case 'clients':
         content = (
-          <ClientProjectDiv className="single-card">
-            <div className="project-status">{projectStatus}</div>
+          <ClientProjectDiv className="single-card" >
+            <div className={Number(this.props.billedProject)=== 2? 'project-status billed' : 'project-status'}>{Number(this.props.stateVal) === 2 ? <FiCircle fill="#0036ff" color="#0036ff" /> : this.props.percentage_tasks === 0 ? <FiCircle color="#5e78dd" /> : <FiCircle fill="#1de9b6" color="#1de9b6" />}</div>
             <div className="project-title">
-              <span className="title-divider"><Link to={`/projects/`+this.props.id}>{this.props.title}</Link></span>{' '}
+              <span className="title-divider"><Link to={this.props.stateVal===2? `/concludedprojects/`+this.props.id:`/projects/`+this.props.id}>{this.props.title}</Link></span>{' '}
               <span className="project-participants">{this.props.intervenientes
                   ? this.props.intervenientes
                       .split(';')
@@ -87,13 +98,24 @@ class SingleProject extends Component {
             <div className="project-total-tasks">{this.props.total_tasks}</div>
             <div className="project-concluded-tasks">{this.props.concluded_tasks}</div>
             <div className="task-progress">
-              <Line
-                percent={this.props.percentage_tasks}
+              {Number(this.props.stateVal) === 2 ? 
+                <Line
+                percent={100}
                 strokeWidth="10"
-                strokeColor={this.props.percentage_tasks === 0 ? "#f5f7fd" : "#1de9b6"}
-                trailColor={this.props.percentage_tasks === 0 ? "#f5f7fd" : "#d2fbf0"}
+                strokeColor="#0036ff"
+                trailColor="#0036ff"
                 trailWidth="10"
-              />
+                />
+              :
+                <Line
+                  percent={this.props.percentage_tasks}
+                  strokeWidth="10"
+                  strokeColor={this.props.percentage_tasks === 0 ? "#f5f7fd" : "#1de9b6"}
+                  trailColor={this.props.percentage_tasks === 0 ? "#f5f7fd" : "#d2fbf0"}
+                  trailWidth="10"
+                />
+              }
+              
             </div>
           </ClientProjectDiv>
         );
@@ -101,7 +123,7 @@ class SingleProject extends Component {
       default:
         content = (
           <SingleProjectDiv className="single-card">
-            <div className="project-status">{projectStatus}</div>
+            <div className="project-status">{this.props.percentage_tasks === 0 ? <FiCircle color="#5e78dd" /> : <FiCircle fill="#1de9b6" color="#1de9b6" />}</div>
             <div className="project-title">
               <span className="title-divider"><Link to={`/projects/`+this.props.id}>{this.props.title}</Link> </span>{' '}
               <span className="project-client"><Link to={`/clients/`+this.props.clientId}>{this.props.client}</Link></span>

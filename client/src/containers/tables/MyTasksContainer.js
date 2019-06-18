@@ -58,12 +58,18 @@ class MyTasksContainer extends Component {
       url = '/api/tasks/concluded'
     } else {
       if(this.props.userRole === 2 || this.props.userRole === 3){
-      url = this.props.currentTaskList === 'all' ? `/api/tasks/all` : `/api/tasks/${user.id_user}`
+        if(this.props.type === 'dashboard' && user.ref_id_position === 1){
+          url = '/api/tasks/all'
+        } 
+        else {
+          url = this.props.currentTaskList === 'all' ? `/api/tasks/all` : `/api/tasks/${user.id_user}`
+        }
       }
-      else{
+      else {
         url = `/api/tasks/${user.id_user}`
       }
     }
+    console.log(this.props.userRole)
     axios.get(url, { headers: { Authorization: AuthStr } }).then(res => {
       if (res.data === 'nodata') {
         this.setState({ tasks: null, isLoading: false });

@@ -21,7 +21,12 @@ class MyProjectsContainer extends Component {
       url = '/api/projects/concluded'
     } else {
         if(idUser.ref_id_role === 3 || idUser.ref_id_role  === 2){
-        url = this.props.currentProjectList === 'all' ? `/api/projects` : `/api/projects/${idUser.id_user}`
+          if(this.props.type === 'dashboard' && idUser.ref_id_position === 1){
+            url = '/api/projects'
+          } 
+          else {
+          url = this.props.currentProjectList === 'all' ? `/api/projects` : `/api/projects/${idUser.id_user}`
+          }
       }
       else{
         url = `/api/projects/${idUser.id_user}`

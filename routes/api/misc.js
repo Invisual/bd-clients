@@ -268,12 +268,17 @@ router.put('/conclude', checkToken, (req, res) => {
                   console.log(error);
                   res.status(400).send({ success: false })
                 } else {
-                  console.log('entrou na query')
                   res.status(200).send({ success: true });
                 }
               });
             }
-            res.send(results);
+          }
+        );
+        connection.query(
+          'UPDATE tasks SET concluded_task=?, conclusion_date_task = ? WHERE ref_id_project=?', [approval, date, projId],
+          function (error, results, fields) {
+            if (error) throw error;
+            res.send(results)
           }
         );
       }
@@ -742,6 +747,94 @@ router.delete('/trips/:id', checkToken, (req, res) => {
         if (error) throw error;
         res.send('deleted');
       });
+    }
+  });
+});
+
+router.get('/approvals', checkToken, (req, res) => {
+  
+  var totalResults = {};
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+    } else {
+      connection.query('Select id_task as id, title_task as title, "task" as type, billed_task as billed_status, name_client, conclusion_date_task as conclusion_date from tasks LEFT JOIN clients ON tasks.ref_id_client=clients.id_client WHERE concluded_task=1', function(error, results, fields) {
+        if (error) throw error;
+        if (results.length > 0) {
+          totalResults.tasks = results;
+        } else {
+          totalResults.tasks = []
+        }
+      });
+      connection.query('Select id_budget as id, title_budget as title, "budget" as type, name_client, conclusion_date_budget as conclusion_date from budgets LEFT JOIN clients ON budgets.ref_id_client=clients.id_client WHERE concluded_budget=1', function(error, results, fields) {
+        if (error) throw error;
+        if (results.length > 0) {
+          totalResults.budgets = results;
+        } else {
+          totalResults.budgets = []
+        }
+      });
+      connection.query('Select id_project as id, title_project as title, "project" as type, billed_project as billed_status, name_client, conclusion_date_project as conclusion_date from projects LEFT JOIN clients ON projects.ref_id_client=clients.id_client WHERE concluded_project', function(error, results, fields) {
+        if (error) throw error;
+        totalResults.projects = results;
+        if (totalResults.tasks.length > 0 || totalResults.projects.length > 0) {
+          res.send(totalResults)
+        } else {
+          res.send('nodata');
+        }
+      });
+    }
+  });
+});
+
+router.get('/approvals/:type/:id', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+    } else {
+      var id = req.params.id
+      totalResults = {}
+      if(req.params.type === 'task'){
+        connection.query('SELECT id_task as id, title_task as title, "task" as type, name_client, billing_name_client, conclusion_date_task as conclusion_date, avatar_user, creation_date_task as creation_date, billed_task as billed_status, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS "total_hours", comment_billed_task as obs, name_user, user_billed_task as user_billed FROM tasks LEFT JOIN clients ON clients.id_client=tasks.ref_id_client LEFT JOIN task_hours ON task_hours.ref_id_tasks=tasks.id_task LEFT JOIN users ON tasks.user_billed_task=users.id_user WHERE id_task=?', id, function(error, results, fields) {
+        if (error) throw error;
+        if (results.length > 0) { totalResults.details = results }
+        connection.query(
+          'SELECT * FROM costs WHERE ref_id_task = ?', id, function (error, results, fields) {
+            if (error) throwerror;
+            if (results.length > 0) { totalResults.costs = results }
+            res.send(totalResults)
+          }
+        );
+      });
+      } else if (req.params.type === 'budget'){
+        connection.query('SELECT id_budget as id, title_budget as title, "budget" as type, conclusion_date_budget as conclusion_date, avatar_user, name_client, billing_name_client, name_user,SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(budget_hours.ending_hour, budget_hours.beginning_hour)))) AS "total_hours" FROM budgets LEFT JOIN budget_hours ON budgets.id_budget=budget_hours.ref_id_budget LEFT JOIN clients ON clients.id_client=budgets.ref_id_client LEFT JOIN users_has_budgets ON budgets.id_budget=users_has_budgets.ref_id_budget LEFT JOIN users ON users_has_budgets.ref_id_user=users.id_user WHERE id_budget=?', id, function(error, results, fields) {
+          if (error) throw error;
+          if (results.length > 0) { totalResults.details = results }
+        connection.query(
+          'SELECT * FROM costs WHERE ref_id_task = ?', id, function (error, results, fields) {
+            if (error) throwerror;
+            if (results.length > 0) { totalResults.costs = results }
+            res.send(totalResults)
+          }
+        );
+        });
+      }
+      else {
+        connection.query('SELECT id_project as id, title_project as title, "project" as type, comment_billed_project as obs, conclusion_date_project as conclusion_date, avatar_user, name_client, billing_name_client, name_user, billed_project as billed_status, user_billed_project as user_billed, (SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) from projects LEFT JOIN tasks ON projects.id_project=tasks.ref_id_project LEFT JOIN task_hours ON task_hours.ref_id_tasks=tasks.id_task WHERE id_project = ?) as total_hours FROM projects LEFT JOIN clients ON clients.id_client=projects.ref_id_client LEFT JOIN users ON projects.user_billed_project=users.id_user WHERE id_project=?', [id, id], function(error, results, fields) {
+          if (error) throw error;
+          if (results.length > 0) { totalResults.details = results }
+        connection.query(
+          'SELECT * FROM costs WHERE ref_id_task = ?', id, function (error, results, fields) {
+            if (error) throwerror;
+            if (results.length > 0) { totalResults.costs = results }
+            res.send(totalResults)
+          }
+        );
+        });
+      }
+      
     }
   });
 });
