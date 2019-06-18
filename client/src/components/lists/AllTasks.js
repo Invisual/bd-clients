@@ -16,26 +16,20 @@ export const AllTasks = props => {
 
   return (
     <AllTasksDiv className="dashboard-container">
-      {props.isCostsModalOpen ? 
-        <CostsModalContainer 
-          closeCostsModal={props.closeCostsModal} 
-          taskId={props.activeTask} 
-          type={props.costsModalType} 
-          costs={props.taskContent.costs}
-          getTaskDetails={props.getTaskDetails}
-        /> 
-      : 
-        props.isConcludeModalOpen ? 
-          <ConcludeModalContainer 
-            closeConcludeModal={props.closeConcludeModal} 
-            taskId={props.activeTask}
-            taskContent={props.taskContent}
-            type={props.concludeModalType} 
-            getTaskDetails={props.getTaskDetails}
-          /> 
-        : 
-          null
-      }
+      <CostsModalContainer
+        taskId={props.activeTask} 
+        type={props.costsModalType} 
+        costs={props.taskContent.costs}
+        getTaskDetails={props.getTaskDetails}
+        closeModal={props.closeModal}
+      /> 
+      <ConcludeModalContainer 
+        closeConcludeModal={props.closeConcludeModal} 
+        taskId={props.activeTask}
+        taskContent={props.taskContent}
+        type={props.concludeModalType} 
+        getTaskDetails={props.getTaskDetails}
+      /> 
       <div className="widgets-grid widget cards-container nofixed-height">
         <div className="grid-widget tasks-title">
           <h4 className="widget-title">{props.concluded? 'Tarefas concluídas' : 'Tarefas'}</h4>
@@ -81,7 +75,7 @@ export const AllTasks = props => {
           type={'taskoptions'}
           concluded={props.concluded}
           openConcludeModal={props.openConcludeModal}
-          closeConcludeModal={props.closeConcludeModal}
+          openModal={props.openModal}
           activeTask={props.activeTask}
           taskContent={props.taskContent}
           isLoading={props.isLoading}
@@ -131,6 +125,7 @@ export const AllTasks = props => {
             submitComment={props.submitComment}
             isLoading={props.isLoading}
             openCostsModal={props.openCostsModal}
+            openModal={props.openModal}
           />
         }
         </div>

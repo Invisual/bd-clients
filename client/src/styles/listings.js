@@ -1280,6 +1280,78 @@ export const ClientDetailsDiv = styled.div`
       }
     }
 
+    .user-hours-content{
+      padding-top: 45px;
+      padding-right: 15px;
+      position:relative;
+      min-height: 350px;
+
+      .user-hours-date{
+        position: absolute;
+        top: 15px;
+        right: 15px;
+
+        .react-date-picker{
+          box-shadow: 0px 1px 6px rgba(0,0,0,.16);
+          border-radius: 10px;
+          height:35px;
+          padding:0 6px;
+
+          .react-date-picker__wrapper{
+            border:none;
+
+            input{
+              color:${themeConsts.placeholderGrey};
+            }
+
+            .react-date-picker__clear-button{
+              display:none;
+            }
+
+            svg{
+              color:${themeConsts.secondaryBlue};
+              font-size:1.2em;
+            }
+          }
+          .react-date-picker__calendar {
+              left: unset;
+              right: 0;
+          }
+        }
+      }
+
+      .single-user-hour{
+        display: grid;
+        grid-template-columns: 10% 50% 20% 10% 10%;
+
+        p{
+          display:flex;
+          align-items: center;
+        }
+        .hour-day{
+          font-size: 1.3em;
+          font-weight:600;
+          color:${themeConsts.textLightGrey};
+        }
+        .hour-task-title{
+          font-size: 1.2em;
+          letter-spacing: .02em;
+        }
+        .hour-actions{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          svg{
+            font-size: 1.3em;
+            color: ${themeConsts.secondaryBlue};
+            cursor: pointer;
+            margin: 0 5px;
+          }
+        }
+      }
+    }
+
     .project-extras {
       display: flex;
       justify-content: space-evenly;
@@ -1546,9 +1618,21 @@ export const ClientDetailsDiv = styled.div`
           }
         }
         .single-task-check {
-          color: rgb(29, 233, 182);
+          color: ${themeConsts.green};
           stroke-width: 4;
           margin-left: 13px;
+        }
+      }
+      .task-hour-records{
+        display:flex;
+        flex-direction:column;
+        padding-left:40px;
+        margin-top:10px;
+
+        span{
+          margin-bottom:5px;
+          font-size:1.1em;
+          letter-spacing:0.02em;
         }
       }
     }

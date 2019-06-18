@@ -114,14 +114,13 @@ class AllTeamContainer extends Component{
           if (result.value) {
             Swal.fire('Utilizador Eliminado', '', 'success').then(result => {
               if (result.value) {
-                axios
-                  .delete(`/api/users/${memberId}`, { headers: { Authorization: AuthStr } })
+                axios.delete(`/api/users/${memberId}`, { headers: { Authorization: AuthStr } })
                   .then(this.setState({ activeMember: '', reloadMembers: true }))
               }
             });
           }
         });
-    };
+    }
 
     componentDidMount(){
         if(this.props.isShare){this.setState({activeMember: this.props.match.params.id},
@@ -171,6 +170,8 @@ class AllTeamContainer extends Component{
                     filters={this.state.filters}
                     getNumberOfActiveFilters={this.getNumberOfActiveFilters}
                     clientsList={this.state.clientsList}
+                    openModal={this.props.openModal}
+                    changeEditHourId={this.props.changeEditHourId}
                 />
     }
 

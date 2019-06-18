@@ -59,18 +59,6 @@ class MyToDoContainer extends Component {
     });
   };
 
-  openFullModal = () => {
-    document.body.classList.add('todo-open', 'modal-open');
-    document.getElementById('overlay').addEventListener('click', () => this.closeFullModal());
-    this.forceUpdate();
-  };
-
-  closeFullModal = () => {
-    document.body.classList.remove('todo-open', 'modal-open');
-    document.getElementById('overlay').removeEventListener('click', () => this.closeFullModal());
-    this.closeTextAreaModal();
-  };
-
   openTextAreaModal = () => {
     this.setState({
       textAreaOpen: true
@@ -114,8 +102,8 @@ class MyToDoContainer extends Component {
         changeToDoStatus={this.changeToDoStatus}
         isLoading={this.state.isLoading}
         type={this.props.type}
-        openFullModal={this.openFullModal}
-        closeFullModal={this.closeFullModal}
+        openModal={this.props.openModal}
+        closeModal={this.props.closeModal}
         textAreaOpen={this.state.textAreaOpen}
         openTextAreaModal={this.openTextAreaModal}
         closeTextAreaModal={this.closeTextAreaModal}

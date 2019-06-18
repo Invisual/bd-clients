@@ -278,7 +278,7 @@ class AllProjectsContainer extends Component {
 
 
   scrollToElementD = () => {
-    var topPos = document.querySelector('.active').offsetTop;
+    var topPos = document.querySelector('.single-card.active').offsetTop;
     this.scrollTo(document.querySelector('.tasks-list'), topPos - 10, 600);
    }
    scrollTo = (element, to, duration) => {
@@ -310,30 +310,18 @@ class AllProjectsContainer extends Component {
   };
 
   openCostsModal = (type) => {
-    document.body.classList.add('costs-open', 'modal-open')
-    document.getElementById('overlay').addEventListener('click', () => this.closeCostsModal())
-    this.setState({costsModalOpen: true, costsModalType: type})
-  }
-
-  closeCostsModal = () => {
-    document.body.classList.remove('costs-open', 'modal-open')
-    document.getElementById('overlay').removeEventListener('click', () => this.closeCostsModal());
-    this.setState({costsModalOpen: false})
+    this.setState({costsModalType: type})
   }
 
   openConcludeModal = (type) => {
-    document.body.classList.add('costs-open', 'modal-open')
-    document.getElementById('overlay').addEventListener('click', () => this.closeConcludeModal())
-    this.setState({concludeModalOpen: true, concludeModalType: type})
+    this.setState({concludeModalType: type})
   }
 
   closeConcludeModal = (concluded) => {
-    document.body.classList.remove('costs-open', 'modal-open')
-    document.getElementById('overlay').removeEventListener('click', () => this.closeConcludeModal());
     if(concluded=== 'concluded'){
       this.setState({activeProject: '', reloadProjects: true})
     }
-    this.setState({concludeModalOpen: false})
+    this.props.closeModal('conclude')
   }
 
 
@@ -352,7 +340,7 @@ class AllProjectsContainer extends Component {
       this.setState({activeTab:'projectreview'})
     }
     if (prevState.reloadProjects !== this.state.reloadProjects) {
-      this.setState({ activeProject:'', reloadProjects: false });
+      this.setState({ reloadProjects: false });
     }
   }
 
@@ -389,7 +377,6 @@ class AllProjectsContainer extends Component {
         displaySearchInput={this.state.displaySearchInput}
         toggleSearchInput={this.toggleSearchInput}
         openCostsModal={this.openCostsModal}
-        closeCostsModal={this.closeCostsModal}
         isCostsModalOpen={this.state.costsModalOpen}
         costsModalType={this.state.costsModalType}
         openConcludeModal={this.openConcludeModal}
@@ -399,6 +386,8 @@ class AllProjectsContainer extends Component {
         getProjectDetails={this.getProjectDetails}
         concluded={this.props.concluded}
         undoActiveProject={this.undoActiveProject}
+        openModal={this.props.openModal}
+        closeModal={this.props.closeModal}
       />
     );
   }

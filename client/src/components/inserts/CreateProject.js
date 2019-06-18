@@ -11,7 +11,7 @@ export const CreateProject = props => {
     if (props.redirect) {
         switch(props.type) {
             case 'edit':
-            return <Redirect to={`/projects/${props.taskData.id_task}`} />
+            return <Redirect to={`/projects/${props.projectData.id_project}`} />
             case 'add':
             return <Redirect to={`/projects/${props.lastInsertedId}`} />
             default:

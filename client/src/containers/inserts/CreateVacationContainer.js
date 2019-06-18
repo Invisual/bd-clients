@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {CreateVacation} from '../../components/inserts/CreateVacation';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+import moment from 'moment'
 
 const axios = require('axios');
 
@@ -28,8 +29,8 @@ class CreateVacationContainer extends Component{
         var data = {
             type: this.state.typeInput,
             dayType: this.state.dayTypeInput,
-            startDate: this.state.startDateInput,
-            endDate: this.state.endDateInput,
+            startDate: moment(this.state.startDateInput).format('YYYY-MM-DD'),
+            endDate: moment(this.state.endDateInput).format('YYYY-MM-DD'),
             user: user.id_user,
             nameUser: user.name_user
         }

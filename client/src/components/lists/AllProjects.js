@@ -16,26 +16,20 @@ export const AllProjects = props => {
   
   return (
     <AllProjectsDiv className="dashboard-container">
-      {props.isCostsModalOpen ? 
-        <CostsModalContainer 
-          closeCostsModal={props.closeCostsModal} 
-          projId={props.activeProject} 
-          type={props.costsModalType} 
-          costs={props.projectContent.costs}
-          getProjectDetails={props.getProjectDetails}
-        />
-      : 
-        props.isConcludeModalOpen ? 
-          <ConcludeModalContainer 
-            closeConcludeModal={props.closeConcludeModal} 
-            projId={props.activeProject}
-            projectContent={props.projectContent}
-            type={props.concludeModalType} 
-            getProjectDetails={props.getProjectDetails}
-          /> 
-        : 
-          null
-      }
+      <CostsModalContainer 
+        closeModal={props.closeModal}
+        projId={props.activeProject} 
+        type={props.costsModalType} 
+        costs={props.projectContent.costs}
+        getProjectDetails={props.getProjectDetails}
+      />
+      <ConcludeModalContainer 
+        closeConcludeModal={props.closeConcludeModal} 
+        projId={props.activeProject}
+        projectContent={props.projectContent}
+        type={props.concludeModalType} 
+        getProjectDetails={props.getProjectDetails}
+      /> 
       <div className="widgets-grid widget cards-container nofixed-height no-shadow">
         <div className="grid-widget tasks-title">
           <h4 className="widget-title">{props.concluded? 'Projetos concluídos' : 'Projetos'}</h4>
@@ -84,6 +78,7 @@ export const AllProjects = props => {
           changeFiltersAreActive={props.changeFiltersAreActive}
           filtersAreActive={props.filtersAreActive}
           deleteActiveProject={props.deleteActiveProject}
+          openModal={props.openModal}
         />
         <div className="grid-widget tasks-list">
           <div className="tasks-list-container">
@@ -123,6 +118,7 @@ export const AllProjects = props => {
             changeCommentVal={props.changeCommentVal}
             submitComment={props.submitComment}
             openCostsModal={props.openCostsModal}
+            openModal={props.openModal}
           />
         }
         </div>

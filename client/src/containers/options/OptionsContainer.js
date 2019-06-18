@@ -27,6 +27,7 @@ class OptionsContainer extends Component {
         deleteActiveBudget={this.props.deleteActiveBudget}
         activeTab={this.props.activeTab}
         openConcludeModal={this.props.openConcludeModal}
+        openModal={this.props.openModal}
         activeItem={this.props.activeTask}
         activeType={this.props.activeType}
         itemContent={this.props.itemContent}

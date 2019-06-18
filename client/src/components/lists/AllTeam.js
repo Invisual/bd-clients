@@ -78,6 +78,8 @@ export const AllTeam = props => {
                             activeTab={props.activeTab}
                             isLoading={props.isLoading}
                             filters={props.filters}
+                            openModal={props.openModal}
+                            changeEditHourId={props.changeEditHourId}
                         />
           }
         </div>

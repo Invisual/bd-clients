@@ -154,7 +154,7 @@ class CreateMeetingContainer extends Component{
         e.preventDefault();
         var data = {
             id: this.props.match.params.id,
-            date: this.state.dateInput,
+            date: moment(this.state.dateInput).format('Y-MM-DD'),
             startHour: this.state.startHourInput,
             endHour: this.state.endHourInput,
             client: this.state.clientInput,

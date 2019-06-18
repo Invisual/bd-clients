@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import { themeConsts } from './themeConsts';
-
+ 
 export const SingleTaskDiv = styled.div`
   display: grid;
   grid-template-columns: 80% 5% 5% 10%;
   padding-left: 20px;
   margin-top: 15px;
   color: ${themeConsts.textDarkGrey};
-
+ 
   .task-title {
     margin: 0;
     padding: 18px 0;
@@ -22,23 +22,23 @@ export const SingleTaskDiv = styled.div`
   .title-click {
     cursor: pointer;
   }
-
+ 
   .task-watch {
     padding: 18px 0;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-
+ 
     .active-clock {
       color: ${themeConsts.red};
     }
-
+ 
     .inactive-clock {
       color: ${themeConsts.primaryBlue};
     }
   }
-
+ 
   .task-state {
     color: #fff;
     border-radius: ${themeConsts.borderRadius};
@@ -56,14 +56,14 @@ export const SingleTaskDiv = styled.div`
     font-size: 2em;
   }
 `;
-
+ 
 export const AllSingleTaskDiv = styled.div`
   display: grid;
   grid-template-columns: 75% 5% 5% 5% 10%;
   padding-left: 20px;
   margin-top: 15px;
   color: ${themeConsts.textDarkGrey};
-
+ 
   .task-title {
     margin: 0;
     padding: 18px 0;
@@ -77,7 +77,7 @@ export const AllSingleTaskDiv = styled.div`
   .title-click {
     cursor: pointer;
   }
-
+ 
   .task-link {
     padding: 18px 0;
     cursor: pointer;
@@ -89,23 +89,23 @@ export const AllSingleTaskDiv = styled.div`
   .task-link:hover {
     color: ${themeConsts.primaryBlue};
   }
-
+ 
   .task-watch {
     padding: 18px 0;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-
+ 
     .active-clock {
       color: ${themeConsts.red};
     }
-
+ 
     .inactive-clock {
       color: ${themeConsts.primaryBlue};
     }
   }
-
+ 
   .task-state {
     color: #fff;
     border-radius: ${themeConsts.borderRadius};
@@ -123,18 +123,20 @@ export const AllSingleTaskDiv = styled.div`
     font-size: 2em;
   }
 `;
-
+ 
 export const SingleProjectDiv = styled.div`
   display: grid;
   grid-template-columns: 4% 60% 8% 8% 20%;
   color: ${themeConsts.textDarkGrey};
-
+ 
   .project-title {
-    margin: 0;
+    /*margin: 0;
     padding: 18px 0;
     position: relative;
-    top: 6px;
-
+    top: 6px;*/
+    display: flex;
+    align-items: center;
+ 
     .title-divider {
       padding-right: 5px;
       border-right: 1px solid #afacd1;
@@ -146,45 +148,63 @@ export const SingleProjectDiv = styled.div`
       font-weight: 700;
     }
   }
-
+ 
   .project-status,
   .project-total-tasks,
   .project-concluded-tasks {
-    padding: 18px 0;
+    /*padding: 18px 0;
     position: relative;
     top: 8px;
-    margin: 0;
+    margin: 0;*/
+    display: flex;
+    align-items: center;
     font-size: 1.3em;
   }
   .project-status {
-    margin: auto 0;
+    /*margin: auto 0;
     position: relative;
-    top: 4px;
+    top: 4px;*/
+    display:flex;
+    align-items: center;
   }
   .task-progress {
     padding: 18px 0;
     position: relative;
     top: 4px;
   }
-
+ 
   svg {
     font-size: 1.7em;
   }
 `;
-
+ 
 export const ClientProjectDiv = styled.div`
   display: grid;
   grid-template-columns: 4% 60% 8% 8% 20%;
   color: ${themeConsts.textDarkGrey};
-  
+ 
   .project-status {
     display:flex;
     align-items:center;
+    position: relative;
+  }
+ 
+  .project-status.billed::after{
+    content: '';
+    position: absolute;
+    width:100%;
+    height:100%;
+    top: 0;
+    left: 0;
+    background: url('/img/check_faturado.svg');
+    background-position: 24% 50%;
+    background-repeat: no-repeat;
+    background-size: 15px;
   }
   .project-title {
     display:flex;
     align-items:center;
-
+ 
     .title-divider {
       padding-right: 5px;
       border-right: 1px solid #afacd1;
@@ -201,7 +221,7 @@ export const ClientProjectDiv = styled.div`
       }
     }
   }
-
+ 
   .project-total-tasks,
   .project-concluded-tasks {
     display: flex;
@@ -209,37 +229,56 @@ export const ClientProjectDiv = styled.div`
     align-items: center;
     font-size: 1.3em;
   }
-  
+ 
   .task-progress {
     padding: 18px 0;
     position: relative;
     top: 0px;
   }
-
+ 
   svg {
     font-size: 1.7em;
   }
 `;
-
+ 
 export const AllSingleProjectDiv = styled.div`
   color: ${themeConsts.textDarkGrey};
   padding: 10px !important;
   cursor: pointer;
-
+ 
   .project-header {
     padding-bottom: 3px;
     border-bottom: 1px solid #e6e6e6;
     .project-title {
       display: flex;
-      align-items: flex-end;
+      align-items: center;
       margin-bottom: 5px;
       margin-bottom: 25px;
       font-size: 1.4em;
       font-weight: 500;
-      span {
+ 
+    .billed{
+      position: relative;
+    }
+    .billed::after{
+      content: '';
+      position: absolute;
+      width:100%;
+      height:100%;
+      top: 0;
+      left: 0;
+      background: url('/img/check_faturado.svg');
+      background-position: 24% 50%;
+      background-repeat: no-repeat;
+      background-size: 15px;
+    }
+      .title-click {
         padding-left: 5px;
       }
     }
+ 
+   
+ 
     .project-client-date {
       display: flex;
       justify-content: space-between;
@@ -287,12 +326,12 @@ export const AllSingleProjectDiv = styled.div`
     font-size: 1.7em;
   }
 `;
-
+ 
 export const SingleToDoDiv = styled.div`
   display: grid;
   grid-template-columns: 10% 90%;
   color: ${themeConsts.textDarkGrey};
-
+ 
   .todo-text {
     margin: 0;
     padding: 14px 0;
@@ -300,51 +339,51 @@ export const SingleToDoDiv = styled.div`
     font-size: 1.2em;
     line-height: 1.4em;
   }
-
+ 
   .todo-status {
     margin: auto 0;
     position: relative;
     cursor: pointer;
   }
-
+ 
   svg {
     font-size: 1.4em;
   }
 `;
-
+ 
 export const SingleTaskCommentDiv = styled.div`
   display: grid;
   grid-template-columns: 6% 94%;
   color: ${themeConsts.textDarkGrey};
   margin-bottom: 10px;
-
+ 
   .todo-text {
     margin: 0;
     padding: 18px 0;
     position: relative;
   }
-
+ 
   .todo-status {
     margin: auto 0;
     position: relative;
     cursor: pointer;
   }
 `;
-
+ 
 export const SingleClientDiv = styled.div`
   display: grid;
   grid-template-columns: 45% 35% 20%;
   color: ${themeConsts.textDarkGrey};
   min-height: 50px;
   cursor: pointer;
-
+ 
   .client-title {
     display: flex;
     align-items: center;
     font-size: 1.4em;
     font-weight: 500;
   }
-
+ 
   .hours-progress {
     padding: 18px 0;
     svg {
@@ -352,7 +391,7 @@ export const SingleClientDiv = styled.div`
       align-items: center;
     }
   }
-
+ 
   .client-hours {
     display: flex;
     align-items: center;
@@ -360,25 +399,25 @@ export const SingleClientDiv = styled.div`
     color: ${themeConsts.secondaryBlue};
     font-size: 1em;
   }
-
+ 
   svg {
     font-size: 1.7em;
   }
 `;
-
-
-
-
+ 
+ 
+ 
+ 
 export const SingleMemberDiv = styled.div`
   display: flex;
   color: ${themeConsts.textDarkGrey};
   min-height: 50px;
   cursor: pointer;
-
+ 
   .member-avatar{
     display: flex;
     align-items: center;
-
+ 
     img{
       width:27px;
       border: 2px solid #0036ff;
@@ -401,16 +440,16 @@ export const SingleMemberDiv = styled.div`
     color:${themeConsts.secondaryBlue}
   }
 `;
-
-
-
-
+ 
+ 
+ 
+ 
 export const AllMeetingsDiv = styled.div`
-
+ 
   .meeting-card-grid{
     display: grid;
     grid-template-columns: 93% 7%;
-  
+ 
     .meeting-type-1{background-color:${themeConsts.orange}}
     .meeting-type-2{background-color:${themeConsts.thirdBlue}}
     .meeting-info-date{
@@ -419,22 +458,22 @@ export const AllMeetingsDiv = styled.div`
       border-radius:${themeConsts.borderRadius};
       padding:4px 8px;
       margin-top:15px;
-
+ 
       .date{
         margin-left: 5px;
       }
     }
-
+ 
     h3{
       font-weight: 500;
       font-size: 1.4em;
       color:${themeConsts.titlesDarkGrey};
       margin: 10px 0 10px 3px;
     }
-
+ 
     .meeting-info-users{
       margin-left: 3px;
-
+ 
       img{
         border-radius: 50%;
         width: 20px;
@@ -443,13 +482,13 @@ export const AllMeetingsDiv = styled.div`
         margin-right: 5px;
       }
     }
-
+ 
     .meeting-info-extra{
       display:flex;
       margin-top: 12px;
       margin-bottom: 7px;
-
-
+ 
+ 
       .meeting-extra-place{
         margin-left:25px;
       }
@@ -465,13 +504,13 @@ export const AllMeetingsDiv = styled.div`
         bottom: 3px;
       }
     }
-
+ 
     .meeting-card-actions{
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-
+ 
       svg{
         font-size:1.75em;
         color:${themeConsts.secondaryBlue};
@@ -480,38 +519,38 @@ export const AllMeetingsDiv = styled.div`
       }
     }
   }
-
+ 
   .meeting-card-small{
-
+ 
     .meeting-info-date{
       padding: 2px 6px;
-
+ 
       .hours{
         font-size:.85em;
       }
     }
-
+ 
     h3{
       font-size:1.1em;
     }
-
+ 
     .meeting-info-users img{
       width: 17px;
       height: 17px;
     }
-
+ 
     .meeting-info-extra{
       svg{
         font-size:1.3em;
       }
-
+ 
       span{
         font-size: .85em;
       }
     }
   }
-
-
+ 
+ 
 .small-height{
     animation: incHeight .3s ease;
     animation-fill-mode: forwards;
@@ -520,13 +559,13 @@ export const AllMeetingsDiv = styled.div`
     animation: redHeight .3s ease;
     animation-fill-mode: forwards;
 }
-
+ 
 @keyframes incHeight{
     0%{padding-bottom: 0;}
     100%{padding-bottom: 60px;}
 }
-
-
+ 
+ 
 @keyframes redHeight{
     0%{padding-bottom: 60px;}
     100%{padding-bottom: 0;}
@@ -538,7 +577,7 @@ export const AllSingleBillingDiv = styled.div`
   padding-left: 20px;
   margin-top: 15px;
   color: ${themeConsts.textDarkGrey};
-  
+ 
   .billing-type-icon {
     display: flex;
     justify-content: center;
@@ -576,25 +615,25 @@ export const AllSingleBillingDiv = styled.div`
       color: ${themeConsts.green}
     }
   }
-
-  
+ 
+ 
 `;
-
-
-
-
+ 
+ 
+ 
+ 
 export const SingleVacationDiv = styled.div`
   padding: 0 !important;
-
+ 
   .vacation-card-grid{
     display:grid;
     grid-template-columns:50% 45% 5%;
     padding: 20px 5px 20px 14px !important;
-
+ 
     .user-info{
       display: flex;
       align-items: center;
-
+ 
       img{
         width: 35px;
         height: 35px;
@@ -614,11 +653,11 @@ export const SingleVacationDiv = styled.div`
         letter-spacing: .02em;
       }
     }
-    
+   
     .vacation-info{
       display: flex;
       align-items: center;
-
+ 
       span{
         font-size: 1.3em;
         color:${themeConsts.white};
@@ -631,12 +670,12 @@ export const SingleVacationDiv = styled.div`
         margin-left:10px;
       }
     }
-
+ 
     .vacation-actions{
       display:flex;
       align-items:center;
       justify-content:center;
-
+ 
       svg{
         font-size: 1.75em;
         color: ${themeConsts.secondaryBlue};
@@ -645,19 +684,58 @@ export const SingleVacationDiv = styled.div`
       }
     }
   }
-
+ 
   .small-vacations-card{
     grid-template-columns: 35% 75%;
     padding: 10px 5px 10px 10px !important;
-
+ 
     .user-info img{
       width:30px;
       height:30px;
     }
-
+ 
     .vacation-info span{
         font-size: 1.2em;
     }
   }
-
+ 
+`;
+ 
+export const SingleApprovalDiv = styled.div`
+  display: grid;
+  grid-template-columns: 10% 90%;
+  padding-left: 20px;
+  margin-right:5px;
+  margin-left:5px;
+  margin-top: 15px;
+  color: ${themeConsts.textDarkGrey};
+  &:first-of-type{
+    margin-top: 5px;
+  }
+  &:last-of-type{
+    margin-bottom: 5px;
+  }
+ 
+  .approval-type-icon {
+    font-size:1.8em;
+    color:${themeConsts.secondaryBlue};
+    display: flex;
+    align-items: center;
+  }
+  .approval-title {
+    padding: 18px 0;
+    display: flex;
+    align-items: center;
+    .approval-divider {
+      padding-right: 5px;
+      border-right: 1px solid #afacd1;
+      font-size: 1.3em;
+    }
+    .approval-client {
+      padding-left: 7px;
+      color: ${themeConsts.secondaryBlue};
+      font-weight: 700;
+    }
+  }
+ 
 `;

@@ -6,7 +6,7 @@ export const CostsModal = props => {
     if(props.type === 'task' || props.type === 'project'){
         return (
             <CostsModalDiv className="costs-modal cards-container">
-                <div className="modal-close" onClick={props.closeCostsModal}><FiX /></div>
+                <div className="modal-close" onClick={() => props.closeModal('costs')}><FiX /></div>
                 <div className={props.type === 'task' ? 'task-costs' : 'project-costs'}>
                     <h2>Adicionar Registo de Custos {props.type === 'task' ? 'à Tarefa' : 'ao Projeto'}</h2>
                     <form onSubmit={props.insertCosts} id="costs-form">
@@ -50,7 +50,7 @@ export const CostsModal = props => {
                         })}
                         
                         <div className="costs-form-buttons form-buttons">
-                            <button type="button" className="btn secondary-btn" onClick={props.closeCostsModal}>Cancelar</button>
+                            <button type="button" className="btn secondary-btn" onClick={() => props.closeModal('costs')}>Cancelar</button>
                             <button className="btn main-btn">{props.type === 'edit' ? 'Editar' : 'Criar'}</button>
                             <FiPlus className="costs-add-icon" onClick={props.copyRow}/>
                         </div>
@@ -63,7 +63,7 @@ export const CostsModal = props => {
     else if(props.type === 'tasklist' || props.type === 'projectlist'){
         return (
             <CostsModalDiv className="costs-modal cards-container">
-                <div className="modal-close" onClick={props.closeCostsModal}><FiX /></div>
+                <div className="modal-close" onClick={() => props.closeModal('costs')}><FiX /></div>
                 <h2>Registo de Custos</h2>
                 {props.costs ? 
                     <div className="modal-costs-listing">

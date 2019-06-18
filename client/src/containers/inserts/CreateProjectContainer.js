@@ -137,7 +137,7 @@ class CreateProjectContainer extends Component{
         var data = {
             title: this.state.titleInput,
             briefing: this.state.briefingInput,
-            deadline: moment(this.state.deadlineInput).format(),
+            deadline: moment(this.state.deadlineInput).format('YYYY-MM-DD'),
             billing: this.state.billingInput,
             client: this.state.clientInput,
             account: this.state.accountInput,
@@ -164,7 +164,7 @@ class CreateProjectContainer extends Component{
             id: this.props.match.params.id,
             title: this.state.titleInput,
             briefing: this.state.briefingInput,
-            deadline: moment(this.state.deadlineInput).format(),
+            deadline: moment(this.state.deadlineInput).format('YYYY-MM-DD'),
             client: this.state.clientInput,
             billing: this.state.billingInput,
             account: this.state.accountInput,
@@ -222,6 +222,7 @@ class CreateProjectContainer extends Component{
                 type={this.props.type}
                 redirect={this.state.redirect}
                 lastInsertedId={this.state.lastInsertedId}
+                projectData={this.state.projectData}
                 />;
     }
 }

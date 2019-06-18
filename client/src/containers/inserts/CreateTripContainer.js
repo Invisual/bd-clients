@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {CreateTrip} from '../../components/inserts/CreateTrip';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+import moment from 'moment'
 
 const axios = require('axios');
 
@@ -78,7 +79,7 @@ class CreateTripContainer extends Component{
             endKms: this.state.endKmsInput,
             description: this.state.descriptionInput,
             vehicle: this.state.vehicleInput,
-            date: this.state.dateInput,
+            date: moment(this.state.dateInput).format('YYYY-MM-DD'),
             user: user.id_user
         }
         var token = JSON.parse(localStorage.getItem('token'));
@@ -107,7 +108,7 @@ class CreateTripContainer extends Component{
             endKms: this.state.endKmsInput,
             description: this.state.descriptionInput,
             vehicle: this.state.vehicleInput,
-            date: this.state.dateInput
+            date: moment(this.state.dateInput).format('YYYY-MM-DD')
         }
         var token = JSON.parse(localStorage.getItem('token'));
         var AuthStr = 'Bearer ' + token;
