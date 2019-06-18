@@ -17,6 +17,7 @@ class AppContainer extends Component {
       latestActiveHour: '', 
       activeBudgetHours:'',
       latestActiveBudgetHour: '',
+      editHourId: '',
       notifications:[],
       canGoBack: false
     }
@@ -139,6 +140,18 @@ class AppContainer extends Component {
     })
   }
 
+  openModal = (modal) => {
+    document.getElementById('overlay').addEventListener('click', () => this.closeModal(modal))
+    document.body.classList.add('has-modal', `modal-${modal}`)
+  }
+
+  closeModal = (modal) => {
+    document.getElementById('overlay').removeEventListener('click', () => this.closeModal(modal))
+    document.body.classList.remove('has-modal', `modal-${modal}`)
+  }
+
+  changeEditHourId = id => this.setState({editHourId: id})
+
   componentDidMount() {
     this.hydrateStateWithLocalStorage();
     if (localStorage.hasOwnProperty('user')) {this.getActiveHours();this.getActiveBudgetHours();}
@@ -182,6 +195,10 @@ class AppContainer extends Component {
                 notifications={this.state.notifications}
                 setNotificationsSeen={this.setNotificationsSeen}
                 setNotificationOpened={this.setNotificationOpened}
+                openModal={this.openModal}
+                closeModal={this.closeModal}
+                editHourId={this.state.editHourId}
+                changeEditHourId={this.changeEditHourId}
               />
             </>
             )

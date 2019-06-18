@@ -11,6 +11,8 @@ class TeamMemberDetailContainer extends Component {
         activeTab={this.props.activeTab}
         isLoading={this.props.isLoading}
         filters={this.props.filters}
+        openModal={this.props.openModal}
+        changeEditHourId={this.props.changeEditHourId}
       />
     );
   }

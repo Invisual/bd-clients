@@ -14,6 +14,7 @@ import AllTeamContainer from './containers/lists/AllTeamContainer';
 import AllBillingContainer from './containers/lists/AllBillingContainer';
 import AllVacationsContainer from './containers/lists/AllVacationsContainer';
 import AllTripsContainer from './containers/lists/AllTripsContainer';
+import AllApprovalsContainer from './containers/lists/AllApprovalsContainer';
 import GantTasksContainer from './containers/lists/GantTasksContainer';
 import MyToDoContainer from './containers/tables/MyToDoContainer';
 import CreateProjectContainer from './containers/inserts/CreateProjectContainer';
@@ -25,6 +26,7 @@ import CreateUserContainer from './containers/inserts/CreateUserContainer';
 import CreateClientInfoContainer from './containers/inserts/CreateClientInfoContainer';
 import CreateVacationContainer from './containers/inserts/CreateVacationContainer';
 import CreateTripContainer from './containers/inserts/CreateTripContainer';
+import CreateTaskHourContainer from './containers/inserts/CreateTaskHourContainer';
 import ChatTaskContainer from './containers/chat/ChatTaskContainer';
 import VacationsApprovalContainer from './containers/approvals/VacationsApprovalContainer';
 import VacationsRejectContainer from './containers/approvals/VacationsRejectContainer';
@@ -41,21 +43,23 @@ class App extends Component {
       <>
         {this.props.loggedIn ? (
           <div className="app-container">
-            <TopBarContainer canGoBack={this.props.canGoBack} userInfo={this.props.userInfo} notifications={this.props.notifications} setNotificationsSeen={this.props.setNotificationsSeen} setNotificationOpened={this.props.setNotificationOpened} logout={this.props.logout}/>
+            <TopBarContainer canGoBack={this.props.canGoBack} userInfo={this.props.userInfo} notifications={this.props.notifications} setNotificationsSeen={this.props.setNotificationsSeen} setNotificationOpened={this.props.setNotificationOpened} openModal={this.props.openModal} logout={this.props.logout} changeEditHourId={this.props.changeEditHourId}/>
             <SideBar userInfo={this.props.userInfo} logout={this.props.logout}/>
-            <MyToDoContainer title="To-do List" type="complete"/>
+            <MyToDoContainer title="To-do List" type="complete" closeModal={this.props.closeModal}/>
+            <CreateTaskHourContainer closeModal={this.props.closeModal} editHourId={this.props.editHourId} changeEditHourId={this.props.changeEditHourId}/>
             <Switch>
-              <Route exact path="/" render={props => <UserDashboardContainer activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} {...props} />} />
-              <Route key="all-tasks" exact path="/tasks" render={ props => <AllTasksContainer isShare={false} userInfo={this.props.userInfo} {...props} activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} activeBudgetHours={this.props.activeBudgetHours} getActiveBudgetHours={this.props.getActiveBudgetHours}/> } />
-              <Route key="concluded-tasks" exact path="/concludedtasks" render={ props => <AllTasksContainer isShare={false} concluded={true} userInfo={this.props.userInfo} {...props} activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} activeBudgetHours={this.props.activeBudgetHours} getActiveBudgetHours={this.props.getActiveBudgetHours}/> } />
-              <Route key="concluded-tasks" exact path="/concludedtasks/:id" render={ props =><AllTasksContainer isShare={true} concluded={true} userInfo={this.props.userInfo} {...props} activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} activeBudgetHours={this.props.activeBudgetHours} getActiveBudgetHours={this.props.getActiveBudgetHours}/> } />
-              <Route exact path="/tasks/:id" render={props => <AllTasksContainer isShare={true} userInfo={this.props.userInfo} {...props}  activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} activeBudgetHours={this.props.activeBudgetHours} getActiveBudgetHours={this.props.getActiveBudgetHours}/>} />
+              <Route exact path="/" render={props => <UserDashboardContainer userInfo={this.props.userInfo} userRole={this.props.userInfo.ref_id_role} activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} {...props} />} />
+              <Route key="all-approvals" exact path="/approvals" render={ props => <AllApprovalsContainer isShare={false} userInfo={this.props.userInfo} {...props} /> } />
+              <Route key="all-tasks" exact path="/tasks" render={ props => <AllTasksContainer openModal={this.props.openModal} closeModal={this.props.closeModal} isShare={false} userInfo={this.props.userInfo} {...props} activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} activeBudgetHours={this.props.activeBudgetHours} getActiveBudgetHours={this.props.getActiveBudgetHours}/> } />
+              <Route key="concluded-tasks" exact path="/concludedtasks" render={ props => <AllTasksContainer openModal={this.props.openModal} closeModal={this.props.closeModal} isShare={false} concluded={true} userInfo={this.props.userInfo} {...props} activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} activeBudgetHours={this.props.activeBudgetHours} getActiveBudgetHours={this.props.getActiveBudgetHours}/> } />
+              <Route key="concluded-tasks" exact path="/concludedtasks/:id" render={ props =><AllTasksContainer openModal={this.props.openModal} closeModal={this.props.closeModal}  isShare={true} concluded={true} userInfo={this.props.userInfo} {...props} activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} activeBudgetHours={this.props.activeBudgetHours} getActiveBudgetHours={this.props.getActiveBudgetHours}/> } />
+              <Route exact path="/tasks/:id" render={props => <AllTasksContainer openModal={this.props.openModal} closeModal={this.props.closeModal} isShare={true} userInfo={this.props.userInfo} {...props}  activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} activeBudgetHours={this.props.activeBudgetHours} getActiveBudgetHours={this.props.getActiveBudgetHours}/>} />
               <Route exact path="/budgets" render={props => <AllBudgetsContainer isShare={false} userInfo={this.props.userInfo} {...props}  activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} activeBudgetHours={this.props.activeBudgetHours} getActiveBudgetHours={this.props.getActiveBudgetHours}/>} />
               <Route exact path="/budgets/:id" render={props => <AllBudgetsContainer isShare={true} userInfo={this.props.userInfo} {...props} activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} activeBudgetHours={this.props.activeBudgetHours} getActiveBudgetHours={this.props.getActiveBudgetHours}/>} />
-              <Route key="all-projects" exact path="/projects" render={ props => <AllProjectsContainer isShare={false} userInfo={this.props.userInfo} {...props}/> } />
-              <Route key="concluded-projects" exact path="/concludedprojects" render={ props=> <AllProjectsContainer isShare={false} concluded={true} userInfo={this.props.userInfo} {...props}/> } />
-              <Route key="concluded-projects" exact path="/concludedprojects/:id" render={ props => <AllProjectsContainer isShare={false} concluded={true} userInfo={this.props.userInfo} {...props}/> } />
-              <Route exact path="/projects/:id" render={props => <AllProjectsContainer isShare={true} userInfo={this.props.userInfo} {...props} />} />
+              <Route key="all-projects" exact path="/projects" render={ props => <AllProjectsContainer openModal={this.props.openModal} closeModal={this.props.closeModal} isShare={false} userInfo={this.props.userInfo} {...props}/> } />
+              <Route key="concluded-projects" exact path="/concludedprojects" render={ props=> <AllProjectsContainer openModal={this.props.openModal} closeModal={this.props.closeModal} isShare={false} concluded={true} userInfo={this.props.userInfo} {...props}/> } />
+              <Route key="concluded-projects" exact path="/concludedprojects/:id" render={ props => <AllProjectsContainer openModal={this.props.openModal} closeModal={this.props.closeModal} isShare={false} concluded={true} userInfo={this.props.userInfo} {...props}/> } />
+              <Route exact path="/projects/:id" render={props => <AllProjectsContainer openModal={this.props.openModal} closeModal={this.props.closeModal} isShare={true} userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/meetings" render={props => <AllMeetingsContainer userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/meetings/:date" render={props => <AllMeetingsContainer userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/clients" render={props => <AllClientsContainer isShare={false} userInfo={this.props.userInfo} logout={this.props.logout} {...props} />} />
@@ -63,8 +67,8 @@ class App extends Component {
               <Route path="/admin" render={props => <GantTasksContainer {...props} />} />
               <Route exact path="/billing" render={props => <AllBillingContainer userInfo={this.props.userInfo} isShare={false} {...props} />} />
               <Route exact path="/billing/:type/:id" render={props => <AllBillingContainer userInfo={this.props.userInfo} isShare={true} {...props} />} />
-              <Route exact path="/team" render={props => <AllTeamContainer userInfo={this.props.userInfo} isShare={false} {...props} />} />
-              <Route exact path="/team/:id" render={props => <AllTeamContainer userInfo={this.props.userInfo} isShare={true} {...props} />} />
+              <Route exact path="/team" render={props => <AllTeamContainer userInfo={this.props.userInfo} isShare={false} {...props} openModal={this.props.openModal} changeEditHourId={this.props.changeEditHourId} />} />
+              <Route exact path="/team/:id" render={props => <AllTeamContainer userInfo={this.props.userInfo} isShare={true} {...props} openModal={this.props.openModal} changeEditHourId={this.props.changeEditHourId}/>} />
               <Route exact path="/vacations" render={props => <AllVacationsContainer type="all" userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/vacations/:date" render={props => <AllVacationsContainer type="date" userInfo={this.props.userInfo} {...props} />} />
               <Route exact path="/trips" render={props => <AllTripsContainer userInfo={this.props.userInfo} {...props} />} />

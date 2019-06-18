@@ -5,7 +5,7 @@ import { FiX } from 'react-icons/fi';
 export const ConcludeModal = props => {
     if(props.type === 'task' || props.type === 'project'){
         return (
-            <CostsModalDiv className="costs-modal cards-container">
+            <CostsModalDiv className="conclude-modal cards-container">
                 <div className="modal-close" onClick={props.closeConcludeModal}><FiX /></div>
                 <h2>Concluír Tarefa</h2>
                 <form onSubmit={props.type === 'task' ? props.submitConcludeTask : props.submitConcludeProject}>
@@ -76,5 +76,8 @@ export const ConcludeModal = props => {
                 
             </CostsModalDiv>
         )
+    }
+    else{
+        return null
     }
 }

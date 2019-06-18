@@ -264,7 +264,8 @@ export const TopBarDiv = styled.div`
     }
     .topbar-notifications,
     .topbar-messages,
-    .topbar-avatar {
+    .topbar-avatar,
+    .topbar-add{
       ul {
         display: block;
         list-style-type: none;

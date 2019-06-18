@@ -12,6 +12,7 @@ class TopBarContainer extends Component {
       displayDropdownMessages: false,
       displayDropdownNotifications: false,
       displayDropdownUser: false,
+      displayDropdownCreate: false,
       displaySearchInput: '',
     }
   }
@@ -24,17 +25,22 @@ class TopBarContainer extends Component {
     this.setState({displayDropdownUser: !this.state.displayDropdownUser})
   }
 
+  showDropdownCreate = () => {
+    this.setState({displayDropdownCreate: !this.state.displayDropdownCreate})
+  }
+
   hideDropdownMenu = (e) => {
     if(this._isMounted && e.target.id !== 'notificationsli' && e.target.id !== 'notificationsicon' 
       && e.target.id !== 'notificationsnumber' && e.target.classList[0] !== 'notification' 
       && e.target.classList[0] !== 'notificationlink' && e.target.id !== 'topbar-user-name'
       && e.target.id !== 'topbar-user-img' && e.target.id !== 'topbar-user-link1'
       && e.target.id !== 'topbar-user-link2' && e.target.id !== 'topbar-user-link3'
-      && e.target.id !== 'topbar-user-link4'){
+      && e.target.id !== 'topbar-user-link4' && e.target.id !== 'topbar-user-link5'){
       this.setState({
         displayDropdownMessages: false,
         displayDropdownNotifications: false,
-        displayDropdownUser: false
+        displayDropdownUser: false,
+        displayDropdownCreate: false
       })
     }
   }
@@ -67,10 +73,12 @@ class TopBarContainer extends Component {
       <TopBar 
         showDropdownMenu={this.showDropdownMenu}
         showDropdownUser={this.showDropdownUser}
+        showDropdownCreate={this.showDropdownCreate}
         hideDropdownMenu={this.hideDropdownMenu}
         displayDropdownMessages={this.state.displayDropdownMessages}
         displayDropdownNotifications={this.state.displayDropdownNotifications}
         displayDropdownUser={this.state.displayDropdownUser}
+        displayDropdownCreate={this.state.displayDropdownCreate}
         displaySearchInput={this.state.displaySearchInput}
         toggleSearchInput={this.toggleSearchInput}
         notifications={this.props.notifications}
@@ -79,7 +87,9 @@ class TopBarContainer extends Component {
         goBackHistory={this.goBackHistory}
         setNotificationsSeen={this.props.setNotificationsSeen}
         setNotificationOpened={this.props.setNotificationOpened}
+        openModal={this.props.openModal}
         logout={this.props.logout}
+        changeEditHourId={this.props.changeEditHourId}
       />
     );
   }

@@ -106,6 +106,13 @@ export const CalendarDiv = styled.div`
         cursor:pointer;
     }
 
+    .rbc-date-cell div.has-task-deadline{
+        background-color: ${themeConsts.red};
+        color: ${themeConsts.white};
+        border-radius: 50%;
+        cursor:pointer;
+    }
+
     .rbc-off-range-bg {
         background: transparent;
     }

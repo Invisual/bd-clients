@@ -13,6 +13,7 @@ class ProjectDetailContainer extends Component {
         changeCommentVal={this.props.changeCommentVal}
         submitComment={this.props.submitComment}
         openCostsModal={this.props.openCostsModal}
+        openModal={this.props.openModal}
       />
     );
   }

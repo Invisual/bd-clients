@@ -28,7 +28,7 @@ export const MyToDo = props => {
                   );
                 })}
               </div>
-              <div className="see-all" onClick={props.openFullModal}>
+              <div className="see-all" onClick={() => props.openModal('todo')}>
                 Ver todos{' '}
                 <span className="arrow">
                   <FiArrowRight color="#0031e6" />
@@ -58,8 +58,8 @@ export const MyToDo = props => {
           )}
         </TodoListDashboardDiv>
       ) : (
-        <TodoListCompleteDiv className="cards-container complete-todo">
-          <div className="todo-close" onClick={props.closeFullModal}>
+        <TodoListCompleteDiv className="cards-container complete-todo-modal">
+          <div className="todo-close" onClick={() => props.closeModal('todo')}>
             <FiX />
           </div>
           {props.isLoading ? (

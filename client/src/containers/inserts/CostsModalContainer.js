@@ -172,7 +172,7 @@ class CostsModalContainer extends Component{
                     .then(click => {
                         if(this.props.type === 'project'){ this.props.getProjectDetails() }
                         else if(this.props.type === 'task'){ this.props.getTaskDetails() }
-                        this.props.closeCostsModal()
+                        this.props.closeModal('costs')
                     })
             }
         })
@@ -214,7 +214,7 @@ class CostsModalContainer extends Component{
                     Swal.fire('Eliminado!', '', 'success').then(click => {
                         if(this.props.type === 'projectlist'){ this.props.getProjectDetails() }
                         else if(this.props.type === 'tasklist'){ this.props.getTaskDetails() }
-                        this.props.closeCostsModal()
+                        this.props.closeModal('costs')
                     })
                 })
             }
@@ -223,14 +223,14 @@ class CostsModalContainer extends Component{
 
     render(){
         return <CostsModal 
-                    type={this.props.type} 
-                    closeCostsModal={this.props.closeCostsModal}
+                    type={this.props.type}
                     insertCosts={this.insertCosts}
                     copyRow={this.copyRow}
                     deleteRow={this.deleteRow}
                     inputs={this.state.inputs}
                     costs={this.props.costs}
                     deleteCost={this.deleteCost}
+                    closeModal={this.props.closeModal}
                 />
     }
 }

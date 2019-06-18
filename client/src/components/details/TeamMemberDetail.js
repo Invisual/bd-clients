@@ -4,6 +4,7 @@ import { FiMoreHorizontal } from 'react-icons/fi';
 import {TeamMemberHistoryTab} from '../tabs/TeamMemberHistoryTab';
 import {TeamMemberInfoTab} from '../tabs/TeamMemberInfoTab';
 import {TeamMemberVacationsTab} from '../tabs/TeamMemberVacationsTab';
+import TeamMemberHoursTab from '../tabs/TeamMemberHoursTab';
 
 export const TeamMemberDetail = props => {
   return (
@@ -44,6 +45,12 @@ export const TeamMemberDetail = props => {
                   >
                     Férias
                   </div>
+                  <div
+                    className={'project-tab ' + (props.activeTab === 'hours' ? 'active-tab' : '')}
+                    onClick={() => props.changeActiveTab('hours')}
+                  >
+                    Horas
+                  </div>
                 </div>
               </div>
               {(() => {
@@ -54,6 +61,8 @@ export const TeamMemberDetail = props => {
                     return <TeamMemberInfoTab memberContent ={props.memberContent} />
                   case 'vacations':
                     return <TeamMemberVacationsTab memberContent={props.memberContent} />
+                  case 'hours':
+                    return <TeamMemberHoursTab activeMember={props.activeMember} openModal={props.openModal} changeEditHourId={props.changeEditHourId}/>
                   default:
                     return null;
                 }

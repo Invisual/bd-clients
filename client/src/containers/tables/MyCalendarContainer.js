@@ -75,9 +75,6 @@ class MyCalendarContainer extends Component {
   }
 
   render() {
-
-    //var meetings = this.props.meetings.length > 0 ? this.props.meetings : [{title: 'placeholder', start:'2019-02-02', end:'2019-02-02', allDay: true, type: 1, resource: 2, client:'Invisual', hour:'13:00', description: 'placeholder'}];
-
     let formats = {
       monthHeaderFormat: 'MMMM'
     }
@@ -104,27 +101,37 @@ class MyCalendarContainer extends Component {
               ) && meeting.type === 2
             ) !== undefined;
 
-            let meetingsOnThisDay = this.props.meetings.filter(meeting => {
-              return moment(date).isBetween(
-                moment(meeting.start),
-                moment(meeting.end),
-                null,
-                "[]"
-              )
+            let hasTaskDeadlineOnThisDay = this.props.meetings.find(meeting =>
+              moment(meeting.deadline_date_task).isSame(date)
+            ) !== undefined;
+
+            let eventsOnThisDay = this.props.meetings.filter(event => {
+              return moment(date).isBetween( moment(event.start), moment(event.end), null,"[]") || moment(event.deadline_date_task).isSame(date)
             })
 
-            let mapMeetingsOnThisDay = meetingsOnThisDay.map(meeting => { 
-              return `
-                <div class="modal-single-meeting">
-                  <h4>${meeting.title}</h4>
-                  <p>${meeting.hour}h</p>
-                </div>
-              `
+            let mapEventsOnThisDay = eventsOnThisDay.map(event => {
+              if(event.id_task){
+                  return `
+                    <div class="modal-single-task calendar-modal-content">
+                      <h4>Último dia para terminar a Tarefa '${event.title_task}'</h4>
+                      <p>${event.deadline_date_task}</p>
+                    </div>
+                  `
+              }
+              else if(event.id_meeting){
+                  return `
+                    <div class="modal-single-meeting calendar-modal-content">
+                      <h4>Reunião '${event.title}'</h4>
+                      <p>${event.start_hour_meeting}h</p>
+                    </div>
+                  `
+              }
             }).join('')
 
             var dayClass = '';
             dayClass += hasMeetingsOnThisDay ? 'has-meeting' : '';
             dayClass += hasOutMeetingsOnThisDay  ? ' has-out-meeting' : '';
+            dayClass += hasTaskDeadlineOnThisDay  ? ' has-task-deadline' : '';
             if(this.props.type === 'allmeetings'){
               return (
                 <div className={dayClass} onClick={() => this.props.changeActiveDay(moment(date).format('Y-MM-DD'))}>
@@ -132,11 +139,11 @@ class MyCalendarContainer extends Component {
                 </div>
               );
             }
-            else{
+            else if(this.props.type === 'dashboard'){
               return (
-                <div className={dayClass} onClick={()=>meetingsOnThisDay.length > 0 ? Swal.fire({
-                  title: `Reuniões no dia ${moment(date).format('D')} de ${moment(date).format('MMMM')}`,
-                  html: `${mapMeetingsOnThisDay}`
+                <div className={dayClass} onClick={()=>eventsOnThisDay.length > 0 ? Swal.fire({
+                  title: `Eventos no dia ${moment(date).format('D')} de ${moment(date).format('MMMM')}`,
+                  html: `${mapEventsOnThisDay}`
                 }) : null}>
                 <p>{label}</p>
                 </div>

@@ -102,11 +102,11 @@ export const TaskDetail = props => {
                   <div className="billing-title">
                     <h4>Custos para Faturação</h4>
                     {props.taskContent.costs ? 
-                      <div className="see-all-costs" onClick={() => props.openCostsModal('tasklist')}>Consulte aqui os Custos associados a esta Tarefa <FiArrowRight /></div>
+                      <div className="see-all-costs" onClick={() => {props.openCostsModal('tasklist'); props.openModal('costs') }}>Consulte aqui os Custos associados a esta Tarefa <FiArrowRight /></div>
                     :
                       <div className="billing-descr">Esta Tarefa ainda não tem um Registo de Custos associado.</div>
                     }
-                    <FiPlus className="billing-add-icon" onClick={() => props.openCostsModal('task')}/>
+                    <FiPlus className="billing-add-icon" onClick={() => {props.openCostsModal('task'); props.openModal('costs')}}/>
                   </div>
                 </div>
               :

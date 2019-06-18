@@ -132,9 +132,9 @@ class AllTasksContainer extends Component {
       if (this.props.isShare) {
 
         if(this.props.concluded){
-          this.props.history.push('/concludedtasks')
+          this.props.history.push({pathname: '/concludedtasks'})
         } else {
-          this.props.history.push('/tasks')
+          this.props.history.push({pathname: '/tasks'})
         }
         
         axios
@@ -304,7 +304,7 @@ class AllTasksContainer extends Component {
   };
 
   scrollToElementD = () => {
-    var topPos = document.querySelector('.active').offsetTop;
+    var topPos = document.querySelector('.single-card.active').offsetTop;
     this.scrollTo(document.querySelector('.tasks-list'), topPos - 10, 600);
   };
 
@@ -337,30 +337,18 @@ class AllTasksContainer extends Component {
   };
   
   openCostsModal = (type) => {
-    document.body.classList.add('costs-open', 'modal-open')
-    document.getElementById('overlay').addEventListener('click', () => this.closeCostsModal())
-    this.setState({costsModalOpen: true, costsModalType: type})
-  }
-
-  closeCostsModal = () => {
-    document.body.classList.remove('costs-open', 'modal-open')
-    document.getElementById('overlay').removeEventListener('click', () => this.closeCostsModal());
-    this.setState({costsModalOpen: false})
+    this.setState({costsModalType: type})
   }
 
   openConcludeModal = (type) => {
-    document.body.classList.add('costs-open', 'modal-open')
-    document.getElementById('overlay').addEventListener('click', () => this.closeConcludeModal())
-    this.setState({concludeModalOpen: true, concludeModalType: type})
+    this.setState({concludeModalType: type})
   }
 
   closeConcludeModal = (concluded) => {
-    document.body.classList.remove('costs-open', 'modal-open')
-    document.getElementById('overlay').removeEventListener('click', () => this.closeConcludeModal());
     if(concluded=== 'concluded'){
       this.setState({activeTask: '', reloadTasks: true})
     }
-    this.setState({concludeModalOpen: false})
+    this.props.closeModal('conclude')
   }
 
 
@@ -421,7 +409,6 @@ class AllTasksContainer extends Component {
         displaySearchInput={this.state.displaySearchInput}
         toggleSearchInput={this.toggleSearchInput}
         openCostsModal={this.openCostsModal}
-        closeCostsModal={this.closeCostsModal}
         isCostsModalOpen={this.state.costsModalOpen}
         costsModalType={this.state.costsModalType}
         openConcludeModal={this.openConcludeModal}
@@ -431,6 +418,8 @@ class AllTasksContainer extends Component {
         getTaskDetails={this.getTaskDetails}
         concluded={this.props.concluded}
         undoActiveTask={this.undoActiveTask}
+        openModal={this.props.openModal}
+        closeModal={this.props.closeModal}
       />
     );
   }
