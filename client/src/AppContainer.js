@@ -19,8 +19,10 @@ class AppContainer extends Component {
       latestActiveBudgetHour: '',
       editHourId: '',
       notifications:[],
+      shouldTodosUpdate: false,
       canGoBack: false
     }
+
   }
 
   login = (user, token) => {
@@ -152,6 +154,10 @@ class AppContainer extends Component {
 
   changeEditHourId = id => this.setState({editHourId: id})
 
+  changeShouldTodosUpdate = (bool) => {
+    this.setState({ shouldTodosUpdate: bool })
+  }
+
   componentDidMount() {
     this.hydrateStateWithLocalStorage();
     if (localStorage.hasOwnProperty('user')) {this.getActiveHours();this.getActiveBudgetHours();}
@@ -199,6 +205,8 @@ class AppContainer extends Component {
                 closeModal={this.closeModal}
                 editHourId={this.state.editHourId}
                 changeEditHourId={this.changeEditHourId}
+                shouldTodosUpdate={this.state.shouldTodosUpdate}
+                changeShouldTodosUpdate={this.changeShouldTodosUpdate}
               />
             </>
             )

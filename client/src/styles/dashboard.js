@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { themeConsts } from './themeConsts';
 
 export const DashboardContainer = styled.div`
   width:86%;
@@ -25,10 +26,23 @@ export const DashboardContainer = styled.div`
       margin-top: 0;
       font-size: 1em;
       font-weight:500;
-      color:#AAAAAA;
+      color:${themeConsts.textLightGrey};
       span{
         margin:auto
       }
-    }    
+    }
+    
+    .user-labels{
+      display: grid;
+      grid-template-columns: 10% 60% 10% 10% 10%;
+      padding: 0 20px;
+
+      span{
+        text-align:center;
+        font-size: 1em;
+        font-weight:500;
+        color:${themeConsts.textLightGrey};
+      }
+    }
   }
 `;

@@ -15,67 +15,55 @@ class MyToDoContainer extends Component {
   }
 
   getTodos = () => {
-    var token = JSON.parse(localStorage.getItem('token'));
+    var token = JSON.parse(localStorage.getItem('token'))
     var AuthStr = 'Bearer ' + token;
-    var idUser = JSON.parse(localStorage.getItem('user'));
+    var idUser = JSON.parse(localStorage.getItem('user'))
 
     axios.get(`/api/todos/${idUser.id_user}`, { headers: { Authorization: AuthStr } }).then(res => {
       if (res.data === 'nodata') {
-        this.setState({ todos: null, isLoading: false });
+        this.setState({ todos: null, isLoading: false })
       } else {
-        this.setState({ todos: res.data, isLoading: false });
+        this.setState({ todos: res.data, isLoading: false })
       }
-    });
-  };
+    })
+  }
 
   componentDidMount() {
-    this.getTodos();
+    this.getTodos()
   }
 
   changeToDoStatus = (todoId, currStatus) => {
-    var token = JSON.parse(localStorage.getItem('token'));
-    var AuthStr = 'Bearer ' + token;
-    var idUser = JSON.parse(localStorage.getItem('user'));
+    var token = JSON.parse(localStorage.getItem('token'))
+    var AuthStr = 'Bearer ' + token
+    var idUser = JSON.parse(localStorage.getItem('user'))
 
-    var nextStatus = '';
+    var nextStatus = ''
     switch (currStatus) {
       case 0:
-        nextStatus = 1;
+        nextStatus = 1
         break;
       case 1:
-        nextStatus = 0;
+        nextStatus = 0
         break;
       default:
-        nextStatus = 1;
+        nextStatus = 1
     }
     const data = {
       todo: todoId,
       status: nextStatus,
       user: idUser.id_user
-    };
-
+    }
     axios.put('/api/todos/userToDoStatus', data, { headers: { Authorization: AuthStr } }).then(res => {
-      this.getTodos();
-    });
-  };
+      this.getTodos()
+      this.props.changeShouldTodosUpdate(true)
+    })
+  }
 
-  openTextAreaModal = () => {
-    this.setState({
-      textAreaOpen: true
-    });
-  };
+  openTextAreaModal = () => { this.setState({ textAreaOpen: true }) }
 
-  closeTextAreaModal = () => {
-    this.setState({
-      textAreaOpen: false
-    });
-  };
+  closeTextAreaModal = () => { this.setState({ textAreaOpen: false }) }
 
-  changeTextAreaVal = e => {
-    this.setState({
-      textAreaVal: e.target.value
-    });
-  };
+  changeTextAreaVal = e => { this.setState({ textAreaVal: e.target.value }) }
 
   addToDo = () => {
     var token = JSON.parse(localStorage.getItem('token'));
@@ -84,15 +72,23 @@ class MyToDoContainer extends Component {
     var data = {
       todo: this.state.textAreaVal,
       user: user.id_user
-    };
+    }
     axios.post('/api/todos/', data, { headers: { Authorization: AuthStr } }).then(res => {
-      this.setState({
-        textAreaOpen: false
-      });
-      this.getTodos();
-      document.getElementById('textarea-fullmodal').value = '';
-    });
-  };
+      this.setState({ textAreaOpen: false })
+      this.getTodos()
+      this.props.changeShouldTodosUpdate(true)
+      document.getElementById('textarea-fullmodal').value = ''
+    })
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    if(prevProps.shouldTodosUpdate !== this.props.shouldTodosUpdate){
+      if(this.props.shouldTodosUpdate){
+        this.getTodos()
+        this.props.changeShouldTodosUpdate(false)
+      }
+    }
+  }
 
   render() {
     return (

@@ -1,6 +1,7 @@
 import React from 'react';
 import { ClientDetailsDiv } from '../../styles/listings';
 import { FiMoreHorizontal } from 'react-icons/fi';
+import {TeamMemberTasksTab} from '../tabs/TeamMemberTasksTab';
 import {TeamMemberHistoryTab} from '../tabs/TeamMemberHistoryTab';
 import {TeamMemberInfoTab} from '../tabs/TeamMemberInfoTab';
 import {TeamMemberVacationsTab} from '../tabs/TeamMemberVacationsTab';
@@ -27,6 +28,12 @@ export const TeamMemberDetail = props => {
                 <h4 className="project-title member-title">{props.memberContent.details[0].name_user}</h4>
                 <h6 className="member-position">{props.memberContent.details[0].name_position}</h6>
                 <div className="project-infos">
+                  <div
+                    className={'project-tab ' + (props.activeTab === 'tasks' ? 'active-tab' : '')}
+                    onClick={() => props.changeActiveTab('tasks')}
+                  >
+                    Tarefas
+                  </div>
                   <div
                     className={'project-tab ' + (props.activeTab === 'history' ? 'active-tab' : '')}
                     onClick={() => props.changeActiveTab('history')}
@@ -55,6 +62,8 @@ export const TeamMemberDetail = props => {
               </div>
               {(() => {
                 switch (props.activeTab) {
+                  case 'tasks':
+                    return <TeamMemberTasksTab memberContent={props.memberContent}/>
                   case 'history':
                     return <TeamMemberHistoryTab memberContent={props.memberContent} filters={props.filters}/>
                   case 'infos':

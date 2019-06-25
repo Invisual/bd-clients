@@ -266,3 +266,143 @@ export const HoursModalDiv = styled.div`
         }
     }
 `
+
+
+export const ConcludeModalDiv = styled.div`
+    position:fixed !important;
+    top:50%;
+    left:0;
+    right:0;
+    margin:auto;
+    z-index:111;
+    width:600px;
+    min-height: 250px !important;
+    height: unset !important;
+    transform: translateY(-50%);
+    box-shadow: none !important;
+    padding-bottom: 36px !important;
+
+    .modal-close{
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        cursor: pointer;
+        z-index: 1;
+
+        svg{
+            font-size: 2.5em;
+            color: ${themeConsts.secondaryBlue};
+        }
+    }
+
+    h2{
+        margin: 0;
+        font-size: 1.6em;
+        color:${themeConsts.titlesDarkGrey};
+        padding: 20px 0 12px 15px;
+        border-bottom: 1px solid #e6e6e6;
+    }
+
+    form{
+        margin-top:29px;
+
+        .inputs-grid{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 20px;
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        fieldset{
+            padding: 0;
+            margin: 0;
+            border: none;
+        }
+
+        .observations-input{
+            width: 94%;
+            margin: 14px auto 0 auto;
+        }
+
+        legend{
+            font-size:1.5em;
+            color:${themeConsts.titlesDarkGrey};
+        }
+
+        textarea{
+            width: 100%;
+            border: none;
+            box-shadow: 0px 1px 6px rgba(0,0,0,.16);
+            border-radius: 10px;
+            height:90px;
+            padding: 10px 14px;
+            box-sizing: border-box;
+            margin-top: 11px;
+        }
+
+        .costs-form-buttons{
+            margin-top: 30px;
+        }
+
+        .container {
+            display: block;
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 1.5em;
+            color:${themeConsts.textDarkGrey};
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            }
+
+            .container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+            }
+
+            .checkmark {
+            position: absolute;
+            top: 0px;
+            left: 0;
+            height: 12px;
+            width: 12px;
+            background-color: transparent;
+            border: 2px solid ${themeConsts.secondaryBlue};
+            border-radius: 50%;
+            }
+
+            .container:hover input ~ .checkmark {
+            background-color: ${themeConsts.secondaryBlue};
+            }
+
+            .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            }
+
+            .container input:checked ~ .checkmark:after {
+            display: block;
+            }
+
+            .container .checkmark:after {
+                left: 0;
+                right: 0;
+                margin: auto;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 6px;
+                height: 6px;
+                background-color: ${themeConsts.secondaryBlue};
+                border-radius: 50%;
+            }
+
+    }
+`

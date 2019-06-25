@@ -47,7 +47,7 @@ router.post('/', checkToken, (req, res) => {
         });
       }
     });
-  })
+})
 
 
 router.get('/accounts', checkToken, (req, res) => {
@@ -185,6 +185,11 @@ router.get('/details/:user/:start/:end', checkToken, (req, res) => {
                   if (totalResults.details[0].id_user !== null) { totalResults.tasks = results; }
                   else { res.send('nodata') }
             })
+            connection.query("SELECT id_task, title_task, name_client, ref_id_user_task_status, name_user_task_status, deadline_date_task, ref_id_user, date(update_status_date) AS 'update_status_date', SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS 'total_hours' FROM `tasks` LEFT JOIN clients ON tasks.ref_id_client = clients.id_client LEFT JOIN users_has_tasks ON tasks.id_task = users_has_tasks.ref_id_task LEFT JOIN user_task_status ON users_has_tasks.ref_id_user_task_status = user_task_status.id_user_task_status LEFT JOIN task_hours ON tasks.id_task = task_hours.ref_id_tasks LEFT JOIN users ON users_has_tasks.ref_id_user = users.id_user LEFT JOIN projects ON tasks.ref_id_project = projects.id_project WHERE id_user = ? AND concluded_task=0 AND (concluded_project = 0 OR concluded_project IS NULL) GROUP BY id_task", user, function(error, results, fields) {
+                  if (error) throw error;
+                  if (totalResults.details[0].id_user !== null) { totalResults.currentTasks = results; }
+                  else { res.send('nodata') }
+            })
             connection.query("SELECT id_task_hour, id_task, beginning_hour, ending_hour, day, title_task, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(ending_hour, beginning_hour)))) as difference from task_hours INNER JOIN tasks ON task_hours.ref_id_tasks = tasks.id_task WHERE ref_id_users = ? AND (day BETWEEN ? AND ?) GROUP BY id_task_hour ORDER BY id_task_hour ASC", [user, startDate, endDate], function(error, results, fields) {
                 if (error) throw error;
                 totalResults.hours = results;
@@ -194,6 +199,29 @@ router.get('/details/:user/:start/:end', checkToken, (req, res) => {
         }
     })
 })
+
+
+
+router.get('/withtasks', checkToken, (req, res) => {
+    var totalResults = {}
+    jwt.verify(req.token, SECRET_KEY, (err, results) => {
+        if (err) { res.sendStatus(403) }
+        else{
+            connection.query("SELECT id_user, name_user, avatar_user, name_position, count(users_has_tasks.ref_id_task) AS total_tasks, count( CASE WHEN users_has_tasks.ref_id_user_task_status = 4 THEN ref_id_user_task_status ELSE NULL END) AS total_awaiting_tasks FROM users LEFT JOIN users_has_tasks ON users.id_user = users_has_tasks.ref_id_user LEFT JOIN positions ON users.ref_id_position = positions.id_position WHERE ref_id_position != 1 AND ref_id_position != 2 AND ref_id_position != 3 GROUP BY id_user", function(error, results, fields) {
+                if (error) throw error;
+                if (results.length > 0) { totalResults.users = results; }
+            })
+            connection.query("SELECT id_task, title_task, name_client, ref_id_user_task_status, name_user_task_status, deadline_date_task, ref_id_user, date(update_status_date) AS 'update_status_date', SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS 'total_hours' FROM `tasks` LEFT JOIN clients ON tasks.ref_id_client = clients.id_client LEFT JOIN users_has_tasks ON tasks.id_task = users_has_tasks.ref_id_task LEFT JOIN user_task_status ON users_has_tasks.ref_id_user_task_status = user_task_status.id_user_task_status LEFT JOIN task_hours ON tasks.id_task = task_hours.ref_id_tasks LEFT JOIN users ON users_has_tasks.ref_id_user = users.id_user LEFT JOIN projects ON tasks.ref_id_project = projects.id_project WHERE users.ref_id_position != 1 AND users.ref_id_position != 2 AND users.ref_id_position != 3 AND concluded_task=0 AND (concluded_project = 0 OR concluded_project IS NULL) GROUP BY id_task", function(error, results, fields) {
+                if (error) throw error;
+                totalResults.tasks = results;
+                if (totalResults.users[0].id_user !== null) { res.send(totalResults) }
+                else { res.send('nodata') }
+          })
+        }
+    })
+})
+
+
 
 router.post('/info', checkToken, (req, res) => {
     jwt.verify(req.token, SECRET_KEY, (err, results) => {

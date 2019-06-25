@@ -158,6 +158,7 @@ export const TopBar = props => {
           {props.displayDropdownUser ? (
             <ul className="notifications-dropdown show-notifications user-dropdown">
               <Link to={`/team/${props.userInfo.id_user}`}><li id="topbar-user-link1">Ver Utilizador</li></Link>
+              <Link to={`/team/hours/${props.userInfo.id_user}`}><li id="topbar-user-link1">Ver as Minhas Horas</li></Link>
               <Link to="/createvacations"><li id="topbar-user-link2">Pedir Férias</li></Link>
               <Link to="/createtrip"><li id="topbar-user-link3">Inserir Deslocação</li></Link>
               <li id="topbar-user-link4" onClick={props.logout}>Terminar Sessão</li>

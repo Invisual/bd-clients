@@ -739,3 +739,166 @@ export const SingleApprovalDiv = styled.div`
   }
  
 `;
+
+
+
+
+export const SingleUserDiv = styled.div`
+    padding:0 !important;
+
+    .limit-width{
+      padding:0 20px;
+      background-color:#fff;
+      transition:all .4s ease;
+      border-top-right-radius: 10px;
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+    .limit-width.active{
+      background-color:${themeConsts.lightGrey};
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .single-card-grid{
+      display: grid;
+      grid-template-columns: 10% 60% 10% 10% 10%;
+      min-height:51px;
+
+      .flex{
+        display:flex;
+        align-items: center;
+      }
+
+      .user-avatar{
+        img{
+          width: 27px;
+          border: 2px solid ${themeConsts.primaryBlue};
+          border-radius: 50%;
+        }
+      }
+
+      .user-name-position{
+        h3{
+          color:${themeConsts.textDarkGrey};
+          font-size: 1.4em;
+          letter-spacing: .02em;
+          margin:0;
+        }
+        h4{
+          color:${themeConsts.secondaryBlue};
+          margin:0;
+          margin-left:15px;
+          font-size: 1.1em;
+          font-weight: 500;
+        }
+      }
+
+      .user-tasks, .user-completed-tasks{
+        justify-content:center;
+
+        span{
+          font-size: 1.3em;
+          font-weight:600;
+          color:${themeConsts.textDarkGrey};
+        }
+      }
+
+      .card-arrow{
+        justify-content:flex-end;
+
+        svg{
+          color:${themeConsts.primaryBlue};
+          font-size: 1.7em;
+          stroke-width: 2.5;
+        }
+      }
+
+    }
+
+    .user-tasks-info{
+      overflow:hidden;
+      width:97%;
+      margin:0 auto;
+      transition:all .5s ease;
+
+      h2{
+        color:${themeConsts.primaryBlue};
+      }
+      hr{
+        border-color:${themeConsts.secondaryBlue};
+      }
+    }
+    .tasks-info-closed{
+      max-height:0;
+    }
+    .tasks-info-opened{
+      max-height:500px;
+    }
+
+    .see-tasks-arrow{
+      transition:all .4s ease;
+    }
+    .see-tasks-arrow.up{
+      transform: rotate(180deg);
+    }
+    
+
+    .user-tasks{
+
+      .single-user-task{
+        display: grid;
+        grid-template-columns: 67% 11% 11% 11%;
+        padding: 12px 0 12px 10px;
+        border-bottom:1px solid #e6e6e6;
+
+        .single-task-title-client{
+          display:flex;
+          align-items:center;
+
+          h4{
+            margin:0;
+            color:${themeConsts.textDarkGrey};
+            font-size:1.05em;
+            font-weight: 500;
+          }
+          h5{
+            margin:0;
+            margin-left:10px;
+            color:${themeConsts.secondaryBlue};
+            font-weight: 500;
+          }
+        }
+
+        .single-task-hours, .single-task-deadline, .single-task-status, .single-task-approval-time{
+          text-align:center; 
+        }
+
+        .single-task-hours span{
+          color:${themeConsts.secondaryBlue};
+        }
+
+        .single-task-status span, .single-task-approval-time span{
+          color:${themeConsts.primaryBlue};
+          font-weight:600;
+        }
+
+        .single-task-deadline{
+          span{
+            color:${themeConsts.textDarkGrey};
+          }
+          .red{
+            color:${themeConsts.red};
+          }
+        }
+      }
+    }
+    .see-all-tasks{
+        margin: 12px 0 15px 0;
+        font-weight: 500;
+        color: #7f9aff;
+        cursor: pointer;
+        font-size: 1.3em;
+      }
+`;

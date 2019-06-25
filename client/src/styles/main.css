@@ -55,8 +55,18 @@ body.collapsed-sidebar .sidebar-container .footer {
   opacity: 0;
 }
 
+body.collapsed-sidebar .sidebar-container ul {
+  display:block;
+}
+
 body.collapsed-sidebar .sidebar-container li {
   text-align: center;
+  padding: 12px 0px 8px 0px;
+  width:100%;
+}
+
+body.collapsed-sidebar .sidebar-container .is-active li {
+  border-radius: 0;
 }
 
 body.collapsed-sidebar .sidebar-container li span {
@@ -243,6 +253,10 @@ body.collapsed-sidebar .topbar-goback {
   margin-top: 20px;
   color: #797979;
   line-height: 1.6em;
+}
+
+.full-row-grid-widget{
+  grid-row:1/3;
 }
 
 .no-content {
@@ -538,7 +552,6 @@ body.has-modal #overlay{
   0%{transform: scaleY(0) translateX(-50%) translateZ(1px)}
   100%{transform: scaleY(1) translateX(-50%) translateZ(1px)}
 }
-
 
 
 /*INPUTS DE PESQUISA*/

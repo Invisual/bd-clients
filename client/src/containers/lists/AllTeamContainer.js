@@ -14,7 +14,7 @@ class AllTeamContainer extends Component{
         super(props);
         this.state = {
             activeMember: '',
-            activeTab: 'history',
+            activeTab: 'tasks',
             memberContent: [],
             displaySearchInput: '',
             searchQuery: '',
@@ -33,7 +33,7 @@ class AllTeamContainer extends Component{
         }
     }
 
-    changeFilters = filters => this.setState({filters: filters}, () => console.log(this.state.filters))
+    changeFilters = filters => this.setState({filters: filters})
     changeFiltersAreActive = () => this.setState({filtersAreActive: !this.state.filtersAreActive})
     changeInfosAreActive = () => this.setState({infosAreActive: !this.state.infosAreActive})
     
@@ -54,20 +54,44 @@ class AllTeamContainer extends Component{
             });
         }
         else{
-            axios
-            .get(`/api/users`, { headers: { Authorization: AuthStr } })
-            .then(res => {
-                this.setState({ activeMember: res.data[0].id_user });
-            })
-            .then(res => {
+          if(this.props.isShare){
+              this.setState({ activeMember: this.props.match.params.id }, () => {
                 axios.get(`/api/users/details/${this.state.activeMember}/${startDate}/${endDate}`, { headers: { Authorization: AuthStr } }).then(res => {
+                  if (res.data === 'nodata') {
+                      this.setState({ memberContent: null, isLoading: false });
+                  } else {
+                      this.setState({ memberContent: res.data, isLoading: false });
+                  }
+                })
+              })
+          }
+          else if(this.props.setActiveTab){
+            history.push({pathname: '/team'})
+            this.setState({ activeMember: this.props.match.params.id, activeTab: this.props.setActiveTab }, () => {
+              axios.get(`/api/users/details/${this.state.activeMember}/${startDate}/${endDate}`, { headers: { Authorization: AuthStr } }).then(res => {
                 if (res.data === 'nodata') {
                     this.setState({ memberContent: null, isLoading: false });
                 } else {
                     this.setState({ memberContent: res.data, isLoading: false });
                 }
+              })
+            })
+          }
+          else{
+            axios.get(`/api/users`, { headers: { Authorization: AuthStr } })
+            .then(res => {
+                this.setState({ activeMember: res.data[0].id_user });
+            })
+            .then(res => {
+                axios.get(`/api/users/details/${this.state.activeMember}/${startDate}/${endDate}`, { headers: { Authorization: AuthStr } }).then(res => {
+                  if (res.data === 'nodata') {
+                      this.setState({ memberContent: null, isLoading: false });
+                  } else {
+                      this.setState({ memberContent: res.data, isLoading: false });
+                  }
+                });
             });
-          });
+          }
         }
     }
 
@@ -81,7 +105,7 @@ class AllTeamContainer extends Component{
 
     changeActiveMember = userId => {
         if (userId === this.state.activeMember) { return null }
-        else { this.setState({ activeMember: userId, isLoading: true }) }
+        else { this.setState({ activeMember: userId, activeTab: 'tasks', isLoading: true }, () => this.getMemberDetails())}
     }
 
     changeActiveTab = tab => this.setState({activeTab: tab})
@@ -123,22 +147,12 @@ class AllTeamContainer extends Component{
     }
 
     componentDidMount(){
-        if(this.props.isShare){this.setState({activeMember: this.props.match.params.id},
-           () => this.getMemberDetails(moment(this.state.filters.startDate).format('YYYY-MM-D'), moment(this.state.filters.endDate).format('YYYY-MM-D')))
-           history.replace({ pathname: '/team' })
-        }
-        else{
-          this.getMemberDetails(moment(this.state.filters.startDate).format('YYYY-MM-D'), moment(this.state.filters.endDate).format('YYYY-MM-D'))
-        }
+        this.getMemberDetails(moment(this.state.filters.startDate).format('YYYY-MM-D'), moment(this.state.filters.endDate).format('YYYY-MM-D'))
         this.getClients()
     }
 
-
+    
     componentDidUpdate(prevProps, prevState) {
-        if (prevState.activeMember !== this.state.activeMember) {
-          this.getMemberDetails();
-          this.setState({ activeTab: 'history' });
-        }
         if (prevState.reloadMembers !== this.state.reloadMembers) {
             this.setState({ reloadMembers: false });
         }

@@ -55,6 +55,8 @@ class UserDashboardContainer extends Component {
             openModal={this.props.openModal}
             userInfo={this.props.userInfo}
             userRole={this.props.userInfo.ref_id_role}
+            shouldTodosUpdate={this.props.shouldTodosUpdate}
+            changeShouldTodosUpdate={this.props.changeShouldTodosUpdate}
           />
   }
 }

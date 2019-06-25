@@ -465,7 +465,7 @@ export const TaskDetailsDiv = styled.div`
         .status-container {
           display: flex;
           flex-direction: row;
-          justify-content: center;
+          justify-content: flex-start;
           font-size: 1.3em;
           
             .single-status {
@@ -1350,6 +1350,70 @@ export const ClientDetailsDiv = styled.div`
           }
         }
       }
+    }
+
+    .user-tasks-content{
+      padding-top: 15px;
+      padding-right: 15px;
+      position:relative;
+      min-height: 350px;
+
+      .single-user-task{
+        display: grid;
+        grid-template-columns: 67% 11% 11% 11%;
+        padding: 12px 0 12px 10px;
+        border-bottom:1px solid #e6e6e6;
+        margin-top:10px !important;
+
+        .single-task-title-client{
+          display:flex;
+          align-items:center;
+
+          h4{
+            margin:0;
+            color:${themeConsts.textDarkGrey};
+            font-size:1.05em;
+            font-weight: 500;
+          }
+          h5{
+            margin:0;
+            margin-left:10px;
+            color:${themeConsts.secondaryBlue};
+            font-weight: 500;
+          }
+        }
+
+        .single-task-hours, .single-task-deadline, .single-task-status, .single-task-approval-time{
+          text-align:center; 
+        }
+
+        .single-task-hours span{
+          color:${themeConsts.secondaryBlue};
+        }
+
+        .single-task-status span, .single-task-approval-time span{
+          color:${themeConsts.primaryBlue};
+          font-weight:600;
+        }
+
+        .single-task-deadline{
+          span{
+            color:${themeConsts.textDarkGrey};
+          }
+          .red{
+            color:${themeConsts.red};
+          }
+        }
+      }
+
+      .empty-placeholder{
+        position: absolute;
+        bottom: -30px;
+        left: 0;
+        right: 0;
+        text-align: center;
+      }
+
     }
 
     .project-extras {

@@ -98,7 +98,7 @@ class MyCalendarContainer extends Component {
                 moment(meeting.end),
                 null,
                 "[]"
-              ) && meeting.type === 2
+              ) && meeting.type_meeting === 2
             ) !== undefined;
 
             let hasTaskDeadlineOnThisDay = this.props.meetings.find(meeting =>
