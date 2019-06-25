@@ -174,4 +174,56 @@ export const FiltersDiv = styled.div`
             margin: 0 10px;
         }
     }
+
+    .radio-label-container {
+        position: relative;
+        top: 17px;
+        padding-left: 27px;
+        padding-right: 40px;
+        margin-bottom: 12px;
+        font-size: 1.3em;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+
+        input {
+          position: absolute;
+          opacity: 0;
+          cursor: pointer;
+          height: 0;
+          width: 0;
+        }
+
+        .checkmark {
+          position: absolute;
+          top: 1px;
+          left: 0;
+          height: 12px;
+          width: 12px;
+          background-color: #fff;
+          border: 2px solid ${themeConsts.secondaryBlue};
+          border-radius: 50%;
+        }
+        .checkmark:after {
+          content: '';
+          position: absolute;
+          display: none;
+        }
+      }
+      .radio-label-container:hover input ~ .checkmark {
+        background-color: ${themeConsts.secondaryBlue};
+      }
+      .radio-label-container input:checked ~ .checkmark:after {
+        display: block;
+      }
+      .radio-label-container .checkmark:after {
+        top: 3px;
+        left: 3px;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: ${themeConsts.secondaryBlue};
+      }
 `

@@ -109,7 +109,7 @@ class MyProjectsContainer extends Component {
     if(prevProps.currentProjectList !== this.props.currentProjectList){
       this.getProjects()
     }
-    if(prevProps.filters !== this.props.filters){
+    if(prevProps.filters !== this.props.filters || prevProps.searchQuery !== this.props.searchQuery){
       this.filterProjects()
     }
   }

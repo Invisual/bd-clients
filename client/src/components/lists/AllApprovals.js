@@ -6,7 +6,7 @@ import BudgetDetailContainer from '../../containers/details/BudgetDetailContaine
 import ProjectDetailContainer from '../../containers/details/ProjectDetailContainer';
 import TaskDetailContainer from '../../containers/details/TaskDetailContainer';
 import OptionsContainer from '../../containers/options/OptionsContainer';
-import TaskFilters from '../options/TaskFilters';
+import ApprovalFilters from '../options/ApprovalFilters';
 import {FiFilter, FiSearch } from 'react-icons/fi';
 import { Redirect } from 'react-router-dom';
  
@@ -77,15 +77,11 @@ export const AllApprovals = props => {
         </div>
         <div className="grid-widget tasks-detail">
         {props.filtersAreActive ?
-          <TaskFilters
+          <ApprovalFilters
             changeFilters={props.changeFilters}
             changeFiltersAreActive={props.changeFiltersAreActive}
             clientsList={props.clientsList}
-            billingList={props.billingList}
-            projectsList={props.projectsList}
-            usersList={props.usersList}
-            taskTypesList={props.taskTypesList}
-            tasksStatusList={props.tasksStatusList}
+            accountsList={props.accountsList}
             filters={props.filters}
           />
         : props.isLoading ?
@@ -118,7 +114,7 @@ export const AllApprovals = props => {
               openModal={props.openModal}
               />
             default:
-              return <h1>ola</h1>
+              return <img src="/img/loading.svg" alt="loading" className="loading-spinner" />
           };
           })()
         }

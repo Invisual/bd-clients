@@ -17,14 +17,9 @@ class AllBillingContainer extends Component {
       filtersAreActive: false,
       filters: {
         client: '',
-        billing: '',
-        user: '',
-        status: '',
-        project: '',
-        deadline: new Date(),
-        isDeadlineSet: false,
         type: ''
       },
+      clientsList: [],
       searchQuery: '',
       displaySearchInput: '',
       isLoading: true,
@@ -34,7 +29,7 @@ class AllBillingContainer extends Component {
     };
   }
 
-  changeFilters = (filters) => this.setState({filters: filters})
+  changeFilters = (filters) => this.setState({filters: filters}, () => console.log(this.state.filters))
   changeFiltersAreActive = () => this.setState({filtersAreActive: !this.state.filtersAreActive})
 
   changeSearchQuery = e => this.setState({searchQuery: e.target.value})
@@ -51,15 +46,17 @@ class AllBillingContainer extends Component {
   getNumberOfActiveFilters = () => {
     var x = 0;
     if(this.state.filters.client !== '') {x++}
-    if(this.state.filters.billing !== '') {x++}
-    if(this.state.filters.user !== '') {x++}
-    if(this.state.filters.status !== '') {x++}
-    if(this.state.filters.project !== '') {x++}
-    if(this.state.filters.isDeadlineSet) {x++}
     if(this.state.filters.type !== '') {x++}
     return x
   }
 
+  getClients = () => {
+    var token = JSON.parse(localStorage.getItem('token'));
+    var AuthStr = 'Bearer ' + token;
+    axios.get(`/api/clients/basic`, { headers: { Authorization: AuthStr } }).then(res => {
+      this.setState({ clientsList: res.data});
+    });
+  }
 
   getItemDetails = () => {
     const {
@@ -225,7 +222,8 @@ class AllBillingContainer extends Component {
   };
 
   componentDidMount() {
-    this.getItemDetails();
+    this.getItemDetails()
+    this.getClients()
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -255,6 +253,7 @@ class AllBillingContainer extends Component {
         filters={this.state.filters}
         changeFilters={this.changeFilters}
         getNumberOfActiveFilters={this.getNumberOfActiveFilters}
+        clientsList={this.state.clientsList}
         searchQuery={this.state.searchQuery}
         changeSearchQuery={this.changeSearchQuery}
         displaySearchInput={this.state.displaySearchInput}

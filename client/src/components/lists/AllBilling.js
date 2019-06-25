@@ -4,7 +4,7 @@ import ConcludeModalContainer from '../../containers/inserts/ConcludeModalContai
 import MyBillingContainer from '../../containers/tables/MyBillingContainer';
 import BillingDetailContainer from '../../containers/details/BillingDetailContainer';
 import OptionsContainer from '../../containers/options/OptionsContainer';
-import TaskFilters from '../options/TaskFilters';
+import BillingFilters from '../options/BillingFilters';
 import {FiFilter, FiSearch } from 'react-icons/fi';
 import { Redirect } from 'react-router-dom';
 export const AllBilling = props => {
@@ -82,15 +82,10 @@ export const AllBilling = props => {
         </div>
         <div className="grid-widget tasks-detail">
         {props.filtersAreActive ?
-          <TaskFilters 
+          <BillingFilters 
             changeFilters={props.changeFilters}
             changeFiltersAreActive={props.changeFiltersAreActive}
             clientsList={props.clientsList}
-            billingList={props.billingList}
-            projectsList={props.projectsList}
-            usersList={props.usersList}
-            taskTypesList={props.taskTypesList}
-            tasksStatusList={props.tasksStatusList}
             filters={props.filters}
           />
         :
