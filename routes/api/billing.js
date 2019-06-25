@@ -20,7 +20,7 @@ router.get('/', checkToken, (req, res) => {
       //If error send Forbidden (403)
       res.sendStatus(403);
     } else {
-      connection.query('Select id_task as id, title_task as title, "task" as type, billed_task as billed_status, name_client, conclusion_date_task as conclusion_date from tasks LEFT JOIN clients ON tasks.ref_id_client=clients.id_client WHERE (billed_task=1 OR billed_task=2) AND concluded_task=2', function(error, results, fields) {
+      connection.query('Select id_task as id, title_task as title, "task" as type, billed_task as billed_status, name_client, id_client, conclusion_date_task as conclusion_date from tasks LEFT JOIN clients ON tasks.ref_id_client=clients.id_client WHERE billed_task=1 AND concluded_task=2', function(error, results, fields) {
         if (error) throw error;
         if (results.length > 0) {
           totalResults.tasks = results;
@@ -28,7 +28,7 @@ router.get('/', checkToken, (req, res) => {
           totalResults.tasks = []
         }
       });
-      connection.query('Select id_project as id, title_project as title, "project" as type, billed_project as billed_status, name_client, conclusion_date_project as conclusion_date from projects LEFT JOIN clients ON projects.ref_id_client=clients.id_client WHERE (billed_project=1 OR billed_project=2) AND concluded_project = 2', function(error, results, fields) {
+      connection.query('Select id_project as id, title_project as title, "project" as type, billed_project as billed_status, name_client, id_client, conclusion_date_project as conclusion_date from projects LEFT JOIN clients ON projects.ref_id_client=clients.id_client WHERE billed_project=1 AND concluded_project = 2', function(error, results, fields) {
         if (error) throw error;
         totalResults.projects = results;
         if (totalResults.tasks.length > 0 || totalResults.projects.length > 0) {

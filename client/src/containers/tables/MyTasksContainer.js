@@ -195,9 +195,10 @@ class MyTasksContainer extends Component {
     if(prevProps.currentTaskList !== this.props.currentTaskList){
       this.getTasks()
     }
-    if(prevProps.filters !== this.props.filters)
+    if(prevProps.filters !== this.props.filters || prevProps.searchQuery !== this.props.searchQuery){
       this.filterTasks()
     }
+  }
 
   render() {
 

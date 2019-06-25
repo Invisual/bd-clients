@@ -17,27 +17,22 @@ class AllApprovalsContainer extends Component {
       reloadItems: false,
       filtersAreActive: false,
       filters: {
+        type: '',
         client: '',
-        billing: '',
-        user: '',
-        status: '',
-        project: '',
-        deadline: new Date(),
-        isDeadlineSet: false,
-        type: ''
+        account: ''
       },
+      clientsList: [],
+      accountsList: [],
       searchQuery: '',
       displaySearchInput: '',
       isLoading: true,
       redirect: false,
       costsModalOpen: false,
-      costsModalType: 'project',
-      concludedModalOpen: false,
-      concludedModalType: 'task',
+      costsModalType: 'project'
     };
   }
  
-  changeFilters = (filters) => this.setState({filters: filters})
+  changeFilters = (filters) => this.setState({filters: filters}, () => console.log(this.state.filters))
   changeFiltersAreActive = () => this.setState({filtersAreActive: !this.state.filtersAreActive})
  
   changeSearchQuery = e => this.setState({searchQuery: e.target.value})
@@ -54,15 +49,26 @@ class AllApprovalsContainer extends Component {
   getNumberOfActiveFilters = () => {
     var x = 0;
     if(this.state.filters.client !== '') {x++}
-    if(this.state.filters.billing !== '') {x++}
-    if(this.state.filters.user !== '') {x++}
-    if(this.state.filters.status !== '') {x++}
-    if(this.state.filters.project !== '') {x++}
-    if(this.state.filters.isDeadlineSet) {x++}
+    if(this.state.filters.account !== '') {x++}
     if(this.state.filters.type !== '') {x++}
     return x
   }
  
+  getClients = () => {
+    var token = JSON.parse(localStorage.getItem('token'));
+    var AuthStr = 'Bearer ' + token;
+    axios.get(`/api/clients/basic`, { headers: { Authorization: AuthStr } }).then(res => {
+      this.setState({ clientsList: res.data});
+    });
+  }
+
+  getAccounts = () => {
+    var token = JSON.parse(localStorage.getItem('token'));
+    var AuthStr = 'Bearer ' + token;
+    axios.get(`/api/users/accounts`, { headers: { Authorization: AuthStr } }).then(res => {
+      this.setState({ accountsList: res.data});
+    });
+  }
  
   getItemDetails = () => {
     const {
@@ -235,7 +241,9 @@ class AllApprovalsContainer extends Component {
   }
 
   componentDidMount() {
-    this.getItemDetails();
+    this.getItemDetails()
+    this.getClients()
+    this.getAccounts()
   }
  
   componentDidUpdate(prevProps, prevState) {
@@ -268,14 +276,12 @@ class AllApprovalsContainer extends Component {
         filters={this.state.filters}
         changeFilters={this.changeFilters}
         getNumberOfActiveFilters={this.getNumberOfActiveFilters}
+        clientsList={this.state.clientsList}
+        accountsList={this.state.accountsList}
         searchQuery={this.state.searchQuery}
         changeSearchQuery={this.changeSearchQuery}
         displaySearchInput={this.state.displaySearchInput}
         toggleSearchInput={this.toggleSearchInput}
-        openConcludeModal={this.openConcludeModal}
-        closeConcludeModal={this.closeConcludeModal}
-        isConcludeModalOpen={this.state.concludeModalOpen}
-        concludeModalType={this.state.concludeModalType}
         approveActiveItem={this.approveActiveItem}
         rejectActiveItem={this.rejectActiveItem}
         openCostsModal={this.openCostsModal}

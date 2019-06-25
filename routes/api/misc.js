@@ -759,7 +759,7 @@ router.get('/approvals', checkToken, (req, res) => {
       //If error send Forbidden (403)
       res.sendStatus(403);
     } else {
-      connection.query('Select id_task as id, title_task as title, "task" as type, billed_task as billed_status, name_client, conclusion_date_task as conclusion_date from tasks LEFT JOIN clients ON tasks.ref_id_client=clients.id_client WHERE concluded_task=1 AND ref_id_project IS NULL ', function(error, results, fields) {
+      connection.query('Select id_task as id, title_task as title, "task" as type, billed_task as billed_status, name_client, ref_id_user_account AS "account", id_client, conclusion_date_task as conclusion_date from tasks LEFT JOIN clients ON tasks.ref_id_client=clients.id_client WHERE concluded_task=1 AND ref_id_project IS NULL ', function(error, results, fields) {
         if (error) throw error;
         if (results.length > 0) {
           totalResults.tasks = results;
@@ -767,7 +767,7 @@ router.get('/approvals', checkToken, (req, res) => {
           totalResults.tasks = []
         }
       });
-      connection.query('Select id_budget as id, title_budget as title, "budget" as type, name_client, conclusion_date_budget as conclusion_date from budgets LEFT JOIN clients ON budgets.ref_id_client=clients.id_client WHERE ref_id_budget_internal_status=3', function(error, results, fields) {
+      connection.query('Select id_budget as id, title_budget as title, "budget" as type, name_client, id_client, ref_id_user AS "account", conclusion_date_budget as conclusion_date from budgets LEFT JOIN clients ON budgets.ref_id_client=clients.id_client LEFT JOIN users_has_budgets ON budgets.id_budget = users_has_budgets.ref_id_budget WHERE ref_id_budget_internal_status=3', function(error, results, fields) {
         if (error) throw error;
         if (results.length > 0) {
           totalResults.budgets = results;
@@ -775,7 +775,7 @@ router.get('/approvals', checkToken, (req, res) => {
           totalResults.budgets = []
         }
       });
-      connection.query('Select id_project as id, title_project as title, "project" as type, billed_project as billed_status, name_client, conclusion_date_project as conclusion_date from projects LEFT JOIN clients ON projects.ref_id_client=clients.id_client WHERE concluded_project=1', function(error, results, fields) {
+      connection.query('Select id_project as id, title_project as title, "project" as type, billed_project as billed_status, name_client, id_client, ref_id_user_account AS "account", conclusion_date_project as conclusion_date from projects LEFT JOIN clients ON projects.ref_id_client=clients.id_client WHERE concluded_project=1', function(error, results, fields) {
         if (error) throw error;
         totalResults.projects = results;
         if (totalResults.tasks.length > 0 || totalResults.projects.length > 0) {

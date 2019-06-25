@@ -11,10 +11,10 @@ class MyBillingContainer extends Component {
     super(props);
     this.state = {
       items: [],
+      filteredItems:[],
       isLoading: true,
     };
   }
-
 
   getItems = () => {
     var token = JSON.parse(localStorage.getItem('token'));
@@ -26,10 +26,34 @@ class MyBillingContainer extends Component {
       } else {
         var newItems = [...res.data.tasks, ...res.data.projects]
         newItems = newItems.sort((a, b) =>  a.conclusion_date>b.conclusion_date ? 1 : a.conclusion_date<b.conclusion_date ? -1 : 0)
-        this.setState({ items: newItems, isLoading: false });
+        this.setState({ items: newItems, filteredItems: newItems, isLoading: false });
       }
     });
   };
+
+
+  filterItems = () => {
+    switch(this.props.type){
+      case 'allbilling':
+      if(this.state.items){
+        this.setState({filteredItems: this.state.items.filter( item => {
+          return this.props.filters.client === '' ? true : Number(item.id_client) === Number(this.props.filters.client)
+        }).filter(item => {
+          return this.props.searchQuery === '' ? true : item.title.toLowerCase().includes(this.props.searchQuery.toLowerCase())
+        }).filter(item => {
+          return this.props.filters.type === '' ? true : item.type.toLowerCase() === this.props.filters.type.toLowerCase()
+        })
+        }, () => this.props.changeActiveItem(this.state.filteredItems.length > 0 ? this.state.filteredItems[0].id : null, this.state.filteredItems.length > 0 ? this.state.filteredItems[0].type : null))
+      }
+      else{
+        this.setState({filteredItems : this.state.items})
+      }
+      break;
+
+      default:
+        this.setState({filteredItems : this.state.items})
+    }
+  }
 
   componentDidMount() {
     this.getItems()
@@ -39,45 +63,16 @@ class MyBillingContainer extends Component {
     if (prevProps.reloadItems !== this.props.reloadItems) {
       this.getItems()
     }
+    if(prevProps.filters !== this.props.filters || prevProps.searchQuery !== this.props.searchQuery){
+      this.filterItems()
+    }
   }
 
 
   render() {
-    var filteredItems
-    switch(this.props.type){
-      case 'alltasks':
-      if(this.state.tasks !== null){
-        filteredItems = this.state.tasks.filter( task => {
-          return this.props.filters.client === '' ? true : Number(task.ref_id_client) === Number(this.props.filters.client)
-        }).filter(task => {
-          return this.props.searchQuery === '' ? true : task.title_task.toLowerCase().includes(this.props.searchQuery.toLowerCase())
-        }).filter(task => {
-          return this.props.filters.billing === '' ? true : Number(task.ref_id_billing_mode) === Number(this.props.filters.billing)
-        }).filter(task => {
-          return this.props.filters.type === '' ? true : Number(task.ref_id_type_task) === Number(this.props.filters.type)
-        }).filter(task => {
-          return this.props.filters.user === '' ? true : Number(task.ref_id_user) === Number(this.props.filters.user)
-        }).filter(task => {
-          return this.props.filters.status === '' ? true : Number(task.ref_id_user_task_status) === Number(this.props.filters.status)
-        }).filter(task => {
-          return this.props.filters.project === '' ? true : Number(task.ref_id_project) === Number(this.props.filters.project)
-        }).filter(task => {
-          return this.props.filters.isDeadlineSet === false ? true : moment(task.deadline_date_task).isSameOrBefore(this.props.filters.deadline, 'day')
-        })
-      }
-      else{
-        filteredItems = null
-      }
-      
-      break;
-
-      default:
-        filteredItems = this.state.items
-    }
-
     return (
       <MyBilling
-        items={filteredItems}
+        items={this.state.filteredItems}
         title={this.props.title}
         type={this.props.type}
         isLoading={this.state.isLoading}
