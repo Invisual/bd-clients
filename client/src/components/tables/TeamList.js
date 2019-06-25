@@ -9,7 +9,12 @@ export const TeamList = props => {
         <div className="mytasks-container widget">
           {props.isLoading ? (
             <img src="img/loading.svg" alt="loading" className="loading-spinner" />
-          ) : props.members ? (
+          ) : props.members ? 
+              props.placeholder? 
+              <div>
+              <div className="empty-placeholder">Sem Membros que correspodam à pesquisa.</div>
+              </div>
+              :(
             <div>
               <h4 className="widget-title">{props.title}</h4>
               {props.members.map(member => {

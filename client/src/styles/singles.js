@@ -89,6 +89,15 @@ export const AllSingleTaskDiv = styled.div`
   .task-link:hover {
     color: ${themeConsts.primaryBlue};
   }
+  .billed-status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg {
+      font-size: 2em;
+      color: ${themeConsts.green}
+    }
+  }
  
   .task-watch {
     padding: 18px 0;

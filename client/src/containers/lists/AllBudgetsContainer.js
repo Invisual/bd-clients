@@ -29,12 +29,14 @@ class AllBudgetsContainer extends Component {
       externalStatusList: [],
       currentTaskList: 'all',
       isLoading: true,
-      redirect: false
+      redirect: false,
+      placeholder: false
     };
   }
 
   changeFilters = filters => this.setState({filters: filters})
   changeFiltersAreActive = () => this.setState({filtersAreActive: !this.state.filtersAreActive})
+  changePlaceholder = () => this.setState({placeholder: false})
 
   changeCurrentTaskList = () => this.setState({currentTaskList: this.state.currentTaskList === 'all' ? 'self' : 'all' })
 
@@ -140,9 +142,13 @@ class AllBudgetsContainer extends Component {
 
   changeActiveBudget = budgetId => {
     if (budgetId === this.state.activeBudget) {
+      this.changePlaceholder()
       return null;
-    } else {
-      this.setState({ activeBudget: budgetId, isLoading: true });
+    } else if (budgetId === null) {
+      this.setState({placeholder: true})
+    }
+    else {
+      this.setState({ activeBudget: budgetId, placeholder: false, isLoading: true });
     }
   };
 
@@ -320,6 +326,8 @@ class AllBudgetsContainer extends Component {
         externalStatusList={this.state.externalStatusList}
         getBudgetDetails={this.getBudgetDetails}
         concludeActiveBudget={this.concludeActiveBudget}
+        placeholder={this.state.placeholder}
+        changePlaceholder={this.changePlaceholder}
       />
     );
   }

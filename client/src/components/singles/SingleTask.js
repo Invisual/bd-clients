@@ -56,10 +56,15 @@ class SingleTask extends Component {
           </div>
           {this.props.concluded ? 
           <>
-          <div className="task-watch"></div>
-          <div className="task-state">
-            <span>{this.props.stateTitle}</span>
-          </div>
+          {Number(this.props.billed) === 2 ?
+          <>
+            <div></div>
+            <div className="billed-status">
+              <div className="tooltip-container"><FiCheck/><span className="tooltip">Já Faturado</span></div>
+            </div>
+          </>
+          :
+          <div className="task-watch"></div>}
           </>
           :
           <>

@@ -11,6 +11,7 @@ class MyBudgetsContainer extends Component {
     super(props);
     this.state = {
       budgets: [],
+      filteredBudgets: [],
       isLoading: true,
     };
   }
@@ -62,7 +63,7 @@ class MyBudgetsContainer extends Component {
       if (res.data === 'nodata') {
         this.setState({ budgets: null, isLoading: false });
       } else {
-        this.setState({ budgets: res.data, isLoading: false });
+        this.setState({ budgets: res.data, filteredBudgets: res.data, isLoading: false });
       }
     });
   };
@@ -139,23 +140,11 @@ class MyBudgetsContainer extends Component {
     });
   }
 
-  componentDidMount() {
-    this.getBudgets()
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.reloadBudgets !== this.props.reloadBudgets) {
-      this.getBudgets()
-    }
-  }
-
-
-  render() {
-    var filteredBudgets
+  filterBudgets = () => {
     switch(this.props.type){
       case 'alltasks':
       if(this.state.budgets !== null){
-        filteredBudgets = this.state.budgets.filter( budget => {
+        this.setState({filteredBudgets: this.state.budgets.filter( budget => {
           return this.props.filters.client === '' ? true : Number(budget.ref_id_client) === Number(this.props.filters.client)
         }).filter( budget => {
           return this.props.filters.account === '' ? true : Number(budget.ref_id_user) === Number(this.props.filters.account)
@@ -164,20 +153,38 @@ class MyBudgetsContainer extends Component {
         }).filter( budget => {
           return this.props.filters.externalStatus === '' ? true : Number(budget.ref_id_budget_external_status) === Number(this.props.filters.externalStatus)
         })
+      }, ()=>this.props.changeActiveBudget(this.state.filteredBudgets.length > 0 ? this.state.filteredBudgets[0].id_budget : null))
       }
       else{
-        filteredBudgets = null
+        this.setState({filteredBudgets : null})
       }
       
       break;
 
       default:
-      filteredBudgets = this.state.budgets
+        this.setState({filteredBudgets : this.state.budgets})
     }
-    
+  }
+
+  componentDidMount() {
+    this.getBudgets()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.reloadBudgets !== this.props.reloadBudgets) {
+      this.getBudgets()
+    }
+    if(prevProps.filters !== this.props.filters){
+      this.filterBudgets()
+    }
+
+  }
+
+
+  render() {
     return (
       <MyBudgets
-        budget={filteredBudgets}
+        budget={this.state.filteredBudgets}
         title={this.props.title}
         changeBudgetStatus={this.changeBudgetStatus}
         type={this.props.type}
@@ -188,6 +195,7 @@ class MyBudgetsContainer extends Component {
         startCountingHours={this.startCountingHours}
         stopCountingHours={this.stopCountingHours}
         activeBudgetHours={this.props.activeBudgetHours}
+        placeholder={this.props.placeholder}
       />
     );
   }

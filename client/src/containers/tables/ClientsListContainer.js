@@ -7,6 +7,8 @@ class ClientsListContainer extends Component {
     super(props);
     this.state = {
       clients: [],
+      filteredClients: [],
+      placeholder: false,
       counter: 0,
       isLoading: true
     };
@@ -28,26 +30,42 @@ class ClientsListContainer extends Component {
           return client
           //client.hours = clientHoursObj[0].total_hours
         })
-        this.setState({ clients: newClientsData, isLoading: false });
+        this.setState({ clients: newClientsData, filteredClients: newClientsData, isLoading: false });
       }
     });
   };
 
+  filterClients = () => {
+    this.setState({filteredClients : this.state.clients.filter(client => {
+      return this.props.searchQuery === '' ? true : client.name_client.toLowerCase().includes(this.props.searchQuery.toLowerCase())
+    })
+  },()=>{
+        if(this.state.filteredClients.length > 0){
+          this.setState({placeholder: false})
+        } else {this.setState({placeholder: true})}
+      }
+    )
+  }
+
   componentDidMount() {
     this.getClients();
   }
+  componentDidUpdate(prevProps){
+    if(prevProps.searchQuery !== this.props.searchQuery){
+      this.filterClients()
+    }
+  }
 
   render() {
-    var filteredClients = this.state.clients.filter(client => {
-      return this.props.searchQuery === '' ? true : client.name_client.toLowerCase().includes(this.props.searchQuery.toLowerCase())
-    })
+    
     return (
       <ClientsList
-        clients={filteredClients}
+        clients={this.state.filteredClients}
         type={this.props.type}
         isLoading={this.state.isLoading}
         changeActiveClient={this.props.changeActiveClient}
         activeClient={this.props.activeClient}
+        placeholder={this.state.placeholder}
       />
     );
   }

@@ -1,11 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import SingleTask from '../singles/SingleTask';
-import { FiArrowRight } from 'react-icons/fi';
 
 export const MyBudgets = props => {
   return <div className="mytasks-container widget">
-  {props.budget ? (
+  {props.budget ? 
+    props.placeholder ?
+    <div>
+      <div className="empty-placeholder">Sem Orçamentos correspondentes aos filtros ativos.</div>
+    </div>
+    
+  :(
     props.budget.map(budget => {
       var hourState = 0;
       var hourId = '';

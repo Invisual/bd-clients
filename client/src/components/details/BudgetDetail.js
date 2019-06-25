@@ -14,7 +14,12 @@ export const BudgetDetail = props => {
         <TaskDetailsDiv>
           <img src="/img/loading.svg" alt="loading" className="loading-spinner" />
         </TaskDetailsDiv>
-      ) : props.budgetContent ? (
+      ) : props.budgetContent ? 
+      props.placeholder ?
+      <div>
+        <div className="no-content"></div>
+      </div>
+    :(
         <TaskDetailsDiv
           hours={
             props.budgetContent.details[0].total_hours

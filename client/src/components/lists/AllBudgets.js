@@ -50,6 +50,7 @@ export const AllBudgets = props => {
           isLoading={props.isLoading}
           deleteActiveBudget={props.deleteActiveBudget}
           concludeActiveBudget={props.concludeActiveBudget}
+          placeholder={props.placeholder}
         />
         <div className="grid-widget tasks-list">
           <div className="tasks-list-container">
@@ -67,6 +68,7 @@ export const AllBudgets = props => {
               filters={props.filters}
               userRole={props.userRole}
               getBudgetDetails={props.getBudgetDetails}
+              placeholder={props.placeholder}
             />
           </div>
         </div>
@@ -80,6 +82,7 @@ export const AllBudgets = props => {
             internalStatusList={props.internalStatusList}
             externalStatusList={props.externalStatusList}
             filters={props.filters}
+            changePlaceholder={props.changePlaceholder}
           />
         :
           <BudgetDetailContainer
@@ -89,6 +92,7 @@ export const AllBudgets = props => {
             submitComment={props.submitComment}
             isLoading={props.isLoading}
             getBudgetDetails={props.getBudgetDetails}
+            placeholder={props.placeholder}
           />
         }
         </div>

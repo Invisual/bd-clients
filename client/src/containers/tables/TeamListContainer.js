@@ -7,6 +7,8 @@ class TeamListContainer extends Component {
     super(props);
     this.state = {
       members: [],
+      filteredMembers: [],
+      placeholder: false,
       counter: 0,
       isLoading: true
     };
@@ -21,10 +23,21 @@ class TeamListContainer extends Component {
       if (res.data === 'nodata') {
         this.setState({ members: null, isLoading: false })
       } else {
-        this.setState({ members: res.data, isLoading: false })
+        this.setState({ members: res.data, filteredMembers: res.data, isLoading: false })
       }
     });
   };
+
+  filterMembers = () => {
+    this.setState({filteredMembers :this.state.members.filter(member => {
+      return this.props.searchQuery === '' ? true : member.name_user.toLowerCase().includes(this.props.searchQuery.toLowerCase())
+      })
+    },()=>{
+      if(this.state.filteredMembers.length > 0){
+        this.setState({placeholder: false})
+      } else {this.setState({placeholder: true})}
+    })
+  }
 
   componentDidMount() {
     this.getMembers();
@@ -34,19 +47,20 @@ class TeamListContainer extends Component {
     if (prevProps.reloadMembers !== this.props.reloadMembers) {
       this.getMembers()
     }
+    if(prevProps.searchQuery !== this.props.searchQuery){
+      this.filterMembers()
+    }
   }
 
   render() {
-    var filteredMembers = this.state.members.filter(member => {
-      return this.props.searchQuery === '' ? true : member.name_user.toLowerCase().includes(this.props.searchQuery.toLowerCase())
-    })
     return (
       <TeamList
-        members={filteredMembers}
+        members={this.state.filteredMembers}
         type={this.props.type}
         isLoading={this.state.isLoading}
         changeActiveMember={this.props.changeActiveMember}
         activeMember={this.props.activeMember}
+        placeholder={this.state.placeholder}
       />
     );
   }

@@ -39,6 +39,7 @@ removeFilters = () => {
   this.setState({budgetClientFilter: '', budgetAccountFilter: '', budgetInternalStatusFilter: '', budgetExternalStatusFilter: ''})
   this.props.changeFilters(filters)
   this.props.changeFiltersAreActive();
+  this.props.changePlaceholder()
 }
 
 render(){

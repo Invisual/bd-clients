@@ -51,6 +51,7 @@ class BudgetDetailContainer extends Component {
         externalList={this.state.externalList}
         changeExternalStatus={this.changeExternalStatus}
         type={this.props.type}
+        placeholder={this.props.placeholder}
       />
     );
   }
