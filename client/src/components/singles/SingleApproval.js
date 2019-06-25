@@ -28,15 +28,15 @@ class SingleApproval extends Component {
     var itemLink = '';
     switch (this.props.itemType) {
       case "task":
-        itemLink = '/concludedtasks/'
+        itemLink = '/approvals/task/'
         approvalIcon = <FiFileText />;
         break;
       case "project":
-        itemLink = '/concludedprojects/'
+        itemLink = '/approvals/project/'
         approvalIcon = <FiFolder />;
         break;
       case "budget":
-        itemLink = '/budgets/'
+        itemLink = '/approvals/budget/'
         approvalIcon = <FiClipboard />;
         break;
       default:
@@ -46,12 +46,12 @@ class SingleApproval extends Component {
  
     var singleContent = '';
       if (this.props.type === 'allapprovals'){
-        let active = this.props.id === this.props.activeTask ? ' active' : '';
+        let active = this.props.id === this.props.activeItem ? ' active' : '';
       singleContent = (
-        <SingleApprovalDiv className="single-card-task">
+        <SingleApprovalDiv className={`single-card-task${active}`} onClick={() => this.props.changeActiveItem(this.props.id, this.props.itemType)}>
  
           <div className="approval-type-icon">{approvalIcon}</div>
-          <div className="approval-title"><span className="approval-divider"><Link to={itemLink+this.props.id}>{this.props.title}</Link></span><span className="approval-client">{this.props.name_client}</span></div>
+          <div className="approval-title"><span className="approval-divider">{this.props.title}</span><span className="approval-client">{this.props.name_client}</span></div>
  
         </SingleApprovalDiv>
       );

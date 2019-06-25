@@ -118,7 +118,7 @@ class ClientDataTab extends Component {
                   bottom: 5
                 }}
               >
-                <XAxis dataKey="mesAbrev" />
+                
 
                 <YAxis type="number" domain={[0, 100]} allowDataOverflow={false} axisLine={false} tickLine={false} hide={true} />
                 <Tooltip content={CustomTooltip} />

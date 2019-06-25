@@ -25,7 +25,10 @@ export const TaskDetail = props => {
         <TaskDetailsDiv>
           <img src="/img/loading.svg" alt="loading" className="loading-spinner" />
         </TaskDetailsDiv>
-      ) : props.taskContent ? (
+      ) : props.taskContent ? 
+        props.placeholder ?
+        <div className="no-content"></div>
+        :(
         <TaskDetailsDiv
           hours={
             props.taskContent.details[0].total_hours
@@ -49,6 +52,14 @@ export const TaskDetail = props => {
                   <FiClock /> <span>{moment(props.taskContent.details[0].creation_date_task).format('D/MM/YYYY')}</span>
                 </div>
                 <div className="task-infos">
+                  <span><img
+                    src={props.taskContent.details[0].avatar_user}
+                    alt="Avatar"
+                    style={{ borderRadius: '50%' }}
+                    width="20px"
+                    height="20px"
+                    title={props.taskContent.details[0].name_user}
+                  /></span>
                   {props.taskContent.details[0].title_project ? (
                     <span>
                       <FiFolder className="task-info-icon" /> {props.taskContent.details[0].title_project}
@@ -101,12 +112,20 @@ export const TaskDetail = props => {
                   </div>
                   <div className="billing-title">
                     <h4>Custos para Faturação</h4>
-                    {props.taskContent.costs ? 
+                    {props.type === 'approvals'? 
+                      props.taskContent.costs ? 
+                      <div className="see-all-costs" onClick={() => {props.openCostsModal('tasklist'); props.openModal('costs') }}>Consulte aqui os Custos associados a esta Tarefa <FiArrowRight /></div>
+                    : <div>Sem Custos Associados.</div>
+                    :
+                    props.taskContent.costs ? 
                       <div className="see-all-costs" onClick={() => {props.openCostsModal('tasklist'); props.openModal('costs') }}>Consulte aqui os Custos associados a esta Tarefa <FiArrowRight /></div>
                     :
+                    <>
                       <div className="billing-descr">Esta Tarefa ainda não tem um Registo de Custos associado.</div>
+                    
+                      <FiPlus className="billing-add-icon" onClick={() => {props.openCostsModal('task'); props.openModal('costs')}}/>
+                    </>
                     }
-                    <FiPlus className="billing-add-icon" onClick={() => {props.openCostsModal('task'); props.openModal('costs')}}/>
                   </div>
                 </div>
               :
@@ -114,21 +133,22 @@ export const TaskDetail = props => {
               }
             </div>
           </div>
-
-          <div className="task-add-comment">
-            <div />
-            <div className="comment-input">
-              <textarea
-                placeholder="Escreve um comentário..."
-                id="comment-textarea"
-                onChange={props.changeCommentVal}
-                onKeyDown={props.changeCommentVal}
-              />
+          {props.type === 'approvals' ? null :
+            <div className="task-add-comment">
+              <div />
+              <div className="comment-input">
+                <textarea
+                  placeholder="Escreve um comentário..."
+                  id="comment-textarea"
+                  onChange={props.changeCommentVal}
+                  onKeyDown={props.changeCommentVal}
+                />
+              </div>
+              <div className="comment-submit" onClick={props.submitComment}>
+                <FiSend />
+              </div>
             </div>
-            <div className="comment-submit" onClick={props.submitComment}>
-              <FiSend />
-            </div>
-          </div>
+          }    
         </TaskDetailsDiv>
       ) : (
           <div className="no-content"></div>

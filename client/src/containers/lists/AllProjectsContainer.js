@@ -38,11 +38,13 @@ class AllProjectsContainer extends Component {
       costsModalType: 'project',
       concludedModalOpen: false,
       concludedModalType: 'project',
+      placeholder: false
     };
   }
 
   changeFilters = (filters) => this.setState({filters: filters})
   changeFiltersAreActive = () => this.setState({filtersAreActive: !this.state.filtersAreActive})
+  changePlaceholder = () => this.setState({placeholder: false})
 
   changeSearchQuery = e => this.setState({searchQuery: e.target.value})
 
@@ -119,11 +121,11 @@ class AllProjectsContainer extends Component {
       });
     } else {
       if (this.props.isShare) {
-
+        console.log('is share')
         if(this.props.concluded){
-          this.props.history.push('/concludedprojects')
+          history.replace({pathname :'/concludedprojects'})
         } else {
-          this.props.history.push('/projects')
+          history.replace({pathname :'/projects'})
         }
 
         axios
@@ -170,9 +172,13 @@ class AllProjectsContainer extends Component {
 
   changeActiveProject = projectId => {
     if (projectId === this.state.activeProject) {
+      this.changePlaceholder()
       return null;
-    } else {
-      this.setState({ activeProject: projectId, isLoading: true });
+    } else if (projectId == null) {
+      this.setState({placeholder: true})
+    }
+    else {
+      this.setState({ activeProject: projectId, placeholder: false, isLoading: true });
     }
   };
 
@@ -388,6 +394,8 @@ class AllProjectsContainer extends Component {
         undoActiveProject={this.undoActiveProject}
         openModal={this.props.openModal}
         closeModal={this.props.closeModal}
+        placeholder={this.state.placeholder}
+        changePlaceholder={this.changePlaceholder}
       />
     );
   }

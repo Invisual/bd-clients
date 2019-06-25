@@ -56,6 +56,7 @@ removeFilters = () => {
   this.setState({taskClientFilter: '', taskBillingFilter: '', taskUserFilter: '', taskStatusFilter: '', taskProjectFilter: '', taskDeadlineFilter: new Date(), taskIsDeadlineSet:false, taskTypeFilter: ''})
   this.props.changeFilters(filters)
   this.props.changeFiltersAreActive();
+  this.props.changePlaceholder()
 }
 
 render(){

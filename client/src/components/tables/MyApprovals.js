@@ -4,7 +4,6 @@ import SingleApproval from '../singles/SingleApproval';
 import { FiArrowRight } from 'react-icons/fi';
  
 export const MyApprovals = props => {
-  console.log(props.approvalItems)
   var content = '';
   switch (props.type) {
     case 'dashboard':
@@ -28,7 +27,7 @@ export const MyApprovals = props => {
                 );
               })}
               </div>
-              <Link to="/tasks">
+              <Link to="/approvals">
                 <div className="see-all">
                   Ver todas{' '}
                   <span className="arrow">
@@ -62,6 +61,8 @@ export const MyApprovals = props => {
                     itemType={item.type}
                     name_client={item.name_client}
                     title={item.title}
+                    changeActiveItem={props.changeActiveItem}
+                    activeItem={props.activeItem}
                   />
                 );
               })

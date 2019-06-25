@@ -15,7 +15,10 @@ export const ProjectDetail = props => {
         <ProjectDetailsDiv>
           <img src="/img/loading.svg" alt="loading" className="loading-spinner" />
         </ProjectDetailsDiv>
-      ) : props.projectContent ? (
+      ) : props.projectContent ? 
+          props.placeholder ?
+          <div className="no-content"></div>
+          :(
         <ProjectDetailsDiv>
           <div className="project-details-grid">
             <div className="grid-item">
@@ -60,13 +63,13 @@ export const ProjectDetail = props => {
               {(() => {
                 switch (props.activeTab) {
                   case 'projectreview':
-                    return <ProjectReviewTab projectContent={props.projectContent} openCostsModal={props.openCostsModal} openModal={props.openModal}/>;
+                    return <ProjectReviewTab projectContent={props.projectContent} openCostsModal={props.openCostsModal} openModal={props.openModal} type={props.type}/>;
                   case 'projecttasks':
                     return <ProjectTasksTab projectContent={props.projectContent} />;
                   case 'projectcomments':
                     return <ProjectCommentsTab projectContent={props.projectContent} />;
                   default:
-                    return <ProjectReviewTab projectContent={props.projectContent} openCostsModal={props.openCostsModal} openModal={props.openModal}/>;
+                    return <ProjectReviewTab projectContent={props.projectContent} openCostsModal={props.openCostsModal} openModal={props.openModal} type={props.type}/>;
                 }
               })()}
             </div>

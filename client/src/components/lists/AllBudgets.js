@@ -49,6 +49,7 @@ export const AllBudgets = props => {
           budgetContent={props.budgetContent}
           isLoading={props.isLoading}
           deleteActiveBudget={props.deleteActiveBudget}
+          concludeActiveBudget={props.concludeActiveBudget}
         />
         <div className="grid-widget tasks-list">
           <div className="tasks-list-container">

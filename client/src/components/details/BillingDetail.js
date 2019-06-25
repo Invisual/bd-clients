@@ -55,8 +55,12 @@ export const BillingDetail = props => {
                 </div>
               </div>
               <div className="task-descr">
+                <h4 className="task-descr-title">Descrição</h4>
+                <div className="task-descr-text">{props.itemContent.details[0].descr ? props.itemContent.details[0].descr : 'Sem descrição.'}</div>
+              </div>
+              <div className="task-descr">
                 <h4 className="task-descr-title">Observações</h4>
-                <div className="task-descr-text">{props.itemContent.details[0].obs}</div>
+                <div className="task-descr-text">{props.itemContent.details[0].obs ? props.itemContent.details[0].obs : 'Sem observações.'}</div>
               </div>
               <div className="task-extras">
                 <div className="task-hour-container no-border">

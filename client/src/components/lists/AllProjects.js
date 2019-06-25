@@ -16,6 +16,7 @@ export const AllProjects = props => {
   
   return (
     <AllProjectsDiv className="dashboard-container">
+      {props.projectContent ?
       <CostsModalContainer 
         closeModal={props.closeModal}
         projId={props.activeProject} 
@@ -23,6 +24,8 @@ export const AllProjects = props => {
         costs={props.projectContent.costs}
         getProjectDetails={props.getProjectDetails}
       />
+      : null}
+      
       <ConcludeModalContainer 
         closeConcludeModal={props.closeConcludeModal} 
         projId={props.activeProject}
@@ -32,7 +35,7 @@ export const AllProjects = props => {
       /> 
       <div className="widgets-grid widget cards-container nofixed-height no-shadow">
         <div className="grid-widget tasks-title">
-          <h4 className="widget-title">{props.concluded? 'Projetos concluídos' : 'Projetos'}</h4>
+          <h4 className="widget-title">{props.concluded? 'Projetos Concluídos' : 'Projetos'}</h4>
           <div className="tooltip-container projects-search">
             <input type="text" placeholder="Pesquisa" className={props.displaySearchInput+ ' searchinput'} onChange={props.changeSearchQuery}/>
             <FiSearch onClick={props.toggleSearchInput}/>
@@ -79,6 +82,7 @@ export const AllProjects = props => {
           filtersAreActive={props.filtersAreActive}
           deleteActiveProject={props.deleteActiveProject}
           openModal={props.openModal}
+          placeholder={props.placeholder}
         />
         <div className="grid-widget tasks-list">
           <div className="tasks-list-container">
@@ -93,6 +97,7 @@ export const AllProjects = props => {
               copyAlert={props.copyAlert}
               reloadProjects={props.reloadProjects}
               searchQuery={props.searchQuery}
+              placeholder={props.placeholder}
             />
           </div>
         </div>
@@ -107,6 +112,7 @@ export const AllProjects = props => {
             usersList={props.usersList}
             categoriesList={props.categoriesList}
             filters={props.filters}
+            changePlaceholder={props.changePlaceholder}
           />
         :
           <ProjectDetailContainer
@@ -119,6 +125,7 @@ export const AllProjects = props => {
             submitComment={props.submitComment}
             openCostsModal={props.openCostsModal}
             openModal={props.openModal}
+            placeholder={props.placeholder}
           />
         }
         </div>

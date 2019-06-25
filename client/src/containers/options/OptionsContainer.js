@@ -33,9 +33,13 @@ class OptionsContainer extends Component {
         itemContent={this.props.itemContent}
         billActiveItem={this.props.billActiveItem}
         unBillActiveItem={this.props.unBillActiveItem}
+        concludeActiveBudget={this.props.concludeActiveBudget}
         concluded={this.props.concluded}
         undoActiveTask={this.props.undoActiveTask}
         undoActiveProject={this.props.undoActiveProject}
+        approveActiveItem={this.props.approveActiveItem}
+        rejectActiveItem={this.props.rejectActiveItem}
+        placeholder={this.props.placeholder}
       />
     );
   }

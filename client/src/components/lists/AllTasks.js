@@ -13,9 +13,9 @@ export const AllTasks = props => {
   if (props.redirect) {
     return <Redirect to="/" />;
   }
-
   return (
     <AllTasksDiv className="dashboard-container">
+      {props.taskContent ?
       <CostsModalContainer
         taskId={props.activeTask} 
         type={props.costsModalType} 
@@ -23,6 +23,7 @@ export const AllTasks = props => {
         getTaskDetails={props.getTaskDetails}
         closeModal={props.closeModal}
       /> 
+      : null}
       <ConcludeModalContainer 
         closeConcludeModal={props.closeConcludeModal} 
         taskId={props.activeTask}
@@ -32,7 +33,7 @@ export const AllTasks = props => {
       /> 
       <div className="widgets-grid widget cards-container nofixed-height">
         <div className="grid-widget tasks-title">
-          <h4 className="widget-title">{props.concluded? 'Tarefas concluídas' : 'Tarefas'}</h4>
+          <h4 className="widget-title">{props.concluded? 'Tarefas Concluídas' : 'Tarefas'}</h4>
           <div className="tooltip-container tasks-search">
             <input type="text" placeholder="Pesquisa" className={props.displaySearchInput+ ' searchinput'} onChange={props.changeSearchQuery}/>
             <FiSearch onClick={props.toggleSearchInput}/>
@@ -82,6 +83,7 @@ export const AllTasks = props => {
           deleteActiveTask={props.deleteActiveTask}
           duplicateActiveTask={props.duplicateActiveTask}
           undoActiveTask={props.undoActiveTask}
+          placeholder={props.placeholder}
         />
         <div className="grid-widget tasks-list">
           <div className="tasks-list-container">
@@ -101,6 +103,7 @@ export const AllTasks = props => {
               userRole={props.userRole}
               currentTaskList={props.currentTaskList}
               searchQuery={props.searchQuery}
+              placeholder={props.placeholder}
             />
           </div>
         </div>
@@ -116,6 +119,7 @@ export const AllTasks = props => {
             taskTypesList={props.taskTypesList}
             tasksStatusList={props.tasksStatusList}
             filters={props.filters}
+            changePlaceholder={props.changePlaceholder}
           />
         :
           <TaskDetailContainer
@@ -126,6 +130,7 @@ export const AllTasks = props => {
             isLoading={props.isLoading}
             openCostsModal={props.openCostsModal}
             openModal={props.openModal}
+            placeholder={props.placeholder}
           />
         }
         </div>
