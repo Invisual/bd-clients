@@ -75,7 +75,7 @@ export const BudgetDetail = props => {
                   )}
                 </div>
               </div>
-              {Number(props.budgetContent.details[0].ref_id_budget_internal_status) === 4 ?
+              {Number(props.budgetContent.details[0].ref_id_budget_internal_status) === 5 ?
                 <div className="budget-external-status">
                   <h4>Estado do Orçamento</h4>
                   <div className="status-container">
@@ -103,21 +103,23 @@ export const BudgetDetail = props => {
               }
             </div>
           </div>
-
-          <div className="task-add-comment">
-            <div />
-            <div className="comment-input">
-              <textarea
-                placeholder="Escreve um comentário..."
-                id="comment-textarea"
-                onChange={props.changeCommentVal}
-                onKeyDown={props.changeCommentVal}
-              />
+          {props.type === 'approvals' ? null :
+          
+            <div className="task-add-comment">
+              <div />
+              <div className="comment-input">
+                <textarea
+                  placeholder="Escreve um comentário..."
+                  id="comment-textarea"
+                  onChange={props.changeCommentVal}
+                  onKeyDown={props.changeCommentVal}
+                />
+              </div>
+              <div className="comment-submit" onClick={props.submitComment}>
+                <FiSend />
+              </div>
             </div>
-            <div className="comment-submit" onClick={props.submitComment}>
-              <FiSend />
-            </div>
-          </div>
+          }
         </TaskDetailsDiv>
       ) : (
         <div>

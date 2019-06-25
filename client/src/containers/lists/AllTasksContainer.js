@@ -40,11 +40,13 @@ class AllTasksContainer extends Component {
       costsModalType: 'task',
       concludedModalOpen: false,
       concludedModalType: 'task',
+      placeholder: false
     };
   }
 
   changeFilters = (filters) => this.setState({filters: filters})
   changeFiltersAreActive = () => this.setState({filtersAreActive: !this.state.filtersAreActive})
+  changePlaceholder = () => this.setState({placeholder: false})
 
   changeSearchQuery = e => this.setState({searchQuery: e.target.value})
 
@@ -132,9 +134,9 @@ class AllTasksContainer extends Component {
       if (this.props.isShare) {
 
         if(this.props.concluded){
-          this.props.history.push({pathname: '/concludedtasks'})
+          history.replace({pathname: '/concludedtasks'})
         } else {
-          this.props.history.push({pathname: '/tasks'})
+          history.replace({pathname: '/tasks'})
         }
         
         axios
@@ -188,9 +190,13 @@ class AllTasksContainer extends Component {
 
   changeActiveTask = taskId => {
     if (taskId === this.state.activeTask) {
+      this.changePlaceholder()
       return null;
-    } else {
-      this.setState({ activeTask: taskId, isLoading: true });
+    } else if (taskId === null) {
+      this.setState({placeholder: true})
+    }
+    else {
+      this.setState({ activeTask: taskId, placeholder: false, isLoading: true });
     }
   };
 
@@ -304,7 +310,7 @@ class AllTasksContainer extends Component {
   };
 
   scrollToElementD = () => {
-    var topPos = document.querySelector('.single-card.active').offsetTop;
+    var topPos = document.querySelector('.single-card-task.active').offsetTop;
     this.scrollTo(document.querySelector('.tasks-list'), topPos - 10, 600);
   };
 
@@ -420,6 +426,8 @@ class AllTasksContainer extends Component {
         undoActiveTask={this.undoActiveTask}
         openModal={this.props.openModal}
         closeModal={this.props.closeModal}
+        placeholder={this.state.placeholder}
+        changePlaceholder={this.changePlaceholder}
       />
     );
   }

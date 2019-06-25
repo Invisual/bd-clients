@@ -12,6 +12,7 @@ class AllApprovalsContainer extends Component {
     this.state = {
       activeItem: '',
       activeType: '',
+      activeTab: 'projectreview',
       itemContent: [],
       reloadItems: false,
       filtersAreActive: false,
@@ -29,6 +30,8 @@ class AllApprovalsContainer extends Component {
       displaySearchInput: '',
       isLoading: true,
       redirect: false,
+      costsModalOpen: false,
+      costsModalType: 'project',
       concludedModalOpen: false,
       concludedModalType: 'task',
     };
@@ -70,7 +73,7 @@ class AllApprovalsContainer extends Component {
     var idUser = JSON.parse(localStorage.getItem('user'));
     if (this.state.activeItem) {
       axios.get(`/api/misc/approvals/${this.state.activeType}/${this.state.activeItem}`, { headers: { Authorization: AuthStr } }).then(res => {
-        this.setState({ itemContent: res.data, isLoading: false }/*, () => this.scrollToElementD()*/);
+        this.setState({ itemContent: res.data, isLoading: false }, () => this.scrollToElementD());
       });
     } else {
       if (this.props.isShare) {
@@ -94,7 +97,7 @@ class AllApprovalsContainer extends Component {
               if (res.data === 'nodata') {
                 this.setState({ itemContent: null, isLoading: false });
               } else {
-                this.setState({ itemContent: res.data, isLoading: false }/*, () => this.scrollToElementD()*/);
+                this.setState({ itemContent: res.data, isLoading: false }, () => this.scrollToElementD());
               }
             });
           });
@@ -128,8 +131,12 @@ class AllApprovalsContainer extends Component {
       this.setState({ activeItem: itemId, activeType: itemType, isLoading: true });
     }
   };
+
+  changeActiveTab = activeTab => {
+    this.setState({activeTab: activeTab})
+  };
  
-  billActiveItem = (itemId, itemType) => {
+  approveActiveItem = (itemId, itemType) => {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
     Swal.fire({
@@ -139,7 +146,7 @@ class AllApprovalsContainer extends Component {
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
-    confirmButtonText: 'Sim, Faturar!',
+    confirmButtonText: 'Sim, Aprovar!',
     cancelButtonText: 'Cancelar'
     }).then(result => {
         if (result.value) {
@@ -147,44 +154,43 @@ class AllApprovalsContainer extends Component {
           var data = {
             id : itemId,
             type : itemType,
-            billed_status: 2
+            billing : this.state.itemContent.details[0].billed,
+            title: this.state.itemContent.details[0].title,
+            mode: this.state.itemContent.details[0].name_billing_mode,
           }
  
-            axios.put(`/api/billing/`, data, { headers: { Authorization: AuthStr } }).then( res => {
-                Swal.fire('Faturado!', '', 'success').then(click => {
-                    this.getItemDetails()
-                    this.setState({reloadItems: true})
+            axios.put(`/api/misc/approvals/`, data, { headers: { Authorization: AuthStr } }).then( res => {
+                Swal.fire('Aprovado!', '', 'success').then(click => {
+                    this.setState({activeItem: '', activeType:'', reloadItems: true})
                 })
             })
         }
     });
   };
- 
-  unBillActiveItem = (itemId, itemType) => {
+
+  rejectActiveItem = (itemId, itemType) => {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
     Swal.fire({
-    title: 'Marcar como "Não Faturado"',
-    text: 'Tem a certeza?',
+    title: 'Tem a certeza?',
+    text: 'Esta ação é irreversível',
     type: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
-    confirmButtonText: 'Sim, marcar!',
+    confirmButtonText: 'Sim, reprovado!',
     cancelButtonText: 'Cancelar'
     }).then(result => {
         if (result.value) {
  
           var data = {
             id : itemId,
-            type : itemType,
-            billed_status: 1
+            type : itemType
           }
  
-            axios.put(`/api/billing/`, data, { headers: { Authorization: AuthStr } }).then( res => {
-                Swal.fire('Marcado!', '', 'success').then(click => {
-                    this.getItemDetails()
-                    this.setState({reloadItems: true})
+            axios.put(`/api/misc/approvals/reject`, data, { headers: { Authorization: AuthStr } }).then( res => {
+                Swal.fire('Reprovado!', '', 'success').then(click => {
+                    this.setState({activeItem: '', activeType:'', reloadItems: true})
                 })
             })
         }
@@ -224,6 +230,10 @@ class AllApprovalsContainer extends Component {
     return -c/2 * (t*(t-2) - 1) + b;
   };
  
+  openCostsModal = (type) => {
+    this.setState({costsModalType: type})
+  }
+
   componentDidMount() {
     this.getItemDetails();
   }
@@ -231,6 +241,7 @@ class AllApprovalsContainer extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevState.activeItem !== this.state.activeItem) {
       this.getItemDetails();
+      this.setState({activeTab:'projectreview'})
     }
     if (prevState.reloadItems !== this.state.reloadItems) {
       this.setState({ reloadItems: false });
@@ -246,6 +257,8 @@ class AllApprovalsContainer extends Component {
         activeItem={this.state.activeItem}
         activeType={this.state.activeType}
         changeActiveItem={this.changeActiveItem}
+        changeActiveTab={this.changeActiveTab}
+        activeTab={this.state.activeTab}
         isShare={this.props.isShare}
         copyAlert={this.copyAlert}
         redirect={this.state.redirect}
@@ -263,8 +276,12 @@ class AllApprovalsContainer extends Component {
         closeConcludeModal={this.closeConcludeModal}
         isConcludeModalOpen={this.state.concludeModalOpen}
         concludeModalType={this.state.concludeModalType}
-        billActiveItem={this.billActiveItem}
-        unBillActiveItem={this.unBillActiveItem}
+        approveActiveItem={this.approveActiveItem}
+        rejectActiveItem={this.rejectActiveItem}
+        openCostsModal={this.openCostsModal}
+        openModal={this.props.openModal}
+        closeModal={this.props.closeModal}
+        costsModalType={this.state.costsModalType}
       />
     );
   }

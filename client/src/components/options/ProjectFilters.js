@@ -69,6 +69,7 @@ removeFilters = () => {
   this.setState({projectClientFilter: '', projectBillingFilter: '', projectAccountFilter: '', projectPercentageFilter: '', projectCategoriesFilter: [], projectUsersFilter: []})
   this.props.changeFilters(filters)
   this.props.changeFiltersAreActive();
+  this.props.changePlaceholder()
 }
 
 render(){

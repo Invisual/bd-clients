@@ -32,6 +32,9 @@ class MyBudgetsContainer extends Component {
         nextStatus = 4;
         break;
       case 4:
+        nextStatus = 5;
+        break;
+      case 5:
         nextStatus = 1;
         break;
       default:

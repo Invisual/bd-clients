@@ -8,6 +8,7 @@ class MyProjectsContainer extends Component {
     super(props);
     this.state = {
       projects: [],
+      filteredProjects: [],
       isLoading: true
     };
   }
@@ -36,31 +37,16 @@ class MyProjectsContainer extends Component {
       if (res.data === 'nodata') {
         this.setState({ projects: null, isLoading: false });
       } else {
-        this.setState({ projects: res.data, isLoading: false });
+        this.setState({ projects: res.data, filteredProjects: res.data, isLoading: false });
       }
     });
   };
 
-  componentDidMount() {
-    this.getProjects();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.reloadProjects !== this.props.reloadProjects) {
-      this.getProjects();
-    }
-    if(prevProps.currentProjectList !== this.props.currentProjectList){
-      this.getProjects()
-    }
-  }
-
-
-  render() {
-    var filteredProjects
+  filterProjects = () => {
     switch(this.props.type){
       case 'allprojects':
         if(this.state.projects){
-          filteredProjects = this.state.projects.filter( project => {
+          this.setState({filteredProjects: this.state.projects.filter( project => {
             return this.props.filters.client === '' ? true : Number(project.id_client) === Number(this.props.filters.client)
           }).filter(project => {
             return this.props.searchQuery === '' ? true : project.title_project.toLowerCase().includes(this.props.searchQuery.toLowerCase())
@@ -100,26 +86,46 @@ class MyProjectsContainer extends Component {
               return x > 0 ? true : null
             }
           })
+          }, ()=>this.props.changeActiveProject(this.state.filteredProjects.length > 0 ? this.state.filteredProjects[0].id_project : null)) 
         }
         else{
-          filteredProjects = this.state.projects
+          this.setState({filteredProjects : this.state.projects})
         }
       break;
 
       default:
-      filteredProjects = this.state.projects
+        this.setState({filteredProjects : this.state.projects})
     }
+  }
+
+  componentDidMount() {
+    this.getProjects();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.reloadProjects !== this.props.reloadProjects) {
+      this.getProjects();
+    }
+    if(prevProps.currentProjectList !== this.props.currentProjectList){
+      this.getProjects()
+    }
+    if(prevProps.filters !== this.props.filters){
+      this.filterProjects()
+    }
+  }
 
 
+  render() {
     return (
       <MyProjects
-        projects={filteredProjects}
+        projects={this.state.filteredProjects}
         title={this.props.title}
         isLoading={this.state.isLoading}
         type={this.props.type}
         changeActiveProject={this.props.changeActiveProject}
         activeProject={this.props.activeProject}
         concluded={this.props.concluded}
+        placeholder={this.props.placeholder}
       />
     );
   }

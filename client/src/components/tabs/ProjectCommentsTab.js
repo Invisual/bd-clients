@@ -8,7 +8,7 @@ class ProjectCommentsTab extends React.Component {
   render() {
     return (
       <div className="project-comment-tab">
-        {this.props.projectContent.comments.length ? (
+        {this.props.projectContent.comments ? (
           this.props.projectContent.comments.map(comment => {
             return (
               <SingleTaskComment

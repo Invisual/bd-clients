@@ -27,10 +27,10 @@ class ProjectReviewTab extends React.Component {
         <div className="project-extras">
           <div className="project-members-infos">
               <div className="project-account-deadline">
-                 <div className="project-account">
+                 {/*<div className="project-account">
                    <div className="project-account-title">Account</div>
                    <img src={this.props.projectContent.details[0].avatar_user} alt="Avatar" />
-                 </div>
+                 </div>*/}
                  <div className="project-account">
                    <div className="project-account-title">Horas</div>
                    <span>{this.props.projectContent.details[0].total_project_hours ?
@@ -46,17 +46,18 @@ class ProjectReviewTab extends React.Component {
                </div>
                <div className="project-members">
                  <div className="project-members-title">Membros</div>
-                 <div className="project-members-avatar">
+                 
                    {this.props.projectContent.details[0].intervenientes
-                     ? this.props.projectContent.details[0].intervenientes
+                     ? <div className="project-members-avatar">
+                       {this.props.projectContent.details[0].intervenientes
                          .split(';')
                          .map(e => e.split(','))
                          .map(avatar => {
                            return <img key={avatar[0]} src={avatar[2]} alt={avatar[1]} />;
-                         })
-                     : null}
+                         })}
+                        </div>
+                     : <div>Sem intervenientes</div>}
                  </div>
-               </div>
           </div>
           <div className="project-status">
             <div className="project-status-title">Estado</div>
@@ -101,12 +102,19 @@ class ProjectReviewTab extends React.Component {
           </div>
           <div className="billing-title">
             <h4>Custos para Faturação</h4>
-            {this.props.projectContent.costs ? 
+            {
+            this.props.type === 'approvals'? 
+              this.props.projectContent.costs ? 
               <div className="see-all-costs" onClick={() => { this.props.openCostsModal('projectlist'); this.props.openModal('costs') }}>Consulte aqui os Custos associados a este Projecto <FiArrowRight /></div>
-            :
-              <div className="billing-descr">Este Projecto ainda não tem um Registo de Custos associado.</div>
+              : <div>Sem Custos Associados.</div>
+            : this.props.projectContent.costs ? 
+              <div className="see-all-costs" onClick={() => { this.props.openCostsModal('projectlist'); this.props.openModal('costs') }}>Consulte aqui os Custos associados a este Projecto <FiArrowRight /></div>
+              :
+              <>
+                <div className="billing-descr">Este Projecto ainda não tem um Registo de Custos associado.</div>
+                <FiPlus className="billing-add-icon" onClick={() => {this.props.openCostsModal('project'); this.props.openModal('costs')}}/>
+              </>
             }
-            <FiPlus className="billing-add-icon" onClick={() => {this.props.openCostsModal('project'); this.props.openModal('costs')}}/>
           </div>
         </div>
       </>

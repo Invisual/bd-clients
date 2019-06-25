@@ -67,7 +67,10 @@ export const MyTasks = props => {
       } else {
         content = (
           <div className="mytasks-container widget">
-            {props.tasks ? (
+            {props.tasks ? 
+              props.placeholder ?
+              <div className="empty-placeholder">Sem tarefas correspondentes aos filtros ativos.</div>
+              :(
               props.tasks.map(task => {
                 var hourState = 0;
                 var hourId = '';

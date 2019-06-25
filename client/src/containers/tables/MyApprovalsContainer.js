@@ -14,41 +14,7 @@ class MyApprovalsContainer extends Component {
       isLoading: true,
     };
   }
- 
-  changeTaskStatus = (taskId, currStatus, projectId, account) => {
-    var token = JSON.parse(localStorage.getItem('token'));
-    var AuthStr = 'Bearer ' + token;
-    var idUser = JSON.parse(localStorage.getItem('user'));
- 
-    var nextStatus = '';
-    switch (currStatus) {
-      case 1:
-        nextStatus = 2;
-        break;
-      case 2:
-        nextStatus = 3;
-        break;
-      case 3:
-        nextStatus = 4;
-        break;
-      case 4:
-        nextStatus = 1;
-        break;
-      default:
-        nextStatus = 1;
-    }
-    const data = {
-      task: taskId,
-      status: nextStatus,
-      user: idUser.id_user,
-      project: projectId,
-      account: account,
-    };
-    axios.put('/api/tasks/userTaskStatus', data, { headers: { Authorization: AuthStr } }).then(res => {
-      this.getTasks();
-    });
-  };
- 
+
   getApprovalItems = () => {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
@@ -71,7 +37,7 @@ class MyApprovalsContainer extends Component {
   }
  
   componentDidUpdate(prevProps) {
-    if (prevProps.reloadApprovalItems !== this.props.reloadApprovalItems) {
+    if (prevProps.reloadItems !== this.props.reloadItems) {
       this.getApprovalItems()
     }
   }
@@ -82,10 +48,10 @@ class MyApprovalsContainer extends Component {
       <MyApprovals
         approvalItems={this.state.approvalItems}
         title={this.props.title}
-        changeTaskStatus={this.changeTaskStatus}
         type={this.props.type}
         isLoading={this.state.isLoading}
-        changeActiveTask={this.props.changeActiveTask}
+        changeActiveItem={this.props.changeActiveItem}
+        activeItem={this.props.activeItem}
         activeType={this.props.activeType}
         copyAlert={this.props.copyAlert}
         startCountingHours={this.startCountingHours}

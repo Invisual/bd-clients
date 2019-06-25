@@ -10,7 +10,10 @@ export const Options =  props => {
           case 'taskoptions':
             return props.isLoading ? (
               <div className="grid-widget tasks-options" />
-            ) : props.taskContent ? (
+            ) : props.taskContent ? 
+              props.placeholder? 
+              <div className="grid-widget tasks-options" />
+              :(
               <div className="grid-widget tasks-options">
                 {props.userRole === 3 || props.userRole === 2 ? (
                   <div className="task-infos">
@@ -77,12 +80,12 @@ export const Options =  props => {
                 }
                 <div className="account-avatar">
                   <img
-                    src={props.taskContent.details[0].avatar_user}
+                    src={props.taskContent.details[0].avatar_account}
                     alt="Avatar"
                     style={{ borderRadius: '50%' }}
                     width="20px"
                     height="20px"
-                    title={props.taskContent.details[0].name_user}
+                    title={props.taskContent.details[0].name_account}
                   />
                 </div>
               </div>
@@ -93,9 +96,13 @@ export const Options =  props => {
           case 'projectoptions':
             return props.isLoading ? (
               <div className="grid-widget tasks-options" />
-            ) : props.projectContent ? (
+            ) : props.projectContent ? 
+            props.placeholder? 
+            <div className="grid-widget tasks-options" />
+            :(
               <div className="grid-widget tasks-options">
                 {props.userRole === 3 || props.userRole === 2 ? (
+                  <>
                   <div className="task-infos">
                       
                   {props.concluded ? 
@@ -109,6 +116,7 @@ export const Options =  props => {
                       <span className="tooltip">Eliminar Projeto</span>
                       <FiTrash2 className="task-info-icon" onClick={() => { props.deleteActiveProject(props.projectContent.details[0].id_project); }} />
                     </div>
+                    
                   </>
                     : <>
                     <div className="tooltip-container">
@@ -135,8 +143,17 @@ export const Options =  props => {
                     /><span className="tooltip">Editar Projeto</span></Link>
                     </div>
                     </>}
-                    
                   </div>
+                  <div className="account-avatar">
+                  <img
+                    src={props.projectContent.details[0].avatar_user}
+                    alt="Avatar"
+                    style={{ borderRadius: '50%' }}
+                    width="20px"
+                    height="20px"
+                    title={props.projectContent.details[0].name_user}
+                  />
+                </div></>
                 ) : null}
               </div>
             ) : (
@@ -146,7 +163,10 @@ export const Options =  props => {
           case 'clientsoptions':
             return props.isLoading ? (
               <div className="grid-widget tasks-options" />
-            ) : props.clientContent ? (
+            ) : props.clientContent ? 
+            props.placeholder? 
+            <div className="grid-widget tasks-options" />
+            :(
               <div className="grid-widget tasks-options">
                 {props.userRole === 3 || props.userRole === 2 ? (
                   <div className="task-infos">
@@ -176,7 +196,10 @@ export const Options =  props => {
           case 'teamoptions':
             return props.isLoading ? (
               <div className="grid-widget tasks-options" />
-            ) : props.memberContent ? (
+            ) : props.memberContent ? 
+            props.placeholder? 
+            <div className="grid-widget tasks-options" />
+            :(
               <div className="grid-widget tasks-options">
                 {props.userRole === 3 || props.userRole === 2 ? (
                   <div className="task-infos">
@@ -218,10 +241,21 @@ export const Options =  props => {
             case 'budgetoptions':
               return props.isLoading ? (
               <div className="grid-widget tasks-options" />
-              ) : props.budgetContent ? (
+              ) : props.budgetContent ? 
+                props.placeholder? 
+                <div className="grid-widget tasks-options" />
+              :(
               <div className="grid-widget tasks-options">
                 {props.userRole === 3 || props.userRole === 2 ? (
                   <div className="task-infos">
+                  <div className="tooltip-container">
+                    <FiCheckSquare
+                      className="task-info-icon"
+                      onClick={() => {
+                        props.concludeActiveBudget(props.budgetContent.details[0].id_budget);
+                      }}
+                    /><span className="tooltip">Eliminar Orçamento</span>
+                  </div>
                   <div className="tooltip-container">
                     <FiTrash2
                       className="task-info-icon"
@@ -256,7 +290,10 @@ export const Options =  props => {
           case 'billingoptions':
             return props.isLoading ? (
               <div className="grid-widget tasks-options" />
-              ) : props.itemContent ? (
+              ) : props.itemContent ? 
+              props.placeholder? 
+              <div className="grid-widget tasks-options" />
+              :(
               <div className="grid-widget tasks-options">
                   <div className="task-infos">
                   <div className="tooltip-container">
@@ -289,6 +326,41 @@ export const Options =  props => {
             ) : (
               <div className="grid-widget tasks-options"> </div>
             );
+          case 'approvalsoptions':
+              return props.isLoading ? (
+                <div className="grid-widget tasks-options" />
+                ) : props.itemContent ? 
+                props.placeholder? 
+                <div className="grid-widget tasks-options" />
+                :(
+                <div className="grid-widget tasks-options">
+                    <div className="task-infos">
+                      <div className="tooltip-container">
+                        <FiCheckSquare color="#1de9b6" className="task-info-icon" onClick={() => { props.approveActiveItem(props.itemContent.details[0].id, props.itemContent.details[0].type); }} />
+                        <span className="tooltip">Aprovar</span>
+                      </div>
+
+                      <div className="tooltip-container">
+                        <FiXSquare color="#F43D3D" className="task-info-icon" onClick={() => { props.rejectActiveItem(props.itemContent.details[0].id, props.itemContent.details[0].type); }} />
+                        <span className="tooltip">Reprovar</span>
+                      </div>
+                        
+                    </div>
+                  
+                  <div className="account-avatar">
+                    <img
+                      src={props.itemContent.details[0].type === 'task' ? props.itemContent.details[0].avatar_account : props.itemContent.details[0].avatar_user}
+                      alt="Avatar"
+                      style={{ borderRadius: '50%' }}
+                      width="20px"
+                      height="20px"
+                      title={props.itemContent.details[0].type === 'task' ? props.itemContent.details[0].name_account : props.itemContent.details[0].name_user}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div className="grid-widget tasks-options"> </div>
+              );
           default:
           return props.isLoading ? (
             <div className="grid-widget tasks-options" />

@@ -12,7 +12,8 @@ export const MyProjects = props => {
         <div className="mytasks-container widget cards-container">
           {props.isLoading ? (
             <img src="img/loading.svg" alt="loading" className="loading-spinner" />
-          ) : props.projects ? (
+          ) : props.projects ? 
+               (
             <div>
               <h4 className="widget-title">{props.title}</h4>
               <div className="project-labels">
@@ -60,7 +61,10 @@ export const MyProjects = props => {
         <div className="mytasks-container widget">
           {props.isLoading ? (
             <img src="/img/loading.svg" alt="loading" className="loading-spinner" />
-          ) : props.projects ? (
+          ) : props.projects ? 
+                props.placeholder ?
+                <div className="empty-placeholder">Sem Projetos correspondentes aos filtros ativos.</div>
+            :(
             props.projects.map(project => {
               return (
                 <SingleProject

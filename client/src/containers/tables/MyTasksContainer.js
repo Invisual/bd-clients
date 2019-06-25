@@ -11,6 +11,7 @@ class MyTasksContainer extends Component {
     super(props);
     this.state = {
       tasks: [],
+      filteredTasks: [],
       isLoading: true,
     };
   }
@@ -69,12 +70,11 @@ class MyTasksContainer extends Component {
         url = `/api/tasks/${user.id_user}`
       }
     }
-    console.log(this.props.userRole)
     axios.get(url, { headers: { Authorization: AuthStr } }).then(res => {
       if (res.data === 'nodata') {
         this.setState({ tasks: null, isLoading: false });
       } else {
-        this.setState({ tasks: res.data, isLoading: false });
+        this.setState({ tasks: res.data, filteredTasks: res.data, isLoading: false });
       }
     });
   };
@@ -149,26 +149,11 @@ class MyTasksContainer extends Component {
     });
   }
 
-  componentDidMount() {
-    this.getTasks()
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.reloadTasks !== this.props.reloadTasks) {
-      this.getTasks()
-    }
-    if(prevProps.currentTaskList !== this.props.currentTaskList){
-      this.getTasks()
-    }
-  }
-
-
-  render() {
-    var filteredTasks
+  filterTasks = () => {
     switch(this.props.type){
       case 'alltasks':
       if(this.state.tasks !== null){
-        filteredTasks = this.state.tasks.filter( task => {
+        this.setState({filteredTasks: this.state.tasks.filter( task => {
           return this.props.filters.client === '' ? true : Number(task.ref_id_client) === Number(this.props.filters.client)
         }).filter(task => {
           return this.props.searchQuery === '' ? true : task.title_task.toLowerCase().includes(this.props.searchQuery.toLowerCase())
@@ -184,21 +169,41 @@ class MyTasksContainer extends Component {
           return this.props.filters.project === '' ? true : Number(task.ref_id_project) === Number(this.props.filters.project)
         }).filter(task => {
           return this.props.filters.isDeadlineSet === false ? true : moment(task.deadline_date_task).isSameOrBefore(this.props.filters.deadline, 'day')
-        })
+        }) 
+      }, ()=>this.props.changeActiveTask(this.state.filteredTasks.length > 0 ? this.state.filteredTasks[0].id_task : null)) 
+        
       }
       else{
-        filteredTasks = null
+        this.setState({filteredTasks : null})
       }
-      
       break;
 
       default:
-      filteredTasks = this.state.tasks
+        this.setState({filteredTasks : this.state.tasks})
+
     }
+  }
+
+  componentDidMount() {
+    this.getTasks()
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.reloadTasks !== this.props.reloadTasks) {
+      this.getTasks()
+    }
+    if(prevProps.currentTaskList !== this.props.currentTaskList){
+      this.getTasks()
+    }
+    if(prevProps.filters !== this.props.filters)
+      this.filterTasks()
+    }
+
+  render() {
 
     return (
       <MyTasks
-        tasks={filteredTasks}
+        tasks={this.state.filteredTasks}
         title={this.props.title}
         changeTaskStatus={this.changeTaskStatus}
         type={this.props.type}
@@ -211,6 +216,7 @@ class MyTasksContainer extends Component {
         activeHours={this.props.activeHours}
         activeBudgetHours={this.props.activeBudgetHours}
         concluded={this.props.concluded}
+        placeholder={this.props.placeholder}
       />
     );
   }

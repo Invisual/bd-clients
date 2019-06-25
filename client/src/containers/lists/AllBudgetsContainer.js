@@ -3,6 +3,8 @@ import { createBrowserHistory } from 'history';
 import { AllBudgets } from '../../components/lists/AllBudgets';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
+import moment from 'moment';
+
 const axios = require('axios');
 const history = createBrowserHistory();
 
@@ -158,6 +160,35 @@ class AllBudgetsContainer extends Component {
     });
   };
 
+  concludeActiveBudget = (itemId) => {
+    var token = JSON.parse(localStorage.getItem('token'));
+    var AuthStr = 'Bearer ' + token;
+    Swal.fire({
+    title: 'Tem a certeza?',
+    text: 'Esta ação é irreversível',
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sim, concluir!',
+    cancelButtonText: 'Cancelar'
+    }).then(result => {
+        if (result.value) {
+ 
+          var data = {
+            id : itemId,
+            date : moment().format('YYYY-MM-DD')
+          }
+ 
+            axios.put(`/api/budgets/conclude`, data, { headers: { Authorization: AuthStr } }).then( res => {
+                Swal.fire('Concluído!', '', 'success').then(click => {
+                    this.setState({activeBudget: '', reloadBudgets: true})
+                })
+            })
+        }
+    });
+  };
+
   deleteActiveBudget = budgetId => {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
@@ -288,6 +319,7 @@ class AllBudgetsContainer extends Component {
         internalStatusList={this.state.internalStatusList}
         externalStatusList={this.state.externalStatusList}
         getBudgetDetails={this.getBudgetDetails}
+        concludeActiveBudget={this.concludeActiveBudget}
       />
     );
   }

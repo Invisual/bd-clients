@@ -50,6 +50,7 @@ class BudgetDetailContainer extends Component {
         submitComment={this.props.submitComment}
         externalList={this.state.externalList}
         changeExternalStatus={this.changeExternalStatus}
+        type={this.props.type}
       />
     );
   }

@@ -1,8 +1,10 @@
 import React from 'react';
 import { AllTasksDiv } from '../../styles/listings';
-import ConcludeModalContainer from '../../containers/inserts/ConcludeModalContainer'
+import CostsModalContainer from '../../containers/inserts/CostsModalContainer'
 import MyApprovalsContainer from '../../containers/tables/MyApprovalsContainer';
-import BillingDetailContainer from '../../containers/details/BillingDetailContainer';
+import BudgetDetailContainer from '../../containers/details/BudgetDetailContainer';
+import ProjectDetailContainer from '../../containers/details/ProjectDetailContainer';
+import TaskDetailContainer from '../../containers/details/TaskDetailContainer';
 import OptionsContainer from '../../containers/options/OptionsContainer';
 import TaskFilters from '../options/TaskFilters';
 import {FiFilter, FiSearch } from 'react-icons/fi';
@@ -12,20 +14,14 @@ export const AllApprovals = props => {
   if (props.redirect) {
     return <Redirect to="/" />;
   }
- 
   return (
     <AllTasksDiv className="dashboard-container">
-      { props.isConcludeModalOpen ?
-          <ConcludeModalContainer
-            closeConcludeModal={props.closeConcludeModal}
-            taskId={props.activeTask}
-            taskContent={props.taskContent}
-            type={props.concludeModalType}
-            getTaskDetails={props.getTaskDetails}
-          />
-        :
-          null
-      }
+      <CostsModalContainer
+        taskId={props.activeItem} 
+        type={props.costsModalType} 
+        costs={props.itemContent.costs}
+        closeModal={props.closeModal}
+      /> 
       <div className="widgets-grid widget cards-container nofixed-height">
         <div className="grid-widget tasks-title">
           <h4 className="widget-title">Aprovações</h4>
@@ -55,15 +51,13 @@ export const AllApprovals = props => {
         </div>
         <OptionsContainer
           userRole={props.userRole}
-          type={'billingoptions'}
-          openConcludeModal={props.openConcludeModal}
-          closeConcludeModal={props.closeConcludeModal}
+          type={'approvalsoptions'}
           activeItem={props.activeTask}
           activeType={props.activeType}
           itemContent={props.itemContent}
+          approveActiveItem={props.approveActiveItem}
+          rejectActiveItem={props.rejectActiveItem}
           isLoading={props.isLoading}
-          billActiveItem={props.billActiveItem}
-          unBillActiveItem={props.unBillActiveItem}
         />
         <div className="grid-widget tasks-list">
           <div className="tasks-list-container">
@@ -94,14 +88,39 @@ export const AllApprovals = props => {
             tasksStatusList={props.tasksStatusList}
             filters={props.filters}
           />
+        : props.isLoading ?
+        <img src="/img/loading.svg" alt="loading" className="loading-spinner" />
         :
-          <BillingDetailContainer
-            activeItem={props.activeItem}
-            activeType={props.activeType}
-            itemContent={props.itemContent}
-            isLoading={props.isLoading}
-            openCostsModal={props.openCostsModal}
-          />
+        (() => {
+          switch(props.activeType) {
+            case 'budget':
+              return <BudgetDetailContainer
+              type={'approvals'}
+              activeBudget={props.activeItem}
+              budgetContent={props.itemContent}
+              isLoading={props.isLoading}
+              />
+            case 'project':
+              return <ProjectDetailContainer
+              type={'approvals'}
+              activeProject={props.activeItem}
+              projectContent={props.itemContent}
+              changeActiveTab={props.changeActiveTab}
+              openCostsModal={props.openCostsModal}
+              openModal={props.openModal}
+              activeTab={props.activeTab}/>
+            case 'task':
+              return <TaskDetailContainer 
+              type={'approvals'}
+              activeTask={props.activeItem}
+              taskContent={props.itemContent}
+              openCostsModal={props.openCostsModal}
+              openModal={props.openModal}
+              />
+            default:
+              return <h1>ola</h1>
+          };
+          })()
         }
         </div>
       </div>
