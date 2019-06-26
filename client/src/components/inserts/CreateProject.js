@@ -34,13 +34,13 @@ export const CreateProject = props => {
                         <div className="input-wrapper">
                             <fieldset>
                                 <legend>Nome do Projeto</legend>
-                                <input type="text" id="project-title" onChange={props.changeTitleInput} placeholder="Nome" value={props.type === 'edit' ? props.titleInput : undefined}/>
+                                <input required type="text" id="project-title" onChange={props.changeTitleInput} placeholder="Nome" value={props.type === 'edit' ? props.titleInput : undefined}/>
                             </fieldset>
                         </div>
                         <div className="input-wrapper">
                             <fieldset>
                                 <legend>Briefing</legend>
-                                <textarea id="project-briefing" onChange={props.changeBriefingInput} placeholder="Escrever" value={props.type === 'edit' ? props.briefingInput : undefined}></textarea>
+                                <textarea required id="project-briefing" onChange={props.changeBriefingInput} placeholder="Escrever" value={props.type === 'edit' ? props.briefingInput : undefined}></textarea>
                             </fieldset>
                         </div>
                     </div>
@@ -53,8 +53,8 @@ export const CreateProject = props => {
                                 <div className="input-wrapper">
                                     <fieldset>
                                         <legend>Cliente</legend>
-                                        <select id="project-client" onChange={props.changeClientInput} defaultValue={props.type === 'edit' ? props.clientInput : '0'}>
-                                            <option value="0" disabled>Selecionar</option>
+                                        <select required id="project-client" onChange={props.changeClientInput} defaultValue={props.type === 'edit' ? props.clientInput : ''}>
+                                            <option value="" disabled>Selecionar</option>
                                             {props.clientsData.map(client => {
                                                 return <option key={client.id_client} value={client.id_client}>{client.name_client}</option>
                                             })}
@@ -67,8 +67,8 @@ export const CreateProject = props => {
                                 <div className="input-wrapper">
                                     <fieldset>
                                         <legend>Account</legend>
-                                        <select id="project-account" onChange={props.changeAccountInput} defaultValue={props.type === 'edit' ? props.accountInput : '0'}>
-                                            <option value="0" disabled>Selecionar</option>
+                                        <select required id="project-account" onChange={props.changeAccountInput} defaultValue={props.type === 'edit' ? props.accountInput : ''}>
+                                            <option value="" disabled>Selecionar</option>
                                             {props.accountsData.map(account => {
                                                 return <option key={account.id_user} value={account.id_user}>{account.name_user}</option>
                                             })}
@@ -95,8 +95,8 @@ export const CreateProject = props => {
                                 <div className="input-wrapper">
                                     <fieldset>
                                         <legend>Faturação</legend>
-                                        <select id="project-billing" onChange={props.changeBillingInput} defaultValue={props.type === 'edit' ? props.billingInput : '0'}>
-                                            <option value="0" disabled>Selecionar</option>
+                                        <select required id="project-billing" onChange={props.changeBillingInput} defaultValue={props.type === 'edit' ? props.billingInput : ''}>
+                                            <option value="" disabled>Selecionar</option>
                                             {props.billingData.map(billing => {
                                                 return <option key={billing.id_billing_mode} value={billing.id_billing_mode}>{billing.name_billing_mode}</option>
                                             })}

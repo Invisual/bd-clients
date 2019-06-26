@@ -659,6 +659,9 @@ input[type='text'].hidesearch{
 .card-isolada{
   border-top:5px solid #00b1ff;
 }
+.card-budget{
+  border-top:5px solid #651fff;
+}
 
 /*CARDS COM BORDER COM COR PARA CADA TIPO DE TAREFA*/
 

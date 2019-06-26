@@ -41,7 +41,7 @@ export const CreateTask = props => {
                                 <div className="input-wrapper">
                                     <fieldset>
                                         <legend>Tipo</legend>
-                                        <select id="task-type" onChange={props.changeTypeInput} defaultValue={props.type === 'edit' ? props.typeInput : '1'}>
+                                        <select required id="task-type" onChange={props.changeTypeInput} defaultValue={props.type === 'edit' ? props.typeInput : '1'}>
                                             {props.typesData.map(type => {
                                                 return <option key={type.id_task_type} value={type.id_task_type}>{type.name_task_types}</option>
                                             })}
@@ -54,8 +54,8 @@ export const CreateTask = props => {
                                 <div className="input-wrapper">
                                     <fieldset>
                                         <legend>Cliente</legend>
-                                        <select id="project-client" onChange={props.changeClientInput} defaultValue={props.type === 'edit' ? props.clientInput : '0'}>
-                                            <option value="0" disabled>Selecionar</option>
+                                        <select required id="project-client" onChange={props.changeClientInput} defaultValue={props.type === 'edit' ? props.clientInput : ''}>
+                                            <option value="" disabled>Selecionar</option>
                                             {props.clientsData.map(client => {
                                                 return <option key={client.id_client} value={client.id_client}>{client.name_client}</option>
                                             })}
@@ -69,14 +69,14 @@ export const CreateTask = props => {
                         <div className="input-wrapper">
                             <fieldset>
                                 <legend>Nome</legend>
-                                <input type="text" id="task-title" onChange={props.changeTitleInput} placeholder="Nome" value={props.type === 'edit' ? props.titleInput : undefined}/>
+                                <input required type="text" id="task-title" onChange={props.changeTitleInput} placeholder="Nome" value={props.type === 'edit' ? props.titleInput : undefined}/>
                             </fieldset>
                         </div>
 
                         <div className="input-wrapper">
                             <fieldset>
                                 <legend>Descrição</legend>
-                                <textarea id="task-briefing" onChange={props.changeDescInput} placeholder="Escrever" value={props.type === 'edit' ? props.descInput : undefined}></textarea>
+                                <textarea required id="task-briefing" onChange={props.changeDescInput} placeholder="Escrever" value={props.type === 'edit' ? props.descInput : undefined}></textarea>
                             </fieldset>
                         </div>
 
@@ -92,8 +92,8 @@ export const CreateTask = props => {
                                     {Number(props.typeInput) === 1 ?
                                         <fieldset>
                                             <legend>Projeto</legend>
-                                            <select id="task-project" onChange={props.changeProjectInput} defaultValue={props.type === 'edit' ? props.projectInput : '0'}>
-                                                <option value="0" disabled>Selecione</option>
+                                            <select required id="task-project" onChange={props.changeProjectInput} defaultValue={props.type === 'edit' ? props.projectInput : ''}>
+                                                <option value="" disabled>Selecione</option>
                                                 {projectsFromActiveClient.map(project => {
                                                     return <option key={project.id_project} value={project.id_project}>{project.title_project}</option>
                                                 })}
@@ -102,8 +102,8 @@ export const CreateTask = props => {
                                     :
                                         <fieldset>
                                             <legend>Faturação</legend>
-                                            <select id="project-billing" onChange={props.changeBillingInput} defaultValue={props.type === 'edit' ? props.billingInput : '0'}>
-                                                <option value="0" disabled>Selecionar</option>
+                                            <select required id="project-billing" onChange={props.changeBillingInput} defaultValue={props.type === 'edit' ? props.billingInput : ''}>
+                                                <option value="" disabled>Selecionar</option>
                                                 {props.billingData.map(billing => {
                                                     return <option key={billing.id_billing_mode} value={billing.id_billing_mode}>{billing.name_billing_mode}</option>
                                                 })}
@@ -123,8 +123,8 @@ export const CreateTask = props => {
                                     :
                                     <fieldset>
                                         <legend>Pessoa</legend>
-                                        <select id="task-user" onChange={props.changePersonInput} defaultValue={props.type === 'edit' ? props.personInput : '0'}>
-                                            <option value="0" disabled>Selecionar</option>
+                                        <select required id="task-user" onChange={props.changePersonInput} defaultValue={props.type === 'edit' ? props.personInput : ''}>
+                                            <option value="" disabled>Selecionar</option>
                                             {props.usersData.map(user => {
                                                 return <option key={user.id_user} value={user.id_user}>{user.name_user}</option>
                                             })}
@@ -146,8 +146,8 @@ export const CreateTask = props => {
                                 <div className="input-wrapper">
                                     <fieldset>
                                         <legend>Account</legend>
-                                        <select id="task-account" onChange={props.changeAccountInput} defaultValue={props.type === 'edit' ? props.accountInput : '0'}>
-                                            <option value="0" disabled>Selecionar</option>
+                                        <select required id="task-account" onChange={props.changeAccountInput} defaultValue={props.type === 'edit' ? props.accountInput : ''}>
+                                            <option value="" disabled>Selecionar</option>
                                             {props.accountsData.map(account => {
                                                 return <option key={account.id_user} value={account.id_user}>{account.name_user}</option>
                                             })}

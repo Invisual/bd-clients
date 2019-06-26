@@ -49,7 +49,7 @@ export const CreateVacation = props => {
                                 <div className="input-wrapper">
                                     <fieldset>
                                         <legend>Período de Tempo</legend>
-                                        <select onChange={props.changeDayTypeInput} defaultValue={''}>
+                                        <select required onChange={props.changeDayTypeInput} defaultValue={''}>
                                             <option value="" disabled>Selecionar</option>
                                             <option value="1">Dia Todo</option>
                                             <option value="2">Manhã</option>

@@ -24,7 +24,7 @@ export const CreateTrip = props => {
                             <div className="input-wrapper">
                                 <fieldset>
                                     <legend>Hora de Início</legend>
-                                    <input type="text" onChange={props.changeStartHourInput} value={props.startHourInput} placeholder="hh:mm"/>
+                                    <input required type="text" onChange={props.changeStartHourInput} value={props.startHourInput} placeholder="hh:mm"/>
                                 </fieldset>
                             </div>
                         </div>
@@ -33,7 +33,7 @@ export const CreateTrip = props => {
                             <div className="input-wrapper">
                                 <fieldset>
                                     <legend>Hora de Fim</legend>
-                                    <input type="text" onChange={props.changeEndHourInput} value={props.endHourInput} placeholder="hh:mm"/>
+                                    <input required type="text" onChange={props.changeEndHourInput} value={props.endHourInput} placeholder="hh:mm"/>
                                 </fieldset>
                             </div>
                         </div>
@@ -46,8 +46,8 @@ export const CreateTrip = props => {
                         <div className="grid-item">
                             <div className="input-wrapper">
                                 <fieldset>
-                                    <legend>Km's no Início</legend>
-                                    <input type="text" onChange={props.changeStartKmsInput} value={props.startKmsInput} placeholder="Inserir números"/>
+                                    <legend>Km Iniciais</legend>
+                                    <input required type="text" onChange={props.changeStartKmsInput} value={props.startKmsInput} placeholder="Inserir números"/>
                                 </fieldset>
                             </div>
                         </div>
@@ -55,8 +55,8 @@ export const CreateTrip = props => {
                         <div className="grid-item">
                             <div className="input-wrapper">
                                 <fieldset>
-                                    <legend>Km's no Fim</legend>
-                                    <input type="text" onChange={props.changeEndKmsInput} value={props.endKmsInput} placeholder="Inserir números"/>
+                                    <legend>Km Finais</legend>
+                                    <input required type="text" onChange={props.changeEndKmsInput} value={props.endKmsInput} placeholder="Inserir números"/>
                                 </fieldset>
                             </div>
                         </div>
@@ -79,8 +79,8 @@ export const CreateTrip = props => {
                             <div className="input-wrapper">
                                 <fieldset>
                                     <legend>Veículo</legend>
-                                    <select onChange={props.changeVehicleInput} defaultValue={props.type === 'edit' ? props.vehicleInput : '0'}>
-                                        <option value="0" disabled>Selecionar</option>
+                                    <select required onChange={props.changeVehicleInput} defaultValue={props.type === 'edit' ? props.vehicleInput : ''}>
+                                        <option value="" disabled>Selecionar</option>
                                         {props.vehiclesList.map(vehicle => {
                                             return <option key={vehicle.id_vehicle} value={vehicle.id_vehicle}>{vehicle.name_vehicle}</option>
                                         })}
@@ -98,7 +98,7 @@ export const CreateTrip = props => {
                             <div className="input-wrapper">
                                 <fieldset>
                                     <legend>Descrição</legend>
-                                    <textarea onChange={props.changeDescriptionInput} placeholder="Escrever" value={props.type === 'edit' ? props.descriptionInput : undefined}></textarea>
+                                    <textarea required onChange={props.changeDescriptionInput} placeholder="Escrever" value={props.type === 'edit' ? props.descriptionInput : undefined}></textarea>
                                 </fieldset>
                             </div>
                         </div>
