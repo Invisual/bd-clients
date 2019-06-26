@@ -11,7 +11,7 @@ export const MyTasks = props => {
         <div className="mytasks-container widget cards-container">
           {props.isLoading ? (
             <img src="/img/loading.svg" alt="loading" className="loading-spinner" />
-          ) : props.tasks ? (
+          ) : props.tasks.length>0 ? (
             <div>
               <h4 className="widget-title">{props.title}</h4>
               {props.tasks.slice(0, 4).map(task => {

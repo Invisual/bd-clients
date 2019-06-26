@@ -12,7 +12,7 @@ export const MyProjects = props => {
         <div className="mytasks-container widget cards-container">
           {props.isLoading ? (
             <img src="img/loading.svg" alt="loading" className="loading-spinner" />
-          ) : props.projects ? 
+          ) : props.projects.length>0 ? 
                (
             <div>
               <h4 className="widget-title">{props.title}</h4>

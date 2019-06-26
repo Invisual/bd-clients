@@ -13,7 +13,9 @@ class TeamMemberHoursTab extends Component {
     constructor(props){
         super(props)
         this.state = {
+            user: JSON.parse(localStorage.getItem('user')),
             taskHours: [],
+            budgetHours: [],
             date: moment(new Date()).subtract(1, 'days').format('YYYY-MM-D'),
             isLoading: true
         }
@@ -27,12 +29,27 @@ class TeamMemberHoursTab extends Component {
         axios.get(`/api/hours/${this.props.activeMember}/${this.state.date}`, { headers: { Authorization: AuthStr } })
         .then(res => {
             if (res.data === 'nodata') {
-                this.setState({ taskHours: null, isLoading: false });
+                this.setState({ taskHours: [], isLoading: false });
             } else {
                 this.setState({ taskHours: res.data, isLoading: false });
             }
         })
     }
+
+
+    getBudgetHours = () => {
+        var token = JSON.parse(localStorage.getItem('token'));
+        var AuthStr = 'Bearer ' + token
+        axios.get(`/api/hours/budgets/${this.props.activeMember}/${this.state.date}`, { headers: { Authorization: AuthStr } })
+        .then(res => {
+            if (res.data === 'nodata') {
+                this.setState({ budgetHours: [], isLoading: false });
+            } else {
+                this.setState({ budgetHours: res.data, isLoading: false });
+            }
+        })
+    }
+
 
     deleteTaskHour = hourId => {
         var token = JSON.parse(localStorage.getItem('token'));
@@ -63,16 +80,19 @@ class TeamMemberHoursTab extends Component {
         if(moment().isoWeekday() === 1){
             this.setState({date: moment(new Date()).subtract(3, 'days').format('YYYY-MM-D')})
         }
+        if(Number(this.state.user.id_position) === 2 || Number(this.state.user.id_position) === 3){
+            this.getBudgetHours()
+        }
     }
 
     componentDidUpdate(prevProps, prevState){
         if(prevState.date !== this.state.date){
             this.getTaskHours()
+            this.getBudgetHours()
         }
     }
 
     render(){
-        var user = JSON.parse(localStorage.getItem('user'));
         return (
             <div className="user-hours-content">
                 <div className="user-hours-date">
@@ -81,35 +101,77 @@ class TeamMemberHoursTab extends Component {
                 {this.state.isLoading ? 
                     <img src="/img/loading.svg" alt="loading" className="loading-spinner" />
                 :
-                    <div>
-                    <h2>Horas no dia {moment(this.state.date).format('DD MMMM')}</h2>
-                    {this.state.taskHours ?
-                        <div className="user-hours-list">
-                            {this.state.taskHours.map(hour => {
-                                return (
-                                    <div className="single-user-hour single-card" key={hour.id_task_hour}>
-                                        <p className="hour-day">{moment(hour.day).format('D MMM')}</p>
-                                        <p className="hour-task-title">{hour.title_task}</p>
-                                        <p className="hour-task-time">{moment(hour.beginning_hour, 'HHmm').format('HH:mm')}h - {moment(hour.ending_hour, 'HHmm').format('HH:mm')}h</p>
-                                        <p className="hour-task-time">{moment(hour.difference, 'HHmm').format('HH:mm')}</p>
-                                        {Number(user.ref_id_role) === 2 || Number(user.ref_id_role) === 3 ?
-                                            <div className="hour-actions">
-                                                <FiEdit2 onClick={() => {this.props.changeEditHourId(hour.id_task_hour); this.props.openModal('hours')}}/>
-                                                <FiTrash2 onClick={() => this.deleteTaskHour(hour.id_task_hour)}/>
-                                            </div>
-                                        :
-                                            null
-                                        }
+                    <>
+                        <h2 className="user-hours-date">Horas no dia {moment(this.state.date).format('DD MMMM')}</h2>
+                        {this.state.taskHours.length>0 || this.state.budgetHours.length>0 ?
+                            <>
+                                {this.state.taskHours.length>0 ?
+                                    <div className="user-tasks-hours hours-block">
+                                        <h5>Tarefas</h5>
+                                        <hr></hr>
+                                        <div className="user-hours-list">
+                                            {this.state.taskHours.map(hour => {
+                                                return (
+                                                    <div className="single-user-hour single-card" key={hour.id_task_hour}>
+                                                        <p className="hour-day">{moment(hour.day).format('D MMM')}</p>
+                                                        <p className="hour-task-title">{hour.title_task}</p>
+                                                        <p className="hour-task-time">{moment(hour.beginning_hour, 'HHmm').format('HH:mm')}h - {moment(hour.ending_hour, 'HHmm').format('HH:mm')}h</p>
+                                                        <p className="hour-task-time">{moment(hour.difference, 'HHmm').format('HH:mm')}</p>
+                                                        {Number(this.state.user.ref_id_role) === 2 || Number(this.state.user.ref_id_role) === 3 ?
+                                                            <div className="hour-actions">
+                                                                <FiEdit2 onClick={() => {this.props.changeEditHourId(hour.id_task_hour); this.props.openModal('hours')}}/>
+                                                                <FiTrash2 onClick={() => this.deleteTaskHour(hour.id_task_hour)}/>
+                                                            </div>
+                                                        :
+                                                            null
+                                                        }
+                                                    </div>
+                                                )
+                                            })}
+                                        </div>
                                     </div>
-                                )
-                            })}
-                        </div>
-                    :
-                        <div className="no-hours no-content">
-                            <div className="empty-placeholder">Este utilizador não tem registo de Horas neste dia.</div>
-                        </div>
-                    }
-                    </div>
+                                :
+                                    null
+                                }
+
+
+                                {this.state.budgetHours.length>0?
+                                    <div className="user-budget-hours hours-block">
+                                        <h5>Orçamentos</h5>
+                                        <hr></hr>
+                                        <div className="user-hours-list">
+                                            {this.state.budgetHours.map(hour => {
+                                                return (
+                                                    <div className="single-user-hour single-card" key={hour.id_budget_hour}>
+                                                        <p className="hour-day">{moment(hour.day).format('D MMM')}</p>
+                                                        <p className="hour-task-title">{hour.title_budget}</p>
+                                                        <p className="hour-task-time">{moment(hour.beginning_hour, 'HHmm').format('HH:mm')}h - {moment(hour.ending_hour, 'HHmm').format('HH:mm')}h</p>
+                                                        <p className="hour-task-time">{moment(hour.difference, 'HHmm').format('HH:mm')}</p>
+                                                        {Number(this.state.user.ref_id_role) === 2 || Number(this.state.user.ref_id_role) === 3 ?
+                                                            <div className="hour-actions">
+                                                                <FiEdit2 onClick={() => {this.props.changeEditHourId(hour.id_task_hour); this.props.openModal('hours')}}/>
+                                                                <FiTrash2 onClick={() => this.deleteTaskHour(hour.id_task_hour)}/>
+                                                            </div>
+                                                        :
+                                                            null
+                                                        }
+                                                    </div>
+                                                )
+                                            })}
+                                        </div>
+                                    </div>
+                                :
+                                    null  
+                                }
+                            </>
+                        :
+                            <div className="no-hours no-content">
+                                <div className="empty-placeholder">Este utilizador não tem registo de Horas neste dia.</div>
+                            </div>
+                        }
+                    </>
+                    
+
                 }
             </div>
         )

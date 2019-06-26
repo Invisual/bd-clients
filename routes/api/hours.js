@@ -105,6 +105,20 @@ router.get('/:user/:date', checkToken, (req, res) => {
 })
 
 
+router.get('/budgets/:user/:date', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+      if (err) { res.sendStatus(403) }
+      else{
+          connection.query("SELECT id_budget_hour, id_budget, beginning_hour, ending_hour, day, title_budget, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(ending_hour, beginning_hour)))) as difference from budget_hours INNER JOIN budgets ON budget_hours.ref_id_budget = budgets.id_budget WHERE ref_id_user = ? AND day = ? GROUP BY id_budget_hour ORDER BY id_budget_hour ASC", [req.params.user, req.params.date], function(error, results, fields) {
+              if (error) throw error;
+              if (results.length > 0) { res.send(results) }
+              else { res.send('nodata') }
+          })
+      }
+  })
+})
+
+
 router.post('/', checkToken, (req, res) => {
     jwt.verify(req.token, SECRET_KEY, (err, results) => {
       if (err) {

@@ -93,8 +93,8 @@ class MyBudgetsContainer extends Component {
       var user = JSON.parse(localStorage.getItem('user'));
 
       var data = {
-        beginningHour: moment().format('H:mm:ss'),
-        day: moment().format('D/MM/YYYY'),
+        beginningHour: moment().format('H:mm'),
+        day: moment().format('YYYY-MM-D'),
         user: user.id_user,
         budget: budgetId
       }

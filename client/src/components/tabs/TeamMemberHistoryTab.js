@@ -1,5 +1,5 @@
 import React from 'react'
-import { FiUser, FiClock, FiFileText, FiCheck } from 'react-icons/fi'
+import { FiUser, FiClock, FiFileText, FiCheck, FiClipboard } from 'react-icons/fi'
 import { Link } from 'react-router-dom';
 import moment from 'moment'
 import 'moment/locale/pt';
@@ -12,6 +12,7 @@ export const TeamMemberHistoryTab = props => {
     var tarefasDiarias = props.memberContent.tasks.filter(task => Number(task.ref_id_type_task) === 2).filter(filterByClient)
     var tarefasExternas = props.memberContent.tasks.filter(task => Number(task.ref_id_type_task) === 3).filter(filterByClient)
     var tarefasIsoladas = props.memberContent.tasks.filter(task => Number(task.ref_id_type_task) === 4).filter(filterByClient)
+    var budgets = props.memberContent.budgets.filter(filterByClient)
     return (
         <div className="member-history-tab">
 
@@ -140,6 +141,37 @@ export const TeamMemberHistoryTab = props => {
                                              return <span key={hour.id_task_hour}><b>{moment(hour.day).format('DD MMM')}:</b> {moment(hour.beginning_hour, 'HHmmss').format('HH:mm')} - {moment(hour.ending_hour, 'HHmmss').format('HH:mm')}</span>
                         
                                              })}
+                                         </div>
+                                       </>
+                            })
+                        }
+                    </div>
+                :
+                    null    
+                }
+
+
+
+                {budgets.length > 0 ?
+                    <div className="single-member-project single-card card-budget">
+                        <h2>Orçamentos</h2>
+                        {
+                            budgets.map(budget => {
+                                return <>
+                                         <div className="project-single-task" key={budget.id_budget}>
+                                             <FiClipboard/>
+                                             <Link to={'/budgets/'+budget.id_budget}><h4>{budget.title_budget}</h4></Link>
+                                             <Link to={'/clients/'+budget.ref_id_client}><h5>{budget.name_client}</h5></Link>
+                                             <div className="single-task-hours">
+                                                 <FiClock />
+                                                 <span>{moment(budget.total_budget_hours, 'HHmmss').format('HH:mm')}</span>
+                                             </div>
+                                             {Number(budget.ref_id_budget_internal_status) === 5 ? <FiCheck className="single-task-check"/> : null}
+                                         </div>
+                                         <div className="task-hour-records">
+                                            {props.memberContent.budgetHours.filter(hour=> Number(hour.id_budget)===Number(budget.id_budget)).map(hour => {
+                                                return <span key={hour.id_budget_hour}><b>{moment(hour.day).format('DD MMM')}:</b> {moment(hour.beginning_hour, 'HHmmss').format('HH:mm')} - {moment(hour.ending_hour, 'HHmmss').format('HH:mm')}</span>
+                                            })}
                                          </div>
                                        </>
                             })

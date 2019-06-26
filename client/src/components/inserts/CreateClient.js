@@ -21,7 +21,7 @@ export const CreateClient = props => {
                         <div className="input-wrapper">
                             <fieldset>
                                 <legend>Nome do Cliente</legend>
-                                <input type="text" onChange={props.changeNameInput} placeholder="Escrever" value={props.type === 'edit' ? props.nameInput : undefined}/>
+                                <input required type="text" onChange={props.changeNameInput} placeholder="Escrever" value={props.type === 'edit' ? props.nameInput : undefined}/>
                             </fieldset>
                         </div>
                     </div>
