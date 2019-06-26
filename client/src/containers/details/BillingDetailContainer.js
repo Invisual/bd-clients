@@ -11,6 +11,7 @@ class BillingDetailContainer extends Component {
         itemContent={this.props.itemContent}
         isLoading={this.props.isLoading}
         openCostsModal={this.props.openCostsModal}
+        placeholder={this.props.placeholder}
       />
     );
   }

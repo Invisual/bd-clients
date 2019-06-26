@@ -12,18 +12,22 @@ export const TopBar = props => {
       <ul className="main-nav">
       {props.canGoBack ? <li className="topbar-goback"> <FiChevronLeft onClick={props.goBackHistory}/></li> : null}
 
-
+      {props.userInfo.ref_id_role === 2 || props.userInfo.ref_id_role === 3 ? 
       <li className="topbar-add" onClick={() => props.showDropdownCreate()}>
-        <span><FiPlusSquare/></span>
-        {props.displayDropdownCreate? (
-        <ul className="notifications-dropdown show-notifications user-dropdown">
-          <Link to="/createproject"><li id="topbar-user-link1">Inserir novo Projeto</li></Link>
-          <Link to="/createtask"><li id="topbar-user-link2">Inserir nova Tarefa</li></Link>
-          <Link to="/createmeeting"><li id="topbar-user-link3">Marcar Reunião</li></Link>
-          <li id="topbar-user-link5" onClick={() => {props.openModal('hours'); props.changeEditHourId('')}}>Inserir Registo de Horas</li>
-        </ul>
-        ) :null}
-      </li>
+         <span><FiPlusSquare/></span>
+         {props.displayDropdownCreate? (
+         <ul className="notifications-dropdown show-notifications user-dropdown">
+           <Link to="/createproject"><li id="topbar-user-link1">Inserir novo Projeto</li></Link>
+           <Link to="/createtask"><li id="topbar-user-link2">Inserir nova Tarefa</li></Link>
+           <Link to="/createmeeting"><li id="topbar-user-link3">Marcar Reunião</li></Link>
+           <Link to="/createclient"><li id="topbar-user-link4">Inserir novo Cliente</li></Link>
+           <li id="topbar-user-link5" onClick={() => {props.openModal('hours'); props.changeEditHourId('')}}>Inserir Registo de Horas</li>
+         </ul>
+         ) 
+         : null}
+       </li>
+       : null}
+     
 
         <li className="topbar-todo" onClick={() => props.openModal('todo')}>
           <span><FiEdit/></span>

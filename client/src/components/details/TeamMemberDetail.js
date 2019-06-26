@@ -34,12 +34,14 @@ export const TeamMemberDetail = props => {
                   >
                     Tarefas
                   </div>
-                  <div
-                    className={'project-tab ' + (props.activeTab === 'history' ? 'active-tab' : '')}
-                    onClick={() => props.changeActiveTab('history')}
-                  >
+                  {props.memberContent.details[0].id_user === props.userInfo.id_user || props.userInfo.ref_id_role === 2 || props.userInfo.ref_id_role === 3 ?
+                    <div
+                      className={'project-tab ' + (props.activeTab === 'history' ? 'active-tab' : '')}
+                      onClick={() => props.changeActiveTab('history')}
+                    >
                     Histórico
-                  </div>
+                    </div>
+                  : null}
                   <div
                     className={'project-tab ' + (props.activeTab === 'infos' ? 'active-tab' : '')}
                     onClick={() => props.changeActiveTab('infos')}
@@ -52,12 +54,14 @@ export const TeamMemberDetail = props => {
                   >
                     Férias
                   </div>
+                  {props.memberContent.details[0].id_user === props.userInfo.id_user || props.userInfo.ref_id_role === 2 || props.userInfo.ref_id_role === 3 ?
                   <div
                     className={'project-tab ' + (props.activeTab === 'hours' ? 'active-tab' : '')}
                     onClick={() => props.changeActiveTab('hours')}
                   >
                     Horas
                   </div>
+                  : null }
                 </div>
               </div>
               {(() => {

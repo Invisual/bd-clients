@@ -26,11 +26,13 @@ class AllBillingContainer extends Component {
       redirect: false,
       concludedModalOpen: false,
       concludedModalType: 'task',
+      placeholder: false
     };
   }
 
   changeFilters = (filters) => this.setState({filters: filters}, () => console.log(this.state.filters))
   changeFiltersAreActive = () => this.setState({filtersAreActive: !this.state.filtersAreActive})
+  changePlaceholder = () => this.setState({placeholder: false})
 
   changeSearchQuery = e => this.setState({searchQuery: e.target.value})
 
@@ -64,7 +66,6 @@ class AllBillingContainer extends Component {
     } = this.props;
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
-    var idUser = JSON.parse(localStorage.getItem('user'));
     if (this.state.activeItem) {
       axios.get(`/api/billing/${this.state.activeType}/${this.state.activeItem}`, { headers: { Authorization: AuthStr } }).then(res => {
         this.setState({ itemContent: res.data, isLoading: false }, () => this.scrollToElementD());
@@ -120,9 +121,12 @@ class AllBillingContainer extends Component {
 
   changeActiveItem = (itemId, itemType) => {
     if (itemId === this.state.activeItem) {
+      this.changePlaceholder()
       return null;
-    } else {
-      this.setState({ activeItem: itemId, activeType: itemType, isLoading: true });
+    } else if (itemId === null) {
+      this.setState({placeholder: true})
+    }else {
+      this.setState({ activeItem: itemId, activeType: itemType, placeholder: false, isLoading: true });
     }
   };
 
@@ -264,6 +268,8 @@ class AllBillingContainer extends Component {
         concludeModalType={this.state.concludeModalType}
         billActiveItem={this.billActiveItem}
         unBillActiveItem={this.unBillActiveItem}
+        placeholder={this.state.placeholder}
+        changePlaceholder={this.changePlaceholder}
       />
     );
   }

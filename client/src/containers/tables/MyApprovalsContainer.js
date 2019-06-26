@@ -46,10 +46,10 @@ class MyApprovalsContainer extends Component {
           }).filter(approval => {
             return this.props.filters.type === '' ? true : approval.type.toLowerCase() === this.props.filters.type.toLowerCase()
           })
-          }, () => this.props.changeActiveItem(this.state.filteredApprovals.length > 0 ? this.state.filteredApprovals[0].id : null, this.state.filteredApprovals.length > 0 ? this.state.filteredApprovals[0].type : null)) 
+          }, () => {console.log(this.state.filteredApprovals); this.props.changeActiveItem(this.state.filteredApprovals.length > 0 ? this.state.filteredApprovals[0].id : null, this.state.filteredApprovals.length > 0 ? this.state.filteredApprovals[0].type : null)}) 
         }
         else{
-          this.setState({filteredApprovals : this.state.approvalItems})
+          this.setState({filteredApprovals : null})
         }
       break;
 
@@ -73,7 +73,6 @@ class MyApprovalsContainer extends Component {
  
  
   render() {
-    console.log(this.state.approvalItems)
     return (
       <MyApprovals
         approvalItems={this.state.filteredApprovals}
@@ -89,6 +88,7 @@ class MyApprovalsContainer extends Component {
         activeHours={this.props.activeHours}
         activeBudgetHours={this.props.activeBudgetHours}
         concluded={this.props.concluded}
+        placeholder={this.props.placeholder}
       />
     );
   }

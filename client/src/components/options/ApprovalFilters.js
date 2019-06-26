@@ -36,6 +36,7 @@ removeFilters = () => {
   this.setState({approvalClientFilter: '', approvalAccountFilter: '', approvalTypeFilter: ''})
   this.props.changeFilters(filters)
   this.props.changeFiltersAreActive()
+  this.props.changePlaceholder()
 }
 
 render(){

@@ -80,6 +80,7 @@ class MyBillingContainer extends Component {
         activeItem={this.props.activeItem}
         activeType={this.props.activeType}
         copyAlert={this.props.copyAlert}
+        placeholder={this.props.placeholder}
       />
     );
   }

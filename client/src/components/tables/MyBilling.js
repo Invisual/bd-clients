@@ -24,7 +24,7 @@ export const MyBilling = props => {
                   />
                 );
               })}
-              <Link to="/tasks">
+              <Link to="/billing">
                 <div className="see-all">
                   Ver todas{' '}
                   <span className="arrow">
@@ -36,7 +36,7 @@ export const MyBilling = props => {
           ) : (
             <div>
               <h4 className="widget-title">{props.title}</h4>
-              <div className="empty-placeholder">Ainda não tem nenhuma tarefa atribuida.</div>
+              <div className="empty-placeholder">Ainda não tem items para faturar.</div>
             </div>
           )}
         </div>
@@ -48,7 +48,12 @@ export const MyBilling = props => {
       } else {
         content = (
           <div className="mytasks-container widget">
-            {props.items ? (
+            {props.items ? 
+            props.placeholder ?
+            <div>
+                <div className="empty-placeholder">Sem items correspondentes à pesquisa.</div>
+            </div>
+            :(
               props.items.map(item => {
                 return (
                   <SingleTask
@@ -66,7 +71,7 @@ export const MyBilling = props => {
               })
             ) : (
               <div>
-                <div className="empty-placeholder">Ainda não tem nenhuma tarefa atribuida.</div>
+                <div className="empty-placeholder">Ainda não tem items para faturar.</div>
               </div>
             )}
           </div>

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import SideBar from './components/navigation/SideBar';
 import TopBarContainer from './containers/navigation/TopBarContainer';
 import UserDashboardContainer from './containers/dashboard/UserDashboardContainer';
-import AdminDashboardContainer from './containers/dashboard/AdminDashboardContainer';
 import LoginContainer from './containers/auth/LoginContainer';
 import ResetPasswordContainer from './containers/auth/ResetPasswordContainer';
 import AllTasksContainer from './containers/lists/AllTasksContainer';
@@ -31,7 +30,7 @@ import ChatTaskContainer from './containers/chat/ChatTaskContainer';
 import VacationsApprovalContainer from './containers/approvals/VacationsApprovalContainer';
 import VacationsRejectContainer from './containers/approvals/VacationsRejectContainer';
 import './styles/main.css';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import moment from 'moment'
 import 'moment/locale/ru';
 

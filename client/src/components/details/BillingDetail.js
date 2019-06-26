@@ -20,7 +20,12 @@ export const BillingDetail = props => {
         <TaskDetailsDiv>
           <img src="/img/loading.svg" alt="loading" className="loading-spinner" />
         </TaskDetailsDiv>
-      ) : props.itemContent ? (
+      ) : props.itemContent ? 
+        props.placeholder?
+          <div>
+            <div className="no-content" />
+          </div>
+        :(
         <TaskDetailsDiv
           hours={
             props.itemContent.details[0].total_hours
@@ -115,7 +120,6 @@ export const BillingDetail = props => {
       ) : (
         <div>
           <div className="no-content">
-            <FiMoreHorizontal />
           </div>
         </div>
       )}

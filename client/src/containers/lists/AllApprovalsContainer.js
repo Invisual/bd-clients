@@ -28,12 +28,14 @@ class AllApprovalsContainer extends Component {
       isLoading: true,
       redirect: false,
       costsModalOpen: false,
-      costsModalType: 'project'
+      costsModalType: 'project',
+      placeholder: false
     };
   }
  
-  changeFilters = (filters) => this.setState({filters: filters}, () => console.log(this.state.filters))
+  changeFilters = (filters) => this.setState({filters: filters})
   changeFiltersAreActive = () => this.setState({filtersAreActive: !this.state.filtersAreActive})
+  changePlaceholder = () => this.setState({placeholder: false})
  
   changeSearchQuery = e => this.setState({searchQuery: e.target.value})
  
@@ -76,7 +78,6 @@ class AllApprovalsContainer extends Component {
     } = this.props;
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
-    var idUser = JSON.parse(localStorage.getItem('user'));
     if (this.state.activeItem) {
       axios.get(`/api/misc/approvals/${this.state.activeType}/${this.state.activeItem}`, { headers: { Authorization: AuthStr } }).then(res => {
         this.setState({ itemContent: res.data, isLoading: false }, () => this.scrollToElementD());
@@ -132,9 +133,12 @@ class AllApprovalsContainer extends Component {
  
   changeActiveItem = (itemId, itemType) => {
     if (itemId === this.state.activeItem) {
+      this.changePlaceholder()
       return null;
-    } else {
-      this.setState({ activeItem: itemId, activeType: itemType, isLoading: true });
+    } else if (itemId === null) {
+      this.setState({placeholder: true})
+    }else {
+      this.setState({ activeItem: itemId, activeType: itemType, placeholder: false, isLoading: true });
     }
   };
 
@@ -288,6 +292,8 @@ class AllApprovalsContainer extends Component {
         openModal={this.props.openModal}
         closeModal={this.props.closeModal}
         costsModalType={this.state.costsModalType}
+        placeholder={this.state.placeholder}
+        changePlaceholder={this.changePlaceholder}
       />
     );
   }

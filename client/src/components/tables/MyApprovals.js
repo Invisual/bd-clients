@@ -39,7 +39,7 @@ export const MyApprovals = props => {
           ) : (
             <div>
               <h4 className="widget-title">{props.title}</h4>
-              <div className="no-tasks-dash no-content-dash"><div className="empty-placeholder">Ainda não tem nenhuma tarefa atribuída</div></div>
+              <div className="no-tasks-dash no-content-dash"><div className="empty-placeholder">Ainda não tem nenhuma item para aprovar.</div></div>
             </div>
           )}
         </div>
@@ -51,7 +51,12 @@ export const MyApprovals = props => {
       } else {
         content = (
           <div className="mytasks-container widget">
-            {props.approvalItems ? (
+            {props.approvalItems ? 
+              props.placeholder ?
+              <div>
+                <div className="empty-placeholder">Sem items correspondentes à pesquisa.</div>
+              </div>
+              :(
               props.approvalItems.map(item => {
                 return (
                   <SingleApproval
@@ -68,7 +73,7 @@ export const MyApprovals = props => {
               })
             ) : (
               <div>
-                <div className="empty-placeholder">{props.concluded? 'Sem tarefas concluídas' : 'Ainda não tem nenhuma tarefa atribuída'}</div>
+                <div className="empty-placeholder">Sem items para aprovação.</div>
               </div>
             )}
           </div>

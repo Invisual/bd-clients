@@ -32,6 +32,7 @@ removeFilters = () => {
   this.setState({billingClientFilter: '', billingTypeFilter: ''})
   this.props.changeFilters(filters)
   this.props.changeFiltersAreActive()
+  this.props.changePlaceholder()
 }
 
 render(){

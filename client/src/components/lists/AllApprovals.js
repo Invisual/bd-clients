@@ -58,6 +58,7 @@ export const AllApprovals = props => {
           approveActiveItem={props.approveActiveItem}
           rejectActiveItem={props.rejectActiveItem}
           isLoading={props.isLoading}
+          placeholder={props.placeholder}
         />
         <div className="grid-widget tasks-list">
           <div className="tasks-list-container">
@@ -72,6 +73,7 @@ export const AllApprovals = props => {
               filters={props.filters}
               userRole={props.userRole}
               searchQuery={props.searchQuery}
+              placeholder={props.placeholder}
             />
           </div>
         </div>
@@ -83,6 +85,7 @@ export const AllApprovals = props => {
             clientsList={props.clientsList}
             accountsList={props.accountsList}
             filters={props.filters}
+            changePlaceholder={props.changePlaceholder}
           />
         : props.isLoading ?
         <img src="/img/loading.svg" alt="loading" className="loading-spinner" />
@@ -95,6 +98,7 @@ export const AllApprovals = props => {
               activeBudget={props.activeItem}
               budgetContent={props.itemContent}
               isLoading={props.isLoading}
+              placeholder={props.placeholder}
               />
             case 'project':
               return <ProjectDetailContainer
@@ -104,7 +108,9 @@ export const AllApprovals = props => {
               changeActiveTab={props.changeActiveTab}
               openCostsModal={props.openCostsModal}
               openModal={props.openModal}
-              activeTab={props.activeTab}/>
+              activeTab={props.activeTab}
+              placeholder={props.placeholder}
+              />
             case 'task':
               return <TaskDetailContainer 
               type={'approvals'}
@@ -112,6 +118,7 @@ export const AllApprovals = props => {
               taskContent={props.itemContent}
               openCostsModal={props.openCostsModal}
               openModal={props.openModal}
+              placeholder={props.placeholder}
               />
             default:
               return <img src="/img/loading.svg" alt="loading" className="loading-spinner" />

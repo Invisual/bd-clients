@@ -61,7 +61,6 @@ export const AllTeam = props => {
           </div>
         </div>
         <div className="grid-widget tasks-detail">
-          {/*<InsertUserInfo activeMember={props.activeMember} />*/}
           {props.filtersAreActive ?
                         <MembersHistoryFilters 
                             changeFilters={props.changeFilters}
@@ -80,6 +79,7 @@ export const AllTeam = props => {
                             filters={props.filters}
                             openModal={props.openModal}
                             changeEditHourId={props.changeEditHourId}
+                            userInfo={props.userInfo}
                         />
           }
         </div>

@@ -13,6 +13,7 @@ class TeamMemberDetailContainer extends Component {
         filters={this.props.filters}
         openModal={this.props.openModal}
         changeEditHourId={this.props.changeEditHourId}
+        userInfo={this.props.userInfo}
       />
     );
   }

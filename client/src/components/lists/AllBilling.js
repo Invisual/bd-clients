@@ -7,6 +7,7 @@ import OptionsContainer from '../../containers/options/OptionsContainer';
 import BillingFilters from '../options/BillingFilters';
 import {FiFilter, FiSearch } from 'react-icons/fi';
 import { Redirect } from 'react-router-dom';
+
 export const AllBilling = props => {
   if (props.redirect) {
     return <Redirect to="/" />;
@@ -63,6 +64,7 @@ export const AllBilling = props => {
           isLoading={props.isLoading}
           billActiveItem={props.billActiveItem}
           unBillActiveItem={props.unBillActiveItem}
+          placeholder={props.placeholder}
         />
         <div className="grid-widget tasks-list">
           <div className="tasks-list-container">
@@ -77,6 +79,7 @@ export const AllBilling = props => {
               filters={props.filters}
               userRole={props.userRole}
               searchQuery={props.searchQuery}
+              placeholder={props.placeholder}
             />
           </div>
         </div>
@@ -87,6 +90,7 @@ export const AllBilling = props => {
             changeFiltersAreActive={props.changeFiltersAreActive}
             clientsList={props.clientsList}
             filters={props.filters}
+            changePlaceholder={props.changePlaceholder}
           />
         :
           <BillingDetailContainer
@@ -95,6 +99,7 @@ export const AllBilling = props => {
             itemContent={props.itemContent}
             isLoading={props.isLoading}
             openCostsModal={props.openCostsModal}
+            placeholder={props.placeholder}
           />
         }
         </div>
