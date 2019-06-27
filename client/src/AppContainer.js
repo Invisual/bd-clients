@@ -165,7 +165,6 @@ class AppContainer extends Component {
       this.setState({canGoBack : true})
     }
     this.notificationsInterval = setInterval(this.getNotifications, 30000)
-    this.getActiveHours()
   }
 
   componentDidUpdate(prevProps){
