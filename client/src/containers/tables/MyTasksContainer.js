@@ -102,7 +102,7 @@ class MyTasksContainer extends Component {
       var user = JSON.parse(localStorage.getItem('user'));
 
       var data = {
-        beginningHour: moment().format('H:mm'),
+        beginningHour: moment().format('H:mm:ss'),
         day: moment().format('YYYY-MM-D'),
         user: user.id_user,
         task: taskId
@@ -130,7 +130,7 @@ class MyTasksContainer extends Component {
     var AuthStr = 'Bearer ' + token;
 
     var data = {
-      endingHour: moment().format('H:mm'),
+      endingHour: moment().format('H:mm:ss'),
       idHour: hourId
     }
 
@@ -218,6 +218,7 @@ class MyTasksContainer extends Component {
         activeBudgetHours={this.props.activeBudgetHours}
         concluded={this.props.concluded}
         placeholder={this.props.placeholder}
+        userInfo={this.props.userInfo}
       />
     );
   }

@@ -187,7 +187,11 @@ class AppContainer extends Component {
   render() {
     return (
             <>
-              <TitleTimer latestActiveHour={this.state.latestActiveHour} latestActiveBudgetHour={this.state.latestActiveBudgetHour} />
+              <TitleTimer 
+                latestActiveHour={this.state.latestActiveHour} 
+                getActiveHours={this.getActiveHours} 
+                latestActiveBudgetHour={this.state.latestActiveBudgetHour} 
+              />
               <App 
                 canGoBack={this.state.canGoBack} 
                 loggedIn={this.state.loggedIn} 

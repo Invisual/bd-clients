@@ -12,7 +12,7 @@ export const UserDashboard = (props) => {
       <DashboardContainer className="dashboard-container">
         <div className="widgets-grid">
           <div className={props.userInfo.id_position === 2 ?'grid-widget mt15 full-row-grid-widget' : 'grid-widget mt15'}>
-            {props.userInfo.id_position === 2 ? <MyUsersContainer title="Equipa" type="dashboard" userRole={props.userInfo.ref_id_role}/> : <MyTasksContainer title="Tarefas" type="dashboard" activeHours={props.activeHours} getActiveHours={props.getActiveHours} userRole={props.userInfo.ref_id_role}/> }
+            {props.userInfo.id_position === 2 ? <MyUsersContainer title="Equipa" type="dashboard" userRole={props.userInfo.ref_id_role}/> : <MyTasksContainer title="Tarefas" type="dashboard" activeHours={props.activeHours} getActiveHours={props.getActiveHours} userInfo={props.userInfo} userRole={props.userInfo.ref_id_role}/> }
           </div>
           <div className="grid-widget mt15">
             <MyCalendarContainer title="Calendário" type="dashboard" meetings={props.meetings}/>

@@ -101,6 +101,7 @@ export const AllTasks = props => {
               getActiveBudgetHours={props.getActiveBudgetHours}
               filters={props.filters}
               userRole={props.userRole}
+              userInfo={props.userInfo}
               currentTaskList={props.currentTaskList}
               searchQuery={props.searchQuery}
               placeholder={props.placeholder}

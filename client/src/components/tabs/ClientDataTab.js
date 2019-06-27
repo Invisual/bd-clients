@@ -68,6 +68,22 @@ class ClientDataTab extends Component {
       }
       return null;
     };
+
+    const renderCustomizedLabel = (props) => {
+      const {
+        x, y, width, height, value,
+      } = props;
+      const radius = 10;
+      return (
+          <g>
+            <circle cx={x + width / 2} cy={(y - radius)-5} r={radius} fill="transparent" stroke="#7F9AFF" />
+            <text x={x + width / 2} y={(y - radius)-5} textAnchor="middle" dominantBaseline="middle">
+              {value}
+            </text>
+          </g>
+      );
+    };
+
     return (
       <div
         style={{
@@ -79,12 +95,13 @@ class ClientDataTab extends Component {
       >
         <div className="client-data">
         <div className="client-data-header">
-            <div>
-              {Number(this.props.clientContent.details[0].monthly_hours_client) !== 0 ? (
-                <h3>
-                  Este cliente tem uma bolsa mensal de {this.props.clientContent.details[0].monthly_hours_client} horas.
-                </h3>
-              ) : (
+            <div className="client-monthly-hours">
+              {Number(this.props.clientContent.details[0].monthly_hours_client) !== 0 ? 
+                <>
+                <h1 className="client-hours">{this.props.clientContent.details[0].monthly_hours_client} horas</h1>
+                <span className="monthly-text">Bolsa de horas em {currentYear}</span>
+                </>
+                 : (
                 <h3>Este cliente não tem uma bolsa de horas mensal.</h3>
               )}
             </div>
@@ -108,21 +125,21 @@ class ClientDataTab extends Component {
           :<>
           
           {Number(this.props.clientContent.details[0].monthly_hours_client) !== 0 ? (
-            <ResponsiveContainer>
+            <ResponsiveContainer width={600} height={300}>
               <BarChart
                 data={data}
                 margin={{
-                  top: 5,
+                  top: 30,
                   right: 30,
                   left: 0,
                   bottom: 5
                 }}
+                
               >
                 
-
-                <YAxis type="number" domain={[0, 100]} allowDataOverflow={false} axisLine={false} tickLine={false} hide={true} />
-                <Tooltip content={CustomTooltip} />
-                <Bar dataKey="horas" radius={[5, 5, 0, 0]}>
+                <XAxis dataKey="mesAbrev" axisLine={false} tickLine={false} />
+                <Tooltip content={CustomTooltip} cursor={{ fill: '#F5F7FD', radius:[10,10,0,0] }} />
+                <Bar dataKey="horas" radius={[10, 10, 0, 0]}>
                   {data.map((entry, index) => (
                     <Cell
                       key={index}
@@ -135,26 +152,25 @@ class ClientDataTab extends Component {
                       }
                     />
                   ))}
-                  <LabelList dataKey="horas" position="top" />
+                  <LabelList dataKey="horas" content={renderCustomizedLabel} />
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
           ) : (
-            <ResponsiveContainer>
+            <ResponsiveContainer width={600} height={300}>
               <BarChart
                 data={data}
                 margin={{
-                  top: 5,
+                  top: 30,
                   right: 30,
                   left: 0,
                   bottom: 5
                 }}
               >
-                <XAxis dataKey="mesAbrev" />
-                <YAxis type="number" domain={[0, 100]} allowDataOverflow={false} axisLine={false} tickLine={false} hide={true} />
-                <Tooltip content={CustomTooltip} />
-                <Bar dataKey="horas" radius={[5, 5, 0, 0]} fill="#1de9b6">
-                  <LabelList dataKey="horas" position="top" />
+                <XAxis dataKey="mesAbrev" axisLine={false} tickLine={false} />
+                <Tooltip content={CustomTooltip} cursor={{ fill: '#F5F7FD', radius:[10,10,0,0] }}/>
+                <Bar dataKey="horas" radius={[10, 10, 0, 0]} fill="#1de9b6">
+                  <LabelList dataKey="horas" content={renderCustomizedLabel} />
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
