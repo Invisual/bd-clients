@@ -1101,6 +1101,15 @@ export const ClientDetailsDiv = styled.div`
         display: flex;
         justify-content: space-between;
         align-items: center;
+        .client-monthly-hours {
+          display: flex;
+          flex-direction: column;
+          color: ${themeConsts.primaryBlue};
+          h1, span {
+            margin: 0;
+          }
+        }
+
         .client-data-year select {
           width: 100%;
           border: none;
@@ -1253,32 +1262,6 @@ export const ClientDetailsDiv = styled.div`
       }
     }
 
-    .user-vacations-content {
-      .vacations-section {
-        margin-bottom: 50px;
-
-        .single-vacation {
-          display: flex;
-          align-items: center;
-
-          .vac-ball {
-            width: 12px;
-            height: 12px;
-            border-radius: 50px;
-            margin-right: 10px;
-          }
-          .approved-vac-ball {
-            background-color: ${themeConsts.green};
-          }
-          .awaiting-vac-ball {
-            background-color: ${themeConsts.secondaryBlue};
-          }
-          .refused-vac-ball {
-            background-color: ${themeConsts.red};
-          }
-        }
-      }
-    }
 
     .user-hours-content{
       padding-top: 45px;

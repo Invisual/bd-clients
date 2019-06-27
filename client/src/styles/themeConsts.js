@@ -23,7 +23,9 @@ export const themeConsts = {
     mainShadow: '0px 1px 6px rgba(0,0,0, .16)',
     activeShadow: '0px 3px 6px rgba(0,0,0,.16)',
     borderRadius:'10px',
+    tableHeader: '#DFE4F8',
     tableColor1: '#eef1ff',
     tableColor2: '#f5f7ff',
+    tableListBorder: '#E6E6E6',
     notificationsBg: '#f0f3fd'
 }

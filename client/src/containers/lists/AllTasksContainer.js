@@ -381,6 +381,7 @@ class AllTasksContainer extends Component {
     return (
       <AllTasks
         userRole={this.props.userInfo.ref_id_role}
+        userInfo={this.props.userInfo}
         taskContent={this.state.taskContent}
         isLoading={this.state.isLoading}
         activeTask={this.state.activeTask}

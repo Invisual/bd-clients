@@ -1,6 +1,6 @@
 import React from 'react'
 import { CostsModalDiv } from '../../styles/modals'
-import { FiX, FiPlus, FiTrash } from 'react-icons/fi';
+import { FiX, FiPlus, FiTrash2 } from 'react-icons/fi';
 
 export const CostsModal = props => {
     if(props.type === 'task' || props.type === 'project'){
@@ -93,7 +93,7 @@ export const CostsModal = props => {
                                     <p>{cost.price_sale}</p>
                                     <p>{cost.price_difference}</p>
                                     <p>{type}</p>
-                                    <p><FiTrash onClick={() => props.deleteCost(cost.id_cost)}/></p>
+                                    <p><FiTrash2 onClick={() => props.deleteCost(cost.id_cost)}/></p>
                                 </div>
                             )
                         })}

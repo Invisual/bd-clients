@@ -93,7 +93,7 @@ class MyBudgetsContainer extends Component {
       var user = JSON.parse(localStorage.getItem('user'));
 
       var data = {
-        beginningHour: moment().format('H:mm'),
+        beginningHour: moment().format('H:mm:ss'),
         day: moment().format('YYYY-MM-D'),
         user: user.id_user,
         budget: budgetId
@@ -101,7 +101,6 @@ class MyBudgetsContainer extends Component {
 
       axios.post(`/api/hours/budget`, data, { headers: { Authorization: AuthStr } }).then(res => {
         this.props.getActiveBudgetHours();
-        //document.title = 'Tem um registo de Horas a contar'
         const Toast = Swal.mixin({
           toast: true,
           position: 'top',

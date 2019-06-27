@@ -17,22 +17,24 @@ export const CostsModalDiv = styled.div`
 
     .modal-close{
         position: absolute;
-        top: 20px;
+        top: 17px;
         right: 20px;
         cursor: pointer;
         z-index: 1;
 
         svg{
             font-size: 2.5em;
-            color: ${themeConsts.textLightGrey};
+            color: ${themeConsts.secondaryBlue};
         }
     }
 
     h2{
-        text-align: center;
-        margin: 25px 0;
+        margin: 0;
+        margin-bottom: 12px;
+        padding: 20px 0 12px 28px;
         font-size: 1.6em;
         color:${themeConsts.titlesDarkGrey};
+        border-bottom: 1px solid ${themeConsts.tableListBorder}
     }
 
     .costs-grid{
@@ -117,34 +119,37 @@ export const CostsModalDiv = styled.div`
         .costs-list-header{
             display:grid;
             grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1fr 1fr .5fr;
-            background: ${themeConsts.tableColor1};
-            border-bottom: 2px solid ${themeConsts.white};
-            border-radius: 4px;
+            background: ${themeConsts.tableHeader};
 
             h5{
-                text-align:center;
-                color:${themeConsts.textDarkGrey};
+                text-align:left;
+                margin-left:15px;
+                color:${themeConsts.titlesDarkGrey};
                 font-size: 1.34em;
             }
         }
         .costs-list-row{
             display:grid;
             grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1fr 1fr .5fr;
-            padding: 6px 0;
-            border-bottom: 2px solid ${themeConsts.white};
-            border-radius: 4px;
+            padding: 4px 0;
+            background-color:${themeConsts.white};
+            border-bottom: 1px solid ${themeConsts.tableListBorder};
 
             p{
-                text-align:center;
-                color:${themeConsts.textLightGrey};
+                text-align:left;
+                margin-left:15px;
+                color:${themeConsts.textDarkerGrey};
+                font-weight:500;
                 font-size: 1.1em;
+
+                svg {
+                    font-size: 1.6em;
+                    color: ${themeConsts.secondaryBlue}
+                }
             }
         }
-        .costs-list-row:nth-child(odd){
-            background-color:${themeConsts.tableColor1}
-        }
-        .costs-list-row:nth-child(even){
-            background-color:${themeConsts.tableColor2}
+        .costs-list-row:hover{
+            background-color:${themeConsts.lightGrey}
         }
     }
 `

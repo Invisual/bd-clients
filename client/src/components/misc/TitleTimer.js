@@ -6,40 +6,36 @@ class TitleTimer extends Component{
 constructor(props){
     super(props);
     this.state = {
-        latestActiveHour: ''
+        interval: ''
     }
 }
 
-showActiveHoursOnTitle = () => {
-    var x = new moment();
-    var y = new moment(this.state.latestActiveHour, 'H:mm:ss');
+showActiveHoursOnTitle = (latestHour) => {
+    var x = new moment()
+    var y = new moment(latestHour, 'H:mm:ss');
     var duration = moment.duration(x.diff(y)).format('*HH:mm:ss');
     document.title =`🕑 ${duration}`;
 }
 
 componentDidUpdate(prevProps){
-    if(prevProps.latestActiveHour !== this.props.latestActiveHour){     
-        this.setState({latestActiveHour: this.props.latestActiveHour}, () => {
-            if(this.state.latestActiveHour !== '' && this.state.latestActiveHour !== null){
-                this.interval = setInterval(() => this.showActiveHoursOnTitle(), 1000);
-            }
-            if(this.state.latestActiveHour === null){
-                document.title = 'INVISUAL - TAREFAS';
-                clearInterval(this.interval);
-            }
-        })
-        
+    if(prevProps.latestActiveHour !== this.props.latestActiveHour){
+        if(this.props.latestActiveHour !== '' && this.props.latestActiveHour !== null){
+            var interval = setInterval(() => this.showActiveHoursOnTitle(this.props.latestActiveHour), 1000)
+            this.setState({interval: interval})
+        }
+        if(this.props.latestActiveHour === null && this.props.latestActiveBudgetHour === null){
+            document.title = 'INVISUAL - TAREFAS';
+            clearInterval(this.state.interval);
+        }
     } else if (prevProps.latestActiveBudgetHour !== this.props.latestActiveBudgetHour){     
-        this.setState({latestActiveHour: this.props.latestActiveBudgetHour}, () => {
-            if(this.state.latestActiveHour !== '' && this.state.latestActiveHour !== null){
-                this.interval = setInterval(() => this.showActiveHoursOnTitle(), 1000);
-            }
-            if(this.state.latestActiveHour === null){
-                document.title = 'INVISUAL - TAREFAS';
-                clearInterval(this.interval);
-            }
-        })
-        
+        if(this.props.latestActiveBudgetHour !== '' && this.props.latestActiveBudgetHour !== null){
+            var interval = setInterval(() => this.showActiveHoursOnTitle(this.props.latestActiveBudgetHour), 1000)
+            this.setState({interval: interval})
+        }
+        if(this.props.latestActiveBudgetHour === null && this.props.latestActiveHour === null){
+            document.title = 'INVISUAL - TAREFAS';
+            clearInterval(this.state.interval);
+        }
     }
 }
 

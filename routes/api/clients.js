@@ -5,6 +5,7 @@ const mysql = require('mysql');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 var moment = require('moment');
+require ('moment-duration-format');
 require('dotenv').config();
 require('moment/locale/pt');
 
@@ -73,7 +74,9 @@ router.get('/annual/:id/:year', checkToken, (req, res) => {
                               : parseInt(results[0].total_hours, 10) 
                             : 0
                 obj.horasExatas = results[0].total_hours !== null ? 
-                                    moment(results[0].total_hours, 'HH:mm:ss').format('HH:mm')
+                                    moment.duration(results[0].total_hours, 'hours').format('HH:mm', {
+                                      forceLength: true
+                                    })
                                   : 0
                 
                 totalResults.push(obj)
