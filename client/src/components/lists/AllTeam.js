@@ -14,6 +14,7 @@ export const AllTeam = props => {
       <div className="widgets-grid widget cards-container nofixed-height no-shadow team-members-grid">
         <div className="grid-widget tasks-title">
           <h4 className="widget-title">Equipa</h4>
+          <div className="grid-widget left-options">
           <div className="client-search">
             <input
               type="text"
@@ -31,6 +32,7 @@ export const AllTeam = props => {
               </Link>
             </div>
           ) : null}
+          </div>
         </div>
         <OptionsContainer
           userRole={props.userRole}

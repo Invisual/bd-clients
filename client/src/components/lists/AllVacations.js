@@ -14,6 +14,7 @@ export const AllVacations = props => {
       <div className="widgets-grid widget cards-container nofixed-height no-shadow meetings-grid">
         <div className="grid-widget tasks-title">
           <h4 className="widget-title">Férias</h4>
+          <div className="grid-widget left-options">
           {props.userRole === 3 || props.userRole === 2 ? (
             <div className="tooltip-container">
               <Link to="/createvacations">
@@ -23,6 +24,7 @@ export const AllVacations = props => {
             </div>
           )
             : null }
+            </div>
         </div>
           <OptionsContainer
           userRole={props.userRole}
