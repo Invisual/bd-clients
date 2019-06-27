@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22" height="22" viewBox="0 0 22 22">
+  <defs>
+    <clipPath id="clip-Prancheta_1">
+      <rect width="22" height="22"/>
+    </clipPath>
+  </defs>
+  <g id="Prancheta_1" data-name="Prancheta – 1" clip-path="url(#clip-Prancheta_1)">
+    <rect width="22" height="22" fill="#fff"/>
+    <path id="Caminho_415" data-name="Caminho 415" d="M-983,10337h19l-19,19h19Z" transform="translate(984.5 -10335.499)" fill="none" stroke="#7f9aff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  </g>
+</svg>

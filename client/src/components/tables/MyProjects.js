@@ -5,7 +5,7 @@ import { FiArrowRight } from 'react-icons/fi';
 
 export const MyProjects = props => {
   var content = '';
-
+  
   switch (props.type) {
     case 'dashboard':
       content = (
@@ -72,6 +72,7 @@ export const MyProjects = props => {
                   id={project.id_project}
                   title={project.title_project}
                   creation_date_project={project.creation_date_project}
+                  projectDeadline={project.deadline_project}
                   stateVal={project.concluded_project}
                   client={project.name_client}
                   clientId={project.id_client}

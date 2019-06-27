@@ -1,6 +1,8 @@
 import React from 'react'
 import moment from 'moment'
-import { Link } from 'react-router-dom';
+import { Circle } from 'rc-progress'
+import { FiCheckCircle, FiMinusCircle } from 'react-icons/fi';
+import { UserVacationsDiv } from '../../styles/listings'
 
 export const TeamMemberVacationsTab = props => {
   var approved = props.memberContent.vacations.filter(vac => Number(vac.management_approval) === 2)
@@ -23,81 +25,104 @@ export const TeamMemberVacationsTab = props => {
     }
     return string
   }
+  console.log(props.memberContent.details)
   return (
-    <div className="user-vacations-content">
-      <h1>Férias</h1>
+    <UserVacationsDiv 
+      title={'dias'} 
+      days={props.memberContent.details[0].free_days_user} 
+      className="user-vacations-content"
+    >
+      
+      <div className="vacations-grid">
 
-      <div className="vacations-section available-vacation-days">
-        <h2>Dias disponíveis</h2>
-        <p>{props.memberContent.details[0].free_days_user}</p>
-      </div>
-
-      {props.memberContent.vacations.length > 0 ?
-        <div>
-          <div className="approved-vacations vacations-section">
-            <h2>Férias Marcadas</h2>
-            {approved.length > 0 ? 
-              approved.map(vac => {
-                return (
-                  <div key={vac.id_vacation} className="single-vacation approved-vac">
-                      <div className="vac-ball approved-vac-ball"></div>
-                      {Number(vac.type_vacation) === 1 ? 
-                        <p>Dia {moment(vac.start_date).format('ll')} - {getSingleDayType(vac.type_single_day)}.</p>
-                      :
-                        <p>Do dia {moment(vac.start_date).format('ll')} ao dia {moment(vac.end_date).format('ll')}.</p>
-                      }
-                  </div>
-                )
-              })
-            :
-              <p>Não tem férias marcadas. Faça o pedido <Link to="/createvacations">aqui</Link></p>
-            }
+        <div className="vacations-info vacations-section">
+          <h3>Dias Disponíveis</h3>
+          <div className="vacations-days-counter">
+            <Circle 
+              percent={props.memberContent.details[0].free_days_user * 100 / props.memberContent.details[0].total_free_days} 
+              strokeWidth="8" strokeColor="#1de9b6" trailColor="#d2fbf0" trailWidth="8" 
+            />
           </div>
-
-          <div className="awaiting-vacations vacations-section">
-            <h2>Pedidos a Aguardar Aprovação</h2>
-            {awaiting.length > 0 ? 
-              awaiting.map(vac => {
-                return (
-                  <div key={vac.id_vacation} className="single-vacation awaiting-vac">
-                      <div className="vac-ball awaiting-vac-ball"></div>
-                      {Number(vac.type_vacation) === 1 ? 
-                        <p>Dia {moment(vac.start_date).format('ll')} - {getSingleDayType(vac.type_single_day)}.</p>
-                      :
-                        <p>Do dia {moment(vac.start_date).format('ll')} ao dia {moment(vac.end_date).format('ll')}.</p>
-                      }
-                  </div>
-                )
-              })
-            :
-              <p>Não tem nenhum pedido pendente.</p>
-            }
-          </div>
-
-          <div className="refused-vacations vacations-section">
-            <h2>Pedidos Rejeitados</h2>
-            {refused.length > 0 ? 
-              refused.map(vac => {
-                return (
-                  <div key={vac.id_vacation} className="single-vacation refused-vac">
-                      <div className="vac-ball refused-vac-ball"></div>
-                      {Number(vac.type_vacation) === 1 ? 
-                        <p>Dia {moment(vac.start_date).format('ll')} - {getSingleDayType(vac.type_single_day)}.</p>
-                      :
-                        <p>Do dia {moment(vac.start_date).format('ll')} ao dia {moment(vac.end_date).format('ll')}.</p>
-                      }
-                  </div>
-                )
-              })
-            :
-              <p>Não tem nenhum pedido rejeitado.</p>
-            }
+          <div className="vacations-info-meta">
+            <p>Férias: {props.memberContent.details[0].total_free_days} dias</p>
+            <p>Gozados: {props.memberContent.details[0].total_free_days - props.memberContent.details[0].free_days_user} dias</p>
+            <p>Disponíveis: {props.memberContent.details[0].free_days_user} dias</p>
           </div>
         </div>
-      :
-          <p>Não tem nenhum dia de Férias registado nem nenhum pedido feito. Faça-o <Link to="/createvacations">aqui</Link></p>
-      }
 
-    </div>
+        <div className="approved-vacations vacations-section">
+          <h3>Marcadas</h3>
+          {approved.length > 0 ? 
+            <div className="list-singles-vacation">
+              {approved.map(vac => {
+                return (
+                  <div key={vac.id_vacation} className="single-vacation approved-vac">
+                      <FiCheckCircle/>
+                      {Number(vac.type_vacation) === 1 ? 
+                        <span>{moment(vac.start_date).format('D MMM YYYY')} <span className="vacation-type">{getSingleDayType(vac.type_single_day)}</span></span>
+                      :
+                        <span>{moment(vac.start_date).format('D MMM YYYY')} a {moment(vac.end_date).format('D MMM YYYY')}</span>
+                      }
+                  </div>
+                )
+              })}
+            </div>
+          :
+            <p>Este utilizador não tem férias marcadas.</p>
+          }
+        </div>
+
+      </div>
+
+
+      <div className="vacations-grid vacations-grid-border">
+      
+        <div className="refused-vacations vacations-section">
+          <h3>Pedidos Rejeitados</h3>
+          {refused.length > 0 ? 
+            <div className="list-singles-vacation">
+              {refused.map(vac => {
+                return (
+                  <div key={vac.id_vacation} className="single-vacation approved-vac">
+                      <FiMinusCircle/>
+                      {Number(vac.type_vacation) === 1 ? 
+                        <span>{moment(vac.start_date).format('D MMM YYYY')} <span className="vacation-type">{getSingleDayType(vac.type_single_day)}</span></span>
+                      :
+                        <span>{moment(vac.start_date).format('D MMM YYYY')} a {moment(vac.end_date).format('D MMM YYYY')}</span>
+                      }
+                  </div>
+                )
+              })}
+            </div>
+          :
+            <p>Este utilizador não tem pedidos rejeitados.</p>
+          }
+        </div>
+
+        <div className="awaiting-vacations vacations-section">
+          <h3>Em Aprovação</h3>
+          {awaiting.length > 0 ? 
+            <div className="list-singles-vacation">
+              {awaiting.map(vac => {
+                return (
+                  <div key={vac.id_vacation} className="single-vacation approved-vac">
+                      <img src="/img/hourglass.svg" alt="Em aprovação" />
+                      {Number(vac.type_vacation) === 1 ? 
+                        <span>{moment(vac.start_date).format('D MMM YYYY')} <span className="vacation-type">{getSingleDayType(vac.type_single_day)}</span></span>
+                      :
+                        <span>{moment(vac.start_date).format('D MMM YYYY')} a {moment(vac.end_date).format('D MMM YYYY')}</span>
+                      }
+                  </div>
+                )
+              })}
+            </div>
+          :
+            <p>Este utilizador não tem pedidos a aguardar aprovação.</p>
+          }
+        </div>
+
+      </div>
+
+    </UserVacationsDiv>
   )
 }

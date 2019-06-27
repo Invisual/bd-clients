@@ -3,6 +3,7 @@ import { TaskDetail } from '../../components/details/TaskDetail';
 
 class TaskDetailContainer extends Component {
   render() {
+    console.log(this.props.taskContent)
     return (
       <TaskDetail
         taskContent={this.props.taskContent}

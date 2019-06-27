@@ -31,7 +31,7 @@ export const ProjectDetail = props => {
               <div className="project-header">
                 <h4 className="project-title">{props.projectContent.details[0].title_project}</h4>
                 <div className="project-date">
-                  <FiClock /> <span>{moment(props.projectContent.details[0].creation_date_project).format('D/MM/YYYY')}</span>{' '}
+                  <FiClock /> <span>{moment(props.projectContent.details[0].deadline_project).format('D/MM/YYYY')}</span>{' '}
                   <span>
                     <FiUser className="project-date" />{' '}
                     <span className="name-client">{props.projectContent.details[0].name_client}</span>

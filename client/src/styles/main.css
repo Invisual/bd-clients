@@ -721,3 +721,171 @@ input[type='text'].hidesearch{
 .approvals-scroll-container::-webkit-scrollbar-thumb:window-inactive {
   background:#DFE4F8;
 }
+
+
+
+
+
+
+/*MODAL CALENDARIO DASHBOARD*/
+
+.calendar-modal {
+  border-radius: 0;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top: 6px solid #7f9aff;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 1px;
+}
+
+.calendar-modal .swal2-header{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  z-index: 11;
+  border-bottom: 1px solid #e6e6e6;
+  flex-direction: row;
+}
+
+.calendar-modal .swal2-header h2{
+  font-size: 1.1em;
+  margin-bottom: 0;
+  margin-left:20px;
+  font-weight: 500;
+  color:#4b4b4b;
+}
+
+.calendar-modal .swal2-content{
+  max-height: 70vh;
+  overflow: scroll;
+  margin-top: 50px;
+}
+
+.calendar-modal .swal2-actions{
+  display:none !important;
+}
+
+.calendar-modal .swal2-close{
+  color: #aaaaaa;
+  top:5px;
+}
+
+.calendar-modal .swal2-close:hover{
+  color: #7f9aff;
+}
+
+.calendar-modal-day{
+  text-align: left;
+  color: #0036ff;
+  border-bottom: 1px solid #e6e6e6;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.calendar-modal-day h3{
+  font-weight:500;
+  margin:0;
+  margin-top:10px;
+}
+
+.calendar-modal-day h6{
+  font-weight:300;
+  margin:0;
+  margin-top:5px;
+  margin-bottom: 15px;
+}
+
+.calendar-modal-content{
+  margin: 15px 15px 0 15px;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.modal-event-meta{
+  display: flex;
+  align-items: center;
+}
+
+.modal-event-meta span{
+  background-color: #00b1ff;
+  color: #fff;
+  font-size: .70em;
+  min-width: 90px;
+  padding: 2px 0;
+  border-radius: 25px;
+}
+.modal-event-meta span.red{
+  background-color: #f43d3d;
+}
+.modal-event-meta.interna span{
+  background-color: #F7AB00;
+}
+
+.modal-event-meta h6{
+  color: #00b1ff;
+  margin:0;
+  margin-left: 16px;
+  letter-spacing: .01em;
+  font-weight: 500;
+}
+.modal-event-meta h6.red{
+  color: #f43d3d;
+}
+.modal-event-meta.interna h6{
+  color: #F7AB00;
+}
+
+
+.modal-event-title{
+  text-align: left;
+  margin-top: 12px;
+}
+
+.modal-event-title h5{
+  margin:0;
+  color:#4B4B4B;
+}
+
+.modal-event-users{
+  margin-top: 13px;
+  text-align: left;
+}
+
+.modal-event-users img{
+  border-radius: 50%;
+  width: 23px;
+  height: 23px;
+  border: 2px solid #0036ff;
+  margin-right: 5px;
+}
+
+.modal-event-info{
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.modal-event-client, .modal-event-place{
+  display: flex;
+  align-items: center;
+}
+
+.modal-event-place{
+  margin-left: 15px;
+}
+
+.modal-event-info img{
+  width:12px;
+  margin-right: 7px;
+}
+
+.modal-event-info span{
+  font-size: .7em;
+  color:#797979;
+}
+
+
+/*MODAL CALENDARIO DASHBOARD*/

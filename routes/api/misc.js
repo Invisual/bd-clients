@@ -275,7 +275,7 @@ router.put('/conclude', checkToken, (req, res) => {
           }
         );
         connection.query(
-          'UPDATE tasks SET concluded_task=?, conclusion_date_task = ? WHERE ref_id_project=?', [approval, date, projId],
+          'UPDATE tasks SET concluded_task=?, billed_task=?, conclusion_date_task = ? WHERE ref_id_project=?', [approval, billing, date, projId],
           function (error, results, fields) {
             if (error) throw error;
             res.send(results)
@@ -964,6 +964,12 @@ router.put('/approvals', checkToken, (req, res) => {
           id,
           function(error, results, fields) {
             if (error) throw error;
+            connection.query(
+              'UPDATE tasks SET concluded_task=2 WHERE ref_id_project=?', id,
+              function (error, results, fields) {
+                if (error) throw error;
+              }
+            )
             if (billing === 1 ) {
               transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {

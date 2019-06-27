@@ -63,7 +63,7 @@ router.get('/:user', checkToken, (req, res) => {
       res.sendStatus(403);
     } else {
       connection.query(
-        'SELECT id_meeting, title_meeting as title, place_meeting, date_meeting as start, date_meeting as end , ref_id_clients, start_hour_meeting, end_hour_meeting, type_meeting, name_client, GROUP_CONCAT(DISTINCT CONCAT(users.id_user,",",users.name_user,",",users.avatar_user) SEPARATOR ";") as intervenientes from meetings INNER JOIN meetings_has_users ON meetings_has_users.ref_id_meeting=meetings.id_meeting LEFT JOIN users on meetings_has_users.ref_id_user = users.id_user  LEFT JOIN clients ON meetings.ref_id_clients = clients.id_client WHERE CURDATE() <= date_meeting AND meetings_has_users.ref_id_user = ? GROUP BY id_meeting',
+        'SELECT id_meeting, title_meeting as title, place_meeting, date_meeting as start, date_meeting as end , ref_id_clients, start_hour_meeting, end_hour_meeting, type_meeting, name_client, GROUP_CONCAT(DISTINCT CONCAT(users.id_user,",",users.name_user,",",users.avatar_user) SEPARATOR ";") as intervenientes, GROUP_CONCAT(DISTINCT CONCAT(users.id_user) SEPARATOR ",") as intervs from meetings INNER JOIN meetings_has_users ON meetings_has_users.ref_id_meeting=meetings.id_meeting LEFT JOIN users on meetings_has_users.ref_id_user = users.id_user  LEFT JOIN clients ON meetings.ref_id_clients = clients.id_client WHERE CURDATE() <= date_meeting GROUP BY id_meeting HAVING FIND_IN_SET(?, intervs)',
         req.params.user,
         function(error, results, fields) {
           if (error) throw error;

@@ -42,8 +42,20 @@ class SideBar extends Component {
     return this.props.location.pathname === '/budgets' || this.props.location.pathname === '/vacations' || this.props.location.pathname === '/team' ? true : false
   }
 
-  componentDidUpdate(){
+  componentDidUpdate(prevProps, prevState){
     this.state.collapsedSidebar ? document.body.classList.add('collapsed-sidebar') : document.body.classList.remove('collapsed-sidebar')
+    if(prevState.projectsDropDown !== this.state.projectsDropDown){
+      if(this.state.projectsDropDown){ this.setState({collapsedSidebar: false}) }
+    }
+    if(prevState.tasksDropDown !== this.state.tasksDropDown){
+      if(this.state.tasksDropDown){ this.setState({collapsedSidebar: false}) }
+    }
+    if(prevState.companyDropDown !== this.state.companyDropDown){
+      if(this.state.companyDropDown){ this.setState({collapsedSidebar: false}) }
+    }
+    if(prevState.collapsedSidebar !== this.state.collapsedSidebar){
+      if(this.state.collapsedSidebar){ this.setState({projectsDropDown: false, tasksDropDown: false, companyDropDown: false}) }
+    }
   }
 
 

@@ -49,7 +49,7 @@ export const TaskDetail = props => {
               <div className="task-header">
                 <h4 className="task-title">{props.taskContent.details[0].title_task}</h4>
                 <div className="task-date">
-                  <FiClock /> <span>{moment(props.taskContent.details[0].creation_date_task).format('D/MM/YYYY')}</span>
+                  <FiClock /> <span>{moment(props.taskContent.details[0].deadline_date_task).format('D/MM/YYYY')}</span>
                 </div>
                 <div className="task-infos">
                   <span><img

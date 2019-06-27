@@ -38,7 +38,7 @@ class SingleProject extends Component {
                   <span className="project-client"><Link to={`/clients/`+this.props.clientId}>{this.props.client}</Link></span>
                 </div>
                 <span className="project-date">
-                  <FiClock /> {moment(this.props.creation_date_project).format('D/MM/YYYY')}
+                  <FiClock /> {moment(this.props.projectDeadline).format('D/MM/YYYY')}
                 </span>
               </div>
             </div>

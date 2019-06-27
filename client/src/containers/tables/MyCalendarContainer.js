@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { MyCalendar } from '../../components/tables/MyCalendar';
+import {Link} from 'react-router-dom'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 import moment from 'moment'
@@ -109,20 +110,65 @@ class MyCalendarContainer extends Component {
               return moment(date).isBetween( moment(event.start), moment(event.end), null,"[]") || moment(event.deadline_date_task).isSame(date)
             })
 
+
+
             let mapEventsOnThisDay = eventsOnThisDay.map(event => {
+
+              var meetingType = 'Reunião interna'
+              var meetingTypeClass = 'interna'
+              if(event.type_meeting === 2){ 
+                  meetingType = 'Reunião externa' 
+                  meetingTypeClass = 'externa'
+              }
+              
+              var eventUsers = event.intervenientes ? event.intervenientes
+              .split(';')
+              .map(e => e.split(','))
+              .map(avatar => {
+                  return `<img key=${avatar[0]} src=${avatar[2]} alt=${avatar[1]} title=${avatar[1]} />`
+              }).join('') : `<img src='${event.avatar_user}' alt='${event.name_user}' title='${event.name_user}' />`
+
               if(event.id_task){
                   return `
-                    <div class="modal-single-task calendar-modal-content">
-                      <h4>Último dia para terminar a Tarefa '${event.title_task}'</h4>
-                      <p>${event.deadline_date_task}</p>
+                    <a href="/tasks/${event.id_task}"><div class="modal-single-task calendar-modal-content">
+                    <div class="modal-event-meta">
+                      <span class="red">Deadline</span>
+                      <h6 class="red">Último dia para terminar tarefa</h6>
                     </div>
+                      <div class="modal-event-title">
+                        <h5>${event.title_task}</h5>
+                      </div>
+                      <div class="modal-event-users">${eventUsers}</div>
+                      <div class="modal-event-info">
+                        <div class="modal-event-client">
+                          <img src="/img/user.svg" alt="client" />
+                          <span>${event.name_client.charAt(0).toUpperCase()+event.name_client.slice(1).toLowerCase()}</span>
+                        </div>
+                      </div>
+                    </div></a>
                   `
               }
               else if(event.id_meeting){
                   return `
                     <div class="modal-single-meeting calendar-modal-content">
-                      <h4>Reunião '${event.title}'</h4>
-                      <p>${event.start_hour_meeting}h</p>
+                      <div class="modal-event-meta ${meetingTypeClass}">
+                        <span>${event.start_hour_meeting} - ${event.end_hour_meeting}</span>
+                        <h6>${meetingType}</h6>
+                      </div>
+                      <div class="modal-event-title">
+                        <h5>${event.title}</h5>
+                      </div>
+                      <div class="modal-event-users">${eventUsers}</div>
+                      <div class="modal-event-info">
+                        <div class="modal-event-client">
+                          <img src="/img/user.svg" alt="client" />
+                          <span>${event.name_client.charAt(0).toUpperCase()+event.name_client.slice(1).toLowerCase()}</span>
+                        </div>
+                        <div class="modal-event-place">
+                          <img src="/img/map-pin.svg" alt="marker" />
+                          <span>${event.place_meeting}</span>
+                        </div>
+                      </div>
                     </div>
                   `
               }
@@ -142,8 +188,16 @@ class MyCalendarContainer extends Component {
             else if(this.props.type === 'dashboard'){
               return (
                 <div className={dayClass} onClick={()=>eventsOnThisDay.length > 0 ? Swal.fire({
-                  title: `Eventos no dia ${moment(date).format('D')} de ${moment(date).format('MMMM')}`,
-                  html: `${mapEventsOnThisDay}`
+                  title: `Eventos`,
+                  html: `
+                        <div class="calendar-modal-day">
+                            <h3>${moment(date).format('D MMM YYYY')}</h3>
+                            <h6>${moment(date).format('dddd')}</h6>
+                        </div>
+                        ${mapEventsOnThisDay}
+                      `,
+                  customClass: 'calendar-modal',
+                  showCloseButton: true
                 }) : null}>
                 <p>{label}</p>
                 </div>

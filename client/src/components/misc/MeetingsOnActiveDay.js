@@ -10,7 +10,7 @@ class MeetingsOnActiveDay extends Component{
         return (
                 <div className="active-day-meetings-container">
                     <div className="day">
-                        <h5>{moment(this.props.activeDay).format('ll')}</h5>
+                        <h5>{moment(this.props.activeDay).format('D MMM YYYY')}</h5>
                         <span>{moment(this.props.activeDay).format('dddd')}</span>
                     </div>
                     <div className="meetings">
