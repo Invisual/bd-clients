@@ -3,7 +3,7 @@ import { themeConsts } from './themeConsts';
 
 export const AllTasksDiv = styled.div`
   width: 86%;
-  min-height: 100vh;
+  //min-height: 100vh;
   background-color: #f7f7f7;
   overflow-y: scroll;
   transition: all 0.5s ease;
@@ -25,7 +25,7 @@ export const AllTasksDiv = styled.div`
       font-weight: 600;
     }
 
-    .tasks-title {
+    .tasks-title{
       margin: 0;
       padding: 20px 22px 15px 22px;
       border-right: 1px solid #e6e6e6;
@@ -33,9 +33,14 @@ export const AllTasksDiv = styled.div`
       display: flex;
       justify-content: space-between;
       align-items: center;
-      svg {
-        color: ${themeConsts.secondaryBlue};
-        font-size: 2em;
+      .left-options{
+        display:flex;
+        align-items:center;
+        justify-content:space-around;
+        svg {
+          color: ${themeConsts.secondaryBlue};
+          font-size: 2em;
+        }
       }
     }
     .tasks-list {
@@ -77,7 +82,7 @@ export const AllTasksDiv = styled.div`
 
 export const AllProjectsDiv = styled.div`
   width: 86%;
-  min-height: 100vh;
+  //min-height: 100vh;
   background-color: #f7f7f7;
   overflow-y: scroll;
   transition: all 0.5s ease;
@@ -107,9 +112,14 @@ export const AllProjectsDiv = styled.div`
       display: flex;
       justify-content: space-between;
       align-items: center;
-      svg {
-        color: ${themeConsts.secondaryBlue};
-        font-size: 2em;
+      .left-options{
+        display:flex;
+        align-items:center;
+        justify-content:space-around;
+        svg {
+          color: ${themeConsts.secondaryBlue};
+          font-size: 2em;
+        }
       }
     }
     .tasks-list {
@@ -867,7 +877,7 @@ export const ProjectDetailsDiv = styled.div`
 
 export const AllClientsDiv = styled.div`
   width: 86%;
-  min-height: 100vh;
+  //min-height: 100vh;
   background-color: #f7f7f7;
   overflow-y: scroll;
   transition: all 0.5s ease;
@@ -897,9 +907,14 @@ export const AllClientsDiv = styled.div`
       display: flex;
       justify-content: space-between;
       align-items: center;
-      svg {
-        color: ${themeConsts.secondaryBlue};
-        font-size: 2em;
+      .left-options{
+        display:flex;
+        align-items:center;
+        justify-content:space-around;
+        svg {
+          color: ${themeConsts.secondaryBlue};
+          font-size: 2em;
+        }
       }
     }
     .tasks-list {
@@ -1689,7 +1704,7 @@ export const ClientDetailsDiv = styled.div`
 
 export const AllTripsDiv = styled.div`
     width: 86%;
-    min-height: 100vh;
+    //min-height: 100vh;
     background-color: #f7f7f7;
     overflow-y: scroll;
     -webkit-transition: all 0.5s ease;
@@ -1828,4 +1843,102 @@ export const AllTripsDiv = styled.div`
       }
 
     }
+`;
+
+
+export const UserVacationsDiv = styled.div`
+
+  .vacations-grid{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin-top: 5px;
+  }
+
+  .vacations-grid-border{
+    border-top:1px solid #e6e6e6;
+    margin-top: 15px;
+  }
+
+  .awaiting-vacations, .approved-vacations{
+    border-left:1px solid #e6e6e6;
+    padding-left:15px;
+  }
+
+  .vacations-section{
+    min-height:190px;
+    margin-top: 15px;
+    padding-bottom: 2px;
+
+    h3{
+      color:${themeConsts.titlesDarkGrey};
+      font-size:1.3em;
+      margin:0;
+    }
+
+    .vacations-days-counter{
+      position:relative;
+      max-width:130px;
+      margin:0 auto;
+    }
+    .vacations-days-counter::before{
+      content:'${props => props.days}';
+      position: absolute;
+      top: 42%;
+      left: 0;
+      right: 0;
+      transform: translateY(-50%);
+      text-align: center;
+      color: ${themeConsts.primaryBlue};
+      font-weight: 600;
+      font-size:3.6em;
+    }
+    .vacations-days-counter::after{
+      content:'${props => props.title}';
+      position: absolute;
+      top: 60%;
+      left: 0;
+      right: 0;
+      transform: translateY(-50%);
+      text-align: center;
+      color: ${themeConsts.primaryBlue};
+      font-weight: 100;
+      font-size:1.3em;
+    }
+
+    .vacations-info-meta{
+      p{
+        margin:0;
+        margin-top: 3px;
+      }
+    }
+
+    .list-singles-vacation{
+      margin-top:15px;
+
+      .single-vacation{
+        display:flex;
+        align-items:center;
+        margin-bottom: 8px;
+
+        svg{
+          font-size:1.5em;
+          color:${themeConsts.secondaryBlue};
+          margin-right:7px;
+        }
+        img{
+          width:13px;
+          margin-right:7px;
+        }
+        span{
+          color:${themeConsts.textDarkGrey};
+          font-size:1.1em;
+
+          .vacation-type{
+            color:${themeConsts.secondaryBlue};
+          }
+        }
+      }
+    }
+  }
+
 `;
