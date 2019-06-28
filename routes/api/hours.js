@@ -95,7 +95,7 @@ router.get('/:user/:date', checkToken, (req, res) => {
   jwt.verify(req.token, SECRET_KEY, (err, results) => {
       if (err) { res.sendStatus(403) }
       else{
-          connection.query("SELECT id_task_hour, id_task, beginning_hour, ending_hour, day, title_task, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(ending_hour, beginning_hour)))) as difference from task_hours INNER JOIN tasks ON task_hours.ref_id_tasks = tasks.id_task WHERE ref_id_users = ? AND day = ? GROUP BY id_task_hour ORDER BY id_task_hour ASC", [req.params.user, req.params.date], function(error, results, fields) {
+          connection.query("SELECT id_task_hour, id_task, beginning_hour, ending_hour, day, title_task, id_client, name_client, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(ending_hour, beginning_hour)))) as difference from task_hours INNER JOIN tasks ON task_hours.ref_id_tasks = tasks.id_task INNER JOIN clients ON tasks.ref_id_client = clients.id_client WHERE ref_id_users = ? AND day = ? GROUP BY id_task_hour ORDER BY id_task_hour ASC", [req.params.user, req.params.date], function(error, results, fields) {
               if (error) throw error;
               if (results.length > 0) { res.send(results) }
               else { res.send('nodata') }
@@ -109,7 +109,7 @@ router.get('/budgets/:user/:date', checkToken, (req, res) => {
   jwt.verify(req.token, SECRET_KEY, (err, results) => {
       if (err) { res.sendStatus(403) }
       else{
-          connection.query("SELECT id_budget_hour, id_budget, beginning_hour, ending_hour, day, title_budget, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(ending_hour, beginning_hour)))) as difference from budget_hours INNER JOIN budgets ON budget_hours.ref_id_budget = budgets.id_budget WHERE ref_id_user = ? AND day = ? GROUP BY id_budget_hour ORDER BY id_budget_hour ASC", [req.params.user, req.params.date], function(error, results, fields) {
+          connection.query("SELECT id_budget_hour, id_budget, beginning_hour, ending_hour, day, title_budget, id_client, name_client, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(ending_hour, beginning_hour)))) as difference from budget_hours INNER JOIN budgets ON budget_hours.ref_id_budget = budgets.id_budget INNER JOIN clients ON budgets.ref_id_client = clients.id_client WHERE ref_id_user = ? AND day = ? GROUP BY id_budget_hour ORDER BY id_budget_hour ASC", [req.params.user, req.params.date], function(error, results, fields) {
               if (error) throw error;
               if (results.length > 0) { res.send(results) }
               else { res.send('nodata') }

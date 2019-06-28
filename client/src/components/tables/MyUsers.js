@@ -14,7 +14,7 @@ export const MyUsers = props => {
     }) : []
 
     return (
-        <div className="myusers-container widget cards-container">
+        <div className="myusers-container widget cards-container dashboard-cards-container">
             {props.isLoading ? 
                 <img src="/img/loading.svg" alt="loading" className="loading-spinner" />
             :

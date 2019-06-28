@@ -7,7 +7,7 @@ import moment from 'moment'
 export const MyCalendar = (props) => {
     const localizer = BigCalendar.momentLocalizer(moment)
     return (
-        <CalendarDiv className="mycalendar-container widget cards-container">
+        <CalendarDiv className={props.type === 'dashboard' ? 'mycalendar-container widget cards-container dashboard-cards-container' : 'mycalendar-container widget cards-container'}>
           {props.title ? <h4 className="widget-title">{props.title}</h4> : null }
             <BigCalendar
                 localizer={localizer}

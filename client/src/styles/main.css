@@ -211,6 +211,15 @@ body.collapsed-sidebar .topbar-goback {
   box-sizing: border-box;
 }
 
+.dashboard-cards-container .see-all{
+  position: absolute;
+    bottom: 25px;
+}
+
+.pb45{
+  padding-bottom:45px;
+}
+
 .widget-title {
   margin-top: 0;
   margin-bottom: 0;

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FiTrash2, FiCopy, FiEdit3, FiFolder, FiFilter, FiPlusCircle, FiCheckSquare, FiXSquare } from 'react-icons/fi';
 
 export const Options =  props => {
+  console.log(props.tasksContent)
   return (
     <>
       {(() => {
@@ -80,7 +81,7 @@ export const Options =  props => {
                 }
                 <div className="account-avatar">
                   <img
-                    src={props.taskContent.details[0].avatar_account}
+                    src={props.taskContent.details[0].avatar_account_task ? props.taskContent.details[0].avatar_account_task : props.taskContent.details[0].avatar_account_project}
                     alt="Avatar"
                     style={{ borderRadius: '50%' }}
                     width="20px"

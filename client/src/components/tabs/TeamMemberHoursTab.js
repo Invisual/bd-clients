@@ -95,28 +95,29 @@ class TeamMemberHoursTab extends Component {
     render(){
         return (
             <div className="user-hours-content">
-                <div className="user-hours-date">
+                <div className="user-hours-date-title">
+                    <div className="current-date">
+                        <h2>{moment(this.state.date).format('DD MMM YYYY')}</h2>
+                        <h4>{moment(this.state.date).format('dddd')}</h4>
+                    </div>
                     <DatePicker onChange={this.changeDate} format="y-MM-dd" locale="pt-PT" value={new Date(this.state.date)} calendarIcon={<FiCalendar/>}/>
                 </div>
                 {this.state.isLoading ? 
                     <img src="/img/loading.svg" alt="loading" className="loading-spinner" />
                 :
                     <>
-                        <h2 className="user-hours-date">Horas no dia {moment(this.state.date).format('DD MMMM')}</h2>
                         {this.state.taskHours.length>0 || this.state.budgetHours.length>0 ?
                             <>
                                 {this.state.taskHours.length>0 ?
                                     <div className="user-tasks-hours hours-block">
-                                        <h5>Tarefas</h5>
-                                        <hr></hr>
+                                        <h4>Tarefas</h4>
                                         <div className="user-hours-list">
                                             {this.state.taskHours.map(hour => {
                                                 return (
-                                                    <div className="single-user-hour single-card" key={hour.id_task_hour}>
-                                                        <p className="hour-day">{moment(hour.day).format('D MMM')}</p>
-                                                        <p className="hour-task-title">{hour.title_task}</p>
+                                                    <div className="single-user-hour" key={hour.id_task_hour}>
+                                                        <p className="hour-task-title">{hour.title_task}<span>{hour.name_client.charAt(0).toUpperCase()+hour.name_client.slice(1).toLowerCase()}</span></p>
+                                                        <p className="hour-task-time-difference">{moment(hour.difference, 'HHmm').format('HH:mm')}</p>
                                                         <p className="hour-task-time">{moment(hour.beginning_hour, 'HHmm').format('HH:mm')}h - {moment(hour.ending_hour, 'HHmm').format('HH:mm')}h</p>
-                                                        <p className="hour-task-time">{moment(hour.difference, 'HHmm').format('HH:mm')}</p>
                                                         {Number(this.state.user.ref_id_role) === 2 || Number(this.state.user.ref_id_role) === 3 ?
                                                             <div className="hour-actions">
                                                                 <FiEdit2 onClick={() => {this.props.changeEditHourId(hour.id_task_hour); this.props.openModal('hours')}}/>
@@ -137,16 +138,14 @@ class TeamMemberHoursTab extends Component {
 
                                 {this.state.budgetHours.length>0?
                                     <div className="user-budget-hours hours-block">
-                                        <h5>Orçamentos</h5>
-                                        <hr></hr>
+                                        <h4>Orçamentos</h4>
                                         <div className="user-hours-list">
                                             {this.state.budgetHours.map(hour => {
                                                 return (
-                                                    <div className="single-user-hour single-card" key={hour.id_budget_hour}>
-                                                        <p className="hour-day">{moment(hour.day).format('D MMM')}</p>
-                                                        <p className="hour-task-title">{hour.title_budget}</p>
+                                                    <div className="single-user-hour" key={hour.id_budget_hour}>
+                                                        <p className="hour-task-title">{hour.title_budget}<span>{hour.name_client.charAt(0).toUpperCase()+hour.name_client.slice(1).toLowerCase()}</span></p>
+                                                        <p className="hour-task-time-difference">{moment(hour.difference, 'HHmm').format('HH:mm')}</p>
                                                         <p className="hour-task-time">{moment(hour.beginning_hour, 'HHmm').format('HH:mm')}h - {moment(hour.ending_hour, 'HHmm').format('HH:mm')}h</p>
-                                                        <p className="hour-task-time">{moment(hour.difference, 'HHmm').format('HH:mm')}</p>
                                                         {Number(this.state.user.ref_id_role) === 2 || Number(this.state.user.ref_id_role) === 3 ?
                                                             <div className="hour-actions">
                                                                 <FiEdit2 onClick={() => {this.props.changeEditHourId(hour.id_task_hour); this.props.openModal('hours')}}/>

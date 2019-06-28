@@ -15,13 +15,13 @@ export const TeamMemberTasksTab = props => {
                 {props.memberContent.currentTasks.map(task => {
                     return (
                         <Link to={`/tasks/${task.id_task}`} target="_blank" key={task.id_task}>
-                            <div className="single-user-task single-card">
+                            <div className="single-user-task">
                                 <div className="single-task-title-client">
                                     <h4>{task.title_task}</h4>
-                                    <h5>{task.name_client}</h5>
+                                    <h4 className="task-client">{task.name_client.charAt(0).toUpperCase()+task.name_client.slice(1).toLowerCase()}</h4>
                                 </div>
                                 <div className="single-task-hours">
-                                    <span>{task.total_hours ? moment(task.total_hours, 'HH:mm').format('HH:mm') : 'sem horas'}</span>
+                                    <span>{task.total_hours ? moment(task.total_hours, 'HH:mm').format('HH:mm')+'h' : 'sem horas'}</span>
                                 </div>
                                 <div className="single-task-deadline">
                                     {moment(task.deadline_date_task).isSameOrBefore(moment(new Date())) ? 

@@ -1279,15 +1279,28 @@ export const ClientDetailsDiv = styled.div`
 
 
     .user-hours-content{
-      padding-top: 45px;
-      padding-right: 15px;
+      padding-top:12px;
+      padding-right: 30px;
       position:relative;
       min-height: 350px;
 
-      .user-hours-date{
-        position: absolute;
-        top: 15px;
-        right: 15px;
+      .user-hours-date-title{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .current-date{
+          h2{
+            color:${themeConsts.primaryBlue};
+            margin:0;
+            font-weight: 500;
+          }
+          h4{
+            color:${themeConsts.primaryBlue};
+            margin:0;
+            font-weight: 100;
+          }
+        }
 
         .react-date-picker{
           box-shadow: 0px 1px 6px rgba(0,0,0,.16);
@@ -1318,22 +1331,42 @@ export const ClientDetailsDiv = styled.div`
         }
       }
 
+      .hours-block{
+        margin-top: 20px;
+
+        h4{
+          margin:0;
+          color:${themeConsts.primaryBlue};
+          font-size: 1.4em;
+          font-weight: 300;
+          border-bottom: 1px solid ${themeConsts.primaryBlue};
+          padding-bottom: 5px;
+        }
+
+
+      }
+
       .single-user-hour{
         display: grid;
-        grid-template-columns: 10% 50% 20% 10% 10%;
+        grid-template-columns: 60% 10% 20% 10%;
+        padding-left: 10px;
+        border-bottom: 1px solid #e6e6e6;
 
         p{
           display:flex;
           align-items: center;
         }
-        .hour-day{
-          font-size: 1.3em;
-          font-weight:600;
-          color:${themeConsts.textLightGrey};
-        }
         .hour-task-title{
           font-size: 1.2em;
           letter-spacing: .02em;
+
+          span{
+            margin-left: 10px;
+            color:${themeConsts.secondaryBlue};
+          }
+        }
+        .hour-task-time-difference{
+          color:${themeConsts.secondaryBlue};
         }
         .hour-actions{
           display: flex;
@@ -1351,8 +1384,7 @@ export const ClientDetailsDiv = styled.div`
     }
 
     .user-tasks-content{
-      padding-top: 15px;
-      padding-right: 15px;
+      padding-right: 30px;
       position:relative;
       min-height: 350px;
 
@@ -1361,7 +1393,6 @@ export const ClientDetailsDiv = styled.div`
         grid-template-columns: 67% 11% 11% 11%;
         padding: 12px 0 12px 10px;
         border-bottom:1px solid #e6e6e6;
-        margin-top:10px !important;
 
         .single-task-title-client{
           display:flex;
@@ -1371,13 +1402,12 @@ export const ClientDetailsDiv = styled.div`
             margin:0;
             color:${themeConsts.textDarkGrey};
             font-size:1.05em;
-            font-weight: 500;
+            font-weight: 300;
           }
-          h5{
+          .task-client{
             margin:0;
             margin-left:10px;
             color:${themeConsts.secondaryBlue};
-            font-weight: 500;
           }
         }
 

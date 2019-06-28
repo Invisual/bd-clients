@@ -6,6 +6,7 @@ export const CalendarDiv = styled.div`
 
 .rbc-calendar{
     margin-top: 20px;
+    min-height:292px;
     
     .rbc-btn-group {
         margin-bottom: 10px;

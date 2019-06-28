@@ -61,8 +61,8 @@ export const TodoListDashboardDiv = styled.div`
 
         .todo-add{
             position:absolute;
-            right:-2px;
-            bottom:-11px;
+            right: 5px;
+            bottom: 3px;
             cursor:pointer;
 
             svg{

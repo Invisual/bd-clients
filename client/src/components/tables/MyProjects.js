@@ -9,7 +9,7 @@ export const MyProjects = props => {
   switch (props.type) {
     case 'dashboard':
       content = (
-        <div className="mytasks-container widget cards-container">
+        <div className="mytasks-container widget cards-container dashboard-cards-container pb45">
           {props.isLoading ? (
             <img src="img/loading.svg" alt="loading" className="loading-spinner" />
           ) : props.projects.length>0 ? 

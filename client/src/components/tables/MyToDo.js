@@ -8,7 +8,7 @@ export const MyToDo = props => {
   return (
     <>
       {props.type === 'dashboard' ? (
-        <TodoListDashboardDiv className="widget cards-container">
+        <TodoListDashboardDiv className="widget cards-container dashboard-cards-container">
           {props.isLoading ? (
             <img src="img/loading.svg" alt="loading" className="loading-spinner" />
           ) : props.todos ? (

@@ -207,7 +207,14 @@ class MyCalendarContainer extends Component {
         }
     }
 
-    return <MyCalendar title={this.props.title} meetings={this.props.meetings} formats={formats} customDayPropGetter={this.customDayPropGetter} components={components}/>;
+    return <MyCalendar 
+            title={this.props.title} 
+            meetings={this.props.meetings} 
+            type={this.props.type} 
+            formats={formats} 
+            customDayPropGetter={this.customDayPropGetter} 
+            components={components}
+          />;
   }
 }
 
