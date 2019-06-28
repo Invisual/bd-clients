@@ -25,6 +25,7 @@ export const AllApprovals = props => {
       <div className="widgets-grid widget cards-container nofixed-height">
         <div className="grid-widget tasks-title">
           <h4 className="widget-title">Aprovações</h4>
+          <div className="grid-widget left-options">
           <div className="tooltip-container tasks-search">
             <input type="text" placeholder="Pesquisa" className={props.displaySearchInput+ ' searchinput'} onChange={props.changeSearchQuery}/>
             <FiSearch onClick={props.toggleSearchInput}/>
@@ -48,6 +49,7 @@ export const AllApprovals = props => {
             </div>
              </>  
           }
+          </div>
         </div>
         <OptionsContainer
           userRole={props.userRole}

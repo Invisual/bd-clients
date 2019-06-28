@@ -17,6 +17,7 @@ export const AllBudgets = props => {
       <div className="widgets-grid widget cards-container nofixed-height">
         <div className="grid-widget tasks-title">
           <h4 className="widget-title">Orçamentos</h4>
+          <div className="grid-widget left-options">
           {props.userRole === 3 || props.userRole === 2 ? (
             <>
             <div className="tooltip-container">
@@ -41,6 +42,7 @@ export const AllBudgets = props => {
             </div>
              </>  
           }
+          </div>
         </div>
         <OptionsContainer
           userRole={props.userRole}
