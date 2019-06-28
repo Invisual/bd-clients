@@ -31,7 +31,7 @@ router.get('/', checkToken, (req, res) => {
         }
       );
       connection.query(
-        'SELECT id_client, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS total_hours FROM clients LEFT JOIN tasks ON clients.id_client=tasks.ref_id_client LEFT JOIN task_hours ON task_hours.ref_id_tasks=tasks.id_task WHERE MONTH(day)=MONTH(CURDATE()) group by id_client',
+        'SELECT id_client, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS total_hours FROM clients LEFT JOIN tasks ON clients.id_client=tasks.ref_id_client LEFT JOIN task_hours ON task_hours.ref_id_tasks=tasks.id_task WHERE MONTH(day)=MONTH(CURDATE()) AND tasks.ref_id_billing_mode=3 group by id_client',
         function(error, results, fields) {
           if (error) throw error;
           if (results.length > 0) {

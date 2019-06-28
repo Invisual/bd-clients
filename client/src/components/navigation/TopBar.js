@@ -14,9 +14,9 @@ export const TopBar = props => {
 
       {props.userInfo.ref_id_role === 2 || props.userInfo.ref_id_role === 3 ? 
       <li className="topbar-add" onClick={() => props.showDropdownCreate()}>
-         <span><FiPlusSquare/></span>
+         <span><FiPlusSquare id="createicon"/></span>
          {props.displayDropdownCreate? (
-         <ul className="notifications-dropdown show-notifications user-dropdown">
+         <ul className="notifications-dropdown show-notifications create-dropdown">
            <Link to="/createproject"><li id="topbar-user-link1">Inserir novo Projeto</li></Link>
            <Link to="/createtask"><li id="topbar-user-link2">Inserir nova Tarefa</li></Link>
            <Link to="/createmeeting"><li id="topbar-user-link3">Marcar Reunião</li></Link>

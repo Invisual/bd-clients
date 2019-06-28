@@ -86,9 +86,11 @@ export const TodoListCompleteDiv = styled.div`
     margin:auto;
     z-index:111;
     width:40%;
-    height:70vh !important;
+    height:unset !important;
     transform: translateY(-50%);
     box-shadow: none !important;
+    min-height: 225px !important;
+    padding-right:10px !important;
 
     .todo-close{
         position: absolute;
@@ -105,7 +107,9 @@ export const TodoListCompleteDiv = styled.div`
 
     .todo-content-container{
         height:100%;
-        position:relative;
+        max-height: 80vh;
+        overflow: hidden;
+        overflow-y: scroll;
 
         .todo-scroll-container{
             overflow: auto;
@@ -150,7 +154,15 @@ export const TodoListCompleteDiv = styled.div`
         }
 
         .todo-textarea{
-            
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            text-align: center;
+
             textarea{
                 width: 90%;
                 margin-top: 17px;
@@ -166,8 +178,8 @@ export const TodoListCompleteDiv = styled.div`
 
         .todo-add{
             position:absolute;
-            right:-2px;
-            bottom:-11px;
+            right: 5px;
+            bottom: 3px;
             cursor:pointer;
 
             svg{

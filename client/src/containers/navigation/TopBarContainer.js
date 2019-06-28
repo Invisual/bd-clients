@@ -18,21 +18,33 @@ class TopBarContainer extends Component {
   }
 
   showDropdownMenu = () => {
-    this.setState({displayDropdownNotifications: !this.state.displayDropdownNotifications})
+    this.setState({displayDropdownNotifications: !this.state.displayDropdownNotifications}, () => {
+      if(this.state.displayDropdownNotifications){
+        this.setState({displayDropdownCreate: false, displayDropdownUser: false})
+      }
+    })
   }
 
   showDropdownUser = () => {
-    this.setState({displayDropdownUser: !this.state.displayDropdownUser})
+    this.setState({displayDropdownUser: !this.state.displayDropdownUser}, () => {
+      if(this.state.displayDropdownUser){
+        this.setState({displayDropdownCreate: false, displayDropdownNotifications: false})
+      }
+    })
   }
 
   showDropdownCreate = () => {
-    this.setState({displayDropdownCreate: !this.state.displayDropdownCreate})
+    this.setState({displayDropdownCreate: !this.state.displayDropdownCreate}, () => {
+      if(this.state.displayDropdownCreate){
+        this.setState({displayDropdownUser: false, displayDropdownNotifications: false})
+      }
+    })
   }
 
   hideDropdownMenu = (e) => {
-    if(this._isMounted && e.target.id !== 'notificationsli' && e.target.id !== 'notificationsicon' 
-      && e.target.id !== 'notificationsnumber' && e.target.classList[0] !== 'notification' 
-      && e.target.classList[0] !== 'notificationlink' && e.target.id !== 'topbar-user-name'
+    if(this._isMounted && e.target.id !== 'notificationsli' && e.target.id !== 'createicon' && e.target.id !== 'notificationsicon' 
+      && e.target.id !== 'notificationsnumber' && e.target.classList[0] !== 'notification' && e.target.nodeName !== 'line'
+      && e.target.classList[0] !== 'notificationlink' && e.target.id !== 'topbar-user-name' && e.target.nodeName !== 'path'
       && e.target.id !== 'topbar-user-img' && e.target.id !== 'topbar-user-link1'
       && e.target.id !== 'topbar-user-link2' && e.target.id !== 'topbar-user-link3'
       && e.target.id !== 'topbar-user-link4' && e.target.id !== 'topbar-user-link5'){

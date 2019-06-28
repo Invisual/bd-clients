@@ -4,6 +4,7 @@ import SingleTask from '../singles/SingleTask';
 import { FiArrowRight } from 'react-icons/fi';
 
 export const MyBilling = props => {
+  console.log(props.items)
   var content = '';
   switch (props.type) {
     case 'dashboard':
@@ -48,7 +49,7 @@ export const MyBilling = props => {
       } else {
         content = (
           <div className="mytasks-container widget">
-            {props.items ? 
+            {props.items.length>0 ? 
             props.placeholder ?
             <div>
                 <div className="empty-placeholder">Sem items correspondentes à pesquisa.</div>

@@ -271,7 +271,7 @@ export const TopBarDiv = styled.div`
         list-style-type: none;
         margin: 0;
         padding: 0;
-        top: 53px;
+        top: 78px;
         left:50%;
         transform:translateX(-50%);
         width: 350px;
@@ -304,7 +304,7 @@ export const TopBarDiv = styled.div`
           min-height: 50px;
           display: flex;
           align-items: center;
-          background-color:${themeConsts.notificationsBg};
+          background-color:${themeConsts.white};
 
           svg{
             font-size: 2.2em;
@@ -344,6 +344,32 @@ export const TopBarDiv = styled.div`
         border-bottom: none;
       }
     }
+    .user-dropdown{
+      width: 200px !important;
+      transform: none !important;
+      left: 35% !important;
+    }
+    .create-dropdown{
+      width: 200px !important;
+    }
+    .user-dropdown li, .create-dropdown li{
+      min-height: 38px !important;
+      font-weight: 300;
+    }
+    .user-dropdown li:last-child, .create-dropdown li:last-child{
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
+    }
+    .user-dropdown li:first-child, .create-dropdown li:first-child{
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+    }
+    .user-dropdown li:hover, .create-dropdown li:hover{
+      background-color: #f7f7f7 !important;
+    }
+    .user-dropdown:after, .create-dropdown:after{
+      background-color: ${themeConsts.white} !important;
+    }
   }
   .notifications-dropdown:after{
         content:'';
@@ -355,7 +381,6 @@ export const TopBarDiv = styled.div`
         top: -8px;
         height: 15px;
         width: 15px;
-        border-radius: 6px 0px 0px 0px;
         transform: rotate(45deg);
   }
   .notification:hover{

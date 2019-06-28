@@ -205,10 +205,10 @@ export const ClientProjectDiv = styled.div`
     height:100%;
     top: 0;
     left: 0;
-    background: url('/img/check_faturado.svg');
-    background-position: 24% 50%;
+    background: url('/img/euro.svg');
+    background-position: 22% 50%;
     background-repeat: no-repeat;
-    background-size: 15px;
+    background-size: 10px;
   }
   .project-title {
     display:flex;
@@ -276,10 +276,10 @@ export const AllSingleProjectDiv = styled.div`
       height:100%;
       top: 0;
       left: 0;
-      background: url('/img/check_faturado.svg');
-      background-position: 24% 50%;
+      background: url('/img/euro.svg');
+      background-position: 22% 38%;
       background-repeat: no-repeat;
-      background-size: 15px;
+      background-size: 11px;
     }
       .title-click {
         padding-left: 5px;

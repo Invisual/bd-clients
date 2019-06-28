@@ -61,8 +61,8 @@ body.collapsed-sidebar .sidebar-container ul {
 
 body.collapsed-sidebar .sidebar-container li {
   text-align: center;
-  padding: 12px 0px 8px 0px;
-  width:100%;
+  padding: 12px 0px 8px 0px !important;
+  width:100% !important;
 }
 
 body.collapsed-sidebar .sidebar-container .is-active li {
@@ -468,6 +468,9 @@ body.collapsed-sidebar .topbar-goback {
   opacity: 1;
 }
 
+.left-options .tooltip-container{
+  margin-right: 15px;
+}
 
 .form-buttons {
   text-align: center;
@@ -569,7 +572,7 @@ body.has-modal #overlay{
   outline: none;
   background: none;
   z-index: 3;
-  width: 150px;
+  width: 100px;
   border-bottom: 1px solid #0036ff;
   cursor: text;
   -webkit-transform: scaleX(.0);

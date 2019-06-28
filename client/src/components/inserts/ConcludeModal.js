@@ -13,9 +13,9 @@ export const ConcludeModal = props => {
                 <div className="inputs-grid">
                     <div className="inputwrapper">
                         <fieldset>
-                            <label class="container">Enviar para Aprovação
+                            <label className="container">Enviar para Aprovação
                                 <input type="checkbox" onClick={props.changeApprovalInput}/>
-                                <span class="checkmark"></span>
+                                <span className="checkmark"></span>
                             </label>
                         </fieldset>
                     </div>
@@ -23,9 +23,9 @@ export const ConcludeModal = props => {
                         Number(props.taskContent.details[0].ref_id_billing_mode) === 2 || Number(props.taskContent.details[0].ref_id_billing_mode) === 4 ?
                             <div className="inputwrapper">
                                 <fieldset>
-                                    <label class="container">Enviar para Faturação
+                                    <label className="container">Enviar para Faturação
                                         <input type="checkbox" value="1" onClick={props.changeBillingInput}/>
-                                        <span class="checkmark"></span>
+                                        <span className="checkmark"></span>
                                     </label>
                                 </fieldset>
                             </div>
@@ -35,9 +35,9 @@ export const ConcludeModal = props => {
                         Number(props.projectContent.details[0].ref_id_billing_mode) == 2 || Number(props.projectContent.details[0].ref_id_billing_mode) == 4 ?
                             <div className="inputwrapper">
                                 <fieldset>
-                                    <label class="container">Enviar para Faturação
+                                    <label className="container">Enviar para Faturação
                                         <input type="checkbox" value="1" onClick={props.changeBillingInput}/>
-                                        <span class="checkmark"></span>
+                                        <span className="checkmark"></span>
                                     </label>
                                 </fieldset>
                             </div>

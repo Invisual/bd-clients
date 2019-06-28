@@ -100,9 +100,9 @@ class AllBillingContainer extends Component {
         axios
           .get('/api/billing', { headers: { Authorization: AuthStr } })
           .then(res => {
-            var items = [...res.data.tasks, ...res.data.projects]
-            items = items.sort((a, b) =>  a.conclusion_date>b.conclusion_date ? 1 : a.conclusion_date<b.conclusion_date ? -1 : 0)
-            this.setState({activeItem: items[0].id, activeType: items[0].type})
+            var items = res.data.tasks && res.data.projects ? [...res.data.tasks, ...res.data.projects] : res.data.tasks && !res.data.projects ? res.data.tasks : !res.data.tasks && res.data.projects ? res.data.projects : null
+            items = items ? items.sort((a, b) =>  a.conclusion_date>b.conclusion_date ? 1 : a.conclusion_date<b.conclusion_date ? -1 : 0) : null
+            if(items) { this.setState({activeItem: items[0].id, activeType: items[0].type}) }
           })
           .then(res => {
             axios

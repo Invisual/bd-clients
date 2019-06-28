@@ -90,7 +90,7 @@ export const AllProjectsDiv = styled.div`
 
   .widgets-grid {
     display: grid;
-    grid-template-columns: 25% 75%;
+    grid-template-columns: 30% 70%;
     width: 92%;
     margin: 40px auto 0 auto;
 
