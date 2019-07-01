@@ -30,6 +30,7 @@ import ChatTaskContainer from './containers/chat/ChatTaskContainer';
 import VacationsApprovalContainer from './containers/approvals/VacationsApprovalContainer';
 import VacationsRejectContainer from './containers/approvals/VacationsRejectContainer';
 import './styles/main.css';
+import './styles/queries.css';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import moment from 'moment'
 import 'moment/locale/ru';

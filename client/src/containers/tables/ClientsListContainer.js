@@ -19,13 +19,16 @@ class ClientsListContainer extends Component {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
 
-    axios.get(`/api/clients`, { headers: { Authorization: AuthStr } }).then(res => {
+    var url = this.props.onlyAvencados ? `/api/clients/avencados` : `/api/clients`
+
+    axios.get(url, { headers: { Authorization: AuthStr } }).then(res => {
       if (res.data === 'nodata') {
         this.setState({ clients: null, isLoading: false });
       } else {
+        console.log(res.data)
         var clientsData = res.data.details
         var newClientsData = clientsData.map(client => {
-          var clientHoursObj = res.data.hours.filter(hour => hour.id_client === client.id_client)
+          var clientHoursObj = res.data.hours ? res.data.hours.filter(hour => hour.id_client === client.id_client) : []
           client.total_hours = clientHoursObj.length > 0 ? clientHoursObj[0].total_hours : null
           return client
           //client.hours = clientHoursObj[0].total_hours
@@ -54,10 +57,13 @@ class ClientsListContainer extends Component {
     if(prevProps.searchQuery !== this.props.searchQuery){
       this.filterClients()
     }
+    if(prevProps.onlyAvencados !== this.props.onlyAvencados){
+      this.getClients()
+    }
   }
 
   render() {
-    
+    console.log(this.props.onlyAvencados)
     return (
       <ClientsList
         clients={this.state.filteredClients}

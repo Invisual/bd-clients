@@ -3,7 +3,7 @@ import { AllClientsDiv } from '../../styles/listings';
 import ClientsListContainer from '../../containers/tables/ClientsListContainer';
 import ClientDetailContainer from '../../containers/details/ClientDetailContainer';
 import OptionsContainer from '../../containers/options/OptionsContainer';
-import { FiUserPlus, FiSearch } from 'react-icons/fi';
+import { FiUserPlus, FiSearch, FiUserCheck } from 'react-icons/fi';
 import {Link} from 'react-router-dom'
 
 export const AllClients = props => {
@@ -19,12 +19,18 @@ export const AllClients = props => {
             <span className="tooltip">Pesquisar Clientes</span>
           </div>
           {props.userRole === 3 || props.userRole === 2 ? 
-            <div className="tooltip-container">
-              <Link to="/createclient">
-                <span className="tooltip">Adicionar Cliente</span>
-                <FiUserPlus />
-              </Link>
-            </div>
+            <>
+              <div className="tooltip-container">
+                <Link to="/createclient">
+                  <span className="tooltip">Adicionar Cliente</span>
+                  <FiUserPlus />
+                </Link>
+              </div>
+              <div className="tooltip-container">
+                  <span className="tooltip">Apenas Avençados</span>
+                  <FiUserCheck className={props.onlyAvencados ? 'clients-avencados-icon icon-selected' : 'clients-avencados-icon'} onClick={props.changeOnlyAvencados} />
+              </div>
+            </>
           : 
           null
           }
@@ -48,6 +54,7 @@ export const AllClients = props => {
               activeClient={props.activeClient}
               copyAlert={props.copyAlert}
               searchQuery={props.searchQuery}
+              onlyAvencados={props.onlyAvencados}
             />
           </div>
         </div>

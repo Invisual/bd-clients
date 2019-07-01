@@ -16,8 +16,13 @@ class AllClientsContainer extends Component {
       clientContent: [],
       searchQuery: '',
       displaySearchInput: '',
+      onlyAvencados: false,
       isLoading: true
     };
+  }
+
+  changeOnlyAvencados = () => {
+    this.setState(prevState => ({ onlyAvencados: !prevState.onlyAvencados }))
   }
 
   getClientDetails = () => {
@@ -145,6 +150,8 @@ class AllClientsContainer extends Component {
         changeSearchQuery={this.changeSearchQuery}
         displaySearchInput={this.state.displaySearchInput}
         toggleSearchInput={this.toggleSearchInput}
+        onlyAvencados={this.state.onlyAvencados}
+        changeOnlyAvencados={this.changeOnlyAvencados}
         logout={this.props.logout}
       />
     );

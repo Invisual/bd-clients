@@ -8,6 +8,7 @@ export const SidebarDiv = styled.div`
   position: relative;
   overflow-x:hidden;
   transition:all .5s ease;
+  z-index:11;
 
   .logo {
     text-align: center;
@@ -170,6 +171,7 @@ export const TopBarDiv = styled.div`
   width: 100%;
   background-color: ${themeConsts.white};
   box-shadow: ${themeConsts.mainShadow};
+  z-index:1;
 
   ul {
     position:relative;
