@@ -39,7 +39,7 @@ class CostsModalContainer extends Component{
                                     type: 'number',
                                     placeholder: 'Preço',
                                     onChange:this.changeSellPriceInput
-                                },
+                                }/*,
                                 {
                                     legend: 'Tipo de Custo',
                                     name: 'cost-type',
@@ -47,7 +47,7 @@ class CostsModalContainer extends Component{
                                     placeholder: 'Tipo',
                                     onChange:this.changeTypeInput,
                                     options: ['Externo', 'Interno'],
-                                }
+                                }*/
                             ]
                 }
             ],
@@ -55,7 +55,7 @@ class CostsModalContainer extends Component{
             providerInput: [],
             providerPriceInput: [],
             sellPriceInput: [],
-            typeInput: []
+            //typeInput: []
         }
     }
 
@@ -119,7 +119,7 @@ class CostsModalContainer extends Component{
         this.setState({sellPriceInput: sellPriceInput})
     }
 
-    changeTypeInput = (e, id) => {
+    /*changeTypeInput = (e, id) => {
         var typeInput = [...this.state.typeInput]
         if(this.state.typeInput.filter(obj => obj.id === id).length>0){
             var copy = typeInput.filter(obj => obj.id==id)
@@ -132,7 +132,7 @@ class CostsModalContainer extends Component{
             typeInput.push(newObj)
         }
         this.setState({typeInput: typeInput})
-    }
+    }*/
 
     insertCosts = (e) => {
         e.preventDefault()
@@ -143,7 +143,7 @@ class CostsModalContainer extends Component{
                 providers: this.state.providerInput,
                 providerPrices: this.state.providerPriceInput,
                 sellPrices: this.state.sellPriceInput,
-                costTypes: this.state.typeInput,
+                costTypes: 1,
                 taskId: this.props.taskId
             }
         }
@@ -154,7 +154,7 @@ class CostsModalContainer extends Component{
                 providers: this.state.providerInput,
                 providerPrices: this.state.providerPriceInput,
                 sellPrices: this.state.sellPriceInput,
-                costTypes: this.state.typeInput,
+                costTypes: 1,
                 projId: this.props.projId
             }
         }
@@ -192,8 +192,8 @@ class CostsModalContainer extends Component{
         var providerInput = [...this.state.providerInput].filter(obj => obj.id !== id)
         var providerPriceInput = [...this.state.providerPriceInput].filter(obj => obj.id !== id)
         var sellPriceInput = [...this.state.sellPriceInput].filter(obj => obj.id !== id)
-        var typeInput = [...this.state.typeInput].filter(obj => obj.id !== id)
-        this.setState({inputs: newInputs, serviceInput: serviceInput, providerInput: providerInput, providerPriceInput: providerPriceInput, sellPriceInput: sellPriceInput, typeInput: typeInput})
+        //var typeInput = [...this.state.typeInput].filter(obj => obj.id !== id)
+        this.setState({inputs: newInputs, serviceInput: serviceInput, providerInput: providerInput, providerPriceInput: providerPriceInput, sellPriceInput: sellPriceInput})
     }
 
     deleteCost = (id) => {

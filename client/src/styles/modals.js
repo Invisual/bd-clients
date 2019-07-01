@@ -39,7 +39,7 @@ export const CostsModalDiv = styled.div`
 
     .costs-grid{
         display: grid;
-        grid-template-columns: 2fr 2fr 1fr 1fr 1fr .5fr;
+        grid-template-columns: 2fr 2fr 1fr 1fr .5fr;
         grid-gap: 15px;
         width: 95%;
         margin: 23px auto;
@@ -118,7 +118,7 @@ export const CostsModalDiv = styled.div`
 
         .costs-list-header{
             display:grid;
-            grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1fr 1fr .5fr;
+            grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1fr .5fr;
             background: ${themeConsts.tableHeader};
 
             h5{
@@ -130,7 +130,7 @@ export const CostsModalDiv = styled.div`
         }
         .costs-list-row{
             display:grid;
-            grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1fr 1fr .5fr;
+            grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1fr .5fr;
             padding: 4px 0;
             background-color:${themeConsts.white};
             border-bottom: 1px solid ${themeConsts.tableListBorder};
