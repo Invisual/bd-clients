@@ -87,17 +87,9 @@ export const BillingDetail = props => {
                             <h5>Custo Fornecedor</h5>
                             <h5>Preço Venda</h5>
                             <h5>Diferença</h5>
-                            <h5>Tipo de Custo</h5>
                         </div>
                         {props.itemContent.costs.map(cost => {
-                            var type = ''
-                            switch(cost.type_cost){
-                                case 1: type = 'Externo'
-                                break;
-                                case 2: type = 'Interno'
-                                break;
-                                default: type ='Externo' 
-                            }
+                           
                             return (
                                 <div className="costs-list-row" key={cost.id_cost}>
                                     <p>{cost.service}</p>
@@ -105,7 +97,6 @@ export const BillingDetail = props => {
                                     <p>{cost.cost_provider}</p>
                                     <p>{cost.price_sale}</p>
                                     <p>{cost.price_difference}</p>
-                                    <p>{type}</p>
                                 </div>
                             )
                         })}

@@ -25,7 +25,6 @@ class ClientsListContainer extends Component {
       if (res.data === 'nodata') {
         this.setState({ clients: null, isLoading: false });
       } else {
-        console.log(res.data)
         var clientsData = res.data.details
         var newClientsData = clientsData.map(client => {
           var clientHoursObj = res.data.hours ? res.data.hours.filter(hour => hour.id_client === client.id_client) : []
@@ -63,7 +62,6 @@ class ClientsListContainer extends Component {
   }
 
   render() {
-    console.log(this.props.onlyAvencados)
     return (
       <ClientsList
         clients={this.state.filteredClients}

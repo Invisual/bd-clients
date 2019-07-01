@@ -7,9 +7,11 @@ class ClientDataTab extends Component {
     super(props);
     this.state = {
       annualData: [],
+      annualDataAll: [],
       yearSelect: new Date().getFullYear(),
       isLoading: true,
-      hasNoHours: true
+      hasNoHours: true,
+      showAvencadoGraph: true,
     };
   }
 
@@ -17,7 +19,7 @@ class ClientDataTab extends Component {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
     axios
-      .get(`/api/clients/annual/${this.props.clientContent.details[0].id_client}/${this.state.yearSelect}`, {
+      .get(`/api/clients/annual/avencados/${this.props.clientContent.details[0].id_client}/${this.state.yearSelect}`, {
         headers: { Authorization: AuthStr }
       })
       .then(res => {
@@ -30,17 +32,37 @@ class ClientDataTab extends Component {
         })
         if(hasNoHours === false){ this.setState({hasNoHours: false}) }
       });
+    axios
+      .get(`/api/clients/annual/${this.props.clientContent.details[0].id_client}/${this.state.yearSelect}`, {
+        headers: { Authorization: AuthStr }
+      })
+      .then(res => {
+        this.setState({ annualDataAll: res.data, isLoading:false })
+        var hasNoHours = true
+        res.data.map(hora => {
+          if(hora.horas !== 0){
+            hasNoHours = false
+          }
+        })
+        if(hasNoHours === false){ this.setState({hasNoHours: false}) }
+      });
   };
 
   changeYear = e => {
-    this.setState({ yearSelect: e.target.value, hasNoHours: true, isLoading: true }, () => this.getAnnualData());
+    this.setState({ yearSelect: e.target.value, hasNoHours: true, isLoading: true, annualData: [], annualDataAll: [] }, () => this.getAnnualData());
   };
+
+  changeGraph = () => {
+    this.setState({ showAvencadoGraph: !this.state.showAvencadoGraph, hasNoHours: true, isLoading: true, yearSelect: new Date().getFullYear(),  annualData: [], annualDataAll: [] }, () => this.getAnnualData());
+  };
+  
   componentDidMount() {
     this.getAnnualData();
   }
 
   render() {
     const data = this.state.annualData;
+    const dataAll = this.state.annualDataAll;
     var startYear = 2018;
     var currentYear = new Date().getFullYear();
     var years = [];
@@ -99,23 +121,29 @@ class ClientDataTab extends Component {
               {Number(this.props.clientContent.details[0].monthly_hours_client) !== 0 ? 
                 <>
                 <h1 className="client-hours">{this.props.clientContent.details[0].monthly_hours_client} horas</h1>
-                <span className="monthly-text">Bolsa de horas em {currentYear}</span>
+                <span className="monthly-text">Bolsa de horas em {this.state.yearSelect}</span>
                 </>
                  : (
                 <h3>Este cliente não tem uma bolsa de horas mensal.</h3>
               )}
             </div>
-            <div className="client-data-year">
-              <select onChange={this.changeYear} defaultValue={currentYear}>
-                {years.map(year => {
-                  return (
-                    <option key={year} value={year}>
-                      {year}
-                    </option>
-                  );
-                })}
-              </select>
+            <div className="client-data-options">
+            {Number(this.props.clientContent.details[0].monthly_hours_client) !== 0 ? 
+              <button onClick={this.changeGraph}>{this.state.showAvencadoGraph? 'Avença' : 'Total'}</button>
+              : null}
+              <div className="client-data-year">
+                <select onChange={this.changeYear} defaultValue={currentYear}>
+                  {years.map(year => {
+                    return (
+                      <option key={year} value={year} selected={year === this.state.yearSelect}>
+                        {year}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
             </div>
+            
           </div>
           {this.state.isLoading?
           <img src="/img/loading.svg" alt="loading" className="loading-spinner" />
@@ -125,9 +153,9 @@ class ClientDataTab extends Component {
           :<>
           
           {Number(this.props.clientContent.details[0].monthly_hours_client) !== 0 ? (
-            <ResponsiveContainer width={600} height={300}>
+            <ResponsiveContainer>
               <BarChart
-                data={data}
+                data={this.state.showAvencadoGraph ? data : dataAll}
                 margin={{
                   top: 30,
                   right: 30,
@@ -139,8 +167,10 @@ class ClientDataTab extends Component {
                 
                 <XAxis dataKey="mesAbrev" axisLine={false} tickLine={false} />
                 <Tooltip content={CustomTooltip} cursor={{ fill: '#F5F7FD', radius:[10,10,0,0] }} />
-                <Bar dataKey="horas" radius={[10, 10, 0, 0]}>
-                  {data.map((entry, index) => (
+                
+                <Bar dataKey="horas" radius={[10, 10, 0, 0]} fill="#1de9b6">
+                  {this.state.showAvencadoGraph? 
+                  data.map((entry, index) => (
                     <Cell
                       key={index}
                       fill={
@@ -151,15 +181,17 @@ class ClientDataTab extends Component {
                             : '#1de9b6'
                       }
                     />
-                  ))}
+                  ))
+                  : null}
                   <LabelList dataKey="horas" content={renderCustomizedLabel} />
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
-          ) : (
-            <ResponsiveContainer width={600} height={300}>
+          )
+          : (
+            <ResponsiveContainer>
               <BarChart
-                data={data}
+                data={dataAll}
                 margin={{
                   top: 30,
                   right: 30,
