@@ -378,6 +378,7 @@ class AllTasksContainer extends Component {
   }
 
   render() {
+    console.log(this.state.taskContent)
     return (
       <AllTasks
         userRole={this.props.userInfo.ref_id_role}

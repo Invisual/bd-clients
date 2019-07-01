@@ -105,6 +105,19 @@ export const TaskDetail = props => {
                   )}
                 </div>
               </div>
+              {props.concluded && props.taskContent.details[0].user_approved_task ?
+                <div className="task-stateinfo-section">
+                  <h4 className="task-stateinfo-title">Actualizações de Estado</h4>
+                  <div className="task-approval-user">
+                    <img src={props.taskContent.details[0].avatar_approved_user} alt={props.taskContent.details[0].name_approved_user} title={props.taskContent.details[0].name_approved_user} />
+                    <span className="approval-user">{props.taskContent.details[0].name_approved_user}</span>
+                    <span className="approval-date">{moment(props.taskContent.details[0].date_approved_task).format('D MMM YYYY')}</span>
+                    <span className="approval-status">Aprovado</span>
+                  </div>
+                </div>
+              :
+                null
+              }
               {props.taskContent.details[0].ref_id_type_task === 3 ?
                 <div className="task-billing-section">
                   <div className="billing-icon">

@@ -96,6 +96,19 @@ class ProjectReviewTab extends React.Component {
             </div>
           </div>
         </div>
+        {this.props.concluded && this.props.projectContent.details[0].user_approved_project ?
+          <div className="project-stateinfo-section">
+            <h4 className="project-stateinfo-title">Actualizações de Estado</h4>
+            <div className="project-approval-user">
+              <img src={this.props.projectContent.details[0].avatar_approved_user} alt={this.props.projectContent.details[0].name_approved_user} title={this.props.projectContent.details[0].name_approved_user} />
+              <span className="approval-user">{this.props.projectContent.details[0].name_approved_user}</span>
+              <span className="approval-date">{moment(this.props.projectContent.details[0].date_approved_project).format('D MMM YYYY')}</span>
+              <span className="approval-status">Aprovado</span>
+            </div>
+          </div>
+        :
+          null
+        }
         <div className="project-billing-section">
           <div className="billing-icon">
             <FiAlertTriangle color="#5e78dd" />

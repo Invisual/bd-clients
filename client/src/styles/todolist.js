@@ -3,10 +3,14 @@ import { themeConsts } from './themeConsts';
 
 export const TodoListDashboardDiv = styled.div`
 
+    .mytodo-container{
+        height: 82%;
+        overflow-y: scroll;
+        margin-top: 15px;
+    }
+
     .todo-scroll-container{
-        overflow: scroll;
         height:216px;
-        margin-top:25px;
 
         .single-todo{
             margin-top:6px;

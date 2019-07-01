@@ -351,6 +351,7 @@ class AllProjectsContainer extends Component {
   }
 
   render() {
+    console.log(this.state.projectContent)
     return (
       <AllProjects
         userRole={this.props.userInfo.ref_id_role}

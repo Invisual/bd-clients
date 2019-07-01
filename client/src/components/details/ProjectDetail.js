@@ -63,13 +63,13 @@ export const ProjectDetail = props => {
               {(() => {
                 switch (props.activeTab) {
                   case 'projectreview':
-                    return <ProjectReviewTab projectContent={props.projectContent} openCostsModal={props.openCostsModal} openModal={props.openModal} type={props.type}/>;
+                    return <ProjectReviewTab projectContent={props.projectContent} openCostsModal={props.openCostsModal} openModal={props.openModal} type={props.type} concluded={props.concluded}/>;
                   case 'projecttasks':
                     return <ProjectTasksTab projectContent={props.projectContent} />;
                   case 'projectcomments':
                     return <ProjectCommentsTab projectContent={props.projectContent} />;
                   default:
-                    return <ProjectReviewTab projectContent={props.projectContent} openCostsModal={props.openCostsModal} openModal={props.openModal} type={props.type}/>;
+                    return <ProjectReviewTab projectContent={props.projectContent} openCostsModal={props.openCostsModal} openModal={props.openModal} type={props.type} concluded={props.concluded}/>;
                 }
               })()}
             </div>

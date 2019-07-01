@@ -338,12 +338,12 @@ export const AllSingleProjectDiv = styled.div`
  
 export const SingleToDoDiv = styled.div`
   display: grid;
-  grid-template-columns: 10% 90%;
+  grid-template-columns: 7% 88% 5%;
   color: ${themeConsts.textDarkGrey};
+  padding: 10px 0;
  
   .todo-text {
     margin: 0;
-    padding: 14px 0;
     font-size: 1em;
     font-size: 1.2em;
     line-height: 1.4em;
@@ -353,6 +353,22 @@ export const SingleToDoDiv = styled.div`
     margin: auto 0;
     position: relative;
     cursor: pointer;
+  }
+
+  .todo-delete{
+    cursor: pointer;
+
+    span{
+      color:${themeConsts.textLighterGrey};
+      transform: rotate(45deg);
+      font-weight: 100;
+      font-size: 1.4em;
+    }
+  }
+
+  .todo-text, .todo-status, .todo-delete{
+    display: flex;
+    align-items: center;
   }
  
   svg {

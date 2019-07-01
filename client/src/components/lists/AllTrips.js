@@ -35,11 +35,14 @@ export const AllTrips = props => {
                                                 </div>
 
                                                 <div className="trip-info">
-                                                    <h4>{moment(trip.date_trip).format('ll')} <span>{trip.name_vehicle}</span></h4>
+                                                    <div className="trip-date-time">
+                                                        <h5>{moment(trip.date_trip).format('DD MMM YYYY')}</h5>
+                                                        <span className="trip-hours">{trip.start_hour} - {trip.end_hour}</span>
+                                                    </div>
                                                     <p>{trip.description_trip}</p>
                                                     <div className="trip-meta">
-                                                        <span className="trip-date">{trip.start_hour}h até {trip.end_hour}h</span>
                                                         <span className="trip-kms">{trip.kms_trip} kms</span>
+                                                        <span className="trip-vehicle">{trip.name_vehicle}</span>
                                                     </div>
                                                 </div>
 
@@ -59,9 +62,10 @@ export const AllTrips = props => {
                             </div>
                             <div className="trips-row car-mileage">
                                 <div className="mileage-content">
-                                    <p> Quilometragem Atual</p>
-                                    <span>{props.trips[props.trips.length-1].end_kms} kms</span>
+                                    <h2>{props.trips[props.trips.length-1].end_kms} km</h2>
+                                    <p> Quilometragem atual</p>
                                 </div>
+                                <div className="mileage-background"></div>
                             </div>
                         </div>
                     :

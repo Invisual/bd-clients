@@ -379,7 +379,51 @@ export const TaskDetailsDiv = styled.div`
 
       }
 
-      .billing-costs-section{
+      .task-stateinfo-section{
+      border-top: 1px solid #e6e6e6;
+      padding: 20px 0;
+
+      h4{
+        font-weight: 600;
+        font-size: 1.1em;
+        color: ${themeConsts.titlesDarkGrey};
+        margin: 0;
+        margin-bottom: 10px;
+      }
+
+      .task-approval-user{
+        display:flex;
+        align-items:center;
+
+        img{
+          border-radius: 50%;
+          width: 17px;
+          height: 17px;
+          border: 2px solid #0036ff;
+          margin-right: 10px;
+        }
+
+        .approval-user{
+          font-size: 1.2em;
+          font-weight: 500;
+          margin-right: 5px;
+        }
+
+        .approval-date{
+          font-size: 1.1em;
+          font-style: italic;
+          margin-right: 10px;
+        }
+
+        .approval-status{
+          font-size: 1.15em;
+          color: #7f9aff;
+        }
+
+      }
+    }
+
+    .billing-costs-section{
         margin-right: 30px;
         border-top: 1px solid #e6e6e6;
         padding: 25px 0;
@@ -398,39 +442,40 @@ export const TaskDetailsDiv = styled.div`
         padding-top: 1px;
       
           .costs-list-header{
-              display:grid;
-              grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-              background: ${themeConsts.tableColor1};
-              border-bottom: 2px solid ${themeConsts.white};
-              border-radius: 4px;
+            display:grid;
+            grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1fr .5fr;
+            background: ${themeConsts.tableHeader};
 
               h5{
-                  text-align:center;
-                  color:${themeConsts.textDarkGrey};
-                  font-size: 1.04em;
+                text-align:left;
+                margin-left:15px;
+                margin-top:10px;
+                margin-bottom:10px;
+                color:${themeConsts.titlesDarkGrey};
+                font-size: 1.34em;
               }
           }
           .costs-list-row{
-              display:grid;
-              grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-              padding: 6px 0;
-              border-bottom: 2px solid ${themeConsts.white};
-              border-radius: 4px;
+            display:grid;
+            grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1fr .5fr;
+            padding: 4px 0;
+            background-color:${themeConsts.white};
+            border-bottom: 1px solid ${themeConsts.tableListBorder};
 
               p{
-                  text-align:center;
-                  color:${themeConsts.textLightGrey};
-                  font-size: 1em;
+                text-align:left;
+                margin-left:15px;
+                color:${themeConsts.textDarkerGrey};
+                font-weight:500;
+                font-size: 1.1em;
               }
           }
-          .costs-list-row:nth-child(odd){
-              background-color:${themeConsts.tableColor1}
-          }
-          .costs-list-row:nth-child(even){
-              background-color:${themeConsts.tableColor2}
+          .costs-list-row:hover{
+            background-color:${themeConsts.lightGrey}
           }
         }
       }
+
       .task-billing-section {
         display: grid;
         grid-template-columns: 6% 94%;
@@ -812,6 +857,51 @@ export const ProjectDetailsDiv = styled.div`
         }
       }
     }
+
+    .project-stateinfo-section{
+      border-top: 1px solid #e6e6e6;
+      padding: 20px 0;
+
+      h4{
+        font-weight: 600;
+        font-size: 1.1em;
+        color: ${themeConsts.titlesDarkGrey};
+        margin: 0;
+        margin-bottom: 10px;
+      }
+
+      .project-approval-user{
+        display:flex;
+        align-items:center;
+
+        img{
+          border-radius: 50%;
+          width: 17px;
+          height: 17px;
+          border: 2px solid #0036ff;
+          margin-right: 10px;
+        }
+
+        .approval-user{
+          font-size: 1.2em;
+          font-weight: 500;
+          margin-right: 5px;
+        }
+
+        .approval-date{
+          font-size: 1.1em;
+          font-style: italic;
+          margin-right: 10px;
+        }
+
+        .approval-status{
+          font-size: 1.15em;
+          color: #7f9aff;
+        }
+
+      }
+    }
+
     .project-billing-section {
       display: grid;
       grid-template-columns: 6% 94%;
@@ -1124,20 +1214,47 @@ export const ClientDetailsDiv = styled.div`
             margin: 0;
           }
         }
+        .client-data-options{
+          display: flex;
+          flex-direction: row;
+          justify-content: space-evenly;
+          align-items: center;
 
-        .client-data-year select {
+          button {
+            color: ${themeConsts.placeholderGrey};
+            border: none;
+            padding: 10px 0;
+            min-width: 90px;
+            margin-right: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.16);
+            background-color: ${themeConsts.white};
+            transition: 0.4s ;
+            cursor: pointer;
+          }
+          button:hover {
+            box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.16);
+            color: ${themeConsts.white};
+            background-color: ${themeConsts.secondaryBlue}
+          }
+
+          .client-data-year select {
           width: 100%;
           border: none;
           box-shadow: ${themeConsts.mainShadow};
           border-radius: ${themeConsts.borderRadius};
+          color: ${themeConsts.placeholderGrey};
           padding: 10px 45px 10px 15px;
           -webkit-appearance: none;
           -moz-appearance: none;
           appearance: none;
-          background: url(/img/seta-circulo.svg) 89% / 15% no-repeat #fff;
+          background: url(/img/calendar.svg) 89% / 15% no-repeat #fff;
           background-size: 20px;
           cursor: pointer;
         }
+        }
+
+        
       }
     }
 
@@ -1766,19 +1883,20 @@ export const AllTripsDiv = styled.div`
         margin: 0;
 
         .single-trip{
-          padding: 10px 20px;
+          padding: 12px 20px 9px 20px;
 
           .trip-grid{
             display:grid;
-            grid-template-columns: 10% 85% 5%;
+            grid-template-columns: 8% 87% 5%;
 
             .trip-user{
               display:flex;
               align-items:center;
+              justify-content: center;
 
               img{
-                width: 35px;
-                height: 35px;
+                width: 28px;
+                height: 28px;
                 border-radius: 50%;
                 border: 2px solid #0036ff;
                 margin-right: 10px;
@@ -1787,40 +1905,44 @@ export const AllTripsDiv = styled.div`
 
             .trip-info{
 
-              h4{
-                margin:0;
-                color:${themeConsts.primaryBlue};
-                font-size:1.1em;
-                font-weight:600;
-                margin-top: 8px;
+              .trip-date-time{
+                display: flex;
+                align-items: center;
 
-                span{
-                  margin-left: 20px;
-                  color:${themeConsts.textDarkGrey};
+                h5{
+                  margin:0;
+                  color:${themeConsts.primaryBlue};
+                  font-size: 1.3em;
+                  font-weight: 500;
+                  margin-right: 13px;
+                }
+
+                .trip-hours{
+                  font-size: 1.1em;
+                  color: ${themeConsts.white};
+                  padding: 3px 6px;
+                  background: ${themeConsts.secondaryBlue};
+                  border-radius: 25px;
                 }
               }
 
               p{
-                color:${themeConsts.textLightGrey};
-                font-size: 1.4em;
-                margin-top: 10px;
-                margin-bottom: 20px;
+                color:${themeConsts.titlesDarkGrey};
+                font-size: 1.5em;
+                margin: 10px 0;
               }
 
               .trip-meta{
-                margin-bottom: 10px;
 
-                .trip-date{
-                  font-size: 1.2em;
-                  color: #ffffff;
-                  padding: 5px 10px;
-                  background: ${themeConsts.secondaryBlue};
-                  border-radius: 25px;
-                }
                 .trip-kms{
-                  margin-left:15px;
                   font-size: 1.1em;
                   color:${themeConsts.secondaryBlue};
+                  margin-right:10px;
+                }
+
+                .trip-vehicle{
+                  font-size: 1.1em;
+                  color:${themeConsts.textDarkGrey};
                 }
               }
               
@@ -1855,19 +1977,35 @@ export const AllTripsDiv = styled.div`
 
         .car-mileage{
           display: flex;
+          flex-direction: column;
           align-items: center;
           justify-content: center;
-          text-align:center;
 
-          p{
-            font-size: 2em;
-            color:${themeConsts.textLightGrey};
+          .mileage-content{
+
+            h2{
+              font-size: 5em;
+              font-weight: 300;
+              color:${themeConsts.secondaryBlue};
+              margin:0;
+              text-align:center;
+            }
+
+            p{
+              font-size: 1.8em;
+              color:${themeConsts.textLightGrey};
+              margin:0;
+              text-align:center;
+            }
           }
 
-          span{
-            font-size: 2.5em;
-            font-weight: 600;
-            color:${themeConsts.secondaryBlue};
+          .mileage-background{
+            width:100%;
+            height:350px;
+            background-image:url('/img/truck.svg');
+            background-size: 100%;
+            background-repeat: no-repeat;
+            margin-top: 25px;
           }
         }
       }

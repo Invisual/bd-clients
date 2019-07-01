@@ -21,6 +21,7 @@ class SingleToDo extends Component {
       <SingleToDoDiv className="single-todo">
         <div className="todo-status" onClick={() => this.props.changeToDoStatus(this.props.id, this.props.status)}>{todoStatus}</div>
         <div className="todo-text">{this.props.text}</div>
+        <div className="todo-delete" onClick={() => this.props.deleteToDo(this.props.id)}><span>+</span></div>
       </SingleToDoDiv>
     );
   }

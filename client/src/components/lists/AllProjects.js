@@ -128,6 +128,7 @@ export const AllProjects = props => {
             openCostsModal={props.openCostsModal}
             openModal={props.openModal}
             placeholder={props.placeholder}
+            concluded={props.concluded}
           />
         }
         </div>

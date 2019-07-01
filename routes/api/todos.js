@@ -84,4 +84,20 @@ router.put('/userToDoStatus', checkToken, (req, res) => {
   });
 });
 
+
+router.delete('/:id', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) { res.sendStatus(403) }
+    else {
+       connection.query(
+        'DELETE FROM todo_lists WHERE id_todo_list = ?', req.params.id,
+        function(error, results, fields) {
+          if (error) throw error;
+          res.send('deleted');
+        }
+      );
+    }
+  });
+});
+
 module.exports = router;

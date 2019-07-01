@@ -16,6 +16,7 @@ class ProjectDetailContainer extends Component {
         openModal={this.props.openModal}
         type={this.props.type}
         placeholder={this.props.placeholder}
+        concluded={this.props.concluded}
       />
     );
   }

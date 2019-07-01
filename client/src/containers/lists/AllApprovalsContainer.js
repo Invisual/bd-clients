@@ -3,6 +3,7 @@ import { createBrowserHistory } from 'history';
 import { AllApprovals } from '../../components/lists/AllApprovals';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
+import moment from 'moment';
 const axios = require('axios');
 const history = createBrowserHistory();
  
@@ -148,6 +149,7 @@ class AllApprovalsContainer extends Component {
  
   approveActiveItem = (itemId, itemType) => {
     var token = JSON.parse(localStorage.getItem('token'));
+    var user = JSON.parse(localStorage.getItem('user'));
     var AuthStr = 'Bearer ' + token;
     Swal.fire({
     title: 'Tem a certeza?',
@@ -167,8 +169,10 @@ class AllApprovalsContainer extends Component {
             billing : this.state.itemContent.details[0].billed,
             title: this.state.itemContent.details[0].title,
             mode: this.state.itemContent.details[0].name_billing_mode,
+            user: user.id_user,
+            date: moment(new Date()).format('YYYY-MM-DD')
           }
- 
+          
             axios.put(`/api/misc/approvals/`, data, { headers: { Authorization: AuthStr } }).then( res => {
                 Swal.fire('Aprovado!', '', 'success').then(click => {
                     this.setState({activeItem: '', activeType:'', reloadItems: true})

@@ -142,8 +142,8 @@ router.post('/costs', checkToken, (req, res) => {
         for (var i = 0, count = req.body.services.length; i < count; i++) {
           var countRows = 0
           var priceDifference = req.body.sellPrices[i].input - req.body.providerPrices[i].input
-          connection.query('INSERT INTO costs (service, provider, cost_provider, price_sale, price_difference, ref_id_task, type_cost) VALUES(?, ?, ?, ?, ?, ?, ?)',
-            [req.body.services[i].input, req.body.providers[i].input, req.body.providerPrices[i].input, req.body.sellPrices[i].input, Math.round(priceDifference * 100) / 100, req.body.taskId, req.body.costTypes[i].input],
+          connection.query('INSERT INTO costs (service, provider, cost_provider, price_sale, price_difference, ref_id_task) VALUES(?, ?, ?, ?, ?, ?)',
+            [req.body.services[i].input, req.body.providers[i].input, req.body.providerPrices[i].input, req.body.sellPrices[i].input, Math.round(priceDifference * 100) / 100, req.body.taskId],
             function (error, results, fields) {
               countRows++
               if (error) throw error
@@ -902,6 +902,8 @@ router.put('/approvals', checkToken, (req, res) => {
       var billing = req.body.billing
       var title = req.body.title
       var mode = req.body.mode
+      var user = req.body.user
+      var date = req.body.date
       var subject
       var body
       var link
@@ -940,8 +942,8 @@ router.put('/approvals', checkToken, (req, res) => {
       };
       if (type === 'task') {
         connection.query(
-          'UPDATE tasks SET concluded_task=2 WHERE id_task=?',
-          id,
+          'UPDATE tasks SET concluded_task=2, date_approved_task = ?, user_approved_task = ? WHERE id_task=?',
+          [date, user, id],
           function(error, results, fields) {
             if (error) throw error;
             if (billing === 1 ) {
@@ -960,12 +962,12 @@ router.put('/approvals', checkToken, (req, res) => {
       }
       else if (type === 'project'){
         connection.query(
-          'UPDATE projects SET concluded_project=2 WHERE id_project=?',
-          id,
+          'UPDATE projects SET concluded_project=2, date_approved_project = ?, user_approved_project = ? WHERE id_project=?',
+          [date, user, id],
           function(error, results, fields) {
             if (error) throw error;
             connection.query(
-              'UPDATE tasks SET concluded_task=2 WHERE ref_id_project=?', id,
+              'UPDATE tasks SET concluded_task=2, date_approved_task = ?, user_approved_task = ? WHERE ref_id_project=?', [date, user, id],
               function (error, results, fields) {
                 if (error) throw error;
               }
@@ -986,8 +988,8 @@ router.put('/approvals', checkToken, (req, res) => {
       }
       else {
         connection.query(
-          'UPDATE budgets SET ref_id_budget_internal_status=4 WHERE id_budget=?',
-          id,
+          'UPDATE budgets SET ref_id_budget_internal_status=4, date_approved_budget = ?, user_approved_budget = ? WHERE id_budget=?',
+          [date, user, id],
           function(error, results, fields) {
             if (error) throw error;
             res.send(results);

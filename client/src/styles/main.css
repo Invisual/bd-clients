@@ -144,6 +144,14 @@ body.collapsed-sidebar .topbar-goback {
   padding-right: 10px;
 }
 
+.single-todo .todo-delete span{
+  opacity:0;
+}
+
+.single-todo:hover .todo-delete span{
+  opacity: 1;
+}
+
 .todo {
   border: 1px solid #f50057;
 }

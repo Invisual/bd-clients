@@ -28,10 +28,6 @@ class MyToDoContainer extends Component {
     })
   }
 
-  componentDidMount() {
-    this.getTodos()
-  }
-
   changeToDoStatus = (todoId, currStatus) => {
     var token = JSON.parse(localStorage.getItem('token'))
     var AuthStr = 'Bearer ' + token
@@ -81,6 +77,20 @@ class MyToDoContainer extends Component {
     })
   }
 
+  deleteToDo = id => {
+    var token = JSON.parse(localStorage.getItem('token'))
+    var AuthStr = 'Bearer ' + token
+    axios.delete(`/api/todos/${id}`, { headers: { Authorization: AuthStr } }).then(res => {
+      if(res.data === 'deleted'){
+        this.props.changeShouldTodosUpdate(true)
+      }
+    })
+  }
+
+  componentDidMount() {
+    this.getTodos()
+  }
+
   componentDidUpdate(prevProps, prevState){
     if(prevProps.shouldTodosUpdate !== this.props.shouldTodosUpdate){
       if(this.props.shouldTodosUpdate){
@@ -105,6 +115,7 @@ class MyToDoContainer extends Component {
         closeTextAreaModal={this.closeTextAreaModal}
         changeTextAreaVal={this.changeTextAreaVal}
         addToDo={this.addToDo}
+        deleteToDo={this.deleteToDo}
       />
     );
   }

@@ -24,6 +24,7 @@ export const MyToDo = props => {
                       text={todo.title_list}
                       status={todo.status_list}
                       changeToDoStatus={props.changeToDoStatus}
+                      deleteToDo={props.deleteToDo}
                     />
                   );
                 })}
@@ -76,6 +77,7 @@ export const MyToDo = props => {
                       text={todo.title_list}
                       status={todo.status_list}
                       changeToDoStatus={props.changeToDoStatus}
+                      deleteToDo={props.deleteToDo}
                     />
                   );
                 })}
