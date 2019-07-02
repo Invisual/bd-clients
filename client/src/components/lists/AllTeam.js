@@ -15,7 +15,7 @@ export const AllTeam = props => {
         <div className="grid-widget tasks-title">
           <h4 className="widget-title">Equipa</h4>
           <div className="grid-widget left-options">
-          <div className="client-search">
+          <div className="tooltip-container client-search">
             <input
               type="text"
               placeholder="Pesquisa"
@@ -23,6 +23,7 @@ export const AllTeam = props => {
               onChange={props.changeSearchQuery}
             />
             <FiSearch onClick={props.toggleSearchInput} />
+            <span className="tooltip">Pesquisar Utilizadores</span>
           </div>
           {props.userRole === 3 || props.userRole === 2 ? (
             <div className="tooltip-container">

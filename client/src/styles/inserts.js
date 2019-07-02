@@ -122,7 +122,7 @@ export const InsertFormDiv = styled.div`
       }
 
       textarea {
-        height: 195px;
+        height: 120px;
         padding: 18px;
         box-sizing: border-box;
         text-indent: 0;

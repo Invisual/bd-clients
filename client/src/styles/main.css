@@ -54,8 +54,8 @@ select:focus {
 }
 
 .hamburguer-icon .hamburguer-bar{
-  width: 31px;
-  height: 3px;
+  width: 28px;
+  height: 2px;
   margin-bottom: 5px;
   background-color: #0036ff;
   border-radius: 10px;

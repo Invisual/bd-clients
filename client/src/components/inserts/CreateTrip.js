@@ -11,7 +11,7 @@ export const CreateTrip = props => {
         return <Redirect to={`/trips`} />
     }
     return (
-        <InsertFormDiv>
+        <InsertFormDiv className="insert-edit-form">
 
                 <div className="cards-container form-container">
 

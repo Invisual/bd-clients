@@ -20,7 +20,7 @@ export const CreateProject = props => {
     }
 
     return (
-        <InsertFormDiv>
+        <InsertFormDiv className="insert-edit-form">
 
             {props.categoriesData.length > 0 ? 
 

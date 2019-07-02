@@ -11,7 +11,7 @@ export const CreateVacation = props => {
         return <Redirect to={`/team`} />
     }
     return (
-        <InsertFormDiv>
+        <InsertFormDiv className="insert-edit-form">
 
                 <div className="cards-container form-container">
 

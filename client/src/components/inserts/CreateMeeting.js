@@ -11,7 +11,7 @@ export const CreateMeeting = props => {
     }
     
     return (
-        <InsertFormDiv>
+        <InsertFormDiv className="insert-edit-form">
             
             {props.usersData.length > 0 ? 
 
