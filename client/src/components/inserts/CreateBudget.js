@@ -1,13 +1,10 @@
 import React from 'react';
 import { InsertFormDiv } from '../../styles/inserts'
 import { Redirect } from 'react-router'
-import DatePicker from 'react-date-picker'
-import { FiCalendar } from 'react-icons/fi';
 import {createBrowserHistory} from 'history'
 const history = createBrowserHistory()
 
 export const CreateBudget = props => {
-     console.log(props.budgetData)
     if (props.redirect) {
         switch(props.type) {
             case 'edit':
@@ -53,7 +50,7 @@ export const CreateBudget = props => {
                                 <div className="input-wrapper">
                                     <fieldset>
                                         <legend>Cliente</legend>
-                                        <select required id="project-client" onChange={props.changeClientInput} defaultValue={props.type === 'edit' ? props.clientInput : '0'} required>
+                                        <select required id="project-client" onChange={props.changeClientInput} defaultValue={props.type === 'edit' ? props.clientInput : '0'}>
                                             <option value="0" disabled>Selecionar</option>
                                             {props.clientsData.map(client => {
                                                 return <option key={client.id_client} value={client.id_client}>{client.name_client}</option>

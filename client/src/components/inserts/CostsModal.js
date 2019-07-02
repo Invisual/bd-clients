@@ -74,7 +74,6 @@ export const CostsModal = props => {
                             <h5>Preço Venda</h5>
                             <h5>Diferença</h5>
                             {/*<h5>Tipo de Custo</h5>*/}
-                            <h5></h5>
                         </div>
                         {props.costs.map(cost => {
                             /*var type = ''

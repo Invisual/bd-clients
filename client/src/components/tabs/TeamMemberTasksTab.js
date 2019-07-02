@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import moment from 'moment'
 
 export const TeamMemberTasksTab = props => {
-    console.log(props.memberContent)
   return (
     <div className="user-tasks-content">
         {props.memberContent.currentTasks.length === 0 ?

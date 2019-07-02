@@ -5,7 +5,7 @@ import moment from 'moment';
 import 'moment/locale/pt';
 import 'moment-duration-format';
 import { Circle } from 'rc-progress';
-import { FiClock, FiUser, FiSend, FiClipboard, FiMoreHorizontal } from 'react-icons/fi';
+import { FiClock, FiUser, FiSend, FiClipboard } from 'react-icons/fi';
 
 export const BudgetDetail = props => {
   return (

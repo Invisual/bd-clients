@@ -62,7 +62,7 @@ class CostsModalContainer extends Component{
     changeServiceInput = (e, id) => {
         var serviceInput = [...this.state.serviceInput]
         if(this.state.serviceInput.filter(obj => obj.id === id).length>0){
-            var copy = serviceInput.filter(obj => obj.id==id)
+            var copy = serviceInput.filter(obj => obj.id===id)
             copy[0].input = e.target.value
             serviceInput = serviceInput.filter(obj => obj.id !== id)
             serviceInput.push(copy[0])
@@ -77,7 +77,7 @@ class CostsModalContainer extends Component{
     changeProviderInput = (e, id) => {
         var providerInput = [...this.state.providerInput]
         if(this.state.providerInput.filter(obj => obj.id === id).length>0){
-            var copy = providerInput.filter(obj => obj.id==id)
+            var copy = providerInput.filter(obj => obj.id===id)
             copy[0].input = e.target.value
             providerInput = providerInput.filter(obj => obj.id !== id)
             providerInput.push(copy[0])
@@ -92,7 +92,7 @@ class CostsModalContainer extends Component{
     changeProviderPriceInput = (e, id) => {
         var providerPriceInput = [...this.state.providerPriceInput]
         if(this.state.providerPriceInput.filter(obj => obj.id === id).length>0){
-            var copy = providerPriceInput.filter(obj => obj.id==id)
+            var copy = providerPriceInput.filter(obj => obj.id===id)
             copy[0].input = e.target.value
             providerPriceInput = providerPriceInput.filter(obj => obj.id !== id)
             providerPriceInput.push(copy[0])
@@ -107,7 +107,7 @@ class CostsModalContainer extends Component{
     changeSellPriceInput = (e, id) => {
         var sellPriceInput = [...this.state.sellPriceInput]
         if(this.state.sellPriceInput.filter(obj => obj.id === id).length>0){
-            var copy = sellPriceInput.filter(obj => obj.id==id)
+            var copy = sellPriceInput.filter(obj => obj.id===id)
             copy[0].input = e.target.value
             sellPriceInput = sellPriceInput.filter(obj => obj.id !== id)
             sellPriceInput.push(copy[0])
@@ -136,8 +136,9 @@ class CostsModalContainer extends Component{
 
     insertCosts = (e) => {
         e.preventDefault()
+        var data
         if(this.props.type === 'task'){
-            var data = {
+            data = {
                 type: this.props.type,
                 services: this.state.serviceInput,
                 providers: this.state.providerInput,
@@ -148,7 +149,7 @@ class CostsModalContainer extends Component{
             }
         }
         else{
-            var data = {
+            data = {
                 type: this.props.type,
                 services: this.state.serviceInput,
                 providers: this.state.providerInput,
@@ -162,7 +163,6 @@ class CostsModalContainer extends Component{
         var AuthStr = 'Bearer ' + token;
         axios.post('/api/misc/costs', data, { headers: { Authorization: AuthStr } })
         .then(res => {
-            console.log(res)
             if(res.data.affectedRows){
                 Swal.fire({
                     type: 'success',

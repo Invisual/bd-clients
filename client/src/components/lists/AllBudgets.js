@@ -4,7 +4,7 @@ import MyBudgetsContainer from '../../containers/tables/MyBudgetsContainer';
 import BudgetDetailContainer from '../../containers/details/BudgetDetailContainer';
 import OptionsContainer from '../../containers/options/OptionsContainer';
 import BudgetFilters from '../options/BudgetFilters';
-import { FiFilePlus, FiFilter, FiUserCheck } from 'react-icons/fi';
+import { FiFilePlus, FiFilter } from 'react-icons/fi';
 import { Redirect, Link } from 'react-router-dom';
 
 export const AllBudgets = props => {

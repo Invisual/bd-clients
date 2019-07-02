@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AllProjectsDiv } from '../../styles/listings';
 import MyProjectsContainer from '../../containers/tables/MyProjectsContainer';
 import ProjectDetailContainer from '../../containers/details/ProjectDetailContainer';
@@ -10,9 +10,6 @@ import ProjectFilters from '../options/ProjectFilters';
 import { FiFolderPlus, FiFilter, FiUserCheck, FiSearch } from 'react-icons/fi';
 
 export const AllProjects = props => {
-  /*if (props.reloadProjects) {
-    return <Redirect to='/projects' />;
-  }*/
   
   return (
     <AllProjectsDiv className="dashboard-container">

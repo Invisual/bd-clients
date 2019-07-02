@@ -56,7 +56,6 @@ class MyBudgetsContainer extends Component {
   getBudgets = () => {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
-    var user = JSON.parse(localStorage.getItem('user'));
     var url = '/api/budgets/all'
     
     axios.get(url, { headers: { Authorization: AuthStr } }).then(res => {
@@ -70,9 +69,7 @@ class MyBudgetsContainer extends Component {
 
   startCountingHours = (budgetId, budgetTitle) => {
     if(this.props.activeBudgetHours !== undefined && this.props.activeBudgetHours !== null){
-      console.log('primeiro if')
       if(this.props.activeBudgetHours.length > 0 || this.props.activeHours.length > 0){
-        console.log('tem horas ja')
         Swal.fire({
           type: 'error',
           title: 'Erro!',

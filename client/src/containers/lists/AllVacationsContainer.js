@@ -26,7 +26,7 @@ class AllVacationsContainer extends Component {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
     axios.get(`/api/misc/vacations`, { headers: { Authorization: AuthStr } }).then(res => {
-        this.setState({ vacations: res.data, isLoading: false }, () => console.log(this.state.vacations));
+        this.setState({ vacations: res.data, isLoading: false });
     });
   };
 

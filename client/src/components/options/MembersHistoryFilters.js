@@ -45,7 +45,6 @@ class MembersHistoryFilters extends Component{
     }
 
     render(){
-        console.log(this.props.filters.startDate)
         return (
             <FiltersDiv className="members-history-filters options-filters">
 

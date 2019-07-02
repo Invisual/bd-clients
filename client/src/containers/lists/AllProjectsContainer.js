@@ -121,7 +121,6 @@ class AllProjectsContainer extends Component {
       });
     } else {
       if (this.props.isShare) {
-        console.log('is share')
         if(this.props.concluded){
           history.replace({pathname :'/concludedprojects'})
         } else {
@@ -145,10 +144,11 @@ class AllProjectsContainer extends Component {
               });
           });
       } else {
+        var url
         if(this.props.concluded){
-          var url = '/api/projects/concluded'
+          url = '/api/projects/concluded'
         } else {
-          var url = this.props.userInfo.ref_id_role === 3 || this.props.userInfo.ref_id_role === 2 ? `/api/projects` : `/api/projects/${idUser.id_user}`
+          url = this.props.userInfo.ref_id_role === 3 || this.props.userInfo.ref_id_role === 2 ? `/api/projects` : `/api/projects/${idUser.id_user}`
         }
         axios
           .get(url, { headers: { Authorization: AuthStr } })
@@ -351,7 +351,6 @@ class AllProjectsContainer extends Component {
   }
 
   render() {
-    console.log(this.state.projectContent)
     return (
       <AllProjects
         userRole={this.props.userInfo.ref_id_role}

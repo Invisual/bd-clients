@@ -35,7 +35,7 @@ class CreateTripContainer extends Component{
         var token = JSON.parse(localStorage.getItem('token'));
         var AuthStr = 'Bearer ' + token;
         axios.get('/api/misc/vehicles', { headers: { Authorization: AuthStr } })
-        .then(res => this.setState({vehiclesList: res.data}, () => console.log(this.state.vehiclesList)))
+        .then(res => this.setState({vehiclesList: res.data}))
     }
 
     getTripData = () => {

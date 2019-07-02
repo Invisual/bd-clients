@@ -31,7 +31,7 @@ import VacationsApprovalContainer from './containers/approvals/VacationsApproval
 import VacationsRejectContainer from './containers/approvals/VacationsRejectContainer';
 import './styles/main.css';
 import './styles/queries.css';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import moment from 'moment'
 import 'moment/locale/ru';
 

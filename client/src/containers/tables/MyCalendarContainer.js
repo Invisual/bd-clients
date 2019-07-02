@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-import { MyCalendar } from '../../components/tables/MyCalendar';
-import {Link} from 'react-router-dom'
+import React, { Component } from 'react'
+import { MyCalendar } from '../../components/tables/MyCalendar'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 import moment from 'moment'
@@ -148,7 +147,7 @@ class MyCalendarContainer extends Component {
                     </div></a>
                   `
               }
-              else if(event.id_meeting){
+              else{
                   return `
                     <div class="modal-single-meeting calendar-modal-content">
                       <div class="modal-event-meta ${meetingTypeClass}">

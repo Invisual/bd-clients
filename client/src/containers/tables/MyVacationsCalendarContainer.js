@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-import { MyVacationsCalendar } from '../../components/tables/MyVacationsCalendar';
-import Swal from 'sweetalert2/dist/sweetalert2.js'
+import React, { Component } from 'react'
+import { MyVacationsCalendar } from '../../components/tables/MyVacationsCalendar'
 import 'sweetalert2/src/sweetalert2.scss'
 import moment from 'moment'
 
@@ -83,31 +82,37 @@ class MyVacationsCalendarContainer extends Component {
         month: {
           dateHeader: ({ date, label }) => {
             let hasVacationsOnThisDay =
-              this.props.vacations.find(vac =>
-                moment(date).isBetween(
-                  moment(vac.start_date),
-                  moment(vac.end_date),
-                  null,
-                  "[]"
-                )
+              this.props.vacations.find(vac => {
+                  if(vac.type_vacation === 1){
+                    return moment(date).isSame(moment(vac.start_date))
+                  }
+                  else{
+                    return moment(date).isBetween(
+                      moment(vac.start_date),
+                      moment(vac.end_date),
+                      null,
+                      "[]"
+                    )
+                  }
+                }
               ) !== undefined;
 
-            let vacationsOnThisDay = this.props.vacations.filter(vac => {
+            /*let vacationsOnThisDay = this.props.vacations.filter(vac => {
               return moment(date).isBetween(
                 moment(vac.start_date),
                 moment(vac.end_date),
                 null,
                 "[]"
               )
-            })
+            })*/
 
-            let mapVacationsOnThisDay = vacationsOnThisDay.map(vac => { 
+            /*let mapVacationsOnThisDay = vacationsOnThisDay.map(vac => { 
               return `
                 <div class="modal-single-vacation">
                   <h4>${vac.start_date}</h4>
                 </div>
               `
-            }).join('')
+            }).join('')*/
 
             var dayClass = '';
             dayClass += hasVacationsOnThisDay ? 'has-vacation' : '';

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import { FiUser, FiClock, FiFileText, FiCheck, FiClipboard } from 'react-icons/fi'
 import { Link } from 'react-router-dom';
 import moment from 'moment'
@@ -27,7 +27,7 @@ export const TeamMemberHistoryTab = props => {
                             </div>
                             {props.memberContent.tasks.filter(task => Number(task.ref_id_project) === Number(project.id_project))
                                 .map(task => {
-                                   return <>
+                                   return <Fragment key={task.id_task}>
                                             <div className="project-single-task" key={task.id_task}>
                                                 <FiFileText/>
                                                 <Link to={'/tasks/'+task.id_task}><h4>{task.title_task}</h4></Link>
@@ -44,7 +44,7 @@ export const TeamMemberHistoryTab = props => {
                         
                                                 })}
                                             </div>
-                                         </>
+                                         </Fragment>
                                 })
                             }
                         </div>
@@ -58,7 +58,7 @@ export const TeamMemberHistoryTab = props => {
                         <h2>Tarefas Diárias</h2>
                         {
                             tarefasDiarias.map(task => {
-                                return <>
+                                return <Fragment key={task.id_task}>
                                         <div className="project-single-task" key={task.id_task}>
                                             <FiFileText/>
                                             <Link to={'/tasks/'+task.id_task}><h4>{task.title_task}</h4></Link>
@@ -76,7 +76,7 @@ export const TeamMemberHistoryTab = props => {
                     
                                             })}
                                         </div>
-                                       </>
+                                       </Fragment>
                             })
                         }
                     </div>
@@ -91,7 +91,7 @@ export const TeamMemberHistoryTab = props => {
                         <h2>Tarefas Externas</h2>
                         {
                             tarefasExternas.map(task => {
-                                return <>
+                                return <Fragment key={task.id_task}>
                                          <div className="project-single-task" key={task.id_task}>
                                              <FiFileText/>
                                              <Link to={'/tasks/'+task.id_task}><h4>{task.title_task}</h4></Link>
@@ -109,7 +109,7 @@ export const TeamMemberHistoryTab = props => {
                         
                                              })}
                                          </div>
-                                       </>
+                                       </Fragment>
                             })
                         }
                     </div>
@@ -124,7 +124,7 @@ export const TeamMemberHistoryTab = props => {
                         <h2>Tarefas Isoladas</h2>
                         {
                             tarefasIsoladas.map(task => {
-                                return <>
+                                return <Fragment key={task.id_task}>
                                          <div className="project-single-task" key={task.id_task}>
                                              <FiFileText/>
                                              <Link to={'/tasks/'+task.id_task}><h4>{task.title_task}</h4></Link>
@@ -142,7 +142,7 @@ export const TeamMemberHistoryTab = props => {
                         
                                              })}
                                          </div>
-                                       </>
+                                       </Fragment>
                             })
                         }
                     </div>
@@ -157,7 +157,7 @@ export const TeamMemberHistoryTab = props => {
                         <h2>Orçamentos</h2>
                         {
                             budgets.map(budget => {
-                                return <>
+                                return <Fragment key={budget.id_budget}>
                                          <div className="project-single-task" key={budget.id_budget}>
                                              <FiClipboard/>
                                              <Link to={'/budgets/'+budget.id_budget}><h4>{budget.title_budget}</h4></Link>
@@ -173,7 +173,7 @@ export const TeamMemberHistoryTab = props => {
                                                 return <span key={hour.id_budget_hour}><b>{moment(hour.day).format('DD MMM')}:</b> {moment(hour.beginning_hour, 'HHmmss').format('HH:mm')} - {moment(hour.ending_hour, 'HHmmss').format('HH:mm')}</span>
                                             })}
                                          </div>
-                                       </>
+                                       </Fragment>
                             })
                         }
                     </div>

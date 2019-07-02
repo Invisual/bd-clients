@@ -415,7 +415,7 @@ router.post('/vacations', checkToken, (req, res) => {
 
           const mailOptions = {
             from: '"TAREFAS INVISUAL" <tarefas@invisual.pt>',
-            to: `eduardo.araujo@invisual.pt`,
+            to: `contabilidade@invisual.pt`,
             subject: 'Pedido de Férias para Aprovação',
             html: `
                 <h4>Tarefas - Invisual</h4>
@@ -504,7 +504,7 @@ router.put('/approvevacation/accounting', checkToken, (req, res) => {
 
             const mailOptions = {
               from: '"TAREFAS INVISUAL" <tarefas@invisual.pt>',
-              to: `eduardo.araujo@invisual.pt`,
+              to: `nuno.carvalho@invisual.pt`,
               subject: 'Pedido de Férias para Aprovação',
               html: `
                   <h4>Tarefas - Invisual</h4>

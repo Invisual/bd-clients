@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {SidebarDiv} from '../../styles/navigation';
-import { FiHome, FiFolder, FiLogOut, FiFileText, FiCalendar, FiBookmark, FiUsers, FiEdit, FiUser, FiInbox } from 'react-icons/fi';
+import { FiHome, FiFolder, FiFileText, FiCalendar, FiBookmark, FiUsers, FiUser, FiInbox } from 'react-icons/fi';
 import { NavLink, withRouter } from 'react-router-dom';
 
 class SideBar extends Component {

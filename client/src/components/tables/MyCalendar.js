@@ -14,7 +14,6 @@ export const MyCalendar = (props) => {
                 events={props.meetings}
                 startAccessor="start"
                 endAccessor="end"
-                onSelectEvent={(event, e) => console.log(event)}
                 views={['month']}
                 formats={props.formats}
                 dayPropGetter={props.customDayPropGetter}

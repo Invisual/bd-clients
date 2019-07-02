@@ -163,10 +163,11 @@ class AllTasksContainer extends Component {
             });
           });
       } else {
+        var url
         if(this.props.concluded){
-          var url = '/api/tasks/concluded'
+          url = '/api/tasks/concluded'
         } else {
-          var url = this.props.userInfo.ref_id_role === 3 || this.props.userInfo.ref_id_role === 2 ? `/api/tasks/all` : `/api/tasks/${idUser.id_user}`
+          url = this.props.userInfo.ref_id_role === 3 || this.props.userInfo.ref_id_role === 2 ? `/api/tasks/all` : `/api/tasks/${idUser.id_user}`
         }
         axios
           .get(url, { headers: { Authorization: AuthStr } })
@@ -378,7 +379,6 @@ class AllTasksContainer extends Component {
   }
 
   render() {
-    console.log(this.state.taskContent)
     return (
       <AllTasks
         userRole={this.props.userInfo.ref_id_role}

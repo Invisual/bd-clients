@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { MyApprovals } from '../../components/tables/MyApprovals';
-import moment from 'moment';
-import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
  
 const axios = require('axios');
@@ -19,7 +17,6 @@ class MyApprovalsContainer extends Component {
   getApprovalItems = () => {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
-    var user = JSON.parse(localStorage.getItem('user'));
     var url = '/api/misc/approvals'
    
     axios.get(url, { headers: { Authorization: AuthStr } }).then(res => {
@@ -46,7 +43,7 @@ class MyApprovalsContainer extends Component {
           }).filter(approval => {
             return this.props.filters.type === '' ? true : approval.type.toLowerCase() === this.props.filters.type.toLowerCase()
           })
-          }, () => {console.log(this.state.filteredApprovals); this.props.changeActiveItem(this.state.filteredApprovals.length > 0 ? this.state.filteredApprovals[0].id : null, this.state.filteredApprovals.length > 0 ? this.state.filteredApprovals[0].type : null)}) 
+          }, () => { this.props.changeActiveItem(this.state.filteredApprovals.length > 0 ? this.state.filteredApprovals[0].id : null, this.state.filteredApprovals.length > 0 ? this.state.filteredApprovals[0].type : null)}) 
         }
         else{
           this.setState({filteredApprovals : null})

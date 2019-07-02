@@ -25,7 +25,6 @@ export const TeamMemberVacationsTab = props => {
     }
     return string
   }
-  console.log(props.memberContent.details)
   return (
     <UserVacationsDiv 
       title={'dias'} 

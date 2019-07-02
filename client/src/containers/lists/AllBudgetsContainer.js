@@ -87,7 +87,6 @@ class AllBudgetsContainer extends Component {
     } = this.props;
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
-    var idUser = JSON.parse(localStorage.getItem('user'));
     if (this.state.activeBudget) {
       axios.get(`/api/budgets/content/${this.state.activeBudget}`, { headers: { Authorization: AuthStr } }).then(res => {
         this.setState({ budgetContent: res.data, isLoading: false }, () => this.scrollToElementD());

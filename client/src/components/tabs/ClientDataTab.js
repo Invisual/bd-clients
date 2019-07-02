@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ResponsiveContainer, BarChart, Bar, LabelList, XAxis, YAxis, Cell, Tooltip } from 'recharts';
+import { ResponsiveContainer, BarChart, Bar, LabelList, XAxis, Cell, Tooltip } from 'recharts';
 const axios = require('axios');
 
 class ClientDataTab extends Component {
@@ -25,7 +25,7 @@ class ClientDataTab extends Component {
       .then(res => {
         this.setState({ annualData: res.data, isLoading:false })
         var hasNoHours = true
-        res.data.map(hora => {
+        res.data.forEach(hora => {
           if(hora.horas !== 0){
             hasNoHours = false
           }
@@ -39,7 +39,7 @@ class ClientDataTab extends Component {
       .then(res => {
         this.setState({ annualDataAll: res.data, isLoading:false })
         var hasNoHours = true
-        res.data.map(hora => {
+        res.data.forEach(hora => {
           if(hora.horas !== 0){
             hasNoHours = false
           }
@@ -93,7 +93,7 @@ class ClientDataTab extends Component {
 
     const renderCustomizedLabel = (props) => {
       const {
-        x, y, width, height, value,
+        x, y, width, value,
       } = props;
       const radius = 10;
       return (

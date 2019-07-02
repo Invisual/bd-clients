@@ -30,7 +30,7 @@ class AllBillingContainer extends Component {
     };
   }
 
-  changeFilters = (filters) => this.setState({filters: filters}, () => console.log(this.state.filters))
+  changeFilters = (filters) => this.setState({filters: filters})
   changeFiltersAreActive = () => this.setState({filtersAreActive: !this.state.filtersAreActive})
   changePlaceholder = () => this.setState({placeholder: false})
 

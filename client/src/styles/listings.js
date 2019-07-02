@@ -1504,6 +1504,8 @@ export const ClientDetailsDiv = styled.div`
       padding-right: 30px;
       position:relative;
       min-height: 350px;
+      height: 69vh;
+      overflow-y: scroll;
 
       .single-user-task{
         display: grid;
@@ -1727,7 +1729,9 @@ export const ClientDetailsDiv = styled.div`
 
   .member-history-tab {
     padding-right: 40px;
-    padding-top: 10px;
+    height: 69vh;
+    overflow-y: scroll;
+    margin-top: 10px;
 
     .single-member-project:nth-child(1) {
       margin-top: 5px;

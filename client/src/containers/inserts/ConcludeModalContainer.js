@@ -55,7 +55,6 @@ class ConcludeModalContainer extends Component{
         else if((this.state.approvalInput === '0' || this.state.approvalInput === '' ) && this.state.billingInput === '1'){ data.approval = 2; data.billing = 1;}
         else if((this.state.approvalInput === '0' || this.state.approvalInput === '') && (this.state.billingInput === '0' || this.state.billingInput === '')){ data.approval = 2; data.billing = 0;}
 
-        console.log(data)
         var token = JSON.parse(localStorage.getItem('token'));
         var AuthStr = 'Bearer ' + token;
         axios.put('/api/misc/conclude', data, { headers: { Authorization: AuthStr } })

@@ -58,7 +58,7 @@ export const TopBar = props => {
                         </Link>
                       )
                     }
-                    if(notification.type_notification === 2){
+                    else if(notification.type_notification === 2){
                       return (
                         <Link key={notification.id_notification} className="notificationlink" to={`/meetings/${notification.date_meeting}`} onClick={notification.opened === 1 ? null : () => props.setNotificationOpened(notification.id_notification)}>
                         <li className={notification.opened === 1 ? 'notification opened' : 'notification'}>
@@ -71,7 +71,7 @@ export const TopBar = props => {
                         </Link>
                       )
                     }
-                    if(notification.type_notification === 3){
+                    else if(notification.type_notification === 3){
                       return (
                         <Link key={notification.id_notification} className="notificationlink" to={`/projects/${notification.ref_id_project}`} onClick={notification.opened === 1 ? null : () => props.setNotificationOpened(notification.id_notification)}>
                           <li className={notification.opened === 1 ? 'notification opened' : 'notification'}>
@@ -84,7 +84,7 @@ export const TopBar = props => {
                         </Link>
                       )
                     }
-                    if(notification.type_notification === 4){
+                    else if(notification.type_notification === 4){
                       return (
                         <Link key={notification.id_notification} className="notificationlink" to={`/approvals/task/${notification.ref_id_task}`} onClick={notification.opened === 1 ? null : () => props.setNotificationOpened(notification.id_notification)}>
                           <li className={notification.opened === 1 ? 'notification opened' : 'notification'}>
@@ -97,7 +97,7 @@ export const TopBar = props => {
                         </Link>
                       )
                     }
-                    if(notification.type_notification === 5){
+                    else if(notification.type_notification === 5){
                       return (
                         <Link key={notification.id_notification} className="notificationlink" to={`/approvals/project/${notification.ref_id_project}`} onClick={notification.opened === 1 ? null : () => props.setNotificationOpened(notification.id_notification)}>
                           <li className={notification.opened === 1 ? 'notification opened' : 'notification'}>
@@ -110,7 +110,7 @@ export const TopBar = props => {
                         </Link>
                       )
                     }
-                    if(notification.type_notification === 6){
+                    else if(notification.type_notification === 6){
                       return (
                         <Link key={notification.id_notification} className="notificationlink" to={`/billing/task/${notification.ref_id_task}`} onClick={notification.opened === 1 ? null : () => props.setNotificationOpened(notification.id_notification)}>
                           <li className={notification.opened === 1 ? 'notification opened' : 'notification'}>
@@ -123,7 +123,20 @@ export const TopBar = props => {
                         </Link>
                       )
                     }
-                    if(notification.type_notification === 7){
+                    else if(notification.type_notification === 7){
+                      return (
+                        <Link key={notification.id_notification} className="notificationlink" to={`/billing/project/${notification.ref_id_project}`} onClick={notification.opened === 1 ? null : () => props.setNotificationOpened(notification.id_notification)}>
+                          <li className={notification.opened === 1 ? 'notification opened' : 'notification'}>
+                            <FiFolder />
+                            <div className="notification-info">
+                              <p>Um Projeto está pronta para Faturar - {notification.title_project}</p>
+                              <span>{moment(notification.creation_date_notification).format('DD')} de {moment(notification.creation_date_notification).format('MMMM')}</span>
+                            </div>
+                          </li>
+                        </Link>
+                      )
+                    }
+                    else{
                       return (
                         <Link key={notification.id_notification} className="notificationlink" to={`/billing/project/${notification.ref_id_project}`} onClick={notification.opened === 1 ? null : () => props.setNotificationOpened(notification.id_notification)}>
                           <li className={notification.opened === 1 ? 'notification opened' : 'notification'}>

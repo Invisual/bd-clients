@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {CreateBudget} from '../../components/inserts/CreateBudget';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
-import moment from 'moment'
 
 const axios = require('axios');
 

@@ -29,7 +29,6 @@ export default class LoginForm extends Component {
 	}
 
 	componentDidMount() {
-		console.log(this.props.userInfo)
 		const { socket } = this.props
 		socket.emit(VERIFY_USER, this.props.userInfo.username_user, this.setUser)
 	}

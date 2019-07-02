@@ -8,8 +8,6 @@ export const MyMeetings = props => {
   var nextMeetings = props.meetings ? props.meetings.filter(meeting => {
     return meeting.start > now
   }) : []
-  console.log(props.meetings)
-  console.log(nextMeetings)
   switch (props.type) {
     case 'allmeetings':
       content = (

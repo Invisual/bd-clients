@@ -32,7 +32,7 @@ export const ConcludeModal = props => {
                         : 
                             null
                     : 
-                        Number(props.projectContent.details[0].ref_id_billing_mode) == 2 || Number(props.projectContent.details[0].ref_id_billing_mode) == 4 ?
+                        Number(props.projectContent.details[0].ref_id_billing_mode) === 2 || Number(props.projectContent.details[0].ref_id_billing_mode) === 4 ?
                             <div className="inputwrapper">
                                 <fieldset>
                                     <label className="container">Enviar para Faturação

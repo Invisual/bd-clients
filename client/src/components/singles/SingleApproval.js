@@ -6,24 +6,6 @@ import { FiFolder, FiFileText, FiClipboard } from 'react-icons/fi';
 class SingleApproval extends Component {
  
   render() {
-    var taskColor = '';
-    switch (this.props.stateVal) {
-      case 1:
-        taskColor = '#F50057';
-        break;
-      case 2:
-        taskColor = '#1DE9B6';
-        break;
-      case 3:
-        taskColor = '#651FFF';
-        break;
-      case 4:
-        taskColor = '#0036ff';
-        break;
-      default:
-        taskColor = '#F50057';
-    }
- 
     var approvalIcon = '';
     var itemLink = '';
     switch (this.props.itemType) {
@@ -42,7 +24,6 @@ class SingleApproval extends Component {
       default:
         approvalIcon = <FiFolder color="#7F9AFF" />;
     }
-    var projectFolder = <FiFolder />
  
     var singleContent = '';
       if (this.props.type === 'allapprovals'){

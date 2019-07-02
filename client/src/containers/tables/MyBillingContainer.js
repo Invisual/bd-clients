@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { MyBilling } from '../../components/tables/MyBilling';
-import moment from 'moment';
-import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 
 const axios = require('axios');
@@ -19,7 +17,6 @@ class MyBillingContainer extends Component {
   getItems = () => {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
-    var user = JSON.parse(localStorage.getItem('user'));
     axios.get(`api/billing/`, { headers: { Authorization: AuthStr } }).then(res => {
       if (res.data === 'nodata') {
         this.setState({ items: null, isLoading: false });

@@ -1,25 +1,13 @@
 import React, { Component } from 'react';
 import { SingleProjectDiv, AllSingleProjectDiv, ClientProjectDiv} from '../../styles/singles';
 import { Line } from 'rc-progress';
-import { FiCircle, FiClock, FiUser, FiCheck } from 'react-icons/fi';
+import { FiCircle, FiClock, FiUser } from 'react-icons/fi';
 import { Link } from 'react-router-dom'
 import moment from 'moment';
 import 'moment/locale/pt';
 
 class SingleProject extends Component {
   render() {
-    var projectStatus = '';
-    switch (this.props.stateVal) {
-      case 1:
-        projectStatus = <FiCircle color="#5e78dd" />;
-        break;
-      case 0:
-        projectStatus = <FiCircle fill="#1de9b6" color="#1de9b6" />;
-        break;
-      default:
-        projectStatus = <FiCircle color="#5e78dd" />;
-    }
-
     var content = '';
 
     switch (this.props.type) {
