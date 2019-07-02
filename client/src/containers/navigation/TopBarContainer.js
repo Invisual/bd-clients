@@ -14,6 +14,7 @@ class TopBarContainer extends Component {
       displayDropdownUser: false,
       displayDropdownCreate: false,
       displaySearchInput: '',
+      sideBarForIpad: false
     }
   }
 
@@ -66,6 +67,17 @@ class TopBarContainer extends Component {
     }
   }
 
+  toggleSideBarForIpad = () => {
+    this.setState((prevState) => ({sideBarForIpad: !prevState.sideBarForIpad}), () => {
+      if(this.state.sideBarForIpad){
+        document.body.classList.add('mobile-sidebar')
+      }
+      else{
+        document.body.classList.remove('mobile-sidebar')
+      }
+    })
+  }
+
   componentDidMount(){
     this._isMounted = true;
     document.body.addEventListener('click', (e)=>{this.hideDropdownMenu(e)})
@@ -102,6 +114,7 @@ class TopBarContainer extends Component {
         openModal={this.props.openModal}
         logout={this.props.logout}
         changeEditHourId={this.props.changeEditHourId}
+        toggleSideBarForIpad={this.toggleSideBarForIpad}
       />
     );
   }

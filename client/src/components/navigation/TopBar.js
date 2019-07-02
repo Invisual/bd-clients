@@ -8,7 +8,11 @@ export const TopBar = props => {
   var notSeenNotifications = props.notifications.filter(not => not.seen === 0)
   return (
     <TopBarDiv>
-      
+      <div className="hamburguer-icon" onClick={props.toggleSideBarForIpad}>
+        <div className="hamburguer-bar"></div>
+        <div className="hamburguer-bar"></div>
+        <div className="hamburguer-bar"></div>
+      </div>
       <ul className="main-nav">
       {props.canGoBack ? <li className="topbar-goback"> <FiChevronLeft onClick={props.goBackHistory}/></li> : null}
 

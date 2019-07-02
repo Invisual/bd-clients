@@ -43,6 +43,24 @@ select:focus {
   height: 100%;
 }
 
+.hamburguer-icon{
+  position: absolute;
+  left: 30px;
+  top: 50%;
+  transform: translateY(-50%) translateX(0);
+  z-index: 1111111111;
+  transition:all .3s ease;
+  display:none;
+}
+
+.hamburguer-icon .hamburguer-bar{
+  width: 31px;
+  height: 3px;
+  margin-bottom: 5px;
+  background-color: #0036ff;
+  border-radius: 10px;
+}
+
 body.collapsed-sidebar .sidebar-container {
   width: 5%;
 }

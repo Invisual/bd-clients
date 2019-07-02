@@ -3,3 +3,47 @@
         font-size: 1.1em;
     }
 }
+
+
+
+
+/* MEDIA QUERIE PARA IPAD LANDSCAPE */
+
+@media only screen and (max-width: 1113px){
+    .hamburguer-icon{
+        display:block;
+    }
+
+    body .sidebar-container {
+    width: 0;
+    }
+    
+    body .dashboard-container {
+    width: 100%;
+    }
+
+    body.mobile-sidebar .sidebar-container {
+    width: 20%;
+    position: absolute;
+    }
+
+    body.mobile-sidebar .hamburguer-icon{
+    transform: translateY(-50%) translateX(215px);
+    }
+
+    .sidebar-toggle{
+        display:none;
+    }
+
+    .dashboard-container .widgets-grid{
+        width:96%;
+        margin: 40px auto 40px auto;
+    }
+
+    .sidebar-container .navigation{
+        margin-top: 10px;
+    }
+}
+
+
+/* MEDIA QUERIE PARA IPAD LANDSCAPE */
