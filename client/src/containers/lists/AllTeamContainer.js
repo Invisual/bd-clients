@@ -45,7 +45,7 @@ class AllTeamContainer extends Component{
       return x
     }
 
-    getMemberDetails = (startDate=moment(new Date()).subtract(30, 'days').format('YYYY-MM-D'), endDate=moment(new Date()).format('YYYY-MM-D')) => {
+    getMemberDetails = (startDate=moment(new Date()).subtract(30, 'days').format('YYYY-MM-DD'), endDate=moment(new Date()).format('YYYY-MM-DD')) => {
         var token = JSON.parse(localStorage.getItem('token'));
         var AuthStr = 'Bearer ' + token
         if (this.state.activeMember) {
@@ -147,7 +147,7 @@ class AllTeamContainer extends Component{
     }
 
     componentDidMount(){
-        this.getMemberDetails(moment(this.state.filters.startDate).format('YYYY-MM-D'), moment(this.state.filters.endDate).format('YYYY-MM-D'))
+        this.getMemberDetails(moment(this.state.filters.startDate).format('YYYY-MM-DD'), moment(this.state.filters.endDate).format('YYYY-MM-DD'))
         this.getClients()
     }
 
@@ -157,7 +157,7 @@ class AllTeamContainer extends Component{
             this.setState({ reloadMembers: false });
         }
         if(prevState.filters.startDate !== this.state.filters.startDate || prevState.filters.endDate !== this.state.filters.endDate){
-          this.getMemberDetails(moment(this.state.filters.startDate).format('YYYY-MM-D'), moment(this.state.filters.endDate).format('YYYY-MM-D'))
+          this.getMemberDetails(moment(this.state.filters.startDate).format('YYYY-MM-DD'), moment(this.state.filters.endDate).format('YYYY-MM-DD'))
         }
       }
 

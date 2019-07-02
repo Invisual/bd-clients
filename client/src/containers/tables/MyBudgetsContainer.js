@@ -91,7 +91,7 @@ class MyBudgetsContainer extends Component {
 
       var data = {
         beginningHour: moment().format('H:mm:ss'),
-        day: moment().format('YYYY-MM-D'),
+        day: moment().format('YYYY-MM-DD'),
         user: user.id_user,
         budget: budgetId
       }

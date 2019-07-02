@@ -91,6 +91,11 @@
         width: 100% !important;
         margin-top: 40px !important;
     }
+
+    .limited-height-item{
+        height:77vh;
+        overflow-y:scroll;
+    }
 }
 
 

@@ -16,12 +16,12 @@ class TeamMemberHoursTab extends Component {
             user: JSON.parse(localStorage.getItem('user')),
             taskHours: [],
             budgetHours: [],
-            date: moment(new Date()).subtract(1, 'days').format('YYYY-MM-D'),
+            date: moment(new Date()).subtract(1, 'days').format('YYYY-MM-DD'),
             isLoading: true
         }
     }
 
-    changeDate = val => this.setState({date: moment(val).format('YYYY-MM-D')})
+    changeDate = val => this.setState({date: moment(val).format('YYYY-MM-DD')})
 
     getTaskHours = () => {
         var token = JSON.parse(localStorage.getItem('token'));
@@ -78,7 +78,7 @@ class TeamMemberHoursTab extends Component {
     componentDidMount(){
         this.getTaskHours()
         if(moment().isoWeekday() === 1){
-            this.setState({date: moment(new Date()).subtract(3, 'days').format('YYYY-MM-D')})
+            this.setState({date: moment(new Date()).subtract(3, 'days').format('YYYY-MM-DD')})
         }
         if(Number(this.state.user.id_position) === 2 || Number(this.state.user.id_position) === 3){
             this.getBudgetHours()

@@ -35,7 +35,7 @@ export const BillingDetail = props => {
               </div>
             </div>
 
-            <div className="grid-item">
+            <div className="grid-item limited-height-item">
               <div className="task-header">
                 <h4 className="task-title">{props.itemContent.details[0].title}</h4>
                 <div className="task-date">
