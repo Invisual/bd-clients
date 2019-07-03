@@ -153,25 +153,6 @@ export const AllProjectsDiv = styled.div`
     .tasks-detail {
       position: relative;
     }
-    .filter-with-notification {
-      position: relative;
-    }
-    .notification {
-      width: 12px;
-      height: 12px;
-      position: absolute;
-      top: -7px;
-      right: -4px;
-      background-color: #f43d3d;
-      border-radius: 50%;
-      text-align: center;
-      span {
-        color: #ffffff;
-        font-size: 0.75em;
-        position: relative;
-        bottom: 1px;
-      }
-    }
   }
 
   .meetings-grid {
@@ -394,6 +375,7 @@ export const TaskDetailsDiv = styled.div`
       .task-approval-user{
         display:flex;
         align-items:center;
+        margin-bottom: 5px;
 
         img{
           border-radius: 50%;
@@ -490,20 +472,35 @@ export const TaskDetailsDiv = styled.div`
           align-items:center;
           font-size:2em;
         }
-        .billing-title h4{
-          margin:0;
+        .billing-title h4 {
+          font-weight: 600;
+          font-size: 1.1em;
+          color: ${themeConsts.titlesDarkGrey};
+          margin: 0;
+          margin-bottom: 10px;
         }
-        .billing-descr{
+
+        .see-all-costs,
+        .billing-add-costs {
+          display:flex;
+          align-items: center;
+          margin-bottom: 5px;
+          &:hover {
+           cursor: pointer;
+          }
+          svg {
+            font-size: 1.4em;
+            color: ${themeConsts.secondaryBlue};
+            stroke-width: 3;
+            padding-left: 8px;
+          }
+          
+        }
+        .billing-descr {
           margin-top: 1px;
+          margin-bottom: 5px;
         }
-        .billing-add-icon{
-          font-size: 1.4em;
-          color: ${themeConsts.secondaryBlue};
-          stroke-width: 3;
-          padding-left: 8px;
-          position: relative;
-          top: 3px;
-        }
+        
       }
       .budget-external-status{
         margin-right: 30px;
@@ -873,6 +870,7 @@ export const ProjectDetailsDiv = styled.div`
       .project-approval-user{
         display:flex;
         align-items:center;
+        margin-bottom: 5px;
 
         img{
           border-radius: 50%;
@@ -917,10 +915,32 @@ export const ProjectDetailsDiv = styled.div`
         font-size: 2em;
       }
       .billing-title h4 {
-        margin: 0;
-      }
+          font-weight: 600;
+          font-size: 1.1em;
+          color: ${themeConsts.titlesDarkGrey};
+          margin: 0;
+          margin-bottom: 10px;
+        }
+
+        .see-all-costs,
+        .billing-add-costs {
+          display:flex;
+          align-items: center;
+          margin-bottom: 5px;
+          &:hover {
+           cursor: pointer;
+          }
+          svg {
+            font-size: 1.4em;
+            color: ${themeConsts.secondaryBlue};
+            stroke-width: 3;
+            padding-left: 8px;
+          }
+          
+        }
       .billing-descr {
         margin-top: 1px;
+        margin-bottom: 5px;
       }
     }
   }
@@ -1680,10 +1700,32 @@ export const ClientDetailsDiv = styled.div`
         font-size: 2em;
       }
       .billing-title h4 {
-        margin: 0;
-      }
+          font-weight: 600;
+          font-size: 1.1em;
+          color: ${themeConsts.titlesDarkGrey};
+          margin: 0;
+          margin-bottom: 10px;
+        }
+
+        .see-all-costs,
+        .billing-add-costs {
+          display:flex;
+          align-items: center;
+          margin-bottom: 5px;
+          &:hover {
+           cursor: pointer;
+          }
+          svg {
+            font-size: 1.4em;
+            color: ${themeConsts.secondaryBlue};
+            stroke-width: 3;
+            padding-left: 8px;
+          }
+          
+        }
       .billing-descr {
         margin-top: 1px;
+        margin-bottom: 5px;
       }
     }
   }

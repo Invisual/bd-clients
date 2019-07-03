@@ -71,7 +71,7 @@ class SingleTask extends Component {
             <div className="task-watch">
             {this.props.userId === this.props.userInfo.id_user ? 
               <div className="tooltip-container">
-                 <FiClock onClick={this.props.hourState === 1 ? () => this.props.stopCountingHours(this.props.hourId, this.props.title) : () => this.props.startCountingHours(this.props.id, this.props.title)} className={this.props.hourState === 1 ? 'active-clock' : 'inactive-clock'} />
+                 <FiClock onClick={this.props.hourState === 1 ? () => this.props.stopCountingHours(this.props.hourId, this.props.title, this.props.id, this.props.projectState, this.props.account) : () => this.props.startCountingHours(this.props.id, this.props.title, this.props.projectState, this.props.account)} className={this.props.hourState === 1 ? 'active-clock' : 'inactive-clock'} />
               <span className="tooltip">{this.props.hourState === 1 ? "Parar contagem de horas" : "Iniciar contagem de horas"}</span>
               </div>
               : null}
@@ -125,7 +125,7 @@ class SingleTask extends Component {
           <Link to={`/tasks/`+this.props.id}><div className="task-title">{this.props.title}</div></Link>
           <div className="task-watch"><div className="tooltip-container"><Link to={`/projects/`+this.props.projectState}>{projectFolder}</Link><span className="tooltip">Ir para o Projeto</span></div></div>
           <div className="task-watch">
-          <div className="tooltip-container"><FiClock onClick={this.props.hourState === 1 ? () => this.props.stopCountingHours(this.props.hourId, this.props.title) : () => this.props.startCountingHours(this.props.id, this.props.title)} className={this.props.hourState === 1 ? 'active-clock' : 'inactive-clock'} />
+          <div className="tooltip-container"><FiClock onClick={this.props.hourState === 1 ? () => this.props.stopCountingHours(this.props.hourId, this.props.title, this.props.id, this.props.projectState, this.props.account) : () => this.props.startCountingHours(this.props.id, this.props.title, this.props.projectState, this.props.account)} className={this.props.hourState === 1 ? 'active-clock' : 'inactive-clock'} />
           <span className="tooltip">{this.props.hourState === 1 ? "Parar contagem de horas" : "Iniciar contagem de horas"}</span></div></div>   
           <div className="task-state" onClick={() => this.props.changeTaskStatus(this.props.id, this.props.stateVal, this.props.projectState, this.props.account)}>
             <span>{this.props.stateTitle}</span>

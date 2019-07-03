@@ -1,6 +1,6 @@
 import React from 'react'
 import { TopBarDiv } from '../../styles/navigation'
-import { FiBell, FiChevronLeft, FiFolder, FiFileText, FiCalendar, FiEdit, FiPlusSquare } from 'react-icons/fi'
+import { FiBell, FiChevronLeft, FiFolder, FiFileText, FiCalendar, FiEdit, FiPlusSquare, FiClock } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 
@@ -166,6 +166,24 @@ export const TopBar = props => {
           ) : null}
         </li>
 
+        {props.activeHours !== null && props.activeHours !== '' ? 
+          <li className="topbar-clock">
+            <div className="notification-number"><span id="notificationsnumber">1</span></div>
+            <Link to={`/tasks/${props.activeHours[0].id_task}`}><FiClock /></Link>
+          </li>
+        : props.activeBudgetHours !== null && props.activeBudgetHours !== '' ? 
+        <li className="topbar-clock">
+          <div className="notification-number"><span id="notificationsnumber">1</span></div>
+          <Link to={`/budgets/${props.activeBudgetHours[0].id_budget}`}><FiClock /></Link>
+        </li>
+        : <li className="topbar-clock">
+            <div className="tooltip-container">
+              <FiClock stroke="#7f9aff"/> 
+              <span className="tooltip tool-topbar">Sem registo de horas em aberto</span>
+            </div>
+          </li>
+        }      
+        
         <li className="topbar-avatar" onClick={() => props.showDropdownUser()}>
           <span id="topbar-user-name">{props.userInfo.name_user}</span>
           <img

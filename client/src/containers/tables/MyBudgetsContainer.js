@@ -95,6 +95,16 @@ class MyBudgetsContainer extends Component {
         user: user.id_user,
         budget: budgetId
       }
+      const data2 = {
+        budget: budgetId,
+        status: 2,
+        user: user.id_user
+      };
+  
+      axios.put('/api/budgets/internalBudgetStatus', data2, { headers: { Authorization: AuthStr } }).then(res => {
+        this.getBudgets();
+        this.props.getBudgetDetails()
+      });
 
       axios.post(`/api/hours/budget`, data, { headers: { Authorization: AuthStr } }).then(res => {
         this.props.getActiveBudgetHours();

@@ -115,6 +115,8 @@ class TopBarContainer extends Component {
         logout={this.props.logout}
         changeEditHourId={this.props.changeEditHourId}
         toggleSideBarForIpad={this.toggleSideBarForIpad}
+        activeHours={this.props.activeHours}
+        activeBudgetHours={this.props.activeBudgetHours}
       />
     );
   }

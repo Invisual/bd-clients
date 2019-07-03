@@ -258,8 +258,8 @@ router.put('/conclude', checkToken, (req, res) => {
       }
       else {
         connection.query(
-          'UPDATE projects SET concluded_project=?, billed_project=?, comment_billed_project=?, user_billed_project = ?, conclusion_date_project = ? WHERE id_project=?',
-          [approval, billing, obs, user, date, projId],
+          'UPDATE projects SET concluded_project=?, billed_project=?, comment_billed_project=?, user_billed_project = ?, conclusion_date_project = ?, user_concluded_project= ? WHERE id_project=?',
+          [approval, billing, obs, user, date, user, projId],
           function (error, results, fields) {
             if (error) throwerror;
             if (billing === 1 && approval === 2) {
@@ -275,7 +275,7 @@ router.put('/conclude', checkToken, (req, res) => {
           }
         );
         connection.query(
-          'UPDATE tasks SET concluded_task=?, billed_task=?, conclusion_date_task = ? WHERE ref_id_project=?', [approval, billing, date, projId],
+          'UPDATE tasks SET concluded_task=?, billed_task=?, conclusion_date_task = ?, user_concluded_task = ? WHERE ref_id_project=?', [approval, billing, date, user, projId],
           function (error, results, fields) {
             if (error) throw error;
             res.send(results)
@@ -1010,7 +1010,7 @@ router.put('/approvals/reject', checkToken, (req, res) => {
       var type = req.body.type
       if (type === 'task') {
         connection.query(
-          'UPDATE tasks SET concluded_task=0, billed_task=NULL, comment_billed_task=NULL, user_billed_task = NULL, conclusion_date_task = NULL WHERE id_task=?', id,
+          'UPDATE tasks SET concluded_task=0, billed_task=NULL, comment_billed_task=NULL, user_billed_task = NULL, conclusion_date_task = NULL, user_concluded_task = NULL WHERE id_task=?', id,
           function (error, results, fields) {
             if (error) throw error;
             if (results.length > 0) {
@@ -1023,7 +1023,7 @@ router.put('/approvals/reject', checkToken, (req, res) => {
       }
       else if (type === 'project'){
         connection.query(
-          'UPDATE projects SET concluded_project=0, billed_project=NULL, comment_billed_project=NULL, user_billed_project = NULL, conclusion_date_project = NULL WHERE id_project=?', id,
+          'UPDATE projects SET concluded_project=0, billed_project=NULL, comment_billed_project=NULL, user_billed_project = NULL, conclusion_date_project = NULL, user_concluded_project = NULL WHERE id_project=?', id,
           function (error, results, fields) {
             if (error) throw error;
             connection.query(

@@ -15,7 +15,7 @@ import {
   FiAlertTriangle,
   FiSend,
   FiFileText,
-  FiArrowRight
+  FiExternalLink
 } from 'react-icons/fi';
 
 export const TaskDetail = props => {
@@ -105,15 +105,26 @@ export const TaskDetail = props => {
                   )}
                 </div>
               </div>
-              {props.concluded && props.taskContent.details[0].user_approved_task ?
+              {props.concluded && (props.taskContent.details[0].user_approved_task || props.taskContent.details[0].user_concluded_task)?
                 <div className="task-stateinfo-section">
                   <h4 className="task-stateinfo-title">Actualizações de Estado</h4>
+                  {props.taskContent.details[0].user_concluded_task ? 
+                  <div className="task-approval-user">
+                    <img src={props.taskContent.details[0].avatar_concluded_user} alt={props.taskContent.details[0].name_concluded_user} title={props.taskContent.details[0].name_concluded_user} />
+                    <span className="approval-user">{props.taskContent.details[0].name_concluded_user}</span>
+                    <span className="approval-date">{moment(props.taskContent.details[0].conclusion_date_task).format('D MMM YYYY')}</span>
+                    <span className="approval-status">Concluído</span>
+                  </div> 
+                  : null }
+                  { props.taskContent.details[0].user_approved_task ?
                   <div className="task-approval-user">
                     <img src={props.taskContent.details[0].avatar_approved_user} alt={props.taskContent.details[0].name_approved_user} title={props.taskContent.details[0].name_approved_user} />
                     <span className="approval-user">{props.taskContent.details[0].name_approved_user}</span>
                     <span className="approval-date">{moment(props.taskContent.details[0].date_approved_task).format('D MMM YYYY')}</span>
                     <span className="approval-status">Aprovado</span>
                   </div>
+                  : null}
+
                 </div>
               :
                 null
@@ -127,16 +138,19 @@ export const TaskDetail = props => {
                     <h4>Custos para Faturação</h4>
                     {props.type === 'approvals'? 
                       props.taskContent.costs ? 
-                      <div className="see-all-costs" onClick={() => {props.openCostsModal('tasklist'); props.openModal('costs') }}>Consulte aqui os Custos associados a esta Tarefa <FiArrowRight /></div>
+                      <div className="see-all-costs" onClick={() => {props.openCostsModal('tasklist'); props.openModal('costs') }}>Consultar Custos associados a esta Tarefa <FiExternalLink /></div>
                     : <div>Sem Custos Associados.</div>
                     :
                     props.taskContent.costs ? 
-                      <div className="see-all-costs" onClick={() => {props.openCostsModal('tasklist'); props.openModal('costs') }}>Consulte aqui os Custos associados a esta Tarefa <FiArrowRight /></div>
+                    <>
+                      <div className="see-all-costs" onClick={() => {props.openCostsModal('tasklist'); props.openModal('costs') }}>Consultar Custos associados a esta Tarefa <FiExternalLink /></div>
+                      <div className="billing-add-costs" onClick={() => {props.openCostsModal('task'); props.openModal('costs')}}>Adicionar custos <FiPlus /></div>
+                    </>
                     :
                     <>
                       <div className="billing-descr">Esta Tarefa ainda não tem um Registo de Custos associado.</div>
                     
-                      <FiPlus className="billing-add-icon" onClick={() => {props.openCostsModal('task'); props.openModal('costs')}}/>
+                      <div className="billing-add-costs" onClick={() => {props.openCostsModal('task'); props.openModal('costs')}}>Adicionar custos <FiPlus /></div>
                     </>
                     }
                   </div>

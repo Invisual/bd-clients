@@ -79,7 +79,7 @@ class MyTasksContainer extends Component {
     });
   };
 
-  startCountingHours = (taskId, taskTitle) => {
+  startCountingHours = (taskId, taskTitle, projectId, account) => {
     if(this.props.activeHours !== undefined && this.props.activeHours !== null){
       if(this.props.activeHours.length > 0){
         Swal.fire({
@@ -107,6 +107,16 @@ class MyTasksContainer extends Component {
         user: user.id_user,
         task: taskId
       }
+      const data2 = {
+        task: taskId,
+        status: 2,
+        user: user.id_user,
+        project: projectId,
+        account: account,
+      };
+      axios.put('/api/tasks/userTaskStatus', data2, { headers: { Authorization: AuthStr } }).then(res => {
+        this.getTasks();
+      });
 
       axios.post(`/api/hours/`, data, { headers: { Authorization: AuthStr } }).then(res => {
         this.props.getActiveHours();
@@ -125,14 +135,26 @@ class MyTasksContainer extends Component {
     }
   }
 
-  stopCountingHours = (hourId, taskTitle) => {
+  stopCountingHours = (hourId, taskTitle, taskId, projectId, account) => {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
+    var user = JSON.parse(localStorage.getItem('user'));
 
     var data = {
       endingHour: moment().format('H:mm:ss'),
       idHour: hourId
     }
+
+    const data2 = {
+      task: taskId,
+      status: 3,
+      user: user.id_user,
+      project: projectId,
+      account: account,
+    };
+    axios.put('/api/tasks/userTaskStatus', data2, { headers: { Authorization: AuthStr } }).then(res => {
+      this.getTasks();
+    });
 
     axios.put(`/api/hours/`, data, { headers: { Authorization: AuthStr } }).then(res => {
       this.props.getActiveHours();

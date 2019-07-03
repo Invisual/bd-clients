@@ -1,6 +1,6 @@
 import React from 'react';
 import { Line } from 'rc-progress';
-import { FiAlertTriangle, FiPlus, FiArrowRight } from 'react-icons/fi';
+import { FiAlertTriangle, FiPlus, FiExternalLink } from 'react-icons/fi';
 import moment from 'moment';
 import 'moment/locale/pt';
 import 'moment-duration-format';
@@ -96,15 +96,26 @@ class ProjectReviewTab extends React.Component {
             </div>
           </div>
         </div>
-        {this.props.concluded && this.props.projectContent.details[0].user_approved_project ?
+        {this.props.concluded && (this.props.projectContent.details[0].user_approved_project || this.props.projectContent.details[0].user_concluded_project)?
           <div className="project-stateinfo-section">
             <h4 className="project-stateinfo-title">Actualizações de Estado</h4>
+            {this.props.projectContent.details[0].user_concluded_project ?
+            <div className="project-approval-user">
+              <img src={this.props.projectContent.details[0].avatar_concluded_user} alt={this.props.projectContent.details[0].name_concluded_user} title={this.props.projectContent.details[0].name_concluded_user} />
+              <span className="approval-user">{this.props.projectContent.details[0].name_concluded_user}</span>
+              <span className="approval-date">{moment(this.props.projectContent.details[0].date_concluded_project).format('D MMM YYYY')}</span>
+              <span className="approval-status">Concluído</span>
+            </div>
+          : null }
+            {this.props.projectContent.details[0].user_approved_project ?
             <div className="project-approval-user">
               <img src={this.props.projectContent.details[0].avatar_approved_user} alt={this.props.projectContent.details[0].name_approved_user} title={this.props.projectContent.details[0].name_approved_user} />
               <span className="approval-user">{this.props.projectContent.details[0].name_approved_user}</span>
               <span className="approval-date">{moment(this.props.projectContent.details[0].date_approved_project).format('D MMM YYYY')}</span>
               <span className="approval-status">Aprovado</span>
             </div>
+            : null }
+            
           </div>
         :
           null
@@ -118,14 +129,17 @@ class ProjectReviewTab extends React.Component {
             {
             this.props.type === 'approvals'? 
               this.props.projectContent.costs ? 
-              <div className="see-all-costs" onClick={() => { this.props.openCostsModal('projectlist'); this.props.openModal('costs') }}>Consulte aqui os Custos associados a este Projecto <FiArrowRight /></div>
+              <div className="see-all-costs" onClick={() => { this.props.openCostsModal('projectlist'); this.props.openModal('costs') }}>Consultar Custos associados a este Projecto <FiExternalLink /></div>
               : <div>Sem Custos Associados.</div>
             : this.props.projectContent.costs ? 
-              <div className="see-all-costs" onClick={() => { this.props.openCostsModal('projectlist'); this.props.openModal('costs') }}>Consulte aqui os Custos associados a este Projecto <FiArrowRight /></div>
-              :
+            <>
+              <div className="see-all-costs" onClick={() => { this.props.openCostsModal('projectlist'); this.props.openModal('costs') }}>Consultar Custos associados a este Projecto <FiExternalLink /></div>
+              <div className="billing-add-costs" onClick={() => {this.props.openCostsModal('project'); this.props.openModal('costs')}}>Adicionar custos <FiPlus /></div>
+            </>
+            :
               <>
                 <div className="billing-descr">Este Projecto ainda não tem um Registo de Custos associado.</div>
-                <FiPlus className="billing-add-icon" onClick={() => {this.props.openCostsModal('project'); this.props.openModal('costs')}}/>
+                <div className="billing-add-costs" onClick={() => {this.props.openCostsModal('project'); this.props.openModal('costs')}}>Adicionar custos <FiPlus /></div>
               </>
             }
           </div>
