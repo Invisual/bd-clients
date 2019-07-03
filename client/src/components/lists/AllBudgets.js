@@ -26,18 +26,18 @@ export const AllBudgets = props => {
                 <span className="tooltip">Adicionar Orçamento</span>
               </Link>
             </div>
-            <div className="tooltip-container filter-with-notification">
+            <div className={props.filtersAreActive ? 'tooltip-container filter-with-notification icon-tobe-selected icon-selected' : 'tooltip-container filter-with-notification icon-tobe-selected'}>
               {props.getNumberOfActiveFilters() > 0 ? <div className="notification"><span>{props.getNumberOfActiveFilters()}</span></div> : null}
-              <FiFilter className={props.filtersAreActive ? 'task-filters-icon icon-selected' : 'task-filters-icon'} onClick={props.changeFiltersAreActive}/>
+              <FiFilter className="task-filters-icon" onClick={props.changeFiltersAreActive}/>
               <span className="tooltip">Filtrar Orçamentos</span>
             </div>
              </>
           ) 
           : 
           <>
-            <div className="tooltip-container filter-with-notification">
+            <div className={props.filtersAreActive ? 'tooltip-container filter-with-notification icon-tobe-selected icon-selected' : 'tooltip-container filter-with-notification icon-tobe-selected'}>
               {props.getNumberOfActiveFilters() > 0 ? <div className="notification"><span>{props.getNumberOfActiveFilters()}</span></div> : null}
-              <FiFilter className={props.filtersAreActive ? 'task-filters-icon icon-selected' : 'task-filters-icon'} onClick={props.changeFiltersAreActive}/>
+              <FiFilter className="task-filters-icon" onClick={props.changeFiltersAreActive}/>
               <span className="tooltip">Filtrar Orçamentos</span>
             </div>
              </>  

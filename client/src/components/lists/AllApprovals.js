@@ -33,18 +33,18 @@ export const AllApprovals = props => {
           </div>
           {props.userRole === 3 || props.userRole === 2 ? (
             <>
-            <div className="tooltip-container filter-with-notification">
+            <div className={props.filtersAreActive ? 'tooltip-container filter-with-notification icon-tobe-selected icon-selected' : 'tooltip-container filter-with-notification icon-tobe-selected'}>
               {props.getNumberOfActiveFilters() > 0 ? <div className="notification"><span>{props.getNumberOfActiveFilters()}</span></div> : null}
-              <FiFilter className={props.filtersAreActive ? 'task-filters-icon icon-selected' : 'task-filters-icon'} onClick={props.changeFiltersAreActive}/>
+              <FiFilter className="task-filters-icon" onClick={props.changeFiltersAreActive}/>
               <span className="tooltip">Filtrar</span>
             </div>
              </>
           )
           :
           <>
-            <div className="tooltip-container filter-with-notification">
+            <div className={props.filtersAreActive ? 'tooltip-container filter-with-notification icon-tobe-selected icon-selected' : 'tooltip-container filter-with-notification icon-tobe-selected'}>
               {props.getNumberOfActiveFilters() > 0 ? <div className="notification"><span>{props.getNumberOfActiveFilters()}</span></div> : null}
-              <FiFilter className={props.filtersAreActive ? 'task-filters-icon icon-selected' : 'task-filters-icon'} onClick={props.changeFiltersAreActive}/>
+              <FiFilter className="task-filters-icon" onClick={props.changeFiltersAreActive}/>
               <span className="tooltip">Filtrar</span>
             </div>
              </>  

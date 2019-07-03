@@ -489,6 +489,10 @@ body.collapsed-sidebar .topbar-goback {
   transition: all 0.3s ease;
 }
 
+.tool-topbar{
+  top:30px;
+}
+
 .tooltip-container:hover .tooltip {
   visibility: visible;
   opacity: 1;
@@ -927,3 +931,82 @@ input[type='text'].hidesearch{
 
 
 /*MODAL CALENDARIO DASHBOARD*/
+
+
+
+
+
+/*HOVERS, NOTIFICACOES E OUTROS EFEITOS*/
+
+.icon-tobe-selected{
+  position:relative;
+}
+.icon-tobe-selected svg{
+  z-index:1;
+}
+.icon-selected::after{
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 170%;
+  height: 170%;
+  background-color: #f5f7fd;
+  border-radius: 10px;
+  z-index: 0;
+  transform: translate(-50%, -50%);
+}
+
+.filter-with-notification{
+  position: relative;
+}
+.filter-with-notification .notification{
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  top: -7px;
+  right: -4px;
+  background-color: #f43d3d;
+  border-radius: 50%;
+  text-align: center;
+  z-index:11;
+}
+.filter-with-notification .notification span{
+  color: #ffffff;
+  font-size: 0.75em;
+  position: relative;
+  bottom: 1px;
+}
+
+.tooltip-container a{
+  line-height: 0;
+}
+
+/*HOVERS, NOTIFICACOES E OUTROS EFEITOS*/
+
+
+
+
+
+
+/*ICONS OPTIONS*/
+
+.options-actions{
+  display:flex;
+  flex-direction: row-reverse;
+}
+
+.action-delete{ order:1 }
+.action-edit{ order:2 }
+.action-duplicate{ order:3 }
+.action-conclude{ order:4 }
+.action-gotoproject{ order:5 }
+.action-filter{ order:6 }
+.action-add{ order:7 }
+.action-reject{ order:8 }
+.action-approve{ order:9 }
+
+
+
+
+/*ICONS OPTIONS*/
