@@ -50,23 +50,23 @@ export const AllTasks = props => {
                   <span className="tooltip">Adicionar Tarefa</span>
                 </Link>
               </div>
-              <div className="tooltip-container">
-                  <FiUserCheck className={props.currentTaskList === 'all' ? 'task-view-icon' : 'task-view-icon icon-selected'} onClick={props.changeCurrentTaskList}/>
+              <div className={props.currentTaskList !== 'all' ? 'tooltip-container icon-tobe-selected icon-selected' : 'tooltip-container icon-tobe-selected'}>
+                  <FiUserCheck className="task-view-icon" onClick={props.changeCurrentTaskList}/>
                   <span className="tooltip">{props.currentTaskList === 'all' ? 'Ver as minhas Tarefas' : 'Ver todas as Tarefas'}</span>
               </div>
             </>}
-            <div className="tooltip-container filter-with-notification">
+            <div className={props.filtersAreActive ? 'tooltip-container filter-with-notification icon-tobe-selected icon-selected' : 'tooltip-container filter-with-notification icon-tobe-selected'}>
               {props.getNumberOfActiveFilters() > 0 ? <div className="notification"><span>{props.getNumberOfActiveFilters()}</span></div> : null}
-              <FiFilter className={props.filtersAreActive ? 'task-filters-icon icon-selected' : 'task-filters-icon'} onClick={props.changeFiltersAreActive}/>
+              <FiFilter className="task-filters-icon" onClick={props.changeFiltersAreActive}/>
               <span className="tooltip">Filtrar Projetos</span>
             </div>
              </>
           ) 
           : 
           <>
-            <div className="tooltip-container filter-with-notification">
+            <div className={props.filtersAreActive ? 'tooltip-container filter-with-notification icon-tobe-selected icon-selected' : 'tooltip-container filter-with-notification icon-tobe-selected'}>
               {props.getNumberOfActiveFilters() > 0 ? <div className="notification"><span>{props.getNumberOfActiveFilters()}</span></div> : null}
-              <FiFilter className={props.filtersAreActive ? 'task-filters-icon icon-selected' : 'task-filters-icon'} onClick={props.changeFiltersAreActive}/>
+              <FiFilter className="task-filters-icon" onClick={props.changeFiltersAreActive}/>
               <span className="tooltip">Filtrar Projetos</span>
             </div>
              </>  

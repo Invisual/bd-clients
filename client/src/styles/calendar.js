@@ -58,6 +58,7 @@ export const CalendarDiv = styled.div`
     }
 
     .rbc-month-row {
+        z-index:0;
         justify-content: center;
         max-height:40px;
     }

@@ -120,25 +120,28 @@ export const SidebarDiv = styled.div`
           left: 0;
           right: 0;
           bottom: 0;
-          background-color: #ccc;
           -webkit-transition: .4s;
           transition: .4s;
+          border: 2px solid #fff;
         }
 
         .slider:before {
           position: absolute;
           content: "";
-          height: 15px;
-          width: 15px;
+          height: 12px;
+          width: 12px;
           left: 3px;
           bottom: 3px;
           background-color: white;
           -webkit-transition: .4s;
           transition: .4s;
+          -webkit-transform: translateX(22px);
+          -ms-transform: translateX(22px);
+          transform: translateX(22px);
         }
 
         input:checked + .slider {
-          background-color: #2196F3;
+          background-color: #ffffff;
         }
 
         input:focus + .slider {
@@ -146,9 +149,10 @@ export const SidebarDiv = styled.div`
         }
 
         input:checked + .slider:before {
-          -webkit-transform: translateX(26px);
-          -ms-transform: translateX(26px);
-          transform: translateX(26px);
+          -webkit-transform: translateX(0px);
+          -ms-transform: translateX(0px);
+          transform: translateX(0px);
+          background-color: ${themeConsts.primaryBlue};
         }
 
         /* Rounded sliders */
@@ -246,7 +250,7 @@ export const TopBarDiv = styled.div`
       color: #5093e1;
     }
 
-    .topbar-notifications{
+    .topbar-clock{
       margin-right: 10px;
     }
 
@@ -267,7 +271,8 @@ export const TopBarDiv = styled.div`
     .topbar-notifications,
     .topbar-messages,
     .topbar-avatar,
-    .topbar-add{
+    .topbar-add,
+    .topbar-clock{
       ul {
         display: block;
         list-style-type: none;
