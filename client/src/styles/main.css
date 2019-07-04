@@ -276,6 +276,7 @@ body.collapsed-sidebar .topbar-goback {
   position: relative;
   top: 5px;
   padding: 0 6px;
+  display:inline-block;
 }
 
 .arrow,
@@ -982,6 +983,46 @@ input[type='text'].hidesearch{
   line-height: 0;
 }
 
+.tooltip-container .tooltip{
+  line-height: 15px;
+}
+
+.single-card-task, .task-state, .see-all .arrow, .todo-status svg, .has-meeting, .has-task-deadline, .navigation ul li, .topbar-notifications,
+.topbar-clock, .topbar-add, .topbar-todo, .tasks-list-container .single-card{
+  transition:all .4s ease;
+}
+
+.single-card-task:hover{
+  background-color:#f5f7fd;
+}
+
+.task-state:hover{
+  filter:brightness(1.05);
+}
+
+.see-all:hover .arrow{
+  transform:translateX(6px);
+}
+
+.todo-status:hover svg{
+  fill: #5e78dd;
+}
+
+.has-meeting:hover, .has-task-deadline:hover{
+  filter:brightness(1.05);
+}
+
+.navigation ul li:hover{
+  background-color: #0634e0;
+}
+
+.topbar-notifications:hover, .topbar-clock:hover, .topbar-add:hover, .topbar-todo:hover{
+  background-color: #f5f7fd;
+}
+
+.tasks-list-container .single-card:hover{
+  background-color: #fdfdff;
+}
 /*HOVERS, NOTIFICACOES E OUTROS EFEITOS*/
 
 
