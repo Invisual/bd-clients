@@ -217,6 +217,7 @@ export const TopBarDiv = styled.div`
       position: relative;
       cursor: pointer;
       margin-left: 10px;
+      border-radius:10px;
 
       svg{
         font-size:2.8em;
