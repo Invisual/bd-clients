@@ -21,7 +21,7 @@ class MyApprovalsContainer extends Component {
    
     axios.get(url, { headers: { Authorization: AuthStr } }).then(res => {
       if (res.data === 'nodata') {
-        this.setState({ approvalItems: null, isLoading: false });
+        this.setState({ approvalItems: [], filteredApprovals: [], isLoading: false });
       } else {
         var newItems = [...res.data.tasks, ...res.data.projects, ...res.data.budgets]
         newItems = newItems.sort((a, b) =>  a.conclusion_date>b.conclusion_date ? 1 : a.conclusion_date<b.conclusion_date ? -1 : 0)

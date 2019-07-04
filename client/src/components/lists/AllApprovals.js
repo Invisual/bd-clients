@@ -19,7 +19,7 @@ export const AllApprovals = props => {
       <CostsModalContainer
         taskId={props.activeItem} 
         type={props.costsModalType} 
-        costs={props.itemContent.costs}
+        costs={props.itemContent ? props.itemContent.costs : []}
         closeModal={props.closeModal}
       /> 
       <div className="widgets-grid widget cards-container nofixed-height">
@@ -122,6 +122,10 @@ export const AllApprovals = props => {
               openModal={props.openModal}
               placeholder={props.placeholder}
               />
+            case '':
+              return <div>
+                      <div className="no-content" />
+                     </div>
             default:
               return <img src="/img/loading.svg" alt="loading" className="loading-spinner" />
           };

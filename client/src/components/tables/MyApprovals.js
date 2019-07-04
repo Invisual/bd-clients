@@ -51,7 +51,7 @@ export const MyApprovals = props => {
       } else {
         content = (
           <div className="mytasks-container widget">
-            {props.approvalItems ? 
+            {props.approvalItems.length > 0 ? 
               props.placeholder ?
               <div>
                 <div className="empty-placeholder">Sem items correspondentes à pesquisa.</div>

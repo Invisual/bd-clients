@@ -153,8 +153,7 @@ class AllBillingContainer extends Component {
 
             axios.put(`/api/billing/`, data, { headers: { Authorization: AuthStr } }).then( res => {
                 Swal.fire('Faturado!', '', 'success').then(click => {
-                    this.getItemDetails()
-                    this.setState({reloadItems: true})
+                    this.setState({reloadItems: true, activeItem: '', activeType: '',})
                 })
             })
         }

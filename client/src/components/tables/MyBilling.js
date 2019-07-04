@@ -5,6 +5,7 @@ import { FiArrowRight } from 'react-icons/fi';
 
 export const MyBilling = props => {
   var content = '';
+  console.log(props.items)
   switch (props.type) {
     case 'dashboard':
       content = (
@@ -48,8 +49,8 @@ export const MyBilling = props => {
       } else {
         content = (
           <div className="mytasks-container widget">
-            {props.items.length>0 ? 
-            props.placeholder ?
+            {props.items.length > 0 ? 
+              props.placeholder ?
             <div>
                 <div className="empty-placeholder">Sem items correspondentes à pesquisa.</div>
             </div>

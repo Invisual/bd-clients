@@ -113,9 +113,35 @@ class AllApprovalsContainer extends Component {
         axios
           .get('/api/misc/approvals', { headers: { Authorization: AuthStr } })
           .then(res => {
-            var items = [...res.data.tasks, ...res.data.projects, ...res.data.budgets]
-            items = items.sort((a, b) =>  a.conclusion_date>b.conclusion_date ? 1 : a.conclusion_date<b.conclusion_date ? -1 : 0)
-            this.setState({activeItem: items[0].id, activeType: items[0].type})
+ 
+            var items 
+
+             if ( res.data.tasks && res.data.projects && res.data.budgets ) {
+              items = [...res.data.tasks, ...res.data.projects, ...res.data.budgets]
+             }
+             else if (res.data.tasks && res.data.projects && !res.data.budgets) {
+              items = [...res.data.tasks, ...res.data.projects]
+             }
+             else if (!res.data.tasks && res.data.projects && res.data.budgets) {
+              items = [...res.data.budgets, ...res.data.projects]
+             }
+             else if (res.data.tasks && !res.data.projects && res.data.budgets) {
+              items = [...res.data.tasks, ...res.data.budgets]
+             }
+             else if (!res.data.tasks && res.data.projects && !res.data.budgets) {
+              items = res.data.projects
+             }
+             else if (res.data.tasks && !res.data.projects && !res.data.budgets) {
+              items = res.data.tasks
+             }
+             else if (!res.data.tasks && !res.data.projects && res.data.budgets) {
+              items = res.data.budgets
+             } else {
+               items = null
+             }
+            
+            items = items ? items.sort((a, b) =>  a.conclusion_date>b.conclusion_date ? 1 : a.conclusion_date<b.conclusion_date ? -1 : 0) : null
+            if(items) {this.setState({activeItem: items[0].id, activeType: items[0].type})}
           })
           .then(res => {
             axios

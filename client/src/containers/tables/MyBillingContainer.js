@@ -19,7 +19,8 @@ class MyBillingContainer extends Component {
     var AuthStr = 'Bearer ' + token;
     axios.get(`api/billing/`, { headers: { Authorization: AuthStr } }).then(res => {
       if (res.data === 'nodata') {
-        this.setState({ items: null, isLoading: false });
+        console.log('asas')
+        this.setState({ items: [], filteredItems: [], isLoading: false }, ()=>console.log(this.state.items));
       } else {
         var newItems = [...res.data.tasks, ...res.data.projects]
         newItems = newItems.sort((a, b) =>  a.conclusion_date>b.conclusion_date ? 1 : a.conclusion_date<b.conclusion_date ? -1 : 0)
