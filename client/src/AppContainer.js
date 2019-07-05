@@ -30,14 +30,22 @@ class AppContainer extends Component {
       loggedIn: true,
       userInfo: user,
       token: token
-    }, () => this.getNotifications())
+    }, () => {
+          this.getNotifications()
+          this.getActiveHours()
+          this.getActiveBudgetHours()
+        })
   }
 
   logout = () => {
     this.setState({
       loggedIn: false,
       userInfo: {},
-      token: ''
+      token: '',
+      activeBudgetHours: '',
+      activeHours: '',
+      latestActiveBudgetHour: '',
+      latestActiveHour: ''
     }, () => {
       localStorage.removeItem('loggedIn');
       localStorage.removeItem('user');
@@ -82,7 +90,6 @@ class AppContainer extends Component {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
     var user = JSON.parse(localStorage.getItem('user'));
-
     axios.get(`/api/hours/active/${user.id_user}`, { headers: { Authorization: AuthStr } }).then(res => {
       if (res.data === 'nohours') {
         this.setState({ activeHours: null, latestActiveHour: null});
@@ -191,7 +198,8 @@ class AppContainer extends Component {
               <TitleTimer 
                 latestActiveHour={this.state.latestActiveHour} 
                 getActiveHours={this.getActiveHours} 
-                latestActiveBudgetHour={this.state.latestActiveBudgetHour} 
+                latestActiveBudgetHour={this.state.latestActiveBudgetHour}
+                loggedIn={this.state.loggedIn}
               />
               <App 
                 canGoBack={this.state.canGoBack} 

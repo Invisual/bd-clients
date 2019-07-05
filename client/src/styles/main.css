@@ -988,7 +988,7 @@ input[type='text'].hidesearch{
 }
 
 .single-card-task, .task-state, .see-all .arrow, .todo-status svg, .has-meeting, .has-task-deadline, .navigation ul li, .topbar-notifications,
-.topbar-clock, .topbar-add, .topbar-todo, .tasks-list-container .single-card{
+.topbar-clock, .topbar-add, .topbar-todo, .tasks-list-container .single-card, .project-links-section .single-link{
   transition:all .4s ease;
 }
 
@@ -998,6 +998,10 @@ input[type='text'].hidesearch{
 
 .task-state:hover{
   filter:brightness(1.05);
+}
+
+.project-links-section .single-link:hover{
+  filter:brightness(1.07);
 }
 
 .see-all:hover .arrow{
@@ -1023,6 +1027,15 @@ input[type='text'].hidesearch{
 .tasks-list-container .single-card:hover{
   background-color: #fdfdff;
 }
+.see-all-costs span span:after, .billing-add-costs span span:after {
+  display:block;
+  content: '';
+  border-bottom: solid 1px #7f9aff;  
+  transform: scaleX(0);  
+  transition: transform 250ms ease-in-out;
+}
+.see-all-costs span span:hover:after, .billing-add-costs span span:hover:after { transform: scaleX(1); }
+.see-all-costs span span.underline:after, .billing-add-costs span span:after{ transform-origin:  0% 50%; }
 /*HOVERS, NOTIFICACOES E OUTROS EFEITOS*/
 
 

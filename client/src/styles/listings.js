@@ -479,21 +479,32 @@ export const TaskDetailsDiv = styled.div`
           margin: 0;
           margin-bottom: 10px;
         }
-
+        .billing-costs-wrapper {
+          display: flex;
+          flex-direction: column;
+        }
         .see-all-costs,
         .billing-add-costs {
-          display:flex;
-          align-items: center;
-          margin-bottom: 5px;
+          margin-bottom: 10px;
           &:hover {
            cursor: pointer;
           }
-          svg {
-            font-size: 1.4em;
-            color: ${themeConsts.secondaryBlue};
-            stroke-width: 3;
-            padding-left: 8px;
+          span{
+            position: relative;
+            width: max-content;
+            span{
+              display:inline-block;
+            }
+            svg {
+              position: absolute;
+              top: -2px;
+              font-size: 1.4em;
+              color: ${themeConsts.secondaryBlue};
+              stroke-width: 3;
+              padding-left: 8px;
           }
+          }
+          
           
         }
         .billing-descr {
@@ -900,6 +911,35 @@ export const ProjectDetailsDiv = styled.div`
       }
     }
 
+    .project-links-section{
+      border-top: 1px solid #e6e6e6;
+      padding:20px 0;
+
+      h4{
+        font-weight: 600;
+        font-size: 1.1em;
+        color: ${themeConsts.titlesDarkGrey};
+        margin: 0;
+        margin-bottom: 10px;
+      }
+
+      .single-links-wrapper{
+        display: flex;
+        align-items: center;
+
+        .single-link{
+          margin-right:20px;
+
+          img{
+            width:30px;
+          }
+          .zeplin-logo{
+            width:35px;
+          }
+        }
+      }
+    }
+
     .project-billing-section {
       display: grid;
       grid-template-columns: 6% 94%;
@@ -921,21 +961,32 @@ export const ProjectDetailsDiv = styled.div`
           margin: 0;
           margin-bottom: 10px;
         }
-
+        .billing-costs-wrapper {
+          display: flex;
+          flex-direction: column;
+        }
         .see-all-costs,
         .billing-add-costs {
-          display:flex;
-          align-items: center;
-          margin-bottom: 5px;
+          margin-bottom: 10px;
           &:hover {
            cursor: pointer;
           }
-          svg {
-            font-size: 1.4em;
-            color: ${themeConsts.secondaryBlue};
-            stroke-width: 3;
-            padding-left: 8px;
+          span{
+            position: relative;
+            width: max-content;
+            span{
+              display:inline-block;
+            }
+            svg {
+              position: absolute;
+              top: -2px;
+              font-size: 1.4em;
+              color: ${themeConsts.secondaryBlue};
+              stroke-width: 3;
+              padding-left: 8px;
           }
+          }
+          
           
         }
       .billing-descr {
@@ -1706,21 +1757,32 @@ export const ClientDetailsDiv = styled.div`
           margin: 0;
           margin-bottom: 10px;
         }
-
+        .billing-costs-wrapper {
+          display: flex;
+          flex-direction: column;
+        }
         .see-all-costs,
         .billing-add-costs {
-          display:flex;
-          align-items: center;
-          margin-bottom: 5px;
+          margin-bottom: 10px;
           &:hover {
            cursor: pointer;
           }
-          svg {
-            font-size: 1.4em;
-            color: ${themeConsts.secondaryBlue};
-            stroke-width: 3;
-            padding-left: 8px;
+          span{
+            position: relative;
+            width: max-content;
+            span{
+              display:inline-block;
+            }
+            svg {
+              position: absolute;
+              top: -2px;
+              font-size: 1.4em;
+              color: ${themeConsts.secondaryBlue};
+              stroke-width: 3;
+              padding-left: 8px;
           }
+          }
+          
           
         }
       .billing-descr {
