@@ -101,7 +101,6 @@ router.put('/', checkToken, (req, res) => {
       //If error send Forbidden (403)
       res.sendStatus(403);
     } else {
-      console.log(req.body)
       if (req.body.potentialClient){
         if (req.body.changePotentialClient){
           var potentialClient;

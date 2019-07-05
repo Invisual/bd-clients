@@ -19,26 +19,35 @@ showActiveHoursOnTitle = (latestHour) => {
 
 componentDidUpdate(prevProps){
     var interval
-    if(prevProps.latestActiveHour !== this.props.latestActiveHour){
-        if(this.props.latestActiveHour !== '' && this.props.latestActiveHour !== null){
-            interval = setInterval(() => this.showActiveHoursOnTitle(this.props.latestActiveHour), 1000)
-            this.setState({interval: interval})
+    
+        if(this.props.loggedIn){
+            if(prevProps.latestActiveHour !== this.props.latestActiveHour){
+                if(this.props.latestActiveHour !== '' && this.props.latestActiveHour !== null){
+                    interval = setInterval(() => this.showActiveHoursOnTitle(this.props.latestActiveHour), 1000)
+                    this.setState({interval: interval})
+                }
+                if(this.props.latestActiveHour === null && this.props.latestActiveBudgetHour === null){
+                    document.title = 'INVISUAL - TAREFAS';
+                    clearInterval(this.state.interval);
+                }
+            } else if (prevProps.latestActiveBudgetHour !== this.props.latestActiveBudgetHour){     
+                if(this.props.latestActiveBudgetHour !== '' && this.props.latestActiveBudgetHour !== null){
+                    interval = setInterval(() => this.showActiveHoursOnTitle(this.props.latestActiveBudgetHour), 1000)
+                    this.setState({interval: interval})
+                }
+                if(this.props.latestActiveBudgetHour === null && this.props.latestActiveHour === null){
+                    document.title = 'INVISUAL - TAREFAS';
+                    clearInterval(this.state.interval);
+                }
+            }
         }
-        if(this.props.latestActiveHour === null && this.props.latestActiveBudgetHour === null){
+        else{
             document.title = 'INVISUAL - TAREFAS';
             clearInterval(this.state.interval);
         }
-    } else if (prevProps.latestActiveBudgetHour !== this.props.latestActiveBudgetHour){     
-        if(this.props.latestActiveBudgetHour !== '' && this.props.latestActiveBudgetHour !== null){
-            interval = setInterval(() => this.showActiveHoursOnTitle(this.props.latestActiveBudgetHour), 1000)
-            this.setState({interval: interval})
-        }
-        if(this.props.latestActiveBudgetHour === null && this.props.latestActiveHour === null){
-            document.title = 'INVISUAL - TAREFAS';
-            clearInterval(this.state.interval);
-        }
-    }
+    
 }
+
 
 render(){
    return false;

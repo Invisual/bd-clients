@@ -136,23 +136,25 @@ export const TaskDetail = props => {
                   </div>
                   <div className="billing-title">
                     <h4>Custos para Faturação</h4>
-                    {props.type === 'approvals'? 
+                    <div className="billing-costs-wrapper">
+                      {props.type === 'approvals'? 
+                        props.taskContent.costs ? 
+                        <div className="see-all-costs" onClick={() => {props.openCostsModal('tasklist'); props.openModal('costs') }}><span><span className="underline">Consultar Custos associados a esta Tarefa</span> <FiExternalLink /></span></div>
+                      : <div>Sem Custos Associados.</div>
+                      :
                       props.taskContent.costs ? 
-                      <div className="see-all-costs" onClick={() => {props.openCostsModal('tasklist'); props.openModal('costs') }}>Consultar Custos associados a esta Tarefa <FiExternalLink /></div>
-                    : <div>Sem Custos Associados.</div>
-                    :
-                    props.taskContent.costs ? 
-                    <>
-                      <div className="see-all-costs" onClick={() => {props.openCostsModal('tasklist'); props.openModal('costs') }}>Consultar Custos associados a esta Tarefa <FiExternalLink /></div>
-                      <div className="billing-add-costs" onClick={() => {props.openCostsModal('task'); props.openModal('costs')}}>Adicionar custos <FiPlus /></div>
-                    </>
-                    :
-                    <>
-                      <div className="billing-descr">Esta Tarefa ainda não tem um Registo de Custos associado.</div>
-                    
-                      <div className="billing-add-costs" onClick={() => {props.openCostsModal('task'); props.openModal('costs')}}>Adicionar custos <FiPlus /></div>
-                    </>
-                    }
+                      <>
+                        <div className="see-all-costs" onClick={() => {props.openCostsModal('tasklist'); props.openModal('costs') }}><span><span className="underline">Consultar Custos associados a esta Tarefa</span> <FiExternalLink /></span></div>
+                        <div className="billing-add-costs" onClick={() => {props.openCostsModal('task'); props.openModal('costs')}}><span><span className="underline">Adicionar custos</span> <FiPlus /></span></div>
+                      </>
+                      :
+                      <>
+                        <div className="billing-descr">Esta Tarefa ainda não tem um Registo de Custos associado.</div>
+                      
+                        <div className="billing-add-costs" onClick={() => {props.openCostsModal('task'); props.openModal('costs')}}><span><span className="underline">Adicionar custos</span> <FiPlus /></span></div>
+                      </>
+                      }
+                    </div>
                   </div>
                 </div>
               :
