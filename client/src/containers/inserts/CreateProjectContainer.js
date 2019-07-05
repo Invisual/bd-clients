@@ -17,6 +17,8 @@ class CreateProjectContainer extends Component{
             clientInput: '',
             accountInput: '',
             categoriesArr: [],
+            zeplinInput: '',
+            slackInput: '',
             billingData: [],
             clientsData: [],
             accountsData: [],
@@ -49,6 +51,14 @@ class CreateProjectContainer extends Component{
 
     changeAccountInput = (e) => {
         this.setState({ accountInput: e.target.value })
+    }
+
+    changeZeplinInput = (e) => {
+        this.setState({ zeplinInput: e.target.value })
+    }
+
+    changeSlackInput = (e) => {
+        this.setState({ slackInput: e.target.value })
     }
 
     changeCategoriesArr = (e) =>{
@@ -124,6 +134,8 @@ class CreateProjectContainer extends Component{
                     billingInput:res.data[0].ref_id_billing_mode,
                     clientInput:res.data[0].ref_id_client,
                     accountInput:res.data[0].ref_id_user_account,
+                    zeplinInput:res.data[0].zeplin_url,
+                    slackInput:res.data[0].slack_url,
                     categoriesArr:res.data[0].categories ? res.data[0].categories.split(',') : []
                 })
             }
@@ -168,7 +180,9 @@ class CreateProjectContainer extends Component{
             client: this.state.clientInput,
             billing: this.state.billingInput,
             account: this.state.accountInput,
-            categories: this.state.categoriesArr
+            categories: this.state.categoriesArr,
+            zeplin: this.state.zeplinInput,
+            slack: this.state.slackInput
         }
         
         var token = JSON.parse(localStorage.getItem('token'));
@@ -206,12 +220,16 @@ class CreateProjectContainer extends Component{
                 changeClientInput={this.changeClientInput}
                 changeAccountInput={this.changeAccountInput}
                 changeCategoriesArr={this.changeCategoriesArr}
+                changeZeplinInput={this.changeZeplinInput}
+                changeSlackInput={this.changeSlackInput}
                 titleInput={this.state.titleInput}
                 briefingInput={this.state.briefingInput}
                 deadlineInput={this.state.deadlineInput}
                 billingInput={this.state.billingInput}
                 clientInput={this.state.clientInput}
                 accountInput={this.state.accountInput}
+                zeplinInput={this.state.zeplinInput}
+                slackInput={this.state.slackInput}
                 categoriesArr={this.state.categoriesArr}
                 billingData={this.state.billingData}
                 clientsData={this.state.clientsData}

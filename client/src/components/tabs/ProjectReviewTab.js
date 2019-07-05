@@ -120,30 +120,55 @@ class ProjectReviewTab extends React.Component {
         :
           null
         }
+        {this.props.projectContent.details[0].zeplin_url || this.props.projectContent.details[0].slack_url ?
+          <div className="project-links-section">
+            <h4 className="project-links-title">Links Úteis</h4>
+            <div className="single-links-wrapper">
+              {this.props.projectContent.details[0].zeplin_url ?
+                <div className="single-link">
+                  <a href={this.props.projectContent.details[0].zeplin_url} target="_blank">
+                    <img src="/img/zeplin.svg" className="zeplin-logo" alt="Zeplin" title="Zeplin" />
+                  </a>
+                </div>
+              : null}
+              {this.props.projectContent.details[0].slack_url ?
+                <div className="single-link">
+                  <a href={`slack://channel?team=TDR59C5TK&id=${this.props.projectContent.details[0].slack_url}`} target="_blank">
+                    <img src="/img/slack.svg" className="slack-logo" alt="Slack" title="Slack" />
+                  </a>
+                </div>
+              : null}
+            </div>
+          </div>
+        :
+          null
+        }
         <div className="project-billing-section">
           <div className="billing-icon">
             <FiAlertTriangle color="#5e78dd" />
           </div>
           <div className="billing-title">
             <h4>Custos para Faturação</h4>
-            {
-            this.props.type === 'approvals'? 
-              this.props.projectContent.costs ? 
-              <div className="see-all-costs" onClick={() => { this.props.openCostsModal('projectlist'); this.props.openModal('costs') }}>Consultar Custos associados a este Projecto <FiExternalLink /></div>
-              : <div>Sem Custos Associados.</div>
-            : this.props.projectContent.costs ? 
-            <>
-              <div className="see-all-costs" onClick={() => { this.props.openCostsModal('projectlist'); this.props.openModal('costs') }}>Consultar Custos associados a este Projecto <FiExternalLink /></div>
-              <div className="billing-add-costs" onClick={() => {this.props.openCostsModal('project'); this.props.openModal('costs')}}>Adicionar custos <FiPlus /></div>
-            </>
-            :
-              <>
-                <div className="billing-descr">Este Projecto ainda não tem um Registo de Custos associado.</div>
-                <div className="billing-add-costs" onClick={() => {this.props.openCostsModal('project'); this.props.openModal('costs')}}>Adicionar custos <FiPlus /></div>
-              </>
-            }
-          </div>
-        </div>
+            <div className="billing-costs-wrapper">
+           {
+           this.props.type === 'approvals'?
+             this.props.projectContent.costs ?
+             <div className="see-all-costs" onClick={() => { this.props.openCostsModal('projectlist'); this.props.openModal('costs') }}><span><span className="underline">Consultar Custos associados a este Projecto</span> <FiExternalLink /></span></div>
+             : <div>Sem Custos Associados.</div>
+           : this.props.projectContent.costs ?
+           <>
+             <div className="see-all-costs" onClick={() => { this.props.openCostsModal('projectlist'); this.props.openModal('costs') }}><span><span className="underline">Consultar Custos associados a este Projecto</span> <FiExternalLink /></span></div>
+             <div className="billing-add-costs" onClick={() => {this.props.openCostsModal('project'); this.props.openModal('costs')}}><span><span className="underline">Adicionar custos</span> <FiPlus /></span></div>
+           </>
+           :
+             <>
+               <div className="billing-descr">Este Projecto ainda não tem um Registo de Custos associado.</div>
+               <div className="billing-add-costs" onClick={() => {this.props.openCostsModal('project'); this.props.openModal('costs')}}><span><span className="underline">Adicionar custos</span> <FiPlus /></span></div>
+             </>
+           }
+           </div>
+         </div>
+       </div>
       </>
     );
   }

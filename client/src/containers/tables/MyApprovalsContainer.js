@@ -5,6 +5,7 @@ import 'sweetalert2/src/sweetalert2.scss'
 const axios = require('axios');
  
 class MyApprovalsContainer extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -20,12 +21,14 @@ class MyApprovalsContainer extends Component {
     var url = '/api/misc/approvals'
    
     axios.get(url, { headers: { Authorization: AuthStr } }).then(res => {
-      if (res.data === 'nodata') {
-        this.setState({ approvalItems: [], filteredApprovals: [], isLoading: false });
-      } else {
-        var newItems = [...res.data.tasks, ...res.data.projects, ...res.data.budgets]
-        newItems = newItems.sort((a, b) =>  a.conclusion_date>b.conclusion_date ? 1 : a.conclusion_date<b.conclusion_date ? -1 : 0)
-        this.setState({ approvalItems: newItems, filteredApprovals: newItems, isLoading: false });
+      if (this._isMounted) {
+        if (res.data === 'nodata') {
+          this.setState({ approvalItems: [], filteredApprovals: [], isLoading: false });
+        } else {
+          var newItems = [...res.data.tasks, ...res.data.projects, ...res.data.budgets]
+          newItems = newItems.sort((a, b) =>  a.conclusion_date>b.conclusion_date ? 1 : a.conclusion_date<b.conclusion_date ? -1 : 0)
+          this.setState({ approvalItems: newItems, filteredApprovals: newItems, isLoading: false });
+        }
       }
     });
   }
@@ -56,6 +59,7 @@ class MyApprovalsContainer extends Component {
   }
  
   componentDidMount() {
+    this._isMounted = true;
     this.getApprovalItems()
   }
  
@@ -66,6 +70,10 @@ class MyApprovalsContainer extends Component {
     if(prevProps.filters !== this.props.filters || prevProps.searchQuery !== this.props.searchQuery){
       this.filterApprovals()
     }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
  
  

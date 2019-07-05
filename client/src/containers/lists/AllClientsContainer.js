@@ -8,6 +8,7 @@ const axios = require('axios');
 const history = createBrowserHistory();
 
 class AllClientsContainer extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -33,7 +34,7 @@ class AllClientsContainer extends Component {
     var AuthStr = 'Bearer ' + token;
     if (this.state.activeClient) {
       axios.get(`/api/clients/details/${this.state.activeClient}`, { headers: { Authorization: AuthStr } }).then(res => {
-        this.setState({ clientContent: res.data, isLoading: false });
+        if (this._isMounted) { this.setState({ clientContent: res.data, isLoading: false }) }
       });
     } else {
       if (this.props.isShare) {
@@ -41,14 +42,16 @@ class AllClientsContainer extends Component {
         axios
           .get(`/api/clients/details/${params.id}`, { headers: { Authorization: AuthStr } })
           .then(res => {
-            this.setState({ activeClient:  res.data.details[0].id_client });
+            if (this._isMounted) { this.setState({ activeClient:  res.data.details[0].id_client }) }
           })
           .then(res => {
             axios.get(`/api/clients/details/${this.state.activeClient}`, { headers: { Authorization: AuthStr } }).then(res => {
-              if (res.data === 'nodata') {
-                this.setState({ clientContent: null, isLoading: false });
-              } else {
-                this.setState({ clientContent: res.data, isLoading: false });
+              if (this._isMounted) {
+                if (res.data === 'nodata') {
+                  this.setState({ clientContent: null, isLoading: false });
+                } else {
+                  this.setState({ clientContent: res.data, isLoading: false });
+                }
               }
             });
           });
@@ -56,14 +59,16 @@ class AllClientsContainer extends Component {
         axios
           .get(`/api/clients`, { headers: { Authorization: AuthStr } })
           .then(res => {
-            this.setState({ activeClient: res.data.details[0].id_client });
+            if (this._isMounted) { this.setState({ activeClient: res.data.details[0].id_client }) }
           })
           .then(res => {
             axios.get(`/api/clients/details/${this.state.activeClient}`, { headers: { Authorization: AuthStr } }).then(res => {
-              if (res.data === 'nodata') {
-                this.setState({ clientContent: null, isLoading: false });
-              } else {
-                this.setState({ clientContent: res.data, isLoading: false });
+              if (this._isMounted) {
+                if (res.data === 'nodata') {
+                  this.setState({ clientContent: null, isLoading: false });
+                } else {
+                  this.setState({ clientContent: res.data, isLoading: false });
+                }
               }
             });
           });
@@ -111,14 +116,15 @@ class AllClientsContainer extends Component {
 
   toggleSearchInput = () => {
     if(this.state.displaySearchInput === '' || this.state.displaySearchInput === 'hidesearch'){
-      this.setState({displaySearchInput: 'showsearch'})
+      this.setState({displaySearchInput: 'showsearch'}, () => document.getElementById('clients-search').focus())
     }
     else if(this.state.displaySearchInput === 'showsearch'){
-      this.setState({displaySearchInput: 'hidesearch'})
+      this.setState({displaySearchInput: 'hidesearch', searchQuery: ''}, () => document.getElementById('clients-search').value = '')
     }
   }
 
   componentDidMount() {
+    this._isMounted = true;
     this.getClientDetails();
   }
 
@@ -127,6 +133,10 @@ class AllClientsContainer extends Component {
       this.getClientDetails();
       this.setState({ activeTab: 'clientprojects' });
     }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {

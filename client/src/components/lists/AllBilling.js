@@ -31,7 +31,7 @@ export const AllBilling = props => {
           <h4 className="widget-title">Contabilidade</h4>
           <div className="grid-widget left-options">
           <div className="tooltip-container tasks-search">
-            <input type="text" placeholder="Pesquisa" className={props.displaySearchInput+ ' searchinput'} onChange={props.changeSearchQuery}/>
+            <input type="text" placeholder="Pesquisa" id="billing-search" className={props.displaySearchInput+ ' searchinput'} onChange={props.changeSearchQuery}/>
             <FiSearch onClick={props.toggleSearchInput}/>
             <span className="tooltip">Pesquisar</span>
           </div>

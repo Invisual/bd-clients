@@ -43,6 +43,27 @@ export const CreateProject = props => {
                                 <textarea required id="project-briefing" onChange={props.changeBriefingInput} placeholder="Escrever" value={props.type === 'edit' ? props.briefingInput : undefined}></textarea>
                             </fieldset>
                         </div>
+
+                        {props.type === 'edit' ?
+                            <div className="grid50-50 inner-grid">
+
+                                <div className="innergrid-item">
+                                    <fieldset>
+                                        <legend>Zeplin</legend>
+                                        <input type="text" id="project-zeplin-url" onChange={props.changeZeplinInput} placeholder="Url" value={props.zeplinInput ? props.zeplinInput : undefined}/>
+                                    </fieldset>
+                                </div>
+                                
+                                <div className="innergrid-item">
+                                    <fieldset>
+                                        <legend>Slack</legend>
+                                        <input type="text" id="project-slack-url" onChange={props.changeSlackInput} placeholder="ID do Canal" value={props.slackInput ? props.slackInput : undefined}/>
+                                    </fieldset>
+                                </div>
+
+                            </div>
+                        : null }
+
                     </div>
 
                     <div className="grid-item">

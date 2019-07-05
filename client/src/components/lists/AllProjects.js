@@ -14,28 +14,29 @@ export const AllProjects = props => {
   return (
     <AllProjectsDiv className="dashboard-container">
       {props.projectContent ?
-      <CostsModalContainer 
-        closeModal={props.closeModal}
-        projId={props.activeProject} 
-        type={props.costsModalType} 
-        costs={props.projectContent.costs}
-        getProjectDetails={props.getProjectDetails}
-      />
+      <>
+        <CostsModalContainer 
+          closeModal={props.closeModal}
+          projId={props.activeProject} 
+          type={props.costsModalType} 
+          costs={props.projectContent.costs}
+          getProjectDetails={props.getProjectDetails}
+        />
+        <ConcludeModalContainer 
+          closeConcludeModal={props.closeConcludeModal} 
+          projId={props.activeProject}
+          projectContent={props.projectContent}
+          type={props.concludeModalType} 
+          getProjectDetails={props.getProjectDetails}
+        />
+      </>
       : null}
-      
-      <ConcludeModalContainer 
-        closeConcludeModal={props.closeConcludeModal} 
-        projId={props.activeProject}
-        projectContent={props.projectContent}
-        type={props.concludeModalType} 
-        getProjectDetails={props.getProjectDetails}
-      /> 
       <div className="widgets-grid widget cards-container nofixed-height no-shadow">
         <div className="grid-widget tasks-title">
           <h4 className="widget-title">{props.concluded? 'Projetos Concluídos' : 'Projetos'}</h4>
           <div className="grid-widget left-options">
           <div className="tooltip-container projects-search">
-            <input type="text" placeholder="Pesquisa" className={props.displaySearchInput+ ' searchinput'} onChange={props.changeSearchQuery}/>
+            <input type="text" placeholder="Pesquisa" id="projects-search" className={props.displaySearchInput+ ' searchinput'} onChange={props.changeSearchQuery}/>
             <FiSearch onClick={props.toggleSearchInput}/>
             <span className="tooltip">Pesquisar Projetos</span>
           </div>

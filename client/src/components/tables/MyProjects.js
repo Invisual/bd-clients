@@ -5,7 +5,6 @@ import { FiArrowRight } from 'react-icons/fi';
 
 export const MyProjects = props => {
   var content = '';
-  
   switch (props.type) {
     case 'dashboard':
       content = (
@@ -61,7 +60,7 @@ export const MyProjects = props => {
         <div className="mytasks-container widget">
           {props.isLoading ? (
             <img src="/img/loading.svg" alt="loading" className="loading-spinner" />
-          ) : props.projects ? 
+          ) : props.projects.length > 0 ? 
                 props.placeholder ?
                 <div className="empty-placeholder">Sem Projetos correspondentes aos filtros ativos.</div>
             :(

@@ -278,7 +278,15 @@ router.put('/conclude', checkToken, (req, res) => {
           'UPDATE tasks SET concluded_task=?, billed_task=?, conclusion_date_task = ?, user_concluded_task = ? WHERE ref_id_project=?', [approval, billing, date, user, projId],
           function (error, results, fields) {
             if (error) throw error;
-            res.send(results)
+            if(results.affectedRows){
+              res.send(results)
+            }
+            else{
+              var data = {
+                affectedRows: 1
+              }
+              res.send(data)
+            }
           }
         );
       }

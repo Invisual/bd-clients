@@ -19,6 +19,7 @@ export const AllTeam = props => {
             <input
               type="text"
               placeholder="Pesquisa"
+              id="team-search"
               className={props.displaySearchInput + ' searchinput'}
               onChange={props.changeSearchQuery}
             />

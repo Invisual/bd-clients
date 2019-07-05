@@ -3,6 +3,7 @@ import { TeamList } from '../../components/tables/TeamList';
 const axios = require('axios');
 
 class TeamListContainer extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -20,10 +21,12 @@ class TeamListContainer extends Component {
     var AuthStr = 'Bearer ' + token;
 
     axios.get(`/api/users`, { headers: { Authorization: AuthStr } }).then(res => {
-      if (res.data === 'nodata') {
-        this.setState({ members: null, isLoading: false })
-      } else {
-        this.setState({ members: res.data, filteredMembers: res.data, isLoading: false })
+      if (this._isMounted) {
+        if (res.data === 'nodata') {
+          this.setState({ members: null, isLoading: false })
+        } else {
+          this.setState({ members: res.data, filteredMembers: res.data, isLoading: false })
+        }
       }
     });
   };
@@ -40,6 +43,7 @@ class TeamListContainer extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
     this.getMembers();
   }
 
@@ -50,6 +54,10 @@ class TeamListContainer extends Component {
     if(prevProps.searchQuery !== this.props.searchQuery){
       this.filterMembers()
     }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {

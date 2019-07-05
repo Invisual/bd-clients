@@ -8,6 +8,7 @@ const axios = require('axios');
 const history = createBrowserHistory();
 
 class AllProjectsContainer extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -50,10 +51,10 @@ class AllProjectsContainer extends Component {
 
   toggleSearchInput = () => {
     if(this.state.displaySearchInput === '' || this.state.displaySearchInput === 'hidesearch'){
-      this.setState({displaySearchInput: 'showsearch'})
+      this.setState({displaySearchInput: 'showsearch'}, () => document.getElementById('projects-search').focus())
     }
     else if(this.state.displaySearchInput === 'showsearch'){
-      this.setState({displaySearchInput: 'hidesearch'})
+      this.setState({displaySearchInput: 'hidesearch', searchQuery: ''}, () => document.getElementById('projects-search').value = '')
     }
   }
 
@@ -74,7 +75,7 @@ class AllProjectsContainer extends Component {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
     axios.get(`/api/clients/basic`, { headers: { Authorization: AuthStr } }).then(res => {
-      this.setState({ clientsList: res.data});
+      if (this._isMounted) { this.setState({ clientsList: res.data}) }
     });
   }
 
@@ -82,7 +83,7 @@ class AllProjectsContainer extends Component {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
     axios.get(`/api/misc/billing`, { headers: { Authorization: AuthStr } }).then(res => {
-      this.setState({ billingList: res.data});
+      if (this._isMounted) { this.setState({ billingList: res.data}) }
     });
   }
 
@@ -90,7 +91,7 @@ class AllProjectsContainer extends Component {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
     axios.get(`/api/users/accounts`, { headers: { Authorization: AuthStr } }).then(res => {
-      this.setState({ accountsList: res.data});
+      if (this._isMounted) { this.setState({ accountsList: res.data}) }
     });
   }
 
@@ -98,7 +99,7 @@ class AllProjectsContainer extends Component {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
     axios.get(`/api/misc/categories`, { headers: { Authorization: AuthStr } }).then(res => {
-      this.setState({ categories: res.data});
+      if (this._isMounted) { this.setState({ categories: res.data}) }
     });
   }
 
@@ -106,7 +107,7 @@ class AllProjectsContainer extends Component {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
     axios.get(`/api/users`, { headers: { Authorization: AuthStr } }).then(res => {
-      this.setState({ usersList: res.data});
+      if (this._isMounted) { this.setState({ usersList: res.data}) }
     });
   }
 
@@ -117,7 +118,7 @@ class AllProjectsContainer extends Component {
     var idUser = JSON.parse(localStorage.getItem('user'));
     if (this.state.activeProject) {
       axios.get(`/api/projects/details/${this.state.activeProject}`, { headers: { Authorization: AuthStr } }).then(res => {
-        this.setState({ projectContent: res.data, isLoading: false }, () => this.scrollToElementD());
+        if (this._isMounted) {this.setState({ projectContent: res.data, isLoading: false }, () => this.scrollToElementD())}
       });
     } else {
       if (this.props.isShare) {
@@ -130,16 +131,20 @@ class AllProjectsContainer extends Component {
         axios
           .get(`/api/projects/details/${params.id}`, { headers: { Authorization: AuthStr } })
           .then(res => {
-            this.setState({ activeProject: res.data.details[0].id_project });
+            if (this._isMounted) {
+              this.setState({ activeProject: res.data.details[0].id_project });
+            }
           })
           .then(res => {
             axios
               .get(`/api/projects/details/${this.state.activeProject}`, { headers: { Authorization: AuthStr } })
               .then(res => {
-                if (res.data === 'nodata') {
-                  this.setState({ projectContent: null, isLoading: false });
-                } else {
-                  this.setState({ projectContent: res.data, isLoading: false }, () => this.scrollToElementD());
+                if (this._isMounted) {
+                  if (res.data === 'nodata') {
+                    this.setState({ projectContent: null, isLoading: false });
+                  } else {
+                    this.setState({ projectContent: res.data, isLoading: false }, () => this.scrollToElementD());
+                  }
                 }
               });
           });
@@ -153,16 +158,20 @@ class AllProjectsContainer extends Component {
         axios
           .get(url, { headers: { Authorization: AuthStr } })
           .then(res => {
-            this.setState({ activeProject: res.data[0].id_project });
+            if (this._isMounted) {
+              this.setState({ activeProject: res.data[0].id_project });
+            }
           })
           .then(res => {
             axios
               .get(`/api/projects/details/${this.state.activeProject}`, { headers: { Authorization: AuthStr } })
               .then(res => {
-                if (res.data === 'nodata') {
-                  this.setState({ projectContent: null, isLoading: false });
-                } else {
-                  this.setState({ projectContent: res.data, isLoading: false });
+                if (this._isMounted) {
+                  if (res.data === 'nodata') {
+                    this.setState({ projectContent: null, isLoading: false });
+                  } else {
+                    this.setState({ projectContent: res.data, isLoading: false });
+                  }
                 }
               });
           });
@@ -332,6 +341,7 @@ class AllProjectsContainer extends Component {
 
 
   componentDidMount() {
+    this._isMounted = true;
     this.getProjectDetails();
     this.getClients();
     this.getBillingModes();
@@ -350,7 +360,12 @@ class AllProjectsContainer extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
   render() {
+    console.log(this.state.projectContent)
     return (
       <AllProjects
         userRole={this.props.userInfo.ref_id_role}

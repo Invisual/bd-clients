@@ -7,6 +7,7 @@ import 'sweetalert2/src/sweetalert2.scss'
 const axios = require('axios');
 
 class MyTasksContainer extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -71,10 +72,12 @@ class MyTasksContainer extends Component {
       }
     }
     axios.get(url, { headers: { Authorization: AuthStr } }).then(res => {
-      if (res.data === 'nodata') {
-        this.setState({ tasks: null, isLoading: false });
-      } else {
-        this.setState({ tasks: res.data, filteredTasks: res.data, isLoading: false });
+      if (this._isMounted) {
+        if (res.data === 'nodata') {
+          this.setState({ tasks: [], filteredTasks: [], isLoading: false });
+        } else {
+          this.setState({ tasks: res.data, filteredTasks: res.data, isLoading: false });
+        }
       }
     });
   };
@@ -207,6 +210,7 @@ class MyTasksContainer extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
     this.getTasks()
   }
 
@@ -220,6 +224,10 @@ class MyTasksContainer extends Component {
     if(prevProps.filters !== this.props.filters || prevProps.searchQuery !== this.props.searchQuery){
       this.filterTasks()
     }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {

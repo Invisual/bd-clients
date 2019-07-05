@@ -8,6 +8,7 @@ const axios = require('axios');
 const history = createBrowserHistory();
  
 class AllApprovalsContainer extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -42,10 +43,10 @@ class AllApprovalsContainer extends Component {
  
   toggleSearchInput = () => {
     if(this.state.displaySearchInput === '' || this.state.displaySearchInput === 'hidesearch'){
-      this.setState({displaySearchInput: 'showsearch'})
+      this.setState({displaySearchInput: 'showsearch'}, () => document.getElementById('approvals-search').focus())
     }
     else if(this.state.displaySearchInput === 'showsearch'){
-      this.setState({displaySearchInput: 'hidesearch'})
+      this.setState({displaySearchInput: 'hidesearch', searchQuery: ''}, () => document.getElementById('approvals-search').value = '')
     }
   }
  
@@ -61,7 +62,7 @@ class AllApprovalsContainer extends Component {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
     axios.get(`/api/clients/basic`, { headers: { Authorization: AuthStr } }).then(res => {
-      this.setState({ clientsList: res.data});
+      if (this._isMounted) { this.setState({ clientsList: res.data}) }
     });
   }
 
@@ -69,7 +70,7 @@ class AllApprovalsContainer extends Component {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
     axios.get(`/api/users/accounts`, { headers: { Authorization: AuthStr } }).then(res => {
-      this.setState({ accountsList: res.data});
+      if (this._isMounted) { this.setState({ accountsList: res.data}) }
     });
   }
  
@@ -81,7 +82,7 @@ class AllApprovalsContainer extends Component {
     var AuthStr = 'Bearer ' + token;
     if (this.state.activeItem) {
       axios.get(`/api/misc/approvals/${this.state.activeType}/${this.state.activeItem}`, { headers: { Authorization: AuthStr } }).then(res => {
-        this.setState({ itemContent: res.data, isLoading: false }, () => this.scrollToElementD());
+        if (this._isMounted) { this.setState({ itemContent: res.data, isLoading: false }, () => this.scrollToElementD()) }
       });
     } else {
       if (this.props.isShare) {
@@ -97,15 +98,17 @@ class AllApprovalsContainer extends Component {
                 this.setState({ redirect: true });
               });
             } else {
-              this.setState({ activeItem: res.data.details[0].id, activeType: res.data.details[0].type});
+              if (this._isMounted) { this.setState({ activeItem: res.data.details[0].id, activeType: res.data.details[0].type}) }
             }
           })
           .then(res => {
             axios.get(`/api/misc/approvals/${this.state.activeType}/${this.state.activeItem}`, { headers: { Authorization: AuthStr } }).then(res => {
-              if (res.data === 'nodata') {
-                this.setState({ itemContent: null, isLoading: false });
-              } else {
-                this.setState({ itemContent: res.data, isLoading: false }, () => this.scrollToElementD());
+              if (this._isMounted) {
+                if (res.data === 'nodata') {
+                  this.setState({ itemContent: null, isLoading: false });
+                } else {
+                  this.setState({ itemContent: res.data, isLoading: false }, () => this.scrollToElementD());
+                }
               }
             });
           });
@@ -141,16 +144,20 @@ class AllApprovalsContainer extends Component {
              }
             
             items = items ? items.sort((a, b) =>  a.conclusion_date>b.conclusion_date ? 1 : a.conclusion_date<b.conclusion_date ? -1 : 0) : null
-            if(items) {this.setState({activeItem: items[0].id, activeType: items[0].type})}
+            if(items){
+              if (this._isMounted) { this.setState({activeItem: items[0].id, activeType: items[0].type}) }
+            }
           })
           .then(res => {
             axios
               .get(`/api/misc/approvals/${this.state.activeType}/${this.state.activeItem}`, { headers: { Authorization: AuthStr } })
               .then(res => {
-                if (res.data === 'nodata') {
-                  this.setState({ itemContent: null, isLoading: false });
-                } else {
-                  this.setState({ itemContent: res.data, isLoading: false});
+                if (this._isMounted) {
+                  if (res.data === 'nodata') {
+                    this.setState({ itemContent: null, isLoading: false });
+                  } else {
+                    this.setState({ itemContent: res.data, isLoading: false});
+                  }
                 }
               });
           });
@@ -275,6 +282,7 @@ class AllApprovalsContainer extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
     this.getItemDetails()
     this.getClients()
     this.getAccounts()
@@ -288,6 +296,10 @@ class AllApprovalsContainer extends Component {
     if (prevState.reloadItems !== this.state.reloadItems) {
       this.setState({ reloadItems: false });
     }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
  
   render() {

@@ -10,6 +10,7 @@ const axios = require('axios')
 
 
 class TeamMemberHoursTab extends Component {
+    _isMounted = false;
     constructor(props){
         super(props)
         this.state = {
@@ -28,10 +29,12 @@ class TeamMemberHoursTab extends Component {
         var AuthStr = 'Bearer ' + token
         axios.get(`/api/hours/${this.props.activeMember}/${this.state.date}`, { headers: { Authorization: AuthStr } })
         .then(res => {
-            if (res.data === 'nodata') {
-                this.setState({ taskHours: [], isLoading: false });
-            } else {
-                this.setState({ taskHours: res.data, isLoading: false });
+            if (this._isMounted) {
+                if (res.data === 'nodata') {
+                    this.setState({ taskHours: [], isLoading: false });
+                } else {
+                    this.setState({ taskHours: res.data, isLoading: false });
+                }
             }
         })
     }
@@ -42,10 +45,12 @@ class TeamMemberHoursTab extends Component {
         var AuthStr = 'Bearer ' + token
         axios.get(`/api/hours/budgets/${this.props.activeMember}/${this.state.date}`, { headers: { Authorization: AuthStr } })
         .then(res => {
-            if (res.data === 'nodata') {
-                this.setState({ budgetHours: [], isLoading: false });
-            } else {
-                this.setState({ budgetHours: res.data, isLoading: false });
+            if (this._isMounted) {
+                if (res.data === 'nodata') {
+                    this.setState({ budgetHours: [], isLoading: false });
+                } else {
+                    this.setState({ budgetHours: res.data, isLoading: false });
+                }
             }
         })
     }
@@ -76,6 +81,7 @@ class TeamMemberHoursTab extends Component {
     }
 
     componentDidMount(){
+        this._isMounted = true;
         this.getTaskHours()
         if(moment().isoWeekday() === 1){
             this.setState({date: moment(new Date()).subtract(3, 'days').format('YYYY-MM-DD')})
@@ -91,6 +97,10 @@ class TeamMemberHoursTab extends Component {
             this.getBudgetHours()
         }
     }
+
+    componentWillUnmount() {
+        this._isMounted = false;
+      }
 
     render(){
         return (

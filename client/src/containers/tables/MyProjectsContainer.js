@@ -4,6 +4,7 @@ import { MyProjects } from '../../components/tables/MyProjects';
 const axios = require('axios');
 
 class MyProjectsContainer extends Component {
+  _isMounted = false
   constructor(props) {
     super(props);
     this.state = {
@@ -34,10 +35,12 @@ class MyProjectsContainer extends Component {
       }
     }
     axios.get(url, { headers: { Authorization: AuthStr } }).then(res => {
-      if (res.data === 'nodata') {
-        this.setState({ projects: null, isLoading: false });
-      } else {
-        this.setState({ projects: res.data, filteredProjects: res.data, isLoading: false });
+      if (this._isMounted) {
+        if (res.data === 'nodata') {
+          this.setState({ projects: [], filteredProjects: [], isLoading: false });
+        } else {
+          this.setState({ projects: res.data, filteredProjects: res.data, isLoading: false });
+        }
       }
     });
   };
@@ -99,6 +102,7 @@ class MyProjectsContainer extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
     this.getProjects();
   }
 
@@ -112,6 +116,10 @@ class MyProjectsContainer extends Component {
     if(prevProps.filters !== this.props.filters || prevProps.searchQuery !== this.props.searchQuery){
       this.filterProjects()
     }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
 

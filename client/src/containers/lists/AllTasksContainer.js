@@ -7,6 +7,7 @@ const axios = require('axios');
 const history = createBrowserHistory();
 
 class AllTasksContainer extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -52,10 +53,10 @@ class AllTasksContainer extends Component {
 
   toggleSearchInput = () => {
     if(this.state.displaySearchInput === '' || this.state.displaySearchInput === 'hidesearch'){
-      this.setState({displaySearchInput: 'showsearch'})
+      this.setState({displaySearchInput: 'showsearch'}, () => document.getElementById('tasks-search').focus())
     }
     else if(this.state.displaySearchInput === 'showsearch'){
-      this.setState({displaySearchInput: 'hidesearch'})
+      this.setState({displaySearchInput: 'hidesearch', searchQuery: ''}, () => document.getElementById('tasks-search').value = '')
     }
   }
 
@@ -77,7 +78,7 @@ class AllTasksContainer extends Component {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
     axios.get(`/api/clients/basic`, { headers: { Authorization: AuthStr } }).then(res => {
-      this.setState({ clientsList: res.data});
+      if (this._isMounted) { this.setState({ clientsList: res.data}) }
     });
   }
 
@@ -85,7 +86,7 @@ class AllTasksContainer extends Component {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
     axios.get(`/api/misc/billing`, { headers: { Authorization: AuthStr } }).then(res => {
-      this.setState({ billingList: res.data});
+      if (this._isMounted) { this.setState({ billingList: res.data}) }
     });
   }
 
@@ -93,7 +94,7 @@ class AllTasksContainer extends Component {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
     axios.get(`/api/users`, { headers: { Authorization: AuthStr } }).then(res => {
-      this.setState({ usersList: res.data});
+      if (this._isMounted) { this.setState({ usersList: res.data}) }
     });
   }
 
@@ -101,7 +102,7 @@ class AllTasksContainer extends Component {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
     axios.get(`/api/projects`, { headers: { Authorization: AuthStr } }).then(res => {
-      this.setState({ projectsList: res.data});
+      if (this._isMounted) { this.setState({ projectsList: res.data}) }
     });
   }
 
@@ -109,7 +110,7 @@ class AllTasksContainer extends Component {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
     axios.get(`/api/misc/types`, { headers: { Authorization: AuthStr } }).then(res => {
-      this.setState({ taskTypesList: res.data});
+      if (this._isMounted) { this.setState({ taskTypesList: res.data}) }
     });
   }
 
@@ -117,7 +118,7 @@ class AllTasksContainer extends Component {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
     axios.get(`/api/misc/status`, { headers: { Authorization: AuthStr } }).then(res => {
-      this.setState({ tasksStatusList: res.data});
+      if (this._isMounted) { this.setState({ tasksStatusList: res.data}) }
     });
   }
 
@@ -128,7 +129,8 @@ class AllTasksContainer extends Component {
     var idUser = JSON.parse(localStorage.getItem('user'));
     if (this.state.activeTask) {
       axios.get(`/api/tasks/content/${this.state.activeTask}`, { headers: { Authorization: AuthStr } }).then(res => {
-        this.setState({ taskContent: res.data, isLoading: false }, () => this.scrollToElementD());
+        console.log('1')
+        if (this._isMounted) { this.setState({ taskContent: res.data, isLoading: false }, () => this.scrollToElementD()) }
       });
     } else {
       if (this.props.isShare) {
@@ -150,15 +152,17 @@ class AllTasksContainer extends Component {
                 this.setState({ redirect: true });
               });
             } else {
-              this.setState({ activeTask: res.data.details[0].id_task });
+              if (this._isMounted) { this.setState({ activeTask: res.data.details[0].id_task }) }
             }
           })
           .then(res => {
             axios.get(`/api/tasks/link/${this.state.activeTask}`, { headers: { Authorization: AuthStr } }).then(res => {
-              if (res.data === 'nodata') {
-                this.setState({ taskContent: null, isLoading: false });
-              } else {
-                this.setState({ taskContent: res.data, isLoading: false }, () => this.scrollToElementD());
+              if (this._isMounted) {
+                if (res.data === 'nodata') {
+                  this.setState({ taskContent: null, isLoading: false });
+                } else {
+                  this.setState({ taskContent: res.data, isLoading: false }, () => this.scrollToElementD());
+                }
               }
             });
           });
@@ -172,16 +176,18 @@ class AllTasksContainer extends Component {
         axios
           .get(url, { headers: { Authorization: AuthStr } })
           .then(res => {
-            this.setState({ activeTask: res.data[0].id_task });
+            if (this._isMounted) { this.setState({ activeTask: res.data[0].id_task }) }
           })
           .then(res => {
             axios
               .get(`/api/tasks/content/${this.state.activeTask}`, { headers: { Authorization: AuthStr } })
               .then(res => {
-                if (res.data === 'nodata') {
-                  this.setState({ taskContent: null, isLoading: false });
-                } else {
-                  this.setState({ taskContent: res.data, isLoading: false});
+                if (this._isMounted) {
+                  if (res.data === 'nodata') {
+                    this.setState({ taskContent: null, isLoading: false });
+                  } else {
+                    this.setState({ taskContent: res.data, isLoading: false});
+                  }
                 }
               });
           });
@@ -360,6 +366,7 @@ class AllTasksContainer extends Component {
 
 
   componentDidMount() {
+    this._isMounted = true;
     this.getTaskDetails();
     this.getClients();
     this.getBillingModes();
@@ -376,6 +383,10 @@ class AllTasksContainer extends Component {
     if (prevState.reloadTasks !== this.state.reloadTasks) {
       this.setState({ reloadTasks: false });
     }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {

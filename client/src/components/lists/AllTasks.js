@@ -16,27 +16,29 @@ export const AllTasks = props => {
   return (
     <AllTasksDiv className="dashboard-container">
       {props.taskContent ?
-      <CostsModalContainer
-        taskId={props.activeTask} 
-        type={props.costsModalType} 
-        costs={props.taskContent.costs}
-        getTaskDetails={props.getTaskDetails}
-        closeModal={props.closeModal}
-      /> 
+      <>
+        <CostsModalContainer
+          taskId={props.activeTask} 
+          type={props.costsModalType} 
+          costs={props.taskContent.costs}
+          getTaskDetails={props.getTaskDetails}
+          closeModal={props.closeModal}
+        /> 
+        <ConcludeModalContainer 
+          closeConcludeModal={props.closeConcludeModal} 
+          taskId={props.activeTask}
+          taskContent={props.taskContent}
+          type={props.concludeModalType} 
+          getTaskDetails={props.getTaskDetails}
+        />
+      </>
       : null}
-      <ConcludeModalContainer 
-        closeConcludeModal={props.closeConcludeModal} 
-        taskId={props.activeTask}
-        taskContent={props.taskContent}
-        type={props.concludeModalType} 
-        getTaskDetails={props.getTaskDetails}
-      /> 
       <div className="widgets-grid widget cards-container nofixed-height">
         <div className="grid-widget tasks-title">
           <h4 className="widget-title">{props.concluded? 'Tarefas Concluídas' : 'Tarefas'}</h4>
           <div className="grid-widget left-options">
           <div className="tooltip-container tasks-search">
-            <input type="text" placeholder="Pesquisa" className={props.displaySearchInput+ ' searchinput'} onChange={props.changeSearchQuery}/>
+            <input type="text" placeholder="Pesquisa" id="tasks-search" className={props.displaySearchInput+ ' searchinput'} onChange={props.changeSearchQuery}/>
             <FiSearch onClick={props.toggleSearchInput}/>
             <span className="tooltip">Pesquisar Tarefas</span>
           </div>

@@ -74,7 +74,6 @@ class ConcludeModalContainer extends Component{
 
     submitConcludeProject = (e) => {
         e.preventDefault();
-        
         var data = {
             approval: this.state.approvalInput,
             billing: this.state.billingInput,

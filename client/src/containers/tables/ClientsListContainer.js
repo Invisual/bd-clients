@@ -3,6 +3,7 @@ import { ClientsList } from '../../components/tables/ClientsList';
 const axios = require('axios');
 
 class ClientsListContainer extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -23,7 +24,7 @@ class ClientsListContainer extends Component {
 
     axios.get(url, { headers: { Authorization: AuthStr } }).then(res => {
       if (res.data === 'nodata') {
-        this.setState({ clients: null, isLoading: false });
+        if (this._isMounted) { this.setState({ clients: null, isLoading: false }) }
       } else {
         var clientsData = res.data.details
         var newClientsData = clientsData.map(client => {
@@ -32,7 +33,7 @@ class ClientsListContainer extends Component {
           return client
           //client.hours = clientHoursObj[0].total_hours
         })
-        this.setState({ clients: newClientsData, filteredClients: newClientsData, isLoading: false });
+        if (this._isMounted) { this.setState({ clients: newClientsData, filteredClients: newClientsData, isLoading: false }) }
       }
     });
   };
@@ -50,8 +51,10 @@ class ClientsListContainer extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
     this.getClients();
   }
+  
   componentDidUpdate(prevProps){
     if(prevProps.searchQuery !== this.props.searchQuery){
       this.filterClients()
@@ -59,6 +62,10 @@ class ClientsListContainer extends Component {
     if(prevProps.onlyAvencados !== this.props.onlyAvencados){
       this.getClients()
     }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {

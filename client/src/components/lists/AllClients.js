@@ -14,7 +14,7 @@ export const AllClients = props => {
           <h4 className="widget-title">Clientes</h4>
           <div className="grid-widget left-options">
           <div className="tooltip-container client-search">
-            <input type="text" placeholder="Pesquisa" className={props.displaySearchInput+ ' searchinput'} onChange={props.changeSearchQuery}/>
+            <input type="text" placeholder="Pesquisa" id="clients-search" className={props.displaySearchInput+ ' searchinput'} onChange={props.changeSearchQuery}/>
             <FiSearch onClick={props.toggleSearchInput}/>
             <span className="tooltip">Pesquisar Clientes</span>
           </div>

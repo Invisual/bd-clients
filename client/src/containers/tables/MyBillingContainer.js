@@ -5,6 +5,7 @@ import 'sweetalert2/src/sweetalert2.scss'
 const axios = require('axios');
 
 class MyBillingContainer extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -18,13 +19,14 @@ class MyBillingContainer extends Component {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
     axios.get(`api/billing/`, { headers: { Authorization: AuthStr } }).then(res => {
-      if (res.data === 'nodata') {
-        console.log('asas')
-        this.setState({ items: [], filteredItems: [], isLoading: false }, ()=>console.log(this.state.items));
-      } else {
-        var newItems = [...res.data.tasks, ...res.data.projects]
-        newItems = newItems.sort((a, b) =>  a.conclusion_date>b.conclusion_date ? 1 : a.conclusion_date<b.conclusion_date ? -1 : 0)
-        this.setState({ items: newItems, filteredItems: newItems, isLoading: false });
+      if (this._isMounted) {
+        if (res.data === 'nodata') {
+          this.setState({ items: [], filteredItems: [], isLoading: false });
+        } else {
+          var newItems = [...res.data.tasks, ...res.data.projects]
+          newItems = newItems.sort((a, b) =>  a.conclusion_date>b.conclusion_date ? 1 : a.conclusion_date<b.conclusion_date ? -1 : 0)
+          this.setState({ items: newItems, filteredItems: newItems, isLoading: false });
+        }
       }
     });
   };
@@ -54,6 +56,7 @@ class MyBillingContainer extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
     this.getItems()
   }
 
@@ -64,6 +67,10 @@ class MyBillingContainer extends Component {
     if(prevProps.filters !== this.props.filters || prevProps.searchQuery !== this.props.searchQuery){
       this.filterItems()
     }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
 

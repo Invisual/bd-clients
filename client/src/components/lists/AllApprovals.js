@@ -27,7 +27,7 @@ export const AllApprovals = props => {
           <h4 className="widget-title">Aprovações</h4>
           <div className="grid-widget left-options">
           <div className="tooltip-container tasks-search">
-            <input type="text" placeholder="Pesquisa" className={props.displaySearchInput+ ' searchinput'} onChange={props.changeSearchQuery}/>
+            <input type="text" placeholder="Pesquisa" id="approvals-search" className={props.displaySearchInput+ ' searchinput'} onChange={props.changeSearchQuery}/>
             <FiSearch onClick={props.toggleSearchInput}/>
             <span className="tooltip">Pesquisar</span>
           </div>
@@ -92,6 +92,7 @@ export const AllApprovals = props => {
         : props.isLoading ?
         <img src="/img/loading.svg" alt="loading" className="loading-spinner" />
         :
+        props.itemContent ? 
         (() => {
           switch(props.activeType) {
             case 'budget':
@@ -122,14 +123,12 @@ export const AllApprovals = props => {
               openModal={props.openModal}
               placeholder={props.placeholder}
               />
-            case '':
-              return <div>
-                      <div className="no-content" />
-                     </div>
             default:
               return <img src="/img/loading.svg" alt="loading" className="loading-spinner" />
           };
           })()
+        :
+          <div><div className="no-content"/></div>
         }
         </div>
       </div>

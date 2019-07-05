@@ -10,6 +10,7 @@ const axios = require('axios')
 const history = createBrowserHistory();
 
 class AllTeamContainer extends Component{
+  _isMounted = false;
     constructor(props){
         super(props);
         this.state = {
@@ -50,17 +51,19 @@ class AllTeamContainer extends Component{
         var AuthStr = 'Bearer ' + token
         if (this.state.activeMember) {
             axios.get(`/api/users/details/${this.state.activeMember}/${startDate}/${endDate}`, { headers: { Authorization: AuthStr } }).then(res => {
-                this.setState({ memberContent: res.data, isLoading: false });
+              if (this._isMounted) { this.setState({ memberContent: res.data, isLoading: false }) }
             });
         }
         else{
           if(this.props.isShare){
               this.setState({ activeMember: this.props.match.params.id }, () => {
                 axios.get(`/api/users/details/${this.state.activeMember}/${startDate}/${endDate}`, { headers: { Authorization: AuthStr } }).then(res => {
-                  if (res.data === 'nodata') {
-                      this.setState({ memberContent: null, isLoading: false });
-                  } else {
-                      this.setState({ memberContent: res.data, isLoading: false });
+                  if (this._isMounted) {
+                    if (res.data === 'nodata') {
+                        this.setState({ memberContent: null, isLoading: false });
+                    } else {
+                        this.setState({ memberContent: res.data, isLoading: false });
+                    }
                   }
                 })
               })
@@ -69,10 +72,12 @@ class AllTeamContainer extends Component{
             history.push({pathname: '/team'})
             this.setState({ activeMember: this.props.match.params.id, activeTab: this.props.setActiveTab }, () => {
               axios.get(`/api/users/details/${this.state.activeMember}/${startDate}/${endDate}`, { headers: { Authorization: AuthStr } }).then(res => {
-                if (res.data === 'nodata') {
-                    this.setState({ memberContent: null, isLoading: false });
-                } else {
-                    this.setState({ memberContent: res.data, isLoading: false });
+                if (this._isMounted) {
+                  if (res.data === 'nodata') {
+                      this.setState({ memberContent: null, isLoading: false });
+                  } else {
+                      this.setState({ memberContent: res.data, isLoading: false });
+                  }
                 }
               })
             })
@@ -80,14 +85,16 @@ class AllTeamContainer extends Component{
           else{
             axios.get(`/api/users`, { headers: { Authorization: AuthStr } })
             .then(res => {
-                this.setState({ activeMember: res.data[0].id_user });
+              if (this._isMounted) { this.setState({ activeMember: res.data[0].id_user }) }
             })
             .then(res => {
                 axios.get(`/api/users/details/${this.state.activeMember}/${startDate}/${endDate}`, { headers: { Authorization: AuthStr } }).then(res => {
-                  if (res.data === 'nodata') {
-                      this.setState({ memberContent: null, isLoading: false });
-                  } else {
-                      this.setState({ memberContent: res.data, isLoading: false });
+                  if (this._isMounted) {
+                    if (res.data === 'nodata') {
+                        this.setState({ memberContent: null, isLoading: false });
+                    } else {
+                        this.setState({ memberContent: res.data, isLoading: false });
+                    }
                   }
                 });
             });
@@ -99,7 +106,7 @@ class AllTeamContainer extends Component{
       var token = JSON.parse(localStorage.getItem('token'));
       var AuthStr = 'Bearer ' + token;
       axios.get(`/api/clients/basic`, { headers: { Authorization: AuthStr } }).then(res => {
-        this.setState({ clientsList: res.data});
+        if (this._isMounted) { this.setState({ clientsList: res.data}) }
       });
     }
 
@@ -114,10 +121,10 @@ class AllTeamContainer extends Component{
 
     toggleSearchInput = () => {
         if(this.state.displaySearchInput === '' || this.state.displaySearchInput === 'hidesearch'){
-          this.setState({displaySearchInput: 'showsearch'})
+          this.setState({displaySearchInput: 'showsearch'}, () => document.getElementById('team-search').focus())
         }
         else if(this.state.displaySearchInput === 'showsearch'){
-          this.setState({displaySearchInput: 'hidesearch'})
+          this.setState({displaySearchInput: 'hidesearch', searchQuery: ''}, () => document.getElementById('team-search').value = '')
         }
     }
 
@@ -147,6 +154,7 @@ class AllTeamContainer extends Component{
     }
 
     componentDidMount(){
+        this._isMounted = true;
         this.getMemberDetails(moment(this.state.filters.startDate).format('YYYY-MM-DD'), moment(this.state.filters.endDate).format('YYYY-MM-DD'))
         this.getClients()
     }
@@ -159,7 +167,11 @@ class AllTeamContainer extends Component{
         if(prevState.filters.startDate !== this.state.filters.startDate || prevState.filters.endDate !== this.state.filters.endDate){
           this.getMemberDetails(moment(this.state.filters.startDate).format('YYYY-MM-DD'), moment(this.state.filters.endDate).format('YYYY-MM-DD'))
         }
-      }
+    }
+
+    componentWillUnmount() {
+      this._isMounted = false;
+    }
 
     render(){
         return <AllTeam
