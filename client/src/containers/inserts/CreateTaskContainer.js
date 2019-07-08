@@ -169,6 +169,11 @@ class CreateTaskContainer extends Component{
 
     insertTask = (e) => {
         e.preventDefault();
+        var userSlack =  this.state.usersData.filter(user => Number(user.id_user) === Number(this.state.personInput))[0].slack_id_user
+        var userName =  this.state.usersData.filter(user => Number(user.id_user) === Number(this.state.personInput))[0].name_user
+        var accountName =  this.state.usersData.filter(user => Number(user.id_user) === Number(this.state.accountInput))[0].name_user
+        var clientName =  this.state.clientsData.filter(client => Number(client.id_client) === Number(this.state.clientInput))[0].name_client
+        
         var data = {
             title: this.state.titleInput,
             description: this.state.descInput,
@@ -179,8 +184,13 @@ class CreateTaskContainer extends Component{
             project: this.state.projectInput,
             type: this.state.typeInput,
             account: this.state.accountInput,
-            user: this.state.personInput
+            user: this.state.personInput,
+            slackId: userSlack,
+            userName: userName,
+            accountName: accountName,
+            clientName: clientName,
         }
+        console.log(data)
         var chosenProject = this.state.projectsData.filter(proj => Number(proj.id_project) === Number(this.state.projectInput))
         if(this.state.typeInput === '1'){ data.account = null; data.billing = chosenProject[0].ref_id_billing_mode; }
         else if(this.state.typeInput === '2' || this.state.typeInput === '4'){ data.project = null;}
@@ -254,6 +264,7 @@ class CreateTaskContainer extends Component{
     }
 
     render(){
+        console.log(this.state.usersData)
         return <CreateTask
                 title={this.props.title}
                 changeTypeInput={this.changeTypeInput}

@@ -4,6 +4,7 @@ const connection = require('../../dbconnect');
 const mysql = require('mysql');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
+const axios = require('axios');
 require('dotenv').config();
 
 router.use(cors());
@@ -60,6 +61,77 @@ router.post('/', checkToken, (req, res) => {
             [1, results.insertId, req.body.user],
             function (error, results2, fields) {
               if (error) throw error;
+              var message = [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": `Olá ${req.body.userName} :wave:`
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Foi-lhe atribuída uma nova Tarefa. Algumas informações:"
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": `*Título:*\n${req.body.title}`
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": `*Deadline:*\n${req.body.deadline}`
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": `*Cliente:*\n${req.body.clientName}`
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": `*Account:*\n${req.body.accountName}`
+                    }
+                  ]
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Se necessitar de mais informações ou se pretender começar já a trabalhar na tarefa clique no botão."
+                  },
+                  "accessory": {
+                    "type": "button",
+                    "text": {
+                      "type": "plain_text",
+                      "text": "Ir para a Tarefa",
+                      "emoji": true
+                    },
+                    "style": "primary",
+                    "url": `https://invisual-tarefas.herokuapp.com/tasks/${results.insertId}`
+                  }
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "type": "context",
+                  "elements": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "Please don't shoot the messenger."
+                    }
+                  ]
+                }
+              ]
+              var encodeMessage = encodeURIComponent(JSON.stringify(message))
+              axios.post(`https://slack.com/api/chat.postMessage?token=xoxb-467179413937-685852476933-MPudcUn5RyFDNnJqcdqOwLnM&channel=${req.body.slackId}&text=Nova%20Tarefa%20atribu%C3%ADda&blocks=${encodeMessage}&pretty=1`)
+                .then(res => {
+                    console.log(res)
+                })
             }
           );
           res.send(results);
