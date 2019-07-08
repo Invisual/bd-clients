@@ -10,6 +10,7 @@ require('dotenv').config();
 router.use(cors());
 
 var SECRET_KEY = process.env.SECRET_KEY;
+var SLACK_TOKEN = process.env.SLACK_TOKEN;
 var checkToken = require('./checkToken');
 
 router.get('/', checkToken, (req, res) => {
@@ -128,7 +129,7 @@ router.post('/', checkToken, (req, res) => {
                 }
               ]
               var encodeMessage = encodeURIComponent(JSON.stringify(message))
-              axios.post(`https://slack.com/api/chat.postMessage?token=xoxb-467179413937-685852476933-MPudcUn5RyFDNnJqcdqOwLnM&channel=${req.body.slackId}&text=Nova%20Tarefa%20atribu%C3%ADda&blocks=${encodeMessage}&pretty=1`)
+              axios.post(`https://slack.com/api/chat.postMessage?token=${SLACK_TOKEN}&channel=${req.body.slackId}&text=Nova%20Tarefa%20atribu%C3%ADda&blocks=${encodeMessage}&pretty=1`)
                 .then(res => {
                     console.log(res)
                 })
