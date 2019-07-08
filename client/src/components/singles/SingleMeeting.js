@@ -44,8 +44,8 @@ class SingleMeeting extends Component {
                         
                         {Number(user.ref_id_role) === 2 || Number(user.ref_id_role) === 3 ?
                             <div className="meeting-card-actions">
-                                <Link to={`createmeeting/${this.props.id}`}><FiEdit3 /></Link>
-                                <FiTrash2 onClick={() => this.props.deleteMeeting(this.props.id)}/>
+                                <div className="single-meeting-action"><Link to={`createmeeting/${this.props.id}`}><FiEdit3 /></Link></div>
+                                <div className="single-meeting-action"><FiTrash2 onClick={() => this.props.deleteMeeting(this.props.id)}/></div>
                             </div>
                         :
                             null
@@ -82,7 +82,7 @@ class SingleMeeting extends Component {
                         </div>
                         
                         <div className="meeting-card-actions">
-                            {this.state.extended ? <FiMinusSquare onClick={() => this.toggleCard(false)}/> : <FiPlusSquare onClick={() => this.toggleCard(true)}/>}
+                            {this.state.extended ? <FiMinusSquare className="extend-card-icon" onClick={() => this.toggleCard(false)}/> : <FiPlusSquare className="extend-card-icon" onClick={() => this.toggleCard(true)}/>}
                         </div>
                         
 

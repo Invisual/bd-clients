@@ -53,7 +53,9 @@ class SingleVacation extends Component {
                         }
                         <div className="vacation-actions">
                             {Number(this.props.userRole) === 2 || Number(this.props.userRole) === 3 ?
-                                <FiTrash2 onClick={() => this.props.deleteVacation(this.props.id)}/>
+                                <div className="single-vacation-action">
+                                    <FiTrash2 onClick={() => this.props.deleteVacation(this.props.id)}/>
+                                </div>
                             : null }
                         </div>
                     </div>    

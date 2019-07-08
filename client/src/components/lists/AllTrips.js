@@ -48,8 +48,8 @@ export const AllTrips = props => {
 
                                                 {Number(props.userInfo.ref_id_role) === 2 || Number(props.userInfo.ref_id_role) === 3 ?
                                                     <div className="trip-actions">
-                                                        <Link to={`createtrip/${trip.id_trip}`}><FiEdit3 /></Link>
-                                                        <FiTrash2 onClick={() => props.deleteTrip(trip.id_trip)}/>
+                                                        <div className="single-trip-action"><Link to={`createtrip/${trip.id_trip}`}><FiEdit3 /></Link></div>
+                                                        <div className="single-trip-action"><FiTrash2 onClick={() => props.deleteTrip(trip.id_trip)}/></div>
                                                     </div>
                                                 :
                                                     null

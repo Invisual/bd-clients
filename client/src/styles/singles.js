@@ -535,12 +535,32 @@ export const AllMeetingsDiv = styled.div`
       flex-direction: column;
       align-items: center;
       justify-content: center;
- 
+
+      .single-meeting-action{
+        position:relative;
+
+        &:after{
+          content:'';
+          position:absolute;
+          width: 200%;
+          height: 100%;
+          background-color: #f5f7fd;
+          z-index: 0;
+          left: 50%;
+          top: 50%;
+          transform: translateX(-50%) translateY(-50%);
+          border-radius: 10px;
+          opacity:0;
+        }
+      }
+
       svg{
         font-size:1.75em;
         color:${themeConsts.secondaryBlue};
         margin:9px 0;
         cursor:pointer;
+        position:relative;
+        z-index:1;
       }
     }
   }
@@ -699,13 +719,33 @@ export const SingleVacationDiv = styled.div`
     .vacation-actions{
       display:flex;
       align-items:center;
-      justify-content:center;
+      justify-content:flex-start;
+
+      .single-vacation-action{
+        position:relative;
+
+        &:after{
+          content:'';
+          position:absolute;
+          width: 200%;
+          height: 100%;
+          background-color: #f5f7fd;
+          z-index: 0;
+          left: 50%;
+          top: 50%;
+          transform: translateX(-50%) translateY(-50%);
+          border-radius: 10px;
+          opacity:0;
+        }
+      }
  
       svg{
         font-size: 1.75em;
         color: ${themeConsts.secondaryBlue};
         margin: 9px 0;
         cursor: pointer;
+        z-index:1;
+        position:relative;
       }
     }
   }

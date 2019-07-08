@@ -988,7 +988,8 @@ input[type='text'].hidesearch{
 }
 
 .single-card-task, .task-state, .see-all .arrow, .todo-status svg, .has-meeting, .has-task-deadline, .navigation ul li, .topbar-notifications,
-.topbar-clock, .topbar-add, .topbar-todo, .tasks-list-container .single-card, .project-links-section .single-link{
+.topbar-clock, .topbar-add, .topbar-todo, .tasks-list-container .single-card, .project-links-section .single-link, .single-meeting-action:after,
+.extend-card-icon, .single-meeting-action:after, .single-trip-action:after{
   transition:all .4s ease;
 }
 
@@ -1027,6 +1028,7 @@ input[type='text'].hidesearch{
 .tasks-list-container .single-card:hover{
   background-color: #fdfdff;
 }
+
 .see-all-costs span span:after, .billing-add-costs span span:after {
   display:block;
   content: '';
@@ -1034,8 +1036,17 @@ input[type='text'].hidesearch{
   transform: scaleX(0);  
   transition: transform 250ms ease-in-out;
 }
+
 .see-all-costs span span:hover:after, .billing-add-costs span span:hover:after { transform: scaleX(1); }
 .see-all-costs span span.underline:after, .billing-add-costs span span:after{ transform-origin:  0% 50%; }
+
+.single-meeting-action:hover:after, .single-vacation-action:hover:after, .single-trip-action:hover:after{
+  opacity:1 !important;
+}
+
+.extend-card-icon:hover{
+  transform:rotate(90deg);
+}
 /*HOVERS, NOTIFICACOES E OUTROS EFEITOS*/
 
 
