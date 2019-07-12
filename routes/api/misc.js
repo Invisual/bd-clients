@@ -226,7 +226,7 @@ router.put('/conclude', checkToken, (req, res) => {
       });
       const mailOptions = {
         from: '"TAREFAS INVISUAL" <tarefas@invisual.pt>',
-        to: 'tiago.ribeiro@invisual.pt',
+        to: 'contabilidade@invisual.pt',
         subject: `${subject}`,
         html: `
           <h4>Tarefas - Invisual</h4>
@@ -938,7 +938,7 @@ router.put('/approvals', checkToken, (req, res) => {
       });
       const mailOptions = {
         from: '"TAREFAS INVISUAL" <tarefas@invisual.pt>',
-        to: 'tiago.ribeiro@invisual.pt',
+        to: 'contabilidade@invisual.pt',
         subject: `${subject}`,
         html: `
           <h4>Tarefas - Invisual</h4>
