@@ -261,7 +261,7 @@ class AllProjectsContainer extends Component {
     }).then(result => {
       if (result.value) {
         Swal.fire('Eliminado!', '', 'success');
-        axios.delete(`/api/projects/${projectId}`, { headers: { Authorization: AuthStr } }).then(this.setState({ reloadProjects: true }));
+        axios.delete(`/api/projects/${projectId}`, { headers: { Authorization: AuthStr } }).then(this.setState({ reloadProjects: true, activeProject: '' }));
       }
     });
   };
@@ -365,7 +365,6 @@ class AllProjectsContainer extends Component {
   }
 
   render() {
-    console.log(this.state.projectContent)
     return (
       <AllProjects
         userRole={this.props.userInfo.ref_id_role}

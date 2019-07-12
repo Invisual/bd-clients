@@ -122,6 +122,9 @@ router.delete('/:id', checkToken, (req, res) => {
       //If error send Forbidden (403)
       res.sendStatus(403);
     } else {
+      connection.query('DELETE FROM costs WHERE ref_id_project=?', id, function(error, results, fields) {
+        if (error) throw error;
+      });
       connection.query('DELETE FROM projects WHERE id_project=?', id, function(error, results, fields) {
         if (error) throw error;
         res.send('deleted');
