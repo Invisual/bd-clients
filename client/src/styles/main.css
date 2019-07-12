@@ -1018,7 +1018,7 @@ input[type='text'].hidesearch{
 }
 
 .navigation ul li:hover{
-  background-color: #0634e0;
+  background-color: #0634e0 !important;
 }
 
 .topbar-notifications:hover, .topbar-clock:hover, .topbar-add:hover, .topbar-todo:hover{
