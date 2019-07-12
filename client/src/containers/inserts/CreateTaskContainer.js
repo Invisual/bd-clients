@@ -190,7 +190,6 @@ class CreateTaskContainer extends Component{
             accountName: accountName,
             clientName: clientName,
         }
-        console.log(data)
         var chosenProject = this.state.projectsData.filter(proj => Number(proj.id_project) === Number(this.state.projectInput))
         if(this.state.typeInput === '1'){ data.account = null; data.billing = chosenProject[0].ref_id_billing_mode; }
         else if(this.state.typeInput === '2' || this.state.typeInput === '4'){ data.project = null;}
@@ -264,7 +263,6 @@ class CreateTaskContainer extends Component{
     }
 
     render(){
-        console.log(this.state.usersData)
         return <CreateTask
                 title={this.props.title}
                 changeTypeInput={this.changeTypeInput}
