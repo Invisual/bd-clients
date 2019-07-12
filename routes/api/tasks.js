@@ -10,7 +10,7 @@ require('dotenv').config();
 router.use(cors());
 
 var SECRET_KEY = process.env.SECRET_KEY;
-var SLACK_TOKEN = process.env.SLACK_TOKEN
+var SLACK_TOKEN = process.env.SLACK_TOKEN;
 var checkToken = require('./checkToken');
 
 router.get('/', checkToken, (req, res) => {
