@@ -10,7 +10,6 @@ import ProjectFilters from '../options/ProjectFilters';
 import { FiFolderPlus, FiFilter, FiUserCheck, FiSearch } from 'react-icons/fi';
 
 export const AllProjects = props => {
-  
   return (
     <AllProjectsDiv className="dashboard-container">
       {props.projectContent ?

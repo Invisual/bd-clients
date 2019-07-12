@@ -129,7 +129,6 @@ class AllTasksContainer extends Component {
     var idUser = JSON.parse(localStorage.getItem('user'));
     if (this.state.activeTask) {
       axios.get(`/api/tasks/content/${this.state.activeTask}`, { headers: { Authorization: AuthStr } }).then(res => {
-        console.log('1')
         if (this._isMounted) { this.setState({ taskContent: res.data, isLoading: false }, () => this.scrollToElementD()) }
       });
     } else {
