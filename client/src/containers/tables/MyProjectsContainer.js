@@ -61,6 +61,7 @@ class MyProjectsContainer extends Component {
             return this.props.filters.percentage === '' ? true : Number(project.percentage_tasks) >= Number(this.props.filters.percentage)
           }).filter(project => {
             if(this.props.filters.users.length <= 0){return true}
+            if(!project.intervenientes){return false}
             else{
               for(var i=0, count=this.props.filters.users.length; i<count; i++){
                 var x = 0
