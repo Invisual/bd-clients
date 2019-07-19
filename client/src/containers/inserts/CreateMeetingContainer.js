@@ -17,6 +17,7 @@ class CreateMeetingContainer extends Component{
             topicInput: '',
             placeTypeInput: 1,
             placeInput: '',
+            shouldCountHoursInput: 1,
             usersArr: [],
             clientsData: [],
             usersData: [],
@@ -53,6 +54,11 @@ class CreateMeetingContainer extends Component{
     changePlaceInput = (e) => {
         this.setState({ placeInput: e.target.value })
     }
+
+    changeShouldCountHoursInput = (e) => {
+        this.setState({ shouldCountHoursInput: e.target.value })
+    }
+   
 
     changeUsersArr = (e) =>{
         var usersArr = [...this.state.usersArr];
@@ -111,7 +117,8 @@ class CreateMeetingContainer extends Component{
                     topicInput:res.data[0].title_meeting,
                     placeTypeInput:res.data[0].type_meeting,
                     placeInput:res.data[0].place_meeting,
-                    usersArr:res.data[0].intervenientes ? res.data[0].intervenientes.split(',') : []
+                    usersArr:res.data[0].intervenientes ? res.data[0].intervenientes.split(',') : [],
+                    shouldCountHoursInput: res.data[0].count_hours
                 })
             }
         })
@@ -127,7 +134,8 @@ class CreateMeetingContainer extends Component{
             topic: this.state.topicInput,
             placeType: this.state.placeTypeInput,
             place: this.state.placeInput,
-            users: this.state.usersArr
+            users: this.state.usersArr,
+            countHours: this.state.shouldCountHoursInput
         }
 
         if(Number(this.state.placeTypeInput) === 1){ data.place = 'Invisual';}
@@ -161,7 +169,8 @@ class CreateMeetingContainer extends Component{
             topic: this.state.topicInput,
             placeType: this.state.placeTypeInput,
             place: this.state.placeInput,
-            users: this.state.usersArr
+            users: this.state.usersArr,
+            countHours: this.state.shouldCountHoursInput
         }
 
         if(Number(this.state.placeTypeInput) === 1){ data.place = 'Invisual';}
@@ -245,6 +254,7 @@ class CreateMeetingContainer extends Component{
                 changePlaceTypeInput={this.changePlaceTypeInput}
                 changePlaceInput={this.changePlaceInput}
                 changeUsersArr={this.changeUsersArr}
+                changeShouldCountHoursInput={this.changeShouldCountHoursInput}
                 dateInput={this.state.dateInput}
                 startHourInput={this.state.startHourInput}
                 endHourInput={this.state.endHourInput}
@@ -252,6 +262,7 @@ class CreateMeetingContainer extends Component{
                 topicInput={this.state.topicInput}
                 placeTypeInput={this.state.placeTypeInput}
                 placeInput={this.state.placeInput}
+                shouldCountHoursInput={this.state.shouldCountHoursInput}
                 usersArr={this.state.usersArr}
                 insertMeeting={this.insertMeeting}
                 editMeeting={this.editMeeting}

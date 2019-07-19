@@ -130,7 +130,7 @@ router.post('/requestpassword', (req, res) => {
                         <p>Fizeste um pedido de reposição de Password?</p>
                         <p>Se sim clica no link em baixo, caso contrário ignora este email.</p>
                         <br>
-                        <a href="http://localhost:3000/respasstar/${idUser}/${randomString}">Repôr Password</a>
+                        <a href="https://invisual-tarefas.herokuapp.com/respasstar/${idUser}/${randomString}">Repôr Password</a>
                         `
                 };
     

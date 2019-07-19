@@ -232,7 +232,7 @@ router.put('/conclude', checkToken, (req, res) => {
           <h4>Tarefas - Invisual</h4>
           <br>
           <p>${body}</p>
-          <p>Pode visualiza-la e fatura-la <a href="http://localhost:3000/billing/${type}/${link}">aqui</a>.</p>
+          <p>Pode visualiza-la e fatura-la <a href="https://invisual-tarefas.herokuapp.com/billing/${type}/${link}">aqui</a>.</p>
           <br>
           `
       };
@@ -431,12 +431,12 @@ router.post('/vacations', checkToken, (req, res) => {
                 <p>O utilizador '${req.body.nameUser}' fez um pedido de férias.</p>
                 <br>
                 <p>O dia pedido é o dia ${moment(req.body.startDate).format('ll')}, ${dayType}.</p>
-                <p>Veja aqui o estado atual das férias de todos utilizadores: <a href="http://localhost:3000/vacations/${moment(req.body.startDate)}">Ver Férias</a></p>
+                <p>Veja aqui o estado atual das férias de todos utilizadores: <a href="https://invisual-tarefas.herokuapp.com/vacations/${moment(req.body.startDate)}">Ver Férias</a></p>
                 <br>
                 <br>
-                <p>Aprove aqui: <strong><a href="http://localhost:3000/approvevacations/accounting/${results.insertId}">Aprovar</a></strong></p>
+                <p>Aprove aqui: <strong><a href="https://invisual-tarefas.herokuapp.com/approvevacations/accounting/${results.insertId}">Aprovar</a></strong></p>
                 <br>
-                <p>Rejeite aqui: <strong><a href="http://localhost:3000/rejectvacations/accounting/${results.insertId}">Rejeitar</a></strong></p>
+                <p>Rejeite aqui: <strong><a href="https://invisual-tarefas.herokuapp.com/rejectvacations/accounting/${results.insertId}">Rejeitar</a></strong></p>
                 <br><br>
                 <p><strong>Invisual Branding Solutions</strong></p>
                 `
@@ -449,12 +449,12 @@ router.post('/vacations', checkToken, (req, res) => {
             <p>O utilizador ${req.body.nameUser} fez um pedido de férias.</p>
             <br>
             <p>O período pedido é do dia ${moment(req.body.startDate).format('ll')} até ${moment(req.body.endDate).format('ll')}.</p>
-            <p>Veja aqui o estado atual das férias de todos utilizadores: <a href="http://localhost:3000/vacations">Ver Férias</a></p>
+            <p>Veja aqui o estado atual das férias de todos utilizadores: <a href="https://invisual-tarefas.herokuapp.com/vacations">Ver Férias</a></p>
             <br>
             <br>
-            <p>Aprove aqui: <strong><a href="http://localhost:3000/approvevacations/accounting/${results.insertId}">Aprovar</a></strong></p>
+            <p>Aprove aqui: <strong><a href="https://invisual-tarefas.herokuapp.com/approvevacations/accounting/${results.insertId}">Aprovar</a></strong></p>
             <br>
-            <p>Rejeite aqui: <strong><a href="http://localhost:3000/rejectvacations/accounting/${results.insertId}">Rejeitar</a></strong></p>
+            <p>Rejeite aqui: <strong><a href="https://invisual-tarefas.herokuapp.com/rejectvacations/accounting/${results.insertId}">Rejeitar</a></strong></p>
             <br><br>
             <p><strong>Invisual Branding Solutions</strong></p>
             `
@@ -523,9 +523,9 @@ router.put('/approvevacation/accounting', checkToken, (req, res) => {
                   <p>Este pedido já foi aprovado pela Contabilidade.</p>
                   <br>
                   <br>
-                  <p>Aprove aqui: <strong><a href="http://localhost:3000/approvevacations/management/${req.body.id}">Aprovar</a></strong></p>
+                  <p>Aprove aqui: <strong><a href="https://invisual-tarefas.herokuapp.com/approvevacations/management/${req.body.id}">Aprovar</a></strong></p>
                   <br>
-                  <p>Rejeite aqui: <strong><a href="http://localhost:3000/rejectvacations/management/${req.body.id}">Rejeitar</a></strong></p>
+                  <p>Rejeite aqui: <strong><a href="https://invisual-tarefas.herokuapp.com/rejectvacations/management/${req.body.id}">Rejeitar</a></strong></p>
                   <br><br>
                   <p><strong>Invisual Branding Solutions</strong></p>
                   `
@@ -541,9 +541,9 @@ router.put('/approvevacation/accounting', checkToken, (req, res) => {
               <p>Este pedido já foi aprovado pela Contabilidade.</p>
               <br>
               <br>
-              <p>Aprove aqui: <strong><a href="http://localhost:3000/approvevacations/management/${req.body.id}">Aprovar</a></strong></p>
+              <p>Aprove aqui: <strong><a href="https://invisual-tarefas.herokuapp.com/approvevacations/management/${req.body.id}">Aprovar</a></strong></p>
               <br>
-              <p>Rejeite aqui: <strong><a href="http://localhost:3000/rejectvacations/management/${req.body.id}">Rejeitar</a></strong></p>
+              <p>Rejeite aqui: <strong><a href="https://invisual-tarefas.herokuapp.com/rejectvacations/management/${req.body.id}">Rejeitar</a></strong></p>
               <br><br>
               <p><strong>Invisual Branding Solutions</strong></p>
               `
@@ -944,7 +944,7 @@ router.put('/approvals', checkToken, (req, res) => {
           <h4>Tarefas - Invisual</h4>
           <br>
           <p>${body}</p>
-          <p>Pode visualiza-la e fatura-la <a href="http://localhost:3000/billing/${type}/${link}">aqui</a>.</p>
+          <p>Pode visualiza-la e fatura-la <a href="https://invisual-tarefas.herokuapp.com/billing/${type}/${link}">aqui</a>.</p>
           <br>
           `
       };

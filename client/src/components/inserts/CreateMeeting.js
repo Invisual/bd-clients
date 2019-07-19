@@ -49,11 +49,38 @@ export const CreateMeeting = props => {
 
                         </div>
 
-                        <div className="input-wrapper">
-                            <fieldset>
-                                <legend>Assunto</legend>
-                                <input required type="text" onChange={props.changeTopicInput} placeholder="Escrever" value={props.type === 'edit' ? props.topicInput : undefined}/>
-                            </fieldset>
+
+                        <div className="grid50-50 inner-grid">
+
+                            <div className="innergrid-item">
+                                <div className="input-wrapper">
+                                    <fieldset>
+                                        <legend>Assunto</legend>
+                                        <input required type="text" onChange={props.changeTopicInput} placeholder="Escrever" value={props.type === 'edit' ? props.topicInput : undefined}/>
+                                    </fieldset>
+                                </div>
+                            </div>
+
+                            <div className="innergrid-item">
+                                <div className="input-wrapper">
+                                    <fieldset>
+                                        <legend>Contar Horas</legend>
+                                        <label className="radio-label-container">Não
+                                            <input type="radio" value="1" name="radio-count-hours" onClick={props.changeShouldCountHoursInput} defaultChecked/>
+                                            <span className="checkmark"></span>
+                                        </label>
+                                        <label className="radio-label-container">Sim
+                                            {Number(props.shouldCountHoursInput) === 2 ?
+                                                <input type="radio" value="2" name="radio-count-hours" onClick={props.changeShouldCountHoursInput} defaultChecked/>
+                                            :
+                                                <input type="radio" value="2" name="radio-count-hours" onClick={props.changeShouldCountHoursInput}/>
+                                            }
+                                            <span className="checkmark"></span>
+                                        </label>
+                                    </fieldset>
+                                </div>
+                            </div>
+
                         </div>
 
                     </div>

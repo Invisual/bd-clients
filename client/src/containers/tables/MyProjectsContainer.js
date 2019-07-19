@@ -125,7 +125,6 @@ class MyProjectsContainer extends Component {
 
 
   render() {
-    console.log(this.state.projects)
     return (
       <MyProjects
         projects={this.state.filteredProjects}

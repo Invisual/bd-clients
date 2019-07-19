@@ -87,8 +87,8 @@ router.post('/', checkToken, (req, res) => {
       //If error send Forbidden (403)
       res.sendStatus(403);
     } else {
-      connection.query('INSERT INTO meetings (title_meeting, place_meeting, date_meeting, ref_id_clients, start_hour_meeting, end_hour_meeting, type_meeting) VALUES (?,?,?,?,?,?,?)',
-      [req.body.topic, req.body.place, req.body.date, req.body.client, req.body.startHour, req.body.endHour, req.body.placeType],
+      connection.query('INSERT INTO meetings (title_meeting, place_meeting, date_meeting, ref_id_clients, start_hour_meeting, end_hour_meeting, type_meeting, count_hours) VALUES (?,?,?,?,?,?,?,?)',
+      [req.body.topic, req.body.place, req.body.date, req.body.client, req.body.startHour, req.body.endHour, req.body.placeType, req.body.countHours],
       function(error, results, fields) {
         if (error) throw error;
         for(var i=0, count=req.body.users.length; i<count; i++){
@@ -103,6 +103,15 @@ router.post('/', checkToken, (req, res) => {
               if (error) throw error;
             }
           );
+          if(Number(req.body.countHours) === 2){
+            connection.query(
+              'INSERT INTO meeting_hours (beginning_hour, ending_hour, day, ref_id_user, ref_id_meeting) VALUES (?,?,?,?,?)',
+              [req.body.startHour, req.body.endHour, req.body.date, req.body.users[i], results.insertId],
+              function(error, results2, fields) {
+                if (error) throw error;
+              }
+            )
+          }
         }
         res.send(results);
       });
@@ -118,20 +127,35 @@ router.put('/', checkToken, (req, res) => {
       //If error send Forbidden (403)
       res.sendStatus(403);
     } else {
-      connection.query('UPDATE meetings SET title_meeting = ?, place_meeting = ?, date_meeting = ?, ref_id_clients = ?, start_hour_meeting = ?, end_hour_meeting = ?, type_meeting = ? WHERE id_meeting = ?',
-      [req.body.topic, req.body.place, req.body.date, req.body.client, req.body.startHour, req.body.endHour, req.body.placeType, req.body.id],
+      connection.query('UPDATE meetings SET title_meeting = ?, place_meeting = ?, date_meeting = ?, ref_id_clients = ?, start_hour_meeting = ?, end_hour_meeting = ?, type_meeting = ?, count_hours = ? WHERE id_meeting = ?',
+      [req.body.topic, req.body.place, req.body.date, req.body.client, req.body.startHour, req.body.endHour, req.body.placeType, req.body.countHours, req.body.id],
       function(error, results, fields) {
         if (error) throw error;
+        connection.query('DELETE FROM meeting_hours WHERE ref_id_meeting = ?', req.body.id,
+            function(error, results2, fields){
+              if (error) throw error;
+              if(Number(req.body.countHours) === 2){
+                console.log('hsdh')
+                for(var i=0, count=req.body.users.length; i<count; i++){
+                  connection.query('INSERT INTO meeting_hours (beginning_hour, ending_hour, day, ref_id_user, ref_id_meeting) VALUES (?,?,?,?,?)', 
+                  [req.body.startHour, req.body.endHour, req.body.date, req.body.users[i], req.body.id],
+                  function(error, results2, fields){
+                    if (error) throw error;
+                  })
+                }
+              }
+        })
         connection.query('DELETE FROM meetings_has_users WHERE ref_id_meeting = ?', req.body.id,
-        function(error, results2, fields){
+        function(error, results3, fields){
           if (error) throw error;
           for(var i=0, count=req.body.users.length; i<count; i++){
             connection.query('INSERT INTO meetings_has_users (ref_id_meeting, ref_id_user) VALUES (?,?)', [req.body.id, req.body.users[i]],
-            function(error, results2, fields){
+            function(error, results3, fields){
               if (error) throw error;
             })
           }
         })
+        console.log(results)
         res.send(results);
       });
     }
@@ -147,6 +171,9 @@ router.delete('/:id', checkToken, (req, res) => {
     } else {
       connection.query('DELETE FROM meetings_has_users WHERE ref_id_meeting = ?',req.params.id, function(error, results, fields) {
         if (error) throw error;
+        connection.query('DELETE FROM meeting_hours WHERE ref_id_meeting = ?',req.params.id, function(error, results, fields) {
+          if (error) throw error;
+        });
         connection.query('DELETE FROM meetings WHERE id_meeting = ?',req.params.id, function(error, results, fields) {
           if (error) throw error;
           res.send(results);
