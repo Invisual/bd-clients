@@ -18,7 +18,7 @@ router.get('/', checkToken, (req, res) => {
         jwt.verify(req.token, SECRET_KEY, (err, results) => {
             if(err){
                 //If error send Forbidden (403)
-                console.log('ERRO: Route Protegida');
+                console.log('ERRO: Route Protegida com autenticacao');
                 res.sendStatus(403);
             } else {
                 //If token is successfully verified, we can send the autorized data 
