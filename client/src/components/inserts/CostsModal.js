@@ -29,6 +29,14 @@ export const CostsModal = props => {
                                                     </fieldset>
                                                 </div>
                                             :
+                                                input.type === 'textarea' ?
+                                                    <div key={index} className="input-wrapper">
+                                                        <fieldset>
+                                                            <legend>{input.legend}</legend>
+                                                            <textarea required onChange={(e) => input.onChange(e, obj.id)} placeholder={input.placeholder}></textarea>
+                                                        </fieldset>
+                                                    </div>
+                                                :
                                                 <div key={index} className="input-wrapper">
                                                     <fieldset>
                                                         <legend>{input.legend}</legend>

@@ -27,7 +27,7 @@ class MyProjectsContainer extends Component {
             url = '/api/projects'
           } 
           else {
-          url = this.props.currentProjectList === 'all' ? `/api/projects` : `/api/projects/${idUser.id_user}`
+          url = this.props.currentProjectList === 'all' ? `/api/projects` : `/api/projects/accounts/${idUser.id_user}`
           }
       }
       else{
@@ -52,7 +52,7 @@ class MyProjectsContainer extends Component {
           this.setState({filteredProjects: this.state.projects.filter( project => {
             return this.props.filters.client === '' ? true : Number(project.id_client) === Number(this.props.filters.client)
           }).filter(project => {
-            return this.props.searchQuery === '' ? true : project.title_project.toLowerCase().includes(this.props.searchQuery.toLowerCase())
+            return this.props.searchQuery === '' ? true : project.title_project.toLowerCase().includes(this.props.searchQuery.toLowerCase()) || project.name_client.toLowerCase().includes(this.props.searchQuery.toLowerCase())
           }).filter(project => {
             return this.props.filters.billing === '' ? true : Number(project.ref_id_billing_mode) === Number(this.props.filters.billing)
           }).filter(project => {
@@ -125,6 +125,7 @@ class MyProjectsContainer extends Component {
 
 
   render() {
+    console.log(this.state.projects)
     return (
       <MyProjects
         projects={this.state.filteredProjects}

@@ -64,7 +64,7 @@ class MyTasksContainer extends Component {
           url = '/api/tasks/all'
         } 
         else {
-          url = this.props.currentTaskList === 'all' ? `/api/tasks/all` : `/api/tasks/${user.id_user}`
+          url = this.props.currentTaskList === 'all' ? `/api/tasks/all` : `/api/tasks/accounts/${user.id_user}`
         }
       }
       else {
@@ -181,7 +181,7 @@ class MyTasksContainer extends Component {
         this.setState({filteredTasks: this.state.tasks.filter( task => {
           return this.props.filters.client === '' ? true : Number(task.ref_id_client) === Number(this.props.filters.client)
         }).filter(task => {
-          return this.props.searchQuery === '' ? true : task.title_task.toLowerCase().includes(this.props.searchQuery.toLowerCase())
+          return this.props.searchQuery === '' ? true : task.title_task.toLowerCase().includes(this.props.searchQuery.toLowerCase()) || task.name_client.toLowerCase().includes(this.props.searchQuery.toLowerCase())
         }).filter(task => {
           return this.props.filters.billing === '' ? true : Number(task.ref_id_billing_mode) === Number(this.props.filters.billing)
         }).filter(task => {
@@ -231,7 +231,6 @@ class MyTasksContainer extends Component {
   }
 
   render() {
-
     return (
       <MyTasks
         tasks={this.state.filteredTasks}

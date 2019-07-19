@@ -159,6 +159,32 @@ router.get('/:user', checkToken, (req, res) => {
 });
 
 
+router.get('/accounts/:user', checkToken, (req, res) => {
+  var id = req.params.user;
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+    } else {
+      connection.query(
+        //"SELECT *, group_concat(DISTINCT users_has_tasks.ref_id_user SEPARATOR ',') as 'intervenientes' from tasks INNER JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task INNER JOIN projects ON tasks.ref_id_project=projects.id_project group by projects.id_project HAVING  FIND_IN_SET( ? , intervenientes)",
+
+        "SELECT title_project, id_client, name_client, id_project, creation_date_project, deadline_project, group_concat(DISTINCT projects_has_categories.ref_id_category SEPARATOR ',') as 'categories', projects.ref_id_billing_mode, concluded_project, projects.ref_id_user_account, COUNT(DISTINCT CASE WHEN tasks.id_task THEN id_task ELSE NULL END) AS total_tasks, COUNT(DISTINCT CASE WHEN users_has_tasks.ref_id_user_task_status=2 THEN ref_id_user_task_status ELSE NULL END) as doing, COUNT(DISTINCT CASE WHEN users_has_tasks.ref_id_user_task_status=4 THEN ref_id_user_task_status ELSE NULL END) AS concluded_tasks, COUNT(DISTINCT CASE WHEN users_has_tasks.ref_id_user_task_status=4 THEN ref_id_user_task_status ELSE NULL END)/count(DISTINCT CASE WHEN tasks.id_task THEN id_task ELSE 0 END) *100 AS percentage_tasks, group_concat(DISTINCT users_has_tasks.ref_id_user SEPARATOR ',') as 'intervenientes' from tasks INNER JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task INNER JOIN projects ON tasks.ref_id_project=projects.id_project INNER JOIN clients ON clients.id_client=projects.ref_id_client LEFT JOIN projects_has_categories ON projects.id_project=projects_has_categories.ref_id_project WHERE concluded_project = 0 group by projects.id_project HAVING FIND_IN_SET(?, intervenientes) OR FIND_IN_SET(?, projects.ref_id_user_account)",
+        [id, id],
+        function(error, results, fields) {
+          if (error) throw error;
+          if (results.length > 0) {
+            res.send(results);
+          } else {
+            res.send('nodata')
+          }
+        }
+      );
+    }
+  });
+});
+
+
 router.get('/basic/:id', checkToken, (req, res) => {
   var id = req.params.id;
   jwt.verify(req.token, SECRET_KEY, (err, results) => {

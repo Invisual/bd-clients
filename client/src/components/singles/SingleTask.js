@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { AllSingleTaskDiv, SingleTaskDiv, AllSingleBillingDiv } from '../../styles/singles';
 import { FiFolder, FiClock, FiLink2, FiFileText, FiCheck } from 'react-icons/fi';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { throws } from 'assert';
 
 class SingleTask extends Component {
   
@@ -44,8 +45,9 @@ class SingleTask extends Component {
         let active = this.props.id === this.props.activeTask ? ' active' : '';
       singleContent = (
         <AllSingleTaskDiv className={`single-card-task${active}`} taskColor={taskColor}>
-          <div className="task-title title-click" onClick={() => this.props.changeActiveTask(this.props.id)}>
-            {this.props.title}
+          <div className="task-title task-title-client title-click" onClick={() => this.props.changeActiveTask(this.props.id)}>
+            <div className="title-task">{this.props.title}</div>
+            <div className="client-task">{this.props.clientName}<span>{this.props.userName}</span></div>
           </div>
           <div className="task-watch"><div className="tooltip-container"><Link to={this.props.concluded ? `/concludedprojects/`+this.props.projectState : `/projects/`+this.props.projectState}>{projectFolder}</Link><span className="tooltip">Ir para o Projeto</span></div></div>
           <div className="task-link">

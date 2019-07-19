@@ -31,6 +31,8 @@ export const MyTasks = props => {
                     id={task.id_task}
                     title={task.title_task}
                     state={task.state}
+                    clientName={task.name_client}
+                    userName={task.name_user}
                     hourState={hourState}
                     hourId={hourId}
                     userId={task.ref_id_user}
@@ -90,6 +92,8 @@ export const MyTasks = props => {
                     id={task.id_task}
                     title={task.title_task}
                     state={task.state}
+                    clientName={task.name_client}
+                    userName={task.name_user}
                     hourState={hourState}
                     hourId={hourId}
                     userId={task.ref_id_user}

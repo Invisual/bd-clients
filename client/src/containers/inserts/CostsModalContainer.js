@@ -15,7 +15,7 @@ class CostsModalContainer extends Component{
                                 {   
                                     legend: 'Serviço',
                                     name: 'service',
-                                    type: 'text',
+                                    type: 'textarea',
                                     placeholder: 'Serviço/Produto',
                                     onChange:this.changeServiceInput
                                 },
@@ -39,15 +39,7 @@ class CostsModalContainer extends Component{
                                     type: 'number',
                                     placeholder: 'Preço',
                                     onChange:this.changeSellPriceInput
-                                }/*,
-                                {
-                                    legend: 'Tipo de Custo',
-                                    name: 'cost-type',
-                                    type: 'select',
-                                    placeholder: 'Tipo',
-                                    onChange:this.changeTypeInput,
-                                    options: ['Externo', 'Interno'],
-                                }*/
+                                }
                             ]
                 }
             ],

@@ -74,6 +74,21 @@ export const AllSingleTaskDiv = styled.div`
     justify-content: flex-start;
     font-size: 1.3em;
   }
+  .task-title-client{
+    display:block;
+
+    .client-task{
+      font-size: .8em;
+      margin-top: 2px;
+      font-weight: 600;
+      color: #7f9aff;
+
+      span{
+        margin-left: 10px;
+        color: ${themeConsts.textDarkGrey};
+      }
+    }
+  }
   .title-click {
     cursor: pointer;
   }
@@ -810,6 +825,14 @@ export const SingleApprovalDiv = styled.div`
 
 export const SingleUserDiv = styled.div`
     padding:0 !important;
+    box-shadow:none !important;
+    border-top: 1px solid #e6e6e6;
+    border-radius: 0 !important;
+    margin-top: 0 !important;
+
+    &:first-child{
+      border-top: none;
+    }
 
     .limit-width{
       padding:0 20px;
@@ -966,4 +989,45 @@ export const SingleUserDiv = styled.div`
         cursor: pointer;
         font-size: 1.3em;
       }
+`;
+
+
+
+
+export const SingleAreaDiv = styled.div`
+    padding: 13px 20px !important;
+
+    .single-area-title{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+
+      h5{
+        margin: 0;
+        color:${themeConsts.titlesDarkGrey};
+        font-size: 1.3em;
+        font-weight: 500;
+      }
+
+      .toggle-area-card{
+        font-size: 1.8em;
+        color: #7f9aff;
+        font-weight: 500;
+        cursor: pointer;
+      }
+    }
+    
+    .area-users{
+      overflow: hidden;
+      -webkit-transition: all .5s ease;
+      transition: all .5s ease;
+    }
+    .area-users-closed{
+      max-height:0;
+    }
+    .area-users-opened{
+      max-height:500px;
+      margin-top: 6px;
+    }
+
 `;

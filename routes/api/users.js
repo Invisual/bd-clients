@@ -217,7 +217,7 @@ router.get('/withtasks', checkToken, (req, res) => {
     jwt.verify(req.token, SECRET_KEY, (err, results) => {
         if (err) { res.sendStatus(403) }
         else{
-            connection.query("SELECT id_user, name_user, avatar_user, name_position, count(users_has_tasks.ref_id_task) AS total_tasks, count( CASE WHEN users_has_tasks.ref_id_user_task_status = 4 THEN ref_id_user_task_status ELSE NULL END) AS total_awaiting_tasks FROM users LEFT JOIN users_has_tasks ON users.id_user = users_has_tasks.ref_id_user LEFT JOIN positions ON users.ref_id_position = positions.id_position WHERE ref_id_position != 1 AND ref_id_position != 2 AND ref_id_position != 3 GROUP BY id_user", function(error, results, fields) {
+            connection.query("SELECT id_user, name_user, avatar_user, ref_id_position, name_position, count(users_has_tasks.ref_id_task) AS total_tasks, count( CASE WHEN users_has_tasks.ref_id_user_task_status = 4 THEN ref_id_user_task_status ELSE NULL END) AS total_awaiting_tasks FROM users LEFT JOIN users_has_tasks ON users.id_user = users_has_tasks.ref_id_user LEFT JOIN positions ON users.ref_id_position = positions.id_position WHERE ref_id_position != 1 AND ref_id_position != 3 GROUP BY id_user", function(error, results, fields) {
                 if (error) throw error;
                 if (results.length > 0) { totalResults.users = results; }
             })

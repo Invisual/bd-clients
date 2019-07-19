@@ -57,7 +57,7 @@ export const CostsModalDiv = styled.div`
                 margin-bottom: 8px;
             }
 
-            input[type='text'], input[type='number'], select{
+            input[type='text'], input[type='number'], select, textarea{
                 height:50px;
                 width: 100%;
                 border: none;
@@ -65,6 +65,14 @@ export const CostsModalDiv = styled.div`
                 border-radius: 10px;
                 text-indent: 12px;
                 color:${themeConsts.placeholderGrey}
+            }
+
+            textarea{
+                line-height:50px;
+
+                &:focus{
+                    line-height:20px;
+                }
             }
 
             select{

@@ -290,7 +290,7 @@ router.get('/all', checkToken, (req, res) => {
       res.sendStatus(403);
     } else {
       connection.query(
-        'SELECT id_task, ref_id_user_task_status, title_task, user_task_status.name_user_task_status, starting_date_task, deadline_date_task, projects.ref_id_user_account, tasks.ref_id_client, ref_id_type_task, tasks.ref_id_billing_mode, ref_id_project, users_has_tasks.order, users_has_tasks.ref_id_user from tasks LEFT JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task LEFT JOIN task_types on task_types.id_task_type=tasks.ref_id_type_task LEFT JOIN aproval_task_status ON aproval_task_status.id_aproval_task_status=tasks.ref_id_aproval_task_status LEFT JOIN user_task_status ON user_task_status.id_user_task_status=users_has_tasks.ref_id_user_task_status LEFT JOIN projects ON tasks.ref_id_project=projects.id_project LEFT JOIN billing_modes ON billing_modes.id_billing_mode=tasks.ref_id_billing_mode WHERE tasks.concluded_task=0 AND (concluded_project = 0 OR concluded_project IS NULL) ORDER by users_has_tasks.order DESC, tasks.id_task ASC',
+        'SELECT id_task, ref_id_user_task_status, title_task, user_task_status.name_user_task_status, starting_date_task, deadline_date_task, projects.ref_id_user_account, tasks.ref_id_client, ref_id_type_task, tasks.ref_id_billing_mode, name_client, name_user, ref_id_project, users_has_tasks.order, users_has_tasks.ref_id_user from tasks LEFT JOIN clients ON tasks.ref_id_client = clients.id_client LEFT JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task LEFT JOIN users ON users_has_tasks.ref_id_user = users.id_user LEFT JOIN task_types on task_types.id_task_type=tasks.ref_id_type_task LEFT JOIN aproval_task_status ON aproval_task_status.id_aproval_task_status=tasks.ref_id_aproval_task_status LEFT JOIN user_task_status ON user_task_status.id_user_task_status=users_has_tasks.ref_id_user_task_status LEFT JOIN projects ON tasks.ref_id_project=projects.id_project LEFT JOIN billing_modes ON billing_modes.id_billing_mode=tasks.ref_id_billing_mode WHERE tasks.concluded_task=0 AND (concluded_project = 0 OR concluded_project IS NULL) ORDER by users_has_tasks.order DESC, tasks.id_task ASC',
         function (error, results, fields) {
           if (error) throw error;
           if (results.length > 0) {
@@ -311,7 +311,7 @@ router.get('/concluded', checkToken, (req, res) => {
       res.sendStatus(403);
     } else {
       connection.query(
-        'SELECT id_task, ref_id_user_task_status, title_task, user_task_status.name_user_task_status, starting_date_task, deadline_date_task, projects.ref_id_user_account, tasks.ref_id_client, ref_id_type_task, tasks.ref_id_billing_mode, ref_id_project, users_has_tasks.order, users_has_tasks.ref_id_user, billed_task from tasks LEFT JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task LEFT JOIN task_types on task_types.id_task_type=tasks.ref_id_type_task LEFT JOIN aproval_task_status ON aproval_task_status.id_aproval_task_status=tasks.ref_id_aproval_task_status LEFT JOIN user_task_status ON user_task_status.id_user_task_status=users_has_tasks.ref_id_user_task_status LEFT JOIN projects ON tasks.ref_id_project=projects.id_project LEFT JOIN billing_modes ON billing_modes.id_billing_mode=tasks.ref_id_billing_mode WHERE tasks.concluded_task=2 AND (concluded_project = 2 OR concluded_project IS NULL) ORDER by users_has_tasks.order DESC, tasks.id_task ASC',
+        'SELECT id_task, ref_id_user_task_status, title_task, user_task_status.name_user_task_status, starting_date_task, deadline_date_task, projects.ref_id_user_account, tasks.ref_id_client, ref_id_type_task, tasks.ref_id_billing_mode, name_client, ref_id_project, users_has_tasks.order, users_has_tasks.ref_id_user, billed_task from tasks LEFT JOIN clients ON tasks.ref_id_client = clients.id_client LEFT JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task LEFT JOIN task_types on task_types.id_task_type=tasks.ref_id_type_task LEFT JOIN aproval_task_status ON aproval_task_status.id_aproval_task_status=tasks.ref_id_aproval_task_status LEFT JOIN user_task_status ON user_task_status.id_user_task_status=users_has_tasks.ref_id_user_task_status LEFT JOIN projects ON tasks.ref_id_project=projects.id_project LEFT JOIN billing_modes ON billing_modes.id_billing_mode=tasks.ref_id_billing_mode WHERE tasks.concluded_task=2 AND (concluded_project = 2 OR concluded_project IS NULL) ORDER by users_has_tasks.order DESC, tasks.id_task ASC',
         function (error, results, fields) {
           if (error) throw error;
           if (results.length > 0) {
@@ -357,6 +357,32 @@ router.get('/:user', checkToken, (req, res) => {
       connection.query(
         'SELECT id_task, ref_id_user_task_status, title_task, id_user, name_user, name_client, avatar_user, user_task_status.name_user_task_status, starting_date_task, deadline_date_task, projects.ref_id_user_account, tasks.ref_id_client, ref_id_type_task, tasks.ref_id_billing_mode, ref_id_project, users_has_tasks.order, users_has_tasks.ref_id_user from tasks LEFT JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task LEFT JOIN users ON users_has_tasks.ref_id_user = users.id_user LEFT JOIN clients ON tasks.ref_id_client = clients.id_client LEFT JOIN task_types on task_types.id_task_type=tasks.ref_id_type_task LEFT JOIN aproval_task_status ON aproval_task_status.id_aproval_task_status=tasks.ref_id_aproval_task_status LEFT JOIN user_task_status ON user_task_status.id_user_task_status=users_has_tasks.ref_id_user_task_status LEFT JOIN projects ON tasks.ref_id_project=projects.id_project LEFT JOIN billing_modes ON billing_modes.id_billing_mode=tasks.ref_id_billing_mode where tasks.concluded_task=0 AND (concluded_project = 0 OR concluded_project IS NULL) AND users_has_tasks.ref_id_user= ? ORDER by users_has_tasks.order DESC, tasks.id_task ASC',
         id,
+        function (error, results, fields) {
+          if (error) throw error;
+          if (results.length > 0) {
+            res.send(results);
+          } else {
+            res.send('nodata');
+          }
+        }
+      );
+    }
+  });
+});
+
+
+
+
+router.get('/accounts/:user', checkToken, (req, res) => {
+  var id = req.params.user;
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+    } else {
+      connection.query(
+        'SELECT id_task, ref_id_user_task_status, title_task, id_user, name_user, name_client, avatar_user, user_task_status.name_user_task_status, starting_date_task, deadline_date_task, projects.ref_id_user_account, tasks.ref_id_client, ref_id_type_task, tasks.ref_id_billing_mode, ref_id_project, users_has_tasks.order, users_has_tasks.ref_id_user from tasks LEFT JOIN users_has_tasks on users_has_tasks.ref_id_task=tasks.id_task LEFT JOIN users ON users_has_tasks.ref_id_user = users.id_user LEFT JOIN clients ON tasks.ref_id_client = clients.id_client LEFT JOIN task_types on task_types.id_task_type=tasks.ref_id_type_task LEFT JOIN aproval_task_status ON aproval_task_status.id_aproval_task_status=tasks.ref_id_aproval_task_status LEFT JOIN user_task_status ON user_task_status.id_user_task_status=users_has_tasks.ref_id_user_task_status LEFT JOIN projects ON tasks.ref_id_project=projects.id_project LEFT JOIN billing_modes ON billing_modes.id_billing_mode=tasks.ref_id_billing_mode where tasks.concluded_task=0 AND (concluded_project = 0 OR concluded_project IS NULL) AND (users_has_tasks.ref_id_user= ? OR tasks.ref_id_user_account = ? OR projects.ref_id_user_account = ?) ORDER by users_has_tasks.order DESC, tasks.id_task ASC',
+        [id, id, id],
         function (error, results, fields) {
           if (error) throw error;
           if (results.length > 0) {
