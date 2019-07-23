@@ -5,6 +5,7 @@ import moment from 'moment'
 import 'moment/locale/pt';
 
 export const TeamMemberHistoryTab = props => {
+    //comentario
     var filterByClient = task => {
         return props.filters.client === '' ? true : Number(task.ref_id_client) === Number(props.filters.client)
     }

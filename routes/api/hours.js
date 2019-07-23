@@ -119,6 +119,21 @@ router.get('/budgets/:user/:date', checkToken, (req, res) => {
 })
 
 
+
+router.get('/meetings/:user/:date', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+      if (err) { res.sendStatus(403) }
+      else{
+          connection.query("SELECT id_meeting_hour, id_meeting, beginning_hour, ending_hour, day, title_meeting, id_client, name_client, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(ending_hour, beginning_hour)))) as difference from meeting_hours INNER JOIN meetings ON meeting_hours.ref_id_meeting = meetings.id_meeting INNER JOIN clients ON meetings.ref_id_clients = clients.id_client WHERE ref_id_user = ? AND day = ? GROUP BY id_meeting_hour ORDER BY id_meeting_hour ASC", [req.params.user, req.params.date], function(error, results, fields) {
+              if (error) throw error;
+              if (results.length > 0) { res.send(results) }
+              else { res.send('nodata') }
+          })
+      }
+  })
+})
+
+
 router.post('/', checkToken, (req, res) => {
     jwt.verify(req.token, SECRET_KEY, (err, results) => {
       if (err) {
@@ -227,5 +242,31 @@ router.delete('/:id', checkToken, (req, res) => {
   });
 });
 
+
+router.delete('/budgets/:id', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) { res.sendStatus(403) }
+    else {
+      connection.query('DELETE FROM budget_hours WHERE id_budget_hour = ?', req.params.id, function(error, results, fields) {
+        if (error) throw error;
+        res.send(results);
+      });
+    }
+  });
+});
+
+
+
+router.delete('/meetings/:id', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) { res.sendStatus(403) }
+    else {
+      connection.query('DELETE FROM meeting_hours WHERE id_meeting_hour = ?', req.params.id, function(error, results, fields) {
+        if (error) throw error;
+        res.send(results);
+      });
+    }
+  });
+});
 
 module.exports = router;
