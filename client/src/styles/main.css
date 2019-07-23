@@ -705,6 +705,9 @@ input[type='text'].hidesearch{
 .card-budget{
   border-top:5px solid #651fff;
 }
+.card-meeting{
+  border-top:5px solid #1de9b6;
+}
 
 /*CARDS COM BORDER COM COR PARA CADA TIPO DE TAREFA*/
 

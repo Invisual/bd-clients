@@ -1,11 +1,11 @@
 import React, {Fragment} from 'react'
-import { FiUser, FiClock, FiFileText, FiCheck, FiClipboard } from 'react-icons/fi'
+import { FiUser, FiClock, FiFileText, FiCheck, FiClipboard, FiCalendar } from 'react-icons/fi'
 import { Link } from 'react-router-dom';
 import moment from 'moment'
 import 'moment/locale/pt';
 
 export const TeamMemberHistoryTab = props => {
-    //comentario
+    console.log(props.memberContent)
     var filterByClient = task => {
         return props.filters.client === '' ? true : Number(task.ref_id_client) === Number(props.filters.client)
     }
@@ -14,6 +14,7 @@ export const TeamMemberHistoryTab = props => {
     var tarefasExternas = props.memberContent.tasks.filter(task => Number(task.ref_id_type_task) === 3).filter(filterByClient)
     var tarefasIsoladas = props.memberContent.tasks.filter(task => Number(task.ref_id_type_task) === 4).filter(filterByClient)
     var budgets = props.memberContent.budgets.filter(filterByClient)
+    var meetings = props.memberContent.meetings.filter(filterByClient)
     return (
         <div className="member-history-tab">
 
@@ -172,6 +173,35 @@ export const TeamMemberHistoryTab = props => {
                                          <div className="task-hour-records">
                                             {props.memberContent.budgetHours.filter(hour=> Number(hour.id_budget)===Number(budget.id_budget)).map(hour => {
                                                 return <span key={hour.id_budget_hour}><b>{moment(hour.day).format('DD MMM')}:</b> {moment(hour.beginning_hour, 'HHmmss').format('HH:mm')} - {moment(hour.ending_hour, 'HHmmss').format('HH:mm')}</span>
+                                            })}
+                                         </div>
+                                       </Fragment>
+                            })
+                        }
+                    </div>
+                :
+                    null    
+                }
+
+
+                {meetings.length > 0 ?
+                    <div className="single-member-project single-card card-meeting">
+                        <h2>Reuniões</h2>
+                        {
+                            meetings.map(meeting => {
+                                return <Fragment key={meeting.id_meeting}>
+                                         <div className="project-single-task" key={meeting.id_meeting}>
+                                             <FiCalendar/>
+                                             <Link to='/meetings'><h4>{meeting.title_meeting}</h4></Link>
+                                             <Link to={'/clients/'+meeting.ref_id_client}><h5>{meeting.name_client}</h5></Link>
+                                             <div className="single-task-hours">
+                                                 <FiClock />
+                                                 <span>{moment(meeting.total_meeting_hours, 'HHmmss').format('HH:mm')}</span>
+                                             </div>
+                                         </div>
+                                         <div className="task-hour-records">
+                                            {props.memberContent.meetingHours.filter(hour=> Number(hour.id_meeting)===Number(meeting.id_meeting)).map(hour => {
+                                                return <span key={hour.id_meeting_hour}><b>{moment(hour.day).format('DD MMM')}:</b> {moment(hour.beginning_hour, 'HHmmss').format('HH:mm')} - {moment(hour.ending_hour, 'HHmmss').format('HH:mm')}</span>
                                             })}
                                          </div>
                                        </Fragment>

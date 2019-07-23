@@ -200,6 +200,16 @@ router.get('/details/:user/:start/:end', checkToken, (req, res) => {
                   if (totalResults.details[0].id_user !== null) { totalResults.budgetHours = results; }
                   else { res.send('nodata') }
             })
+            connection.query("SELECT id_meeting, title_meeting, meetings.ref_id_clients, name_client, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(meeting_hours.ending_hour, meeting_hours.beginning_hour)))) AS 'total_meeting_hours' FROM meetings LEFT JOIN meetings_has_users ON meetings.id_meeting=meetings_has_users.ref_id_meeting LEFT JOIN meeting_hours ON meetings.id_meeting = meeting_hours.ref_id_meeting LEFT JOIN users ON meetings_has_users.ref_id_user = users.id_user LEFT JOIN clients ON meetings.ref_id_clients = clients.id_client WHERE meetings_has_users.ref_id_user=? AND (day BETWEEN ? AND ?) GROUP BY id_meeting", [user, startDate, endDate], function(error, results, fields) {
+                if (error) throw error;
+                if (totalResults.details[0].id_user !== null) { totalResults.meetings = results; }
+                else { res.send('nodata') }
+            })
+            connection.query("SELECT id_meeting_hour, id_meeting, beginning_hour, ending_hour, day, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(ending_hour, beginning_hour)))) as difference from meeting_hours INNER JOIN meetings ON meeting_hours.ref_id_meeting = meetings.id_meeting WHERE ref_id_user = ? AND (day BETWEEN ? AND ?) GROUP BY id_meeting_hour ORDER BY id_meeting_hour ASC", [user, startDate, endDate], function(error, results, fields) {
+                    if (error) throw error;
+                    if (totalResults.details[0].id_user !== null) { totalResults.meetingHours = results; }
+                    else { res.send('nodata') }
+            })
             connection.query("SELECT id_task_hour, id_task, beginning_hour, ending_hour, day, title_task, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(ending_hour, beginning_hour)))) as difference from task_hours INNER JOIN tasks ON task_hours.ref_id_tasks = tasks.id_task WHERE ref_id_users = ? AND (day BETWEEN ? AND ?) GROUP BY id_task_hour ORDER BY id_task_hour ASC", [user, startDate, endDate], function(error, results, fields) {
                 if (error) throw error;
                 totalResults.hours = results;
