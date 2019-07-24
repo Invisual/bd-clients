@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { ClientsList } from '../../components/tables/ClientsList';
+import moment from 'moment'
+import 'moment/locale/pt'
+import 'moment-duration-format'
 const axios = require('axios');
 
 class ClientsListContainer extends Component {
@@ -28,8 +31,16 @@ class ClientsListContainer extends Component {
       } else {
         var clientsData = res.data.details
         var newClientsData = clientsData.map(client => {
-          var clientHoursObj = res.data.hours ? res.data.hours.filter(hour => hour.id_client === client.id_client) : []
-          client.total_hours = clientHoursObj.length > 0 ? clientHoursObj[0].total_hours : null
+          var clientTaskHoursObj = res.data.taskHours ? res.data.taskHours.filter(hour => hour.id_client === client.id_client) : []
+          var clientMeetingHoursObj = res.data.meetingHours ? res.data.meetingHours.filter(hour => hour.id_client === client.id_client) : []
+          var clientBudgetHoursObj = res.data.budgetHours ? res.data.budgetHours.filter(hour => hour.id_client === client.id_client) : []
+
+          var taskHours = clientTaskHoursObj.length > 0 ? clientTaskHoursObj[0].total_hours : 0
+          var meetingHours = clientMeetingHoursObj.length > 0 ? clientMeetingHoursObj[0].total_hours : 0
+          var budgetHours = clientBudgetHoursObj.length > 0 ? clientBudgetHoursObj[0].total_hours : 0
+
+          client.total_hours = moment.duration(taskHours).add(meetingHours).add(budgetHours).format()
+
           return client
           //client.hours = clientHoursObj[0].total_hours
         })

@@ -35,7 +35,25 @@ router.get('/', checkToken, (req, res) => {
         function(error, results, fields) {
           if (error) throw error;
           if (results.length > 0) {
-            totalResults.hours=results
+            totalResults.taskHours=results
+          }
+        }
+      );
+      connection.query(
+        'SELECT id_client, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(meeting_hours.ending_hour, meeting_hours.beginning_hour)))) AS total_hours FROM clients LEFT JOIN meetings ON clients.id_client=meetings.ref_id_clients LEFT JOIN meeting_hours ON meeting_hours.ref_id_meeting=meetings.id_meeting WHERE MONTH(day)=MONTH(CURDATE()) AND meetings.count_hours=2 group by id_client',
+        function(error, results, fields) {
+          if (error) throw error;
+          if (results.length > 0) {
+            totalResults.meetingHours=results
+          }
+        }
+      );
+      connection.query(
+        'SELECT id_client, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(budget_hours.ending_hour, budget_hours.beginning_hour)))) AS total_hours FROM clients LEFT JOIN budgets ON clients.id_client=budgets.ref_id_client LEFT JOIN budget_hours ON budget_hours.ref_id_budget=budgets.id_budget WHERE MONTH(day)=MONTH(CURDATE()) group by id_client',
+        function(error, results, fields) {
+          if (error) throw error;
+          if (results.length > 0) {
+            totalResults.budgetHours=results
           }
           res.send(totalResults)
         }
@@ -66,7 +84,25 @@ router.get('/avencados', checkToken, (req, res) => {
         function(error, results, fields) {
           if (error) throw error;
           if (results.length > 0) {
-            totalResults.hours=results
+            totalResults.taskHours=results
+          }
+        }
+      );
+      connection.query(
+        'SELECT id_client, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(meeting_hours.ending_hour, meeting_hours.beginning_hour)))) AS total_hours FROM clients LEFT JOIN meetings ON clients.id_client=meetings.ref_id_clients LEFT JOIN meeting_hours ON meeting_hours.ref_id_meeting=meetings.id_meeting WHERE MONTH(day)=MONTH(CURDATE()) AND meetings.count_hours=2 group by id_client',
+        function(error, results, fields) {
+          if (error) throw error;
+          if (results.length > 0) {
+            totalResults.meetingHours=results
+          }
+        }
+      );
+      connection.query(
+        'SELECT id_client, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(budget_hours.ending_hour, budget_hours.beginning_hour)))) AS total_hours FROM clients LEFT JOIN budgets ON clients.id_client=budgets.ref_id_client LEFT JOIN budget_hours ON budget_hours.ref_id_budget=budgets.id_budget WHERE MONTH(day)=MONTH(CURDATE()) group by id_client',
+        function(error, results, fields) {
+          if (error) throw error;
+          if (results.length > 0) {
+            totalResults.budgetHours=results
           }
           res.send(totalResults)
         }
