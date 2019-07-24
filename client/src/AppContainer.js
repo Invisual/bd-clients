@@ -19,11 +19,14 @@ class AppContainer extends Component {
       latestActiveBudgetHour: '',
       editHourId: '',
       notifications:[],
+      isAccountDashboard: false,
       shouldTodosUpdate: false,
       canGoBack: false
     }
 
   }
+
+  changeIsAccountDashboard = () => this.setState(prevState => ({ isAccountDashboard: !prevState.isAccountDashboard }))
 
   login = (user, token) => {
     this.setState({
@@ -220,6 +223,8 @@ class AppContainer extends Component {
                 changeEditHourId={this.changeEditHourId}
                 shouldTodosUpdate={this.state.shouldTodosUpdate}
                 changeShouldTodosUpdate={this.changeShouldTodosUpdate}
+                isAccountDashboard={this.state.isAccountDashboard}
+                changeIsAccountDashboard={this.changeIsAccountDashboard}
               />
             </>
             )

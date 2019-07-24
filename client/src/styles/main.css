@@ -1024,7 +1024,7 @@ input[type='text'].hidesearch{
   background-color: #0634e0 !important;
 }
 
-.topbar-notifications:hover, .topbar-clock:hover, .topbar-add:hover, .topbar-todo:hover{
+.topbar-notifications:hover, .topbar-clock:hover, .topbar-add:hover, .topbar-todo:hover, .topbar-dashboard-toggle:hover, .dashboard-account{
   background-color: #f5f7fd;
 }
 

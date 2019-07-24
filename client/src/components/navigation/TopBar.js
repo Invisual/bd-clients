@@ -1,6 +1,6 @@
 import React from 'react'
 import { TopBarDiv } from '../../styles/navigation'
-import { FiBell, FiChevronLeft, FiFolder, FiFileText, FiCalendar, FiEdit, FiPlusSquare, FiClock } from 'react-icons/fi'
+import { FiBell, FiChevronLeft, FiFolder, FiFileText, FiCalendar, FiEdit, FiPlusSquare, FiClock, FiLayout } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 
@@ -31,6 +31,16 @@ export const TopBar = props => {
          : null}
        </li>
        : null}
+
+       {props.userInfo.ref_id_role === 2 ?
+          <li className={props.isAccountDashboard ? 'topbar-dashboard-toggle dashboard-account' : 'topbar-dashboard-toggle'} 
+            onClick={props.changeIsAccountDashboard}
+          >
+            <FiLayout />
+          </li>
+        :
+          null 
+       }
      
 
         <li className="topbar-todo" onClick={() => props.openModal('todo')}>

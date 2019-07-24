@@ -43,12 +43,16 @@ class App extends Component {
       <>
         {this.props.loggedIn ? (
           <div className="app-container">
-            <TopBarContainer canGoBack={this.props.canGoBack} userInfo={this.props.userInfo} notifications={this.props.notifications} setNotificationsSeen={this.props.setNotificationsSeen} setNotificationOpened={this.props.setNotificationOpened} openModal={this.props.openModal} logout={this.props.logout} changeEditHourId={this.props.changeEditHourId} activeHours={this.props.activeHours} activeBudgetHours={this.props.activeBudgetHours}/>
+            <TopBarContainer canGoBack={this.props.canGoBack} userInfo={this.props.userInfo} notifications={this.props.notifications} 
+                setNotificationsSeen={this.props.setNotificationsSeen} setNotificationOpened={this.props.setNotificationOpened} openModal={this.props.openModal} 
+                logout={this.props.logout} changeEditHourId={this.props.changeEditHourId} activeHours={this.props.activeHours} activeBudgetHours={this.props.activeBudgetHours}
+                isAccountDashboard={this.props.isAccountDashboard} changeIsAccountDashboard={this.props.changeIsAccountDashboard}
+            />
             <SideBar userInfo={this.props.userInfo} logout={this.props.logout}/>
             <MyToDoContainer title="To-do List" type="complete" closeModal={this.props.closeModal} shouldTodosUpdate={this.props.shouldTodosUpdate} changeShouldTodosUpdate={this.props.changeShouldTodosUpdate}/>
             <CreateTaskHourContainer closeModal={this.props.closeModal} editHourId={this.props.editHourId} changeEditHourId={this.props.changeEditHourId}/>
             <Switch>
-              <Route exact path="/" render={props => <UserDashboardContainer userInfo={this.props.userInfo} userRole={this.props.userInfo.ref_id_role} activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} openModal={this.props.openModal} shouldTodosUpdate={this.props.shouldTodosUpdate} changeShouldTodosUpdate={this.props.changeShouldTodosUpdate} {...props} />} />
+              <Route exact path="/" render={props => <UserDashboardContainer isAccountDashboard={this.props.isAccountDashboard} userInfo={this.props.userInfo} userRole={this.props.userInfo.ref_id_role} activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} openModal={this.props.openModal} shouldTodosUpdate={this.props.shouldTodosUpdate} changeShouldTodosUpdate={this.props.changeShouldTodosUpdate} {...props} />} />
               <Route key="all-approvals" exact path="/approvals" render={ props => <AllApprovalsContainer openModal={this.props.openModal} closeModal={this.props.closeModal} isShare={false} userInfo={this.props.userInfo} {...props} /> } />
               <Route key="all-approvals-id" exact path="/approvals/:type/:id" render={ props => <AllApprovalsContainer openModal={this.props.openModal} closeModal={this.props.closeModal} isShare={true} userInfo={this.props.userInfo} {...props} /> } />
               <Route key="all-tasks" exact path="/tasks" render={ props => <AllTasksContainer openModal={this.props.openModal} closeModal={this.props.closeModal} isShare={false} userInfo={this.props.userInfo} {...props} activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} activeBudgetHours={this.props.activeBudgetHours} getActiveBudgetHours={this.props.getActiveBudgetHours}/> } />

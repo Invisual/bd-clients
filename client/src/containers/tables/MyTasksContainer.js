@@ -71,6 +71,7 @@ class MyTasksContainer extends Component {
         url = `/api/tasks/${user.id_user}`
       }
     }
+    console.log(url)
     axios.get(url, { headers: { Authorization: AuthStr } }).then(res => {
       if (this._isMounted) {
         if (res.data === 'nodata') {

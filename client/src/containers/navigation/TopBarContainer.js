@@ -117,6 +117,8 @@ class TopBarContainer extends Component {
         toggleSideBarForIpad={this.toggleSideBarForIpad}
         activeHours={this.props.activeHours}
         activeBudgetHours={this.props.activeBudgetHours}
+        isAccountDashboard={this.props.isAccountDashboard}
+        changeIsAccountDashboard={this.props.changeIsAccountDashboard}
       />
     );
   }

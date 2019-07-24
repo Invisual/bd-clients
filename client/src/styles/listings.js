@@ -1832,6 +1832,7 @@ export const ClientDetailsDiv = styled.div`
   }
 
   .member-history-tab {
+    padding-left:10px;
     padding-right: 40px;
     height: 69vh;
     overflow-y: scroll;

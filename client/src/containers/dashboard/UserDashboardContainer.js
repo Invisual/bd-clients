@@ -57,6 +57,7 @@ class UserDashboardContainer extends Component {
             userRole={this.props.userInfo.ref_id_role}
             shouldTodosUpdate={this.props.shouldTodosUpdate}
             changeShouldTodosUpdate={this.props.changeShouldTodosUpdate}
+            isAccountDashboard={this.props.isAccountDashboard}
           />
   }
 }
