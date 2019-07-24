@@ -5,6 +5,7 @@ import { FiCalendar } from 'react-icons/fi';
 import DatePicker from 'react-date-picker'
 
 export const CreateTaskHour = props => {
+    //Create
     return (
         <HoursModalDiv className="cards-container create-hour-modal modal">
             <div className="todo-close"><FiX onClick={() => props.closeModal('hours')}/></div>
