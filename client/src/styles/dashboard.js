@@ -44,5 +44,11 @@ export const DashboardContainer = styled.div`
         color:${themeConsts.textLightGrey};
       }
     }
+
+    .user-areas-container{
+      height: 77vh;
+      overflow-y: scroll;
+      padding: 3px 8px;
+    }
   }
 `;

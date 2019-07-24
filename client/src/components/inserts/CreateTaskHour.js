@@ -36,7 +36,7 @@ export const CreateTaskHour = props => {
                                         {props.tasksData.length > 0 ? 
                                             <><option value="0" disabled>Selecionar</option>
                                             {props.tasksData.map(task => {
-                                                return <option key={task.id_task} value={task.id_task}>{task.title_task}</option>
+                                                return <option key={task.id_task} value={task.id_task}>{task.title_task} - {task.name_client}</option>
                                             })}</>
                                         :
                                             <option value="0" disabled>Esta pessoa não tem Tarefas</option>

@@ -63,6 +63,9 @@ class MyTasksContainer extends Component {
         if(this.props.type === 'dashboard' && user.ref_id_position === 1){
           url = '/api/tasks/all'
         } 
+        else if(this.props.type === 'dashboard' && this.props.isAccount){
+          url = `/api/tasks/${user.id_user}`
+        }
         else {
           url = this.props.currentTaskList === 'all' ? `/api/tasks/all` : `/api/tasks/accounts/${user.id_user}`
         }

@@ -36,14 +36,16 @@ export const MyUsers = props => {
                         <span>Completas</span>
                         <span></span>
                     </div>
-                    {designers.length > 0 ? <SingleArea users={designers} allTasks={props.data.tasks} sortedTasks={sortedTasks} sortedCompletedTasks={sortedCompletedTasks} areaTitle="Designers" /> : null }
-                    {webDevelopers.length > 0 ? <SingleArea users={webDevelopers} allTasks={props.data.tasks} sortedTasks={sortedTasks} sortedCompletedTasks={sortedCompletedTasks} areaTitle="Web Developers" /> : null }
-                    {accounts.length > 0 ? <SingleArea users={accounts} allTasks={props.data.tasks} sortedTasks={sortedTasks} sortedCompletedTasks={sortedCompletedTasks} areaTitle="Accounts" /> : null }
-                    {marketeers.length > 0 ? <SingleArea users={marketeers} allTasks={props.data.tasks} sortedTasks={sortedTasks} sortedCompletedTasks={sortedCompletedTasks} areaTitle="Marketeers" /> : null }
-                    {press.length > 0 ? <SingleArea users={press} allTasks={props.data.tasks} sortedTasks={sortedTasks} sortedCompletedTasks={sortedCompletedTasks} areaTitle="Copy" /> : null }
-                    {multimedia.length > 0 ? <SingleArea users={multimedia} allTasks={props.data.tasks} sortedTasks={sortedTasks} sortedCompletedTasks={sortedCompletedTasks} areaTitle="Multimedia" /> : null }
-                    {producers.length > 0 ? <SingleArea users={producers} allTasks={props.data.tasks} sortedTasks={sortedTasks} sortedCompletedTasks={sortedCompletedTasks} areaTitle="Producers" /> : null }
-                    {interns.length > 0 ?<SingleArea users={interns} allTasks={props.data.tasks} sortedTasks={sortedTasks} sortedCompletedTasks={sortedCompletedTasks} areaTitle="Estagiários" /> : null }
+                    <div className="user-areas-container">
+                        {designers.length > 0 ? <SingleArea users={designers} allTasks={props.data.tasks} sortedTasks={sortedTasks} sortedCompletedTasks={sortedCompletedTasks} areaTitle="Designers" /> : null }
+                        {webDevelopers.length > 0 ? <SingleArea users={webDevelopers} allTasks={props.data.tasks} sortedTasks={sortedTasks} sortedCompletedTasks={sortedCompletedTasks} areaTitle="Web Developers" /> : null }
+                        {accounts.length > 0 ? <SingleArea users={accounts} allTasks={props.data.tasks} sortedTasks={sortedTasks} sortedCompletedTasks={sortedCompletedTasks} areaTitle="Accounts" /> : null }
+                        {marketeers.length > 0 ? <SingleArea users={marketeers} allTasks={props.data.tasks} sortedTasks={sortedTasks} sortedCompletedTasks={sortedCompletedTasks} areaTitle="Marketeers" /> : null }
+                        {press.length > 0 ? <SingleArea users={press} allTasks={props.data.tasks} sortedTasks={sortedTasks} sortedCompletedTasks={sortedCompletedTasks} areaTitle="Copy" /> : null }
+                        {multimedia.length > 0 ? <SingleArea users={multimedia} allTasks={props.data.tasks} sortedTasks={sortedTasks} sortedCompletedTasks={sortedCompletedTasks} areaTitle="Multimedia" /> : null }
+                        {producers.length > 0 ? <SingleArea users={producers} allTasks={props.data.tasks} sortedTasks={sortedTasks} sortedCompletedTasks={sortedCompletedTasks} areaTitle="Producers" /> : null }
+                        {interns.length > 0 ?<SingleArea users={interns} allTasks={props.data.tasks} sortedTasks={sortedTasks} sortedCompletedTasks={sortedCompletedTasks} areaTitle="Estagiários" /> : null }
+                    </div>
                     <Link to="/team">
                         <div className="see-all">
                             Ver todos{' '}
