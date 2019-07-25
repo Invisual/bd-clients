@@ -147,7 +147,6 @@ class CreateTaskHourContainer extends Component{
     }
 
     render(){
-        console.log(this.state.tasksData)
         return <CreateTaskHour 
                 userInput={this.state.userInput}
                 taskInput={this.state.taskInput}

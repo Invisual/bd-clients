@@ -295,6 +295,10 @@ body.collapsed-sidebar .topbar-goback {
   grid-row:1/3;
 }
 
+.full-row-grid-widget .rbc-calendar{
+  height:auto;
+}
+
 .no-content {
   background:url('/img/empty.svg');
   background-size: 100%;
