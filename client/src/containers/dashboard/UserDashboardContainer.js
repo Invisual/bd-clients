@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {UserDashboard} from '../../components/dashboard/UserDashboard';
+import moment from 'moment';
+
 const axios = require('axios');
 
 class UserDashboardContainer extends Component {
@@ -8,16 +10,22 @@ class UserDashboardContainer extends Component {
     this.state = {
       meetings: [],
       tasks: [],
+      activeDay: moment(new Date()).format('Y-MM-DD'),
       isLoading: true
     };
   }
+
+  changeActiveDay = day => {
+    this.setState({ activeDay: day });
+  };
   
   getMeetings = () => {
     var token = JSON.parse(localStorage.getItem('token'));
     var AuthStr = 'Bearer ' + token;
     var idUser = JSON.parse(localStorage.getItem('user'));
+    var url = `/api/meetings/${idUser.id_user}`
 
-    axios.get(`/api/meetings/${idUser.id_user}`, { headers: { Authorization: AuthStr } }).then(res => {
+    axios.get(url, { headers: { Authorization: AuthStr } }).then(res => {
       if (res.data === 'nomeeting') {
         this.setState({ meetings: [], isLoading: false });
       } else {
@@ -32,7 +40,10 @@ class UserDashboardContainer extends Component {
     var AuthStr = 'Bearer ' + token;
     var idUser = JSON.parse(localStorage.getItem('user'));
 
-    axios.get(`/api/tasks/${idUser.id_user}`, { headers: { Authorization: AuthStr } }).then(res => {
+    var url = `/api/tasks/${idUser.id_user}`
+    if(this.props.isAccountDashboard){ url = `/api/tasks/accounts/${idUser.id_user}`}
+
+    axios.get(url, { headers: { Authorization: AuthStr } }).then(res => {
       if (res.data === 'nodata') {
         this.setState({ tasks: [], isLoading: false });
       } else {
@@ -44,6 +55,12 @@ class UserDashboardContainer extends Component {
   componentDidMount(){
     this.getMeetings();
     this.getTasks();
+  }
+
+  componentDidUpdate(prevProps){
+    if(prevProps.isAccountDashboard !== this.props.isAccountDashboard){
+      this.getTasks()
+    }
   }
 
   render(){
@@ -58,6 +75,8 @@ class UserDashboardContainer extends Component {
             shouldTodosUpdate={this.props.shouldTodosUpdate}
             changeShouldTodosUpdate={this.props.changeShouldTodosUpdate}
             isAccountDashboard={this.props.isAccountDashboard}
+            activeDay={this.state.activeDay}
+            changeActiveDay={this.changeActiveDay}
           />
   }
 }

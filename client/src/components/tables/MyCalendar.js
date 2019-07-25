@@ -2,6 +2,7 @@ import React from 'react';
 import BigCalendar from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import {CalendarDiv} from '../../styles/calendar';
+import ListEventsContainer from '../../containers/lists/ListEventsContainer'
 import moment from 'moment'
 
 export const MyCalendar = (props) => {
@@ -19,6 +20,9 @@ export const MyCalendar = (props) => {
                 dayPropGetter={props.customDayPropGetter}
                 components={props.components}
             />
+            {props.isAccountDashboard ?
+                <ListEventsContainer title="Eventos" type="dashboard" activeDay={props.activeDay} userInfo={props.userInfo}/>
+            : null }
         </CalendarDiv>
     )
 }

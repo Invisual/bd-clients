@@ -2239,3 +2239,65 @@ export const UserVacationsDiv = styled.div`
   }
 
 `;
+
+
+
+export const ListEventsDiv = styled.div`
+   margin-top: 40px;
+
+  .events-date{
+    color:${themeConsts.primaryBlue};
+    font-size: 1.5em;
+    margin: 0;
+    margin-top: 3px;
+    font-weight: 500;
+    padding-bottom: 7px;
+  }
+
+  .events-container{
+    max-height: 315px;
+    overflow-y: scroll;
+
+    .single-event{
+      border-bottom: 1px solid #e6e6e6;
+      padding:10px 0;
+
+      .type-client{
+        display: flex;
+        align-items: center;
+        margin-bottom: 6px;
+
+        span{
+          color: ${themeConsts.white};
+          background-color: ${themeConsts.red};
+          border-radius: 25px;
+          padding: 1px 6px;
+        }
+        .is-meeting{
+          background-color: ${themeConsts.thirdBlue};
+        }
+
+        h5{
+          margin:0;
+          margin-left: 10px;
+          letter-spacing: .02em;
+          color:${themeConsts.secondaryBlue};
+        }
+      }
+
+      h3{
+        margin:0;
+        color: #4B4B4B;
+        font-weight: 500;
+        margin-top: 2px;
+      }
+      img{
+        width: 19px;
+        border-radius: 50%;
+        border: 1px solid ${themeConsts.primaryBlue};
+        margin-top: 7px;
+      }
+    }
+  }
+
+`

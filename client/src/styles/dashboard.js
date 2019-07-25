@@ -46,7 +46,7 @@ export const DashboardContainer = styled.div`
     }
 
     .user-areas-container{
-      height: 77vh;
+      height: 72vh;
       overflow-y: scroll;
       padding: 3px 8px;
     }

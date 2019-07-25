@@ -185,22 +185,31 @@ class MyCalendarContainer extends Component {
               );
             }
             else if(this.props.type === 'dashboard'){
-              return (
-                <div className={dayClass} onClick={()=>eventsOnThisDay.length > 0 ? Swal.fire({
-                  title: `Eventos`,
-                  html: `
-                        <div class="calendar-modal-day">
-                            <h3>${moment(date).format('D MMM YYYY')}</h3>
-                            <h6>${moment(date).format('dddd')}</h6>
-                        </div>
-                        ${mapEventsOnThisDay}
-                      `,
-                  customClass: 'calendar-modal',
-                  showCloseButton: true
-                }) : null}>
-                <p>{label}</p>
-                </div>
-              );
+                if(this.props.isAccountDashboard){
+                  return (
+                    <div className={dayClass} onClick={()=> this.props.changeActiveDay(moment(date).format('Y-MM-DD'))}>
+                    <p>{label}</p>
+                    </div>
+                  )
+                }
+                else{
+                  return (
+                    <div className={dayClass} onClick={()=>eventsOnThisDay.length > 0 ? Swal.fire({
+                      title: `Eventos`,
+                      html: `
+                            <div class="calendar-modal-day">
+                                <h3>${moment(date).format('D MMM YYYY')}</h3>
+                                <h6>${moment(date).format('dddd')}</h6>
+                            </div>
+                            ${mapEventsOnThisDay}
+                          `,
+                      customClass: 'calendar-modal',
+                      showCloseButton: true
+                    }) : null}>
+                    <p>{label}</p>
+                    </div>
+                  )
+                }
             }
           }
         }
@@ -213,6 +222,9 @@ class MyCalendarContainer extends Component {
             formats={formats} 
             customDayPropGetter={this.customDayPropGetter} 
             components={components}
+            isAccountDashboard={this.props.isAccountDashboard}
+            activeDay={this.props.activeDay}
+            userInfo={this.props.userInfo}
           />;
   }
 }
