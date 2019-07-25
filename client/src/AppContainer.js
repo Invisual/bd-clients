@@ -19,7 +19,7 @@ class AppContainer extends Component {
       latestActiveBudgetHour: '',
       editHourId: '',
       notifications:[],
-      isAccountDashboard: true,
+      isAccountDashboard: false,
       shouldTodosUpdate: false,
       canGoBack: false
     }
