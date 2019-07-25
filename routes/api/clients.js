@@ -123,29 +123,64 @@ router.get('/annual/:id/:year', checkToken, (req, res) => {
       for (var i = 1; i < 13; i++) {
         tVal = i;//some manipulation of someArr[i]
          (function(val){
-           connection.query( 'SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS total_hours FROM clients LEFT JOIN tasks ON clients.id_client=tasks.ref_id_client LEFT JOIN task_hours ON task_hours.ref_id_tasks=tasks.id_task WHERE id_client=? AND MONTH(day)=? AND YEAR(day) = ? ',
-           [req.params.id, i, req.params.year], function(err, results, fields) {
+           connection.query( 'SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS total_hours FROM clients LEFT JOIN tasks ON clients.id_client=tasks.ref_id_client LEFT JOIN task_hours ON task_hours.ref_id_tasks=tasks.id_task WHERE id_client=? AND MONTH(day) = ? AND YEAR(day) = ?; SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(meeting_hours.ending_hour, meeting_hours.beginning_hour)))) AS total_hours FROM clients LEFT JOIN meetings ON clients.id_client=meetings.ref_id_clients LEFT JOIN meeting_hours ON meeting_hours.ref_id_meeting=meetings.id_meeting WHERE id_client=? AND MONTH(day) = ? AND meetings.count_hours=2 AND YEAR(day) = ?; SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(budget_hours.ending_hour, budget_hours.beginning_hour)))) AS total_hours FROM clients LEFT JOIN budgets ON clients.id_client=budgets.ref_id_client LEFT JOIN budget_hours ON budget_hours.ref_id_budget=budgets.id_budget WHERE id_client=? AND MONTH(day) = ? AND YEAR(day) = ?',
+           [req.params.id, i, req.params.year, req.params.id, i, req.params.year, req.params.id, i, req.params.year], function(err, results, fields) {
                if ( err ) {
                  console.log( err );
                } else {
                 var obj = {}
                 obj.mes = moment(val, 'M').format('MMMM')
                 obj.mesAbrev = moment(val, 'M').format('MMM')
-                obj.horas = results[0].total_hours !== null ? 
-                              moment(results[0].total_hours, 'HH:mm:ss').format('HH') < 01 ?
-                                    moment(results[0].total_hours, 'HH:mm:ss').format('mm') > 01 ?
-                                      parseInt(results[0].total_hours, 10)+1 
-                                    : parseInt(results[0].total_hours, 10) 
-                                : moment(results[0].total_hours, 'HH:mm:ss').format('mm') > 30 ?
-                                parseInt(results[0].total_hours, 10)+1 
-                              : parseInt(results[0].total_hours, 10) 
+                taskHours = results[0][0].total_hours !== null ? 
+                              moment(results[0][0].total_hours, 'HH:mm:ss').format('HH') < 01 ?
+                                    moment(results[0][0].total_hours, 'HH:mm:ss').format('mm') > 01 ?
+                                      parseInt(results[0][0].total_hours, 10)+1 
+                                    : parseInt(results[0][0].total_hours, 10) 
+                                : moment(results[0][0].total_hours, 'HH:mm:ss').format('mm') > 30 ?
+                                    parseInt(results[0][0].total_hours, 10)+1 
+                                    : parseInt(results[0][0].total_hours, 10) 
                             : 0
-                obj.horasExatas = results[0].total_hours !== null ? 
-                                    moment.duration(results[0].total_hours, 'hours').format('HH:mm', {
+                taskExactHours = results[0][0].total_hours !== null ? 
+                                    moment.duration(results[0][0].total_hours, 'hours').format('HH:mm', {
                                       forceLength: true
                                     })
                                   : 0
-                
+                meetingExactHours = results[1][0].total_hours !== null ? 
+                  moment.duration(results[1][0].total_hours, 'hours').format('HH:mm', {
+                    forceLength: true
+                  })
+                : 0
+
+                budgetExactHours = results[2][0].total_hours !== null ? 
+                  moment.duration(results[2][0].total_hours, 'hours').format('HH:mm', {
+                    forceLength: true
+                  })
+                : 0
+
+
+                meetingHours = results[1][0].total_hours !== null ? 
+                                moment(results[1][0].total_hours, 'HH:mm:ss').format('HH') < 01 ?
+                                      moment(results[1][0].total_hours, 'HH:mm:ss').format('mm') > 01 ?
+                                        parseInt(results[1][0].total_hours, 10)+1 
+                                      : parseInt(results[1][0].total_hours, 10) 
+                                  : moment(results[1][0].total_hours, 'HH:mm:ss').format('mm') > 30 ?
+                                      parseInt(results[1][0].total_hours, 10)+1 
+                                      : parseInt(results[1][0].total_hours, 10) 
+                              : 0
+
+                budgetHours = results[2][0].total_hours !== null ? 
+                  moment(results[2][0].total_hours, 'HH:mm:ss').format('HH') < 01 ?
+                        moment(results[2][0].total_hours, 'HH:mm:ss').format('mm') > 01 ?
+                          parseInt(results[2][0].total_hours, 10)+1 
+                        : parseInt(results[2][0].total_hours, 10) 
+                    : moment(results[2][0].total_hours, 'HH:mm:ss').format('mm') > 30 ?
+                        parseInt(results[2][0].total_hours, 10)+1 
+                        : parseInt(results[2][0].total_hours, 10) 
+                : 0
+
+                obj.horasExatas= moment.duration(taskExactHours).add(meetingExactHours).add(budgetExactHours).format('HH:mm')
+
+                obj.horas = taskHours + meetingHours + budgetHours               
                 totalResults.push(obj)
                }
                if(val === 12){
@@ -172,36 +207,71 @@ router.get('/annual/avencados/:id/:year', checkToken, (req, res) => {
       for (var i = 1; i < 13; i++) {
         tVal = i;//some manipulation of someArr[i]
          (function(val){
-           connection.query( 'SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS total_hours FROM clients LEFT JOIN tasks ON clients.id_client=tasks.ref_id_client LEFT JOIN task_hours ON task_hours.ref_id_tasks=tasks.id_task WHERE id_client=? AND MONTH(day)=? AND YEAR(day) = ? AND tasks.ref_id_billing_mode=3 ',
-           [req.params.id, i, req.params.year], function(err, results, fields) {
-               if ( err ) {
-                 console.log( err );
-               } else {
-                var obj = {}
-                obj.mes = moment(val, 'M').format('MMMM')
-                obj.mesAbrev = moment(val, 'M').format('MMM')
-                obj.horas = results[0].total_hours !== null ? 
-                              moment(results[0].total_hours, 'HH:mm:ss').format('HH') < 01 ?
-                                    moment(results[0].total_hours, 'HH:mm:ss').format('mm') > 01 ?
-                                      parseInt(results[0].total_hours, 10)+1 
-                                    : parseInt(results[0].total_hours, 10) 
-                                : moment(results[0].total_hours, 'HH:mm:ss').format('mm') > 30 ?
-                                parseInt(results[0].total_hours, 10)+1 
-                              : parseInt(results[0].total_hours, 10) 
-                            : 0
-                obj.horasExatas = results[0].total_hours !== null ? 
-                                    moment.duration(results[0].total_hours, 'hours').format('HH:mm', {
-                                      forceLength: true
-                                    })
-                                  : 0
-                
-                totalResults.push(obj)
-               }
-               if(val === 12){
-                  sendResults(totalResults)
+          connection.query( 'SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS total_hours FROM clients LEFT JOIN tasks ON clients.id_client=tasks.ref_id_client LEFT JOIN task_hours ON task_hours.ref_id_tasks=tasks.id_task WHERE id_client=? AND MONTH(day) = ? AND YEAR(day) = ? AND ref_id_billing_mode=3; SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(meeting_hours.ending_hour, meeting_hours.beginning_hour)))) AS total_hours FROM clients LEFT JOIN meetings ON clients.id_client=meetings.ref_id_clients LEFT JOIN meeting_hours ON meeting_hours.ref_id_meeting=meetings.id_meeting WHERE id_client=? AND MONTH(day) = ? AND meetings.count_hours=2 AND YEAR(day) = ?; SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(budget_hours.ending_hour, budget_hours.beginning_hour)))) AS total_hours FROM clients LEFT JOIN budgets ON clients.id_client=budgets.ref_id_client LEFT JOIN budget_hours ON budget_hours.ref_id_budget=budgets.id_budget WHERE id_client=? AND MONTH(day) = ? AND YEAR(day) = ?',
+          [req.params.id, i, req.params.year, req.params.id, i, req.params.year, req.params.id, i, req.params.year], function(err, results, fields) {
+              if ( err ) {
+                console.log( err );
+              } else {
+               var obj = {}
+               obj.mes = moment(val, 'M').format('MMMM')
+               obj.mesAbrev = moment(val, 'M').format('MMM')
+               taskHours = results[0][0].total_hours !== null ? 
+                             moment(results[0][0].total_hours, 'HH:mm:ss').format('HH') < 01 ?
+                                   moment(results[0][0].total_hours, 'HH:mm:ss').format('mm') > 01 ?
+                                     parseInt(results[0][0].total_hours, 10)+1 
+                                   : parseInt(results[0][0].total_hours, 10) 
+                               : moment(results[0][0].total_hours, 'HH:mm:ss').format('mm') > 30 ?
+                                   parseInt(results[0][0].total_hours, 10)+1 
+                                   : parseInt(results[0][0].total_hours, 10) 
+                           : 0
+               taskExactHours = results[0][0].total_hours !== null ? 
+                                   moment.duration(results[0][0].total_hours, 'hours').format('HH:mm', {
+                                     forceLength: true
+                                   })
+                                 : 0
+               meetingExactHours = results[1][0].total_hours !== null ? 
+                 moment.duration(results[1][0].total_hours, 'hours').format('HH:mm', {
+                   forceLength: true
+                 })
+               : 0
+
+               budgetExactHours = results[2][0].total_hours !== null ? 
+                 moment.duration(results[2][0].total_hours, 'hours').format('HH:mm', {
+                   forceLength: true
+                 })
+               : 0
+
+
+               meetingHours = results[1][0].total_hours !== null ? 
+                               moment(results[1][0].total_hours, 'HH:mm:ss').format('HH') < 01 ?
+                                     moment(results[1][0].total_hours, 'HH:mm:ss').format('mm') > 01 ?
+                                       parseInt(results[1][0].total_hours, 10)+1 
+                                     : parseInt(results[1][0].total_hours, 10) 
+                                 : moment(results[1][0].total_hours, 'HH:mm:ss').format('mm') > 30 ?
+                                     parseInt(results[1][0].total_hours, 10)+1 
+                                     : parseInt(results[1][0].total_hours, 10) 
+                             : 0
+
+               budgetHours = results[2][0].total_hours !== null ? 
+                 moment(results[2][0].total_hours, 'HH:mm:ss').format('HH') < 01 ?
+                       moment(results[2][0].total_hours, 'HH:mm:ss').format('mm') > 01 ?
+                         parseInt(results[2][0].total_hours, 10)+1 
+                       : parseInt(results[2][0].total_hours, 10) 
+                   : moment(results[2][0].total_hours, 'HH:mm:ss').format('mm') > 30 ?
+                       parseInt(results[2][0].total_hours, 10)+1 
+                       : parseInt(results[2][0].total_hours, 10) 
+               : 0
+
+               obj.horasExatas= moment.duration(taskExactHours).add(meetingExactHours).add(budgetExactHours).format('HH:mm')
+
+               obj.horas = taskHours + meetingHours + budgetHours               
+               totalResults.push(obj)
               }
-           });
-         })(tVal);
+              if(val === 12){
+                 sendResults(totalResults)
+             }
+          });
+        })(tVal);
       }
       function sendResults(results){
         res.send(totalResults)
