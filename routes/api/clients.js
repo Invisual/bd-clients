@@ -178,7 +178,13 @@ router.get('/annual/:id/:year', checkToken, (req, res) => {
                         : parseInt(results[2][0].total_hours, 10) 
                 : 0
 
-                obj.horasExatas= moment.duration(taskExactHours).add(meetingExactHours).add(budgetExactHours).format('HH:mm')
+                obj.horasExatas= parseInt(moment.duration(taskExactHours).add(meetingExactHours).add(budgetExactHours).format('HH:mm')) > 0 ?
+                                  moment.duration(taskExactHours).add(meetingExactHours).add(budgetExactHours).format('HH:mm')
+                                : 0
+
+                obj.taskExactHours = taskExactHours
+                obj.meetingExactHours = meetingExactHours
+                obj.budgetExactHours = budgetExactHours
 
                 obj.horas = taskHours + meetingHours + budgetHours               
                 totalResults.push(obj)
@@ -262,7 +268,13 @@ router.get('/annual/avencados/:id/:year', checkToken, (req, res) => {
                        : parseInt(results[2][0].total_hours, 10) 
                : 0
 
-               obj.horasExatas= moment.duration(taskExactHours).add(meetingExactHours).add(budgetExactHours).format('HH:mm')
+               obj.horasExatas= parseInt(moment.duration(taskExactHours).add(meetingExactHours).add(budgetExactHours).format('HH:mm')) > 0 ?
+                                  moment.duration(taskExactHours).add(meetingExactHours).add(budgetExactHours).format('HH:mm')
+                                : 0
+
+               obj.taskExactHours = taskExactHours
+               obj.meetingExactHours = meetingExactHours
+               obj.budgetExactHours = budgetExactHours
 
                obj.horas = taskHours + meetingHours + budgetHours               
                totalResults.push(obj)

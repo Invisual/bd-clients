@@ -100,8 +100,9 @@ class SingleTask extends Component {
         let active = this.props.id === this.props.activeBudget ? ' active' : '';
       singleContent = (
         <AllSingleTaskDiv className={`single-card-task${active}`} taskColor={taskColor}>
-          <div className="task-title title-click" onClick={() => this.props.changeActiveBudget(this.props.id)}>
-            {this.props.title}
+          <div className="task-title task-title-client title-click" onClick={() => this.props.changeActiveBudget(this.props.id)}>
+          <div className="title-task">{this.props.title}</div>
+            <div className="client-task">{this.props.clientName? this.props.clientName : this.props.potentialClientName}<span>{this.props.userName}</span></div>
           </div>
           <div className="task-watch"></div>
           <div className="task-link">

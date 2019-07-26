@@ -26,6 +26,9 @@ export const MyBudgets = props => {
           key={budget.id_budget}
           id={budget.id_budget}
           title={budget.title_budget}
+          clientName={budget.name_client}
+          potentialClientName={budget.name_potential_client}
+          userName={budget.name_user}
           state={budget.state}
           hourState={hourState}
           hourId={hourId}

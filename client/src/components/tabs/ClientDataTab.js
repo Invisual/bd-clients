@@ -78,6 +78,9 @@ class ClientDataTab extends Component {
             <div className="custom-tooltip">
               <span className="label">{tooltipProps.payload[0].payload.mes}</span>
               <span>{tooltipProps.payload[0].payload.horasExatas} horas</span>
+              <span>Tarefas: {tooltipProps.payload[0].payload.taskExactHours} horas</span>
+              <span>Reuniões: {tooltipProps.payload[0].payload.meetingExactHours} horas</span>
+              <span>Orçamentos: {tooltipProps.payload[0].payload.budgetExactHours} horas</span>
               {Number(this.props.clientContent.details[0].monthly_hours_client) !== 0 ? (
                 tooltipProps.payload[0].value > Number(this.props.clientContent.details[0].monthly_hours_client) ? (
                   <p className="desc">Este Cliente ultrapassou a sua bolsa por {hourDiference} horas.</p>
