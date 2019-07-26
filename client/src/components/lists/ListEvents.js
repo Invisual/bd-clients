@@ -32,15 +32,27 @@ export const ListEvents = props => {
                             }
                         
                             {props.meetings.length > 0 ?
-                                props.meetings.map(meeting => (
-                                    <div className="single-event meeting-event">
-                                        <div className="type-client">
-                                            <span className="is-meeting">Reunião</span>
-                                            <h5>{meeting.name_client}</h5>
+                                props.meetings.map(meeting => {
+
+                                    var meetingUsers = meeting.intervenientes ? meeting.intervenientes
+                                    .split(';')
+                                    .map(e => e.split(','))
+                                    .map(avatar => {
+                                        return <img key={avatar[0]} src={avatar[2]} alt={avatar[1]} title={avatar[1]} />
+                                    }): null
+
+                                    return (
+                                        <div className="single-event meeting-event" key={meeting.id_meeting}>
+                                            <div className="type-client">
+                                                <span className="is-meeting">{meeting.start_hour_meeting} - {meeting.end_hour_meeting}</span>
+                                                <h5>{meeting.name_client}</h5>
+                                                <h5 className="place">{meeting.place_meeting}</h5>
+                                            </div>
+                                            <h3>{meeting.title}</h3>
+                                            <div className="meeting-users">{meetingUsers}</div>
                                         </div>
-                                        <h3>{meeting.title}</h3>
-                                    </div>
-                                ))
+                                        )
+                                })
                             : 
                                 null
                             }

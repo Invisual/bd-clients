@@ -2243,7 +2243,9 @@ export const UserVacationsDiv = styled.div`
 
 
 export const ListEventsDiv = styled.div`
-   margin-top: 40px;
+   margin-top: 20px;
+   border-top: 1px solid #ebebeb;
+  padding-top: 20px;
 
   .events-date{
     color:${themeConsts.primaryBlue};
@@ -2279,9 +2281,14 @@ export const ListEventsDiv = styled.div`
 
         h5{
           margin:0;
-          margin-left: 10px;
+          margin-left: 7px;
           letter-spacing: .02em;
           color:${themeConsts.secondaryBlue};
+        }
+        .place{
+          font-weight: 500;
+          text-transform: uppercase;
+          color: ${themeConsts.titlesDarkGrey};
         }
       }
 
@@ -2296,6 +2303,13 @@ export const ListEventsDiv = styled.div`
         border-radius: 50%;
         border: 1px solid ${themeConsts.primaryBlue};
         margin-top: 7px;
+      }
+
+      .meeting-users{
+
+        img{
+          margin-right:5px
+        }
       }
     }
   }

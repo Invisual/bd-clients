@@ -55,8 +55,6 @@ class ListEventsContainer extends Component {
   render() {
       var tasks = this.state.tasks.filter(task => task.deadline_date_task === this.props.activeDay)
       var meetings = this.state.meetings.filter(meeting => meeting.start === this.props.activeDay)
-      console.log(tasks)
-      console.log(meetings)
     return (
       <ListEvents
         meetings={meetings}
