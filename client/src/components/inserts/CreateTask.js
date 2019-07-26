@@ -54,7 +54,7 @@ export const CreateTask = props => {
                                 <div className="input-wrapper">
                                     <fieldset>
                                         <legend>Cliente</legend>
-                                        <select required id="project-client" onChange={props.changeClientInput} defaultValue={props.type === 'edit' ? props.clientInput : ''}>
+                                        <select required id="project-client" onChange={props.changeClientInput} defaultValue={props.clientInput}>
                                             <option value="" disabled>Selecionar</option>
                                             {props.clientsData.map(client => {
                                                 return <option key={client.id_client} value={client.id_client}>{client.name_client}</option>
@@ -92,7 +92,7 @@ export const CreateTask = props => {
                                     {Number(props.typeInput) === 1 ?
                                         <fieldset>
                                             <legend>Projeto</legend>
-                                            <select required id="task-project" onChange={props.changeProjectInput} defaultValue={props.type === 'edit' ? props.projectInput : ''}>
+                                            <select required id="task-project" onChange={props.changeProjectInput} defaultValue={props.projectInput}>
                                                 <option value="" disabled>Selecione</option>
                                                 {projectsFromActiveClient.map(project => {
                                                     return <option key={project.id_project} value={project.id_project}>{project.title_project}</option>

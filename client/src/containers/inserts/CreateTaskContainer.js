@@ -120,7 +120,13 @@ class CreateTaskContainer extends Component{
         var AuthStr = 'Bearer ' + token;
         axios.get('/api/projects/basic', { headers: { Authorization: AuthStr } })
         .then(res => {
-            this.setState({projectsData: res.data})
+            this.setState({projectsData: res.data}, () => {
+                if(this.props.hasProject){
+                    var projectId = this.props.match.params.project;
+                    var clientId = this.state.projectsData.filter(proj => Number(proj.id_project) === Number(projectId))[0].ref_id_client
+                    this.setState({clientInput: clientId, projectInput: projectId})
+                }
+            })
         })
     }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FiTrash2, FiCopy, FiEdit3, FiFolder, FiFilter, FiPlusCircle, FiCheckSquare, FiXSquare } from 'react-icons/fi';
+import { FiTrash2, FiCopy, FiEdit3, FiFolder, FiFilter, FiPlusCircle, FiCheckSquare, FiXSquare, FiFilePlus } from 'react-icons/fi';
 
 export const Options =  props => {
   return (
@@ -119,6 +119,12 @@ export const Options =  props => {
                     
                   </>
                     : <>
+                    <div className="tooltip-container action-create-task">
+                      <Link to={`/createtask/project/${props.projectContent.details[0].id_project}`}>
+                        <FiFilePlus className="task-info-icon"/>
+                        <span className="tooltip">Adicionar Tarefa neste Projeto</span>
+                      </Link>
+                    </div>
                     <div className="tooltip-container action-conclude">
                     <FiCheckSquare
                       className="task-info-icon"
