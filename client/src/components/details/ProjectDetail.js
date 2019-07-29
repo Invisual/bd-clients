@@ -65,7 +65,7 @@ export const ProjectDetail = props => {
                   case 'projectreview':
                     return <ProjectReviewTab projectContent={props.projectContent} openCostsModal={props.openCostsModal} openModal={props.openModal} type={props.type} concluded={props.concluded}/>;
                   case 'projecttasks':
-                    return <ProjectTasksTab projectContent={props.projectContent} />;
+                    return <ProjectTasksTab projectContent={props.projectContent} deleteActiveTask={props.deleteActiveTask} duplicateActiveTask={props.duplicateActiveTask} />;
                   case 'projectcomments':
                     return <ProjectCommentsTab projectContent={props.projectContent} />;
                   default:

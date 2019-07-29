@@ -126,6 +126,8 @@ export const AllProjects = props => {
             openModal={props.openModal}
             placeholder={props.placeholder}
             concluded={props.concluded}
+            deleteActiveTask={props.deleteActiveTask}
+            duplicateActiveTask={props.duplicateActiveTask}
           />
         }
         </div>

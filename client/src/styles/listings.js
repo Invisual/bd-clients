@@ -685,18 +685,16 @@ export const ProjectDetailsDiv = styled.div`
       padding: 20px 0 10px 0;
       display: grid;
       grid-template-columns: 32% 32% 32%;
-      grid-column-gap: 2%;
-      span {
+      .scrum-title {
         font-size: 1.2em;
         font-weight: 500;
         color: ${themeConsts.activeBlue};
       }
       img {
-        margin-top: 7px;
         border-radius: 50%;
         width: 20px;
         height: 20px;
-        border: 2px solid ${themeConsts.bordersGrey};
+        border: 2px solid ${themeConsts.activeBlue};
         margin-right: 10px;
       }
     }
@@ -1223,18 +1221,16 @@ export const ClientDetailsDiv = styled.div`
       padding: 20px 0 10px 0;
       display: grid;
       grid-template-columns: 32% 32% 32%;
-      grid-column-gap: 2%;
-      span {
+      .scrum-title {
         font-size: 1.2em;
         font-weight: 500;
         color: ${themeConsts.activeBlue};
       }
       img {
-        margin-top: 7px;
         border-radius: 50%;
         width: 20px;
         height: 20px;
-        border: 2px solid ${themeConsts.bordersGrey};
+        border: 2px solid ${themeConsts.activeBlue};
         margin-right: 10px;
       }
     }

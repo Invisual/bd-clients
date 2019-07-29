@@ -272,7 +272,7 @@ router.get('/details/:project', checkToken, (req, res) => {
         }
       );
       connection.query(
-        'SELECT id_task, title_task, ref_id_user_task_status, id_user, avatar_user, name_user FROM tasks INNER JOIN users_has_tasks ON tasks.id_task=users_has_tasks.ref_id_task INNER JOIN users ON users_has_tasks.ref_id_user= users.id_user INNER JOIN projects ON tasks.ref_id_project = projects.id_project WHERE projects.id_project=?',
+        'SELECT id_task, title_task, ref_id_user_task_status, id_user, avatar_user, name_user, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(task_hours.ending_hour, task_hours.beginning_hour)))) AS "total_hours", deadline_date_task FROM tasks INNER JOIN users_has_tasks ON tasks.id_task=users_has_tasks.ref_id_task INNER JOIN users ON users_has_tasks.ref_id_user= users.id_user INNER JOIN projects ON tasks.ref_id_project = projects.id_project LEFT JOIN task_hours ON tasks.id_task=task_hours.ref_id_tasks WHERE projects.id_project=? group BY id_task',
         project,
         function(error, results, fields) {
           if (error) throw error;

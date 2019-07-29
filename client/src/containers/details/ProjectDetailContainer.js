@@ -17,6 +17,8 @@ class ProjectDetailContainer extends Component {
         type={this.props.type}
         placeholder={this.props.placeholder}
         concluded={this.props.concluded}
+        deleteActiveTask={this.props.deleteActiveTask}
+        duplicateActiveTask={this.props.duplicateActiveTask}
       />
     );
   }

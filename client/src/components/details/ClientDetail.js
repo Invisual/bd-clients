@@ -36,7 +36,7 @@ export const ClientDetail = props => {
                     className={'project-tab ' + (props.activeTab === 'clienttasks' ? 'active-tab' : '')}
                     onClick={() => props.changeActiveTab('clienttasks')}
                   >
-                    Tasks
+                    Tarefas
                   </div>
                   <div
                     className={'project-tab ' + (props.activeTab === 'clientinfo' ? 'active-tab' : '')}

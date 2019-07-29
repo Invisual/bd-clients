@@ -263,6 +263,50 @@ class AllProjectsContainer extends Component {
         Swal.fire('Eliminado!', '', 'success');
         axios.delete(`/api/projects/${projectId}`, { headers: { Authorization: AuthStr } }).then(this.setState({ reloadProjects: true, activeProject: '' }));
       }
+    })
+  };
+
+  deleteActiveTask = (taskId, willRefresh=false) => {
+    var token = JSON.parse(localStorage.getItem('token'));
+    var AuthStr = 'Bearer ' + token;
+    Swal.fire({
+      title: 'Tem a certeza?',
+      text: 'Esta ação é irreversível',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, eliminar!',
+      cancelButtonText: 'Cancelar'
+    }).then(result => {
+      if (result.value) {
+        Swal.fire('Tarefa eliminada!', '', 'success').then(result => {
+          if (result.value) {
+            axios
+              .delete(`/api/tasks/${taskId}`, { headers: { Authorization: AuthStr } })
+              .then(res => willRefresh ? this.getProjectDetails() : null)
+          }
+        });
+      }
+    });
+  };
+
+  duplicateActiveTask = (taskId, willRefresh=false) => {
+    var token = JSON.parse(localStorage.getItem('token'));
+    var AuthStr = 'Bearer ' + token;
+    axios.post(`/api/tasks/${taskId}`, null, { headers: { Authorization: AuthStr } })
+    .then(res => willRefresh ? this.getProjectDetails() : null)
+      
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top',
+      showConfirmButton: false,
+      timer: 1000
+    });
+
+    Toast.fire({
+      type: 'success',
+      title: 'Tarefa duplicada com sucesso!'
     });
   };
 
@@ -373,6 +417,8 @@ class AllProjectsContainer extends Component {
         activeProject={this.state.activeProject}
         changeActiveProject={this.changeActiveProject}
         deleteActiveProject={this.deleteActiveProject}
+        deleteActiveTask={this.deleteActiveTask}
+        duplicateActiveTask={this.duplicateActiveTask}
         changeCommentVal={this.changeCommentVal}
         submitComment={this.submitComment}
         isShare={this.props.isShare}

@@ -136,6 +136,60 @@ body.collapsed-sidebar .topbar-goback {
   text-align: left;
   font-size: 1.2em;
 }
+
+.scrum-card{
+  display: grid;
+  grid-template-columns: 5% 80% 15%;
+  font-size: 1.2em;
+  border-bottom: 1px solid #E6E6E6;
+}
+.scrum-card-clients{
+  grid-template-columns: 5% 95%;
+}
+
+.scrum-task-title {
+  font-size: 1.1em;
+  font-weight: 400;
+  color: #797979;
+}
+
+.scrum-info{
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding:10px;
+  color: #797979;
+}
+
+.scrum-info-row {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.scrum-task-hours{
+  font-size: 11px;
+  color: #7f9aff;
+  margin-right: 10px;
+
+}
+
+.scrum-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  font-size: 13px;
+  align-items: center;
+  color: #7f9aff;
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.scrum-card:hover .scrum-actions{
+  opacity: 1;
+  cursor: pointer;
+}
+
 .project-labels {
   display: grid;
   grid-template-columns: 4% 55% 8% 8% 23%;
@@ -159,7 +213,6 @@ body.collapsed-sidebar .topbar-goback {
   height: 64vh;
   overflow: scroll;
   margin-top: 5px;
-  padding-right: 10px;
 }
 
 .single-todo .todo-delete span{
@@ -173,12 +226,20 @@ body.collapsed-sidebar .topbar-goback {
 .todo {
   border: 1px solid #f50057;
 }
+.scrum-todo{
+  background-color: #f50057
+}
 .doing {
   border: 1px solid #1de9b6;
 }
-
+.scrum-doing{
+  background-color: #1de9b6
+}
 .done {
   border: 1px solid #651fff;
+}
+.scrum-done{
+  background-color: #651fff
 }
 
 ::-webkit-scrollbar {
@@ -1077,6 +1138,7 @@ input[type='text'].hidesearch{
 .action-add{ order:7 }
 .action-reject{ order:8 }
 .action-approve{ order:9 }
+.action-create-task{ order:10 }
 
 
 
