@@ -2,7 +2,7 @@ import React from 'react';
 import { InsertFormDiv } from '../../styles/inserts'
 import { Redirect } from 'react-router'
 import DatePicker from 'react-date-picker'
-import { FiCalendar } from 'react-icons/fi';
+import { FiCalendar, FiPlus, FiX } from 'react-icons/fi';
 import {createBrowserHistory} from 'history'
 const history = createBrowserHistory()
 
@@ -21,8 +21,42 @@ export const CreateTask = props => {
     
     var projectsFromActiveClient = props.projectsData.filter(project => {
         return project.ref_id_client === Number(props.clientInput)
-    }) 
+    })
     
+    var extraFields = []
+    for(var i=0, count=props.numberOfExtraInputs; i<count; i++){
+        extraFields.push(
+            <React.Fragment key={i}>
+                <div className="grid50-50 form-grid extra-inputs-grid">
+                    <div className="grid-item">
+                        <div className="input-wrapper">
+                            <fieldset>
+                                <legend>Nome</legend>
+                                <input required type="text" id={`extra-name-input-${i}`} placeholder="Nome"/>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div className="grid-item">
+                        <div className="input-wrapper">
+                            <fieldset>
+                                <legend>Pessoa</legend>
+                                <select required id={`extra-person-input-${i}`} defaultValue={''}>
+                                    <option value="" disabled>Selecionar</option>
+                                    {props.usersData.map(user => {
+                                        return <option key={user.id_user} value={user.id_user}>{user.name_user}</option>
+                                    })}
+                                </select>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div className="input-row-delete" onClick={props.decreaseNumberOfExtraInputs}><FiX /></div>
+                </div>
+                
+            </React.Fragment>
+        )
+    }
+
+
     return (
         <InsertFormDiv className="insert-edit-form">
             
@@ -186,6 +220,21 @@ export const CreateTask = props => {
                     </div>
 
                 </div>
+
+
+                {props.numberOfExtraInputs > 0 && props.type !== 'edit' ?
+                    extraFields
+                :
+                    null
+                }
+                
+                {Number(props.typeInput) === 1 ? 
+                    <div className="add-task-users" onClick={props.increaseNumberOfExtraInputs}>
+                        <FiPlus />
+                        <span>Adicionar Utilizadores</span>
+                    </div>
+                : null }
+                
 
                 <div className="form-buttons">
                     <button type="button" className="btn secondary-btn" onClick={() => history.goBack()}>Cancelar</button>

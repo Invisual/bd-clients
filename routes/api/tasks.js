@@ -130,11 +130,100 @@ router.post('/', checkToken, (req, res) => {
               ]
               var encodeMessage = encodeURIComponent(JSON.stringify(message))
               axios.post(`https://slack.com/api/chat.postMessage?token=${SLACK_TOKEN}&channel=${req.body.slackId}&text=Nova%20Tarefa%20atribu%C3%ADda&blocks=${encodeMessage}&pretty=1`)
-                .then(res => {
-                    console.log(res)
-                })
             }
           );
+          if(req.body.extraInputs.length>0){
+            for(var i=0, count=req.body.extraInputs.length;i<count; i++){
+              let user = req.body.extraInputs[i].user
+              let title = req.body.extraInputs[i].title
+              let userName = req.body.extraInputs[i].userName
+              let userSlack = req.body.extraInputs[i].userSlack
+              connection.query('INSERT INTO tasks (title_task, description_task, starting_date_task, deadline_date_task, ref_id_client, ref_id_billing_mode, ref_id_project, ref_id_type_task, ref_id_user_account ) VALUES (?,?,?,?,?,?,?,?,?)',
+                [req.body.extraInputs[i].title, req.body.description, req.body.startdate, req.body.deadline, req.body.client, req.body.billing, req.body.project, req.body.type, req.body.account],
+                function (error, results2, fields) {
+                  if (error) throw error;
+                  connection.query('INSERT INTO users_has_tasks (ref_id_user, ref_id_task, ref_id_user_task_status ) VALUES (?,?,?)',
+                  [user, results2.insertId, 1],
+                  function (error, results3, fields) {
+                    if (error) throw error;
+                  })
+                  connection.query(
+                    'INSERT INTO notifications (type_notification, ref_id_task, ref_id_user) VALUES (?,?,?)',
+                    [1, results2.insertId, user],
+                    function (error, results4, fields) {
+                      if (error) throw error;
+                      var message2 = [
+                        {
+                          "type": "section",
+                          "text": {
+                            "type": "mrkdwn",
+                            "text": `Olá ${userName} :wave:`
+                          }
+                        },
+                        {
+                          "type": "section",
+                          "text": {
+                            "type": "mrkdwn",
+                            "text": "Foi-lhe atribuída uma nova Tarefa. Algumas informações:"
+                          }
+                        },
+                        {
+                          "type": "section",
+                          "fields": [
+                            {
+                              "type": "mrkdwn",
+                              "text": `*Título:*\n${title}`
+                            },
+                            {
+                              "type": "mrkdwn",
+                              "text": `*Deadline:*\n${req.body.deadline}`
+                            },
+                            {
+                              "type": "mrkdwn",
+                              "text": `*Cliente:*\n${req.body.clientName}`
+                            },
+                            {
+                              "type": "mrkdwn",
+                              "text": `*Account:*\n${req.body.accountName}`
+                            }
+                          ]
+                        },
+                        {
+                          "type": "section",
+                          "text": {
+                            "type": "mrkdwn",
+                            "text": "Se necessitar de mais informações ou se pretender começar já a trabalhar na tarefa clique no botão."
+                          },
+                          "accessory": {
+                            "type": "button",
+                            "text": {
+                              "type": "plain_text",
+                              "text": "Ir para a Tarefa",
+                              "emoji": true
+                            },
+                            "style": "primary",
+                            "url": `https://invisual-tarefas.herokuapp.com/tasks/${results2.insertId}`
+                          }
+                        },
+                        {
+                          "type": "divider"
+                        },
+                        {
+                          "type": "context",
+                          "elements": [
+                            {
+                              "type": "mrkdwn",
+                              "text": "Please don't shoot the messenger."
+                            }
+                          ]
+                        }
+                      ]
+                      var encodeMessage2 = encodeURIComponent(JSON.stringify(message2))
+                      axios.post(`https://slack.com/api/chat.postMessage?token=${SLACK_TOKEN}&channel=${userSlack}&text=Nova%20Tarefa%20atribu%C3%ADda&blocks=${encodeMessage2}&pretty=1`)
+                  })
+                })
+            }
+          }
           res.send(results);
         }
       );
@@ -242,8 +331,8 @@ router.put('/userTaskStatus', checkToken, (req, res) => {
       var account = req.body.account;
 
       connection.query(
-        'UPDATE users_has_tasks SET ref_id_user_task_status=? WHERE ref_id_task=? AND ref_id_user=?',
-        [status, task, user],
+        'UPDATE users_has_tasks SET ref_id_user_task_status=? WHERE ref_id_task=?',
+        [status, task],
         function (error, results, fields) {
           if (error) throw error;
           if (project !== null && status === 4) {

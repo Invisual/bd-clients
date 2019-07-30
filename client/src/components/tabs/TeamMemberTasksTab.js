@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
+import 'moment/locale/pt'
+import 'moment-duration-format'
 
 export const TeamMemberTasksTab = props => {
   return (
@@ -20,7 +22,10 @@ export const TeamMemberTasksTab = props => {
                                     <h4 className="task-client">{task.name_client.charAt(0).toUpperCase()+task.name_client.slice(1).toLowerCase()}</h4>
                                 </div>
                                 <div className="single-task-hours">
-                                    <span>{task.total_hours ? moment(task.total_hours, 'HH:mm').format('HH:mm')+'h' : 'sem horas'}</span>
+                                    <span>{task.total_hours ? 
+                                            moment.duration(task.total_hours, 'hours').format('*HH[h]mm[m]', {forceLength: true})
+                                          : '00h00m'}
+                                    </span>
                                 </div>
                                 <div className="single-task-deadline">
                                     {moment(task.deadline_date_task).isSameOrBefore(moment(new Date())) ? 

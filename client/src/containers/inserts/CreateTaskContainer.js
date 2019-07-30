@@ -21,6 +21,8 @@ class CreateTaskContainer extends Component{
             accountInput: '',
             personInput: '',
             billingInput: '',
+            extraInputs: [],
+            numberOfExtraInputs: 0,
             typesData: [],
             clientsData: [],
             billingData: [],
@@ -78,6 +80,17 @@ class CreateTaskContainer extends Component{
         this.setState({ billingInput: e.target.value })
     }
 
+    changeExtraInputs = (e) => {
+        this.setState({ extraInputs: [...this.state.extraInputs, e.target.value] })
+    }
+
+    increaseNumberOfExtraInputs = () => {
+        this.setState({numberOfExtraInputs: this.state.numberOfExtraInputs+1})
+    }
+
+    decreaseNumberOfExtraInputs = () => {
+        this.setState({numberOfExtraInputs: this.state.numberOfExtraInputs-1})
+    }
 
     getTypesData = () => {
         var token = JSON.parse(localStorage.getItem('token'));
@@ -192,7 +205,21 @@ class CreateTaskContainer extends Component{
             var userSlack =  this.state.usersData.filter(user => Number(user.id_user) === Number(this.state.accountInput))[0].slack_id_user
             var userName =  this.state.usersData.filter(user => Number(user.id_user) === Number(this.state.accountInput))[0].name_user
         }
-      
+
+        var extraInputs = []
+        for(var i=0, count=this.state.numberOfExtraInputs; i<count; i++){
+            let title = document.getElementById(`extra-name-input-${i}`).value
+            let userId = document.getElementById(`extra-person-input-${i}`).value
+            let userName = this.state.usersData.filter(user => Number(user.id_user) === Number(userId))[0].name_user
+            let userSlack = this.state.usersData.filter(user => Number(user.id_user) === Number(userId))[0].slack_id_user
+            var newObj = {
+                title: title,
+                user: userId,
+                userName: userName,
+                userSlack: userSlack
+            }
+            extraInputs.push(newObj)
+        }
         var data = {
             title: this.state.titleInput,
             description: this.state.descInput,
@@ -208,6 +235,7 @@ class CreateTaskContainer extends Component{
             userName: userName,
             accountName: accountName,
             clientName: clientName,
+            extraInputs: extraInputs
         }
 
 
@@ -297,6 +325,7 @@ class CreateTaskContainer extends Component{
                 changeAccountInput={this.changeAccountInput}
                 changePersonInput={this.changePersonInput}
                 changeBillingInput={this.changeBillingInput}
+                changeExtraInputs={this.changeExtraInputs}
                 deadlineInput={this.state.deadlineInput}
                 startDateInput={this.state.startDateInput}
                 clientInput={this.state.clientInput}
@@ -307,6 +336,7 @@ class CreateTaskContainer extends Component{
                 accountInput={this.state.accountInput}
                 personInput={this.state.personInput}
                 billingInput={this.state.billingInput}
+                extraInputs={this.state.extraInputs}
                 insertTask={this.insertTask}
                 editTask={this.editTask}
                 typesData={this.state.typesData}
@@ -322,6 +352,9 @@ class CreateTaskContainer extends Component{
                 error={this.state.error}
                 errorMsg={this.state.errorMsg}
                 lastInsertedId={this.state.lastInsertedId}
+                numberOfExtraInputs={this.state.numberOfExtraInputs}
+                increaseNumberOfExtraInputs={this.increaseNumberOfExtraInputs}
+                decreaseNumberOfExtraInputs={this.decreaseNumberOfExtraInputs}
                 />;
     }
 }

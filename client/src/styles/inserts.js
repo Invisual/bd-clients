@@ -384,4 +384,44 @@ export const InsertFormDiv = styled.div`
     }
 
   }
+
+  .extra-inputs-grid{
+    grid-template-columns: 48% 44% !important;
+    position:relative;
+  }
+
+  .input-row-delete{
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+
+    svg{
+      font-size: 1.2em;
+      stroke-width: 2.5;
+      cursor: pointer;
+      color:${themeConsts.secondaryBlue};
+    }
+  }
+
+  .add-task-users{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    color: ${themeConsts.primaryBlue};
+    cursor: pointer;
+
+    svg{
+      font-size: 1.5em;
+      stroke-width: 2.4;
+      margin-right: 3px;
+    }
+
+    span{
+      font-size: 1.3em;
+      font-weight: 500;
+    }
+  }
+
+  
 `;
