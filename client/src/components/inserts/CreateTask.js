@@ -228,7 +228,7 @@ export const CreateTask = props => {
                     null
                 }
                 
-                {Number(props.typeInput) === 1 ? 
+                {Number(props.typeInput) === 1 && props.type === 'add' ? 
                     <div className="add-task-users" onClick={props.increaseNumberOfExtraInputs}>
                         <FiPlus />
                         <span>Adicionar Utilizadores</span>
