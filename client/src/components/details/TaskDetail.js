@@ -17,7 +17,6 @@ import {
   FiFileText,
   FiExternalLink
 } from 'react-icons/fi';
-
 export const TaskDetail = props => {
   return (
     <>

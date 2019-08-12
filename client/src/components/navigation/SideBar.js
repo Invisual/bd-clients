@@ -114,6 +114,7 @@ class SideBar extends Component {
                     <NavLink to="/vacations" activeClassName='is-active'><div className="submenu-item">Férias</div></NavLink>
                     <NavLink to="/team" activeClassName='is-active'><div className="submenu-item">Equipa</div></NavLink>
                     <NavLink to="/trips" activeClassName='is-active'><div className="submenu-item">Deslocações</div></NavLink>
+                    <NavLink to="/regulation" activeClassName='is-active'><div className="submenu-item">Regulamento</div></NavLink>
                   </div>
                 </li>
             </ul>

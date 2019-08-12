@@ -29,6 +29,7 @@ import CreateTaskHourContainer from './containers/inserts/CreateTaskHourContaine
 import ChatTaskContainer from './containers/chat/ChatTaskContainer';
 import VacationsApprovalContainer from './containers/approvals/VacationsApprovalContainer';
 import VacationsRejectContainer from './containers/approvals/VacationsRejectContainer';
+import {Regulation} from './components/misc/Regulation'
 import './styles/main.css';
 import './styles/queries.css';
 import { Switch, Route } from 'react-router-dom';
@@ -99,6 +100,7 @@ class App extends Component {
               <Route exact path="/createtrip/:id" render={props => <CreateTripContainer {...props} type="edit" title="Editar Deslocação"/>} />
               <Route exact path="/approvevacations/:type/:id" render={props => <VacationsApprovalContainer {...props} />} />
               <Route exact path="/rejectvacations/:type/:id" render={props => <VacationsRejectContainer {...props} />} />
+              <Route exact path="/regulation" render={props => <Regulation {...props} />} />
             </Switch>
           </div>
         ) : (
