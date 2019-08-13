@@ -1143,6 +1143,7 @@ input[type='text'].hidesearch{
 .action-reject{ order:8 }
 .action-approve{ order:9 }
 .action-create-task{ order:10 }
+.action-clientinfo{order:11 }
 
 
 

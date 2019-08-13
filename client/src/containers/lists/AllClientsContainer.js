@@ -140,6 +140,7 @@ class AllClientsContainer extends Component {
   }
 
   render() {
+    console.log(this.state.clientContent)
     return (
       <AllClients
         userRole={this.props.userInfo.ref_id_role}
