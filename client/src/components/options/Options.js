@@ -197,12 +197,9 @@ export const Options =  props => {
                     /><span className="tooltip">Eliminar Cliente</span>
                     </div>
                     <div className="tooltip-container action-edit">
-                    <FiEdit3
-                      className="task-info-icon"
-                      onClick={() => {
-                        props.editActiveTask(props.clientContent.details[0].id_client);
-                      }}
-                    /><span className="tooltip">Editar Cliente</span>
+                      <Link to={`createclient/${props.clientContent.details[0].id_client}`}>
+                        <FiEdit3 className="task-info-icon"/><span className="tooltip">Editar Cliente</span>
+                      </Link>
                     </div>
                     <div className="tooltip-container action-clientinfo">
                       <Link to={`createclientinfo/${props.clientContent.details[0].id_client}`}>
@@ -210,7 +207,15 @@ export const Options =  props => {
                       </Link>
                     </div>
                   </div>
-                ) : null}
+                ) : (
+                  <div className="options-actions">
+                    <div className="tooltip-container action-clientinfo">
+                      <Link to={`createclientinfo/${props.clientContent.details[0].id_client}`}>
+                        <FiBook className="task-info-icon"/><span className="tooltip">Editar Infos de Cliente</span>
+                      </Link>
+                    </div>
+                  </div>
+                )}
               </div>
             ) : (
               <div className="grid-widget tasks-options"> </div>
