@@ -1,6 +1,7 @@
 import React from 'react'
 import { CostsModalDiv } from '../../styles/modals'
-import { FiX, FiPlus, FiTrash2 } from 'react-icons/fi';
+import { FiX, FiPlus, FiTrash2, FiEdit2, FiSave } from 'react-icons/fi';
+
 
 export const CostsModal = props => {
     if(props.type === 'task' || props.type === 'project'){
@@ -74,37 +75,49 @@ export const CostsModal = props => {
                 <div className="modal-close" onClick={() => props.closeModal('costs')}><FiX /></div>
                 <h2>Registo de Custos</h2>
                 {props.costs ? 
-                    <div className="modal-costs-listing">
-                        <div className="costs-list-header">
-                            <h5>Serviço</h5>
-                            <h5>Fornecedor</h5>
-                            <h5>Custo Fornecedor</h5>
-                            <h5>Preço Venda</h5>
-                            <h5>Diferença</h5>
-                            {/*<h5>Tipo de Custo</h5>*/}
-                        </div>
-                        {props.costs.map(cost => {
-                            /*var type = ''
-                            switch(cost.type_cost){
-                                case 1: type = 'Externo'
-                                break;
-                                case 2: type = 'Interno'
-                                break;
-                                default: type ='Externo' 
-                            }*/
-                            return (
-                                <div className="costs-list-row" key={cost.id_cost}>
-                                    <p>{cost.service}</p>
-                                    <p>{cost.provider}</p>
-                                    <p>{cost.cost_provider}</p>
-                                    <p>{cost.price_sale}</p>
-                                    <p>{cost.price_difference}</p>
-                                    {/*<p>{type}</p>*/}
-                                    <p><FiTrash2 onClick={() => props.deleteCost(cost.id_cost)}/></p>
+                    (
+                            <div className="modal-costs-listing">
+                                <div className="costs-list-header">
+                                    <h5>Serviço</h5>
+                                    <h5>Fornecedor</h5>
+                                    <h5>Custo Fornecedor</h5>
+                                    <h5>Preço Venda</h5>
+                                    <h5>Diferença</h5>
                                 </div>
-                            )
-                        })}
-                    </div>
+                                {props.costs.map(cost => {
+                                    return (
+                                        <div className="costs-list-row" key={cost.id_cost}>
+                                            {
+                                                props.editLine === cost.id_cost ?
+                                                    <>
+                                                        <input type="text" value={props.editInputs.service === '' ? cost.service : props.editInputs.service} onChange={(e) => props.changeEditServiceInput(e.target.value)} />
+                                                        <input type="text" value={props.editInputs.supplier === '' ? cost.provider : props.editInputs.supplier} onChange={(e) => props.changeEditSupplierInput(e.target.value)} />
+                                                        <input type="number" value={props.editInputs.supplierCost === 0 ? cost.cost_provider : props.editInputs.supplierCost} onChange={(e) => props.changeEditSupplierCostInput(e.target.value)} />
+                                                        <input type="number" value={props.editInputs.sellCost === 0 ? cost.price_sale : props.editInputs.sellCost} onChange={(e) => props.changeEditSellCostInput(e.target.value)} />
+                                                        <p>{cost.price_difference}</p>
+                                                        <p>
+                                                            <span><FiEdit2 onClick={() => props.changeEditLine(0)}/></span>
+                                                            <span><FiSave onClick={() => props.updateCost(cost.id_cost, cost.service, cost.provider, cost.cost_provider, cost.price_sale)}/></span>
+                                                        </p>
+                                                    </>
+                                                :  
+                                                    <>      
+                                                        <p>{cost.service}</p>
+                                                        <p>{cost.provider}</p>
+                                                        <p>{cost.cost_provider}</p>
+                                                        <p>{cost.price_sale}</p>
+                                                        <p>{cost.price_difference}</p>
+                                                        <p>
+                                                            <span><FiEdit2 onClick={() => props.changeEditLine(cost.id_cost)}/></span>
+                                                            <span><FiTrash2 onClick={() => props.deleteCost(cost.id_cost)}/></span>
+                                                        </p>
+                                                    </>
+                                            }
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                    )
                 :
                     <p>Deve ter ocorrido um erro. Por favor tente de novo dando um reload à página.</p>
                 }

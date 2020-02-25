@@ -156,7 +156,7 @@ router.post('/costs', checkToken, (req, res) => {
           var countRows = 0
           var priceDifference = req.body.sellPrices[i].input - req.body.providerPrices[i].input
           connection.query('INSERT INTO costs (service, provider, cost_provider, price_sale, price_difference, ref_id_project, type_cost) VALUES(?, ?, ?, ?, ?, ?, ?)',
-            [req.body.services[i].input, req.body.providers[i].input, req.body.providerPrices[i].input, req.body.sellPrices[i].input, Math.round(priceDifference * 100) / 100, req.body.projId, req.body.costTypes[i].input],
+            [req.body.services[i].input, req.body.providers[i].input, req.body.providerPrices[i].input, req.body.sellPrices[i].input, Math.round(priceDifference * 100) / 100, req.body.projId, req.body.costTypes],
             function (error, results, fields) {
               countRows++
               if (error) throw error;
@@ -181,6 +181,23 @@ router.delete('/costs/:id', checkToken, (req, res) => {
     }
   });
 });
+
+
+
+router.put('/costs/:id', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) { res.sendStatus(403) }
+    else {
+      console.log(req.body.service, req.params.id)
+      connection.query('UPDATE costs SET service = ?, provider =  ?, cost_provider = ?, price_sale = ?, price_difference = ? WHERE id_cost = ?', 
+      [req.body.service, req.body.provider, req.body.providerCost, req.body.sellPrice, req.body.priceDifference, req.params.id], function (error, results, fields) {
+        if (error) throw error;
+        res.send(results)
+      });
+    }
+  });
+});
+
 
 
 
@@ -312,19 +329,19 @@ router.get('/notifications/:user', checkToken, (req, res) => {
 });
 
 
-router.put('/notifications/seen', checkToken, (req, res) => {
-  jwt.verify(req.token, SECRET_KEY, (err, results) => {
-    if (err) { res.sendStatus(403) }
-    else {
-      for (var i = 0, count = req.body.notifications.length; i < count; i++) {
-        connection.query('UPDATE notifications SET seen=1 WHERE id_notification = ?', req.body.notifications[i], function (error, results, fields) {
-          if (error) throw error;
-        });
+  router.put('/notifications/seen', checkToken, (req, res) => {
+    jwt.verify(req.token, SECRET_KEY, (err, results) => {
+      if (err) { res.sendStatus(403) }
+      else {
+        for (var i = 0, count = req.body.notifications.length; i < count; i++) {
+          connection.query('UPDATE notifications SET seen=1 WHERE id_notification = ?', req.body.notifications[i], function (error, results, fields) {
+            if (error) throw error;
+          });
+        }
+        res.send('done')
       }
-      res.send('done')
-    }
+    });
   });
-});
 
 
 

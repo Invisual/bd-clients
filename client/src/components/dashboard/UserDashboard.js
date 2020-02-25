@@ -6,7 +6,6 @@ import MyToDoContainer from '../../containers/tables/MyToDoContainer';
 import MyCalendarContainer from '../../containers/tables/MyCalendarContainer';
 import MyApprovalsContainer from '../../containers/tables/MyApprovalsContainer';
 import MyUsersContainer from '../../containers/tables/MyUsersContainer';
-import ListEventsContainer from '../../containers/lists/ListEventsContainer';
 
 export const UserDashboard = (props) => {
     return (

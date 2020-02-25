@@ -77,7 +77,7 @@ export const SidebarDiv = styled.div`
             }
           }
           .closed-submenu{ height:0; }
-          .opened-submenu{ height:100px; }
+          .opened-submenu{ height:130px; }
           .opened-submenu.company-submenu{ height:170px; }
 
         svg{

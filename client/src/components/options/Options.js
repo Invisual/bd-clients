@@ -125,6 +125,10 @@ export const Options =  props => {
                         <span className="tooltip">Adicionar Tarefa neste Projeto</span>
                       </Link>
                     </div>
+                    <div className="tooltip-container action-duplicate">
+                      <FiCopy className="task-info-icon" onClick={() => { props.duplicateActiveProject(props.projectContent.details[0].id_project) }}/>
+                      <span className="tooltip">Duplicar Projeto</span>
+                    </div>
                     <div className="tooltip-container action-conclude">
                     <FiCheckSquare
                       className="task-info-icon"

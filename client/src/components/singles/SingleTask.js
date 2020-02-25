@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { AllSingleTaskDiv, SingleTaskDiv, AllSingleBillingDiv } from '../../styles/singles';
 import { FiFolder, FiClock, FiLink2, FiFileText, FiCheck } from 'react-icons/fi';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { throws } from 'assert';
 
 class SingleTask extends Component {
   
@@ -21,6 +20,9 @@ class SingleTask extends Component {
         break;
       case 4:
         taskColor = '#0036ff';
+        break;
+      case 5:
+        taskColor = '#FFC107';
         break;
       default:
         taskColor = '#F50057';

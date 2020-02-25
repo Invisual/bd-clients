@@ -35,7 +35,7 @@ class SideBar extends Component {
   }
 
   isTasksRoute = () => {
-    return this.props.location.pathname === '/createtask' || this.props.location.pathname === '/tasks' || this.props.location.pathname === '/concludedtasks' ? true : false
+    return this.props.location.pathname === '/createtask' || this.props.location.pathname === '/tasks' || this.props.location.pathname === '/concludedtasks' || this.props.location.pathname === '/bothtasks' ? true : false
   }
 
   isCompanyRoute = () => {
@@ -93,8 +93,9 @@ class SideBar extends Component {
                   <span>Tarefas</span>
                   <div className={this.state.tasksDropDown ? 'submenu opened-submenu' : 'submenu closed-submenu'}>
                     <NavLink to="/createtask" activeClassName='is-active'><div className="submenu-item">Criar Tarefa</div></NavLink>
-                    <NavLink to="/tasks" activeClassName='is-active'><div className="submenu-item">Ver Todas</div></NavLink>
+                    <NavLink to="/tasks" activeClassName='is-active'><div className="submenu-item">Ver em Curso</div></NavLink>
                     <NavLink to="/concludedtasks" activeClassName='is-active'><div className="submenu-item">Ver Concluídas</div></NavLink>
+                    <NavLink to="/bothtasks" activeClassName='is-active'><div className="submenu-item">Ver Todas</div></NavLink>
                   </div>
                 </li>
                 : <NavLink exact={true} to="/tasks" activeClassName='is-active'><li><FiFileText/><span>Tarefas</span></li></NavLink>}

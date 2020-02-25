@@ -310,6 +310,38 @@ class AllProjectsContainer extends Component {
     });
   };
 
+  duplicateActiveProject = projId => {
+    var token = JSON.parse(localStorage.getItem('token'));
+    var AuthStr = 'Bearer ' + token;
+    Swal.fire({
+      title: 'Duplicar Projeto',
+      text: 'Deseja duplicar este projeto?',
+      type: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim',
+      cancelButtonText: 'Cancelar'
+    }).then(result => {
+      if (result.value) {
+        axios.post(`/api/projects/${projId}`, null, { headers: { Authorization: AuthStr } })
+        .then(res => this.setState({ reloadProjects: true }))
+          
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top',
+          showConfirmButton: false,
+          timer: 1000
+        });
+
+        Toast.fire({
+          type: 'success',
+          title: 'Projeto duplicada com sucesso!'
+        });
+      }
+    });
+  };
+
   changeCommentVal = event => {
     if (event.keyCode === 13 && event.shiftKey === false) {
       event.preventDefault();
@@ -419,6 +451,7 @@ class AllProjectsContainer extends Component {
         deleteActiveProject={this.deleteActiveProject}
         deleteActiveTask={this.deleteActiveTask}
         duplicateActiveTask={this.duplicateActiveTask}
+        duplicateActiveProject={this.duplicateActiveProject}
         changeCommentVal={this.changeCommentVal}
         submitComment={this.submitComment}
         isShare={this.props.isShare}

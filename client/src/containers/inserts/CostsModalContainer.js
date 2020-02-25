@@ -47,6 +47,13 @@ class CostsModalContainer extends Component{
             providerInput: [],
             providerPriceInput: [],
             sellPriceInput: [],
+            editLine: 0,
+            editInputs: {
+                service: '',
+                supplier: '',
+                supplierCost: 0,
+                sellCost: 0,
+            }
             //typeInput: []
         }
     }
@@ -110,21 +117,6 @@ class CostsModalContainer extends Component{
         }
         this.setState({sellPriceInput: sellPriceInput})
     }
-
-    /*changeTypeInput = (e, id) => {
-        var typeInput = [...this.state.typeInput]
-        if(this.state.typeInput.filter(obj => obj.id === id).length>0){
-            var copy = typeInput.filter(obj => obj.id==id)
-            copy[0].input = e.target.value
-            typeInput = typeInput.filter(obj => obj.id !== id)
-            typeInput.push(copy[0])
-        }
-        else{
-            var newObj = {id: id, input: e.target.value}
-            typeInput.push(newObj)
-        }
-        this.setState({typeInput: typeInput})
-    }*/
 
     insertCosts = (e) => {
         e.preventDefault()
@@ -213,6 +205,40 @@ class CostsModalContainer extends Component{
         });
     }
 
+    changeEditLine = (id) => this.setState({ editLine: id })
+
+    changeEditServiceInput = (val) => this.setState({ editInputs: { ...this.state.editInputs, service: val } })
+    changeEditSupplierInput = (val) => this.setState({ editInputs: { ...this.state.editInputs, supplier: val } })
+    changeEditSupplierCostInput = (val) => this.setState({ editInputs: { ...this.state.editInputs, supplierCost: val } })
+    changeEditSellCostInput = (val) => this.setState({ editInputs: { ...this.state.editInputs, sellCost: val } })
+
+    updateCost = (id, service, provider, providerCost, sellPrice) => {
+        var token = JSON.parse(localStorage.getItem('token'));
+        var AuthStr = 'Bearer ' + token;
+        var data = {
+            service: this.state.editInputs.service !== '' ? this.state.editInputs.service : service,
+            provider: this.state.editInputs.supplier !== '' ? this.state.editInputs.supplier : provider,
+            providerCost: this.state.editInputs.supplierCost !== 0 ? this.state.editInputs.supplierCost : providerCost,
+            sellPrice: this.state.editInputs.sellCost !== 0 ? this.state.editInputs.sellCost : sellPrice,
+        }
+        data.priceDifference = data.sellPrice - data.providerCost
+        axios.put(`/api/misc/costs/${id}`, data, { headers: { Authorization: AuthStr } })
+        .then((res) => { 
+            if(res.data !== 'error'){ 
+                Swal.fire({
+                    type: 'success',
+                    title: 'Registo de Custos Editado',
+                    text: `O Registo de Custos foi editado com sucesso!`
+                    }).then(click => {
+                        if(this.props.type === 'projectlist'){ this.props.getProjectDetails() }
+                        else if(this.props.type === 'tasklist'){ this.props.getTaskDetails() }
+                        this.changeEditLine(0);
+                    })
+            }
+            else{console.log('error')}
+        })
+    }
+
     render(){
         return <CostsModal 
                     type={this.props.type}
@@ -223,6 +249,14 @@ class CostsModalContainer extends Component{
                     costs={this.props.costs}
                     deleteCost={this.deleteCost}
                     closeModal={this.props.closeModal}
+                    editLine={this.state.editLine}
+                    changeEditLine={this.changeEditLine}
+                    editInputs={this.state.editInputs}
+                    changeEditServiceInput={this.changeEditServiceInput}
+                    changeEditSupplierInput={this.changeEditSupplierInput}
+                    changeEditSupplierCostInput={this.changeEditSupplierCostInput}
+                    changeEditSellCostInput={this.changeEditSellCostInput}
+                    updateCost={this.updateCost}
                 />
     }
 }

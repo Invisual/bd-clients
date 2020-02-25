@@ -24,7 +24,8 @@ class AllTasksContainer extends Component {
         project: '',
         deadline: new Date(),
         isDeadlineSet: false,
-        type: ''
+        type: '',
+        date: ''
       },
       clientsList: [],
       billingList: [],
@@ -316,7 +317,8 @@ class AllTasksContainer extends Component {
   };
 
   scrollToElementD = () => {
-    var topPos = document.querySelector('.single-card-task.active').offsetTop;
+    // var topPos = ;
+    var topPos = document.querySelector('.single-card-task.active').offsetTop ? document.querySelector('.single-card-task.active').offsetTop : 0;
     this.scrollTo(document.querySelector('.tasks-list'), topPos - 10, 600);
   };
 
@@ -440,6 +442,7 @@ class AllTasksContainer extends Component {
         closeModal={this.props.closeModal}
         placeholder={this.state.placeholder}
         changePlaceholder={this.changePlaceholder}
+        seeBothTasks={this.props.seeBothTasks}
       />
     );
   }

@@ -308,6 +308,56 @@ router.post('/comments/:project', checkToken, (req, res) => {
   });
 });
 
-
+router.post('/:id', checkToken, (req, res) => {
+  id = req.params.id;
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403);
+    } else {
+      let newTasks;
+      connection.query(
+        'CREATE TEMPORARY TABLE tmptable SELECT * FROM projects WHERE id_project = ?; UPDATE tmptable SET id_project = NULL, title_project = IFNULL (CONCAT( title_project , " - Duplicado" ), " - Duplicado"); INSERT INTO projects SELECT * FROM tmptable; DROP TEMPORARY TABLE IF EXISTS tmptable;', id,
+        function (error, results, fields) {
+          if (error) throw error;
+          connection.query(
+            'CREATE TEMPORARY TABLE tmptable_1 SELECT * FROM projects_has_categories WHERE ref_id_project = ?; UPDATE tmptable_1 SET ref_id_project = ?; INSERT INTO projects_has_categories SELECT * FROM tmptable_1; DROP TEMPORARY TABLE IF EXISTS tmptable_1;',
+            [id, results[2].insertId],
+            function (error, results2, fields) {
+              if (error) throw error;
+              connection.query(
+                'CREATE TEMPORARY TABLE tmptable_2 SELECT * FROM tasks WHERE ref_id_project = ?; UPDATE tmptable_2 SET ref_id_project = ?, id_task = NULL, title_task = IFNULL (CONCAT( title_task , " - Duplicada" ), " - Duplicada"); INSERT INTO tasks SELECT * FROM tmptable_2; DROP TEMPORARY TABLE IF EXISTS tmptable_2;',
+                [id, results[2].insertId],
+                function (error, results3, fields) {
+                  if (error) throw error;
+                  connection.query(
+                    'SELECT id_task FROM tasks WHERE ref_id_project=?', results[2].insertId, function (error, results4, fields) {
+                      if (error) throw error;
+                      newTasks = JSON.parse(JSON.stringify(results4));
+                      connection.query(
+                        'SELECT id_task FROM tasks WHERE ref_id_project=?', id, function (error, results5, fields) {
+                          if (error) throw error;
+                          var res = JSON.parse(JSON.stringify(results5))
+                          for (let i = 0; i< res.length; i++) {
+                            connection.query(
+                              'CREATE TEMPORARY TABLE tmptable_3 SELECT * FROM users_has_tasks WHERE ref_id_task = ?; UPDATE tmptable_3 SET ref_id_task = ?, ref_id_user_task_status = 1; INSERT INTO users_has_tasks SELECT * FROM tmptable_3; DROP TEMPORARY TABLE IF EXISTS tmptable_3;',
+                              [res[i].id_task, newTasks[i].id_task], function (error, results6, fields) {
+                                if (error) throw error;
+                              }
+                            );
+                          }
+                        }
+                      );
+                  })
+                }
+              );
+            }
+          );
+          res.send(results);
+        }
+      );
+    }
+  });
+});
 
 module.exports = router;

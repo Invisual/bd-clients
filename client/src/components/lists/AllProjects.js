@@ -82,6 +82,7 @@ export const AllProjects = props => {
           deleteActiveProject={props.deleteActiveProject}
           openModal={props.openModal}
           placeholder={props.placeholder}
+          duplicateActiveProject={props.duplicateActiveProject}
         />
         <div className="grid-widget tasks-list">
           <div className="tasks-list-container">

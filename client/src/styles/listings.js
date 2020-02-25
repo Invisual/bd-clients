@@ -339,22 +339,26 @@ export const TaskDetailsDiv = styled.div`
       .task-comments{
         width:50%;
         margin: 0 30px;
-        .task-comment-title{
-          margin-top:0;
-          font-weight: 600;
-          font-size: 1.1em;
-          color: #4b4b4b;
-          margin-bottom: 10px;
-        }
-        .comment-status{
-          svg{
-            position: relative;
-            top: 1px;
+        .task-comments-scroll{
+          max-height: 315px;
+          overflow: scroll;
+          .task-comment-title{
+            margin-top:0;
+            font-weight: 600;
+            font-size: 1.1em;
+            color: #4b4b4b;
+            margin-bottom: 10px;
           }
-        }
-        .single-comment-details{
-          font-size: .9em;
-          margin-top: 2px;
+          .comment-status{
+            svg{
+              position: relative;
+              top: 1px;
+            }
+          }
+          .single-comment-details{
+            font-size: .9em;
+            margin-top: 2px;
+          }
         }
       }
 

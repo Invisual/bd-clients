@@ -243,7 +243,10 @@ body.collapsed-sidebar .topbar-goback {
   border: 1px solid #651fff;
 }
 .scrum-done{
-  background-color: #651fff
+  background-color: #651fff;
+}
+.scrum-approval{
+  background-color: #FFC107;
 }
 
 ::-webkit-scrollbar {

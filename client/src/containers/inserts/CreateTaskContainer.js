@@ -65,7 +65,11 @@ class CreateTaskContainer extends Component{
     }
 
     changeStartDateInput = (val) => {
-        this.setState({ startDateInput: val })
+        this.setState({ startDateInput: val }, () => {
+            if (moment(this.state.deadlineInput).isBefore(moment(this.state.startDateInput), 'day')) {
+                this.setState({ deadlineInput:  moment(this.state.startDateInput).add(1, 'day')})
+            }
+        });
     }
 
     changeAccountInput = (e) => {
@@ -189,21 +193,23 @@ class CreateTaskContainer extends Component{
     insertTask = (e) => {
         e.preventDefault();
         var clientName =  this.state.clientsData.filter(client => Number(client.id_client) === Number(this.state.clientInput))[0].name_client
-
+        let accountName;
+        let userSlack;
+        let userName;
         if(this.state.typeInput !== '1'){
-            var accountName =  this.state.usersData.filter(user => Number(user.id_user) === Number(this.state.accountInput))[0].name_user
+            accountName =  this.state.usersData.filter(user => Number(user.id_user) === Number(this.state.accountInput))[0].name_user
         }
         else{
-            var accountName = ''
+            accountName = ''
         }
 
         if(this.state.typeInput !== '3'){
-            var userSlack =  this.state.usersData.filter(user => Number(user.id_user) === Number(this.state.personInput))[0].slack_id_user
-            var userName =  this.state.usersData.filter(user => Number(user.id_user) === Number(this.state.personInput))[0].name_user
+            userSlack =  this.state.usersData.filter(user => Number(user.id_user) === Number(this.state.personInput))[0].slack_id_user
+            userName =  this.state.usersData.filter(user => Number(user.id_user) === Number(this.state.personInput))[0].name_user
         }
         else{
-            var userSlack =  this.state.usersData.filter(user => Number(user.id_user) === Number(this.state.accountInput))[0].slack_id_user
-            var userName =  this.state.usersData.filter(user => Number(user.id_user) === Number(this.state.accountInput))[0].name_user
+            userSlack =  this.state.usersData.filter(user => Number(user.id_user) === Number(this.state.accountInput))[0].slack_id_user
+            userName =  this.state.usersData.filter(user => Number(user.id_user) === Number(this.state.accountInput))[0].name_user
         }
 
         var extraInputs = []

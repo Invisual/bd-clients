@@ -86,12 +86,12 @@ class ProjectTasksTab extends React.Component {
             <div className="scrum-list">
             {this.props.projectContent.tasks
               .filter(status => {
-                return status.ref_id_user_task_status === 4;
+                return status.ref_id_user_task_status === 4 || status.ref_id_user_task_status === 5
               })
               .map(task => {
                 return (
                   <div className="scrum-card" key={task.id_task}>
-                    <div className="scrum-done"></div>
+                    <div className={task.ref_id_user_task_status === 4 ? 'scrum-done' : 'scrum-approval'}></div>
                     {Number(user.ref_id_role) === 2 || Number(user.ref_id_role) === 3 || Number(user.id_user)===Number(task.id_user) ? 
                     <Link to={`/tasks/`+task.id_task}>
                     <div className="scrum-info">

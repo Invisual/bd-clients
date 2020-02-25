@@ -40,6 +40,7 @@ class OptionsContainer extends Component {
         approveActiveItem={this.props.approveActiveItem}
         rejectActiveItem={this.props.rejectActiveItem}
         placeholder={this.props.placeholder}
+        duplicateActiveProject={this.props.duplicateActiveProject}
       />
     );
   }

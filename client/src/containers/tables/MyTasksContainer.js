@@ -31,10 +31,13 @@ class MyTasksContainer extends Component {
         nextStatus = 3;
         break;
       case 3:
-        nextStatus = 4;
+        nextStatus = 5;
         break;
       case 4:
         nextStatus = 1;
+        break;
+      case 5:
+        nextStatus = 4;
         break;
       default:
         nextStatus = 1;
@@ -73,6 +76,9 @@ class MyTasksContainer extends Component {
       else {
         url = `/api/tasks/${user.id_user}`
       }
+    }
+    if(this.props.seeBothTasks) {
+      url = `/api/tasks/both`
     }
     axios.get(url, { headers: { Authorization: AuthStr } }).then(res => {
       if (this._isMounted) {
@@ -197,6 +203,10 @@ class MyTasksContainer extends Component {
           return this.props.filters.project === '' ? true : Number(task.ref_id_project) === Number(this.props.filters.project)
         }).filter(task => {
           return this.props.filters.isDeadlineSet === false ? true : moment(task.deadline_date_task).isSameOrBefore(this.props.filters.deadline, 'day')
+        }).filter(task => {
+          if (this.props.filters.date === '') { return true }
+          if (!task.total_days) { return false }
+          return task.total_days.split(',').some(day => day[5] + day[6] === this.props.filters.date);
         }) 
       }, ()=>this.props.changeActiveTask(this.state.filteredTasks.length > 0 ? this.state.filteredTasks[0].id_task : null)) 
         
@@ -232,7 +242,6 @@ class MyTasksContainer extends Component {
   componentWillUnmount() {
     this._isMounted = false;
   }
-
   render() {
     return (
       <MyTasks

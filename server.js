@@ -1,6 +1,5 @@
 const express = require("express");
 const http = require("http");
-const socketIo = require("socket.io");
 const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
@@ -20,10 +19,7 @@ const hoursRoutes = require('./routes/api/hours');
 
 const app = express();
 const server = http.createServer(app);
-const io = module.exports.io = socketIo(server);
 
-const SocketManager = require('./chat/server/SocketManager')
-io.on('connection', SocketManager)
 
 app.use(bodyParser.json());
 app.use(cors());

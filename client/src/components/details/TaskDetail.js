@@ -87,21 +87,23 @@ export const TaskDetail = props => {
                 </div>
                 <div className="task-comments">
                   <h4 className="task-comment-title">Comentários</h4>
-                  {props.taskContent.comments.length ? (
-                    props.taskContent.comments.slice(0, 3).map(comment => {
-                      return (
-                        <SingleTaskComment
-                          key={comment.id_task_comment}
-                          id={comment.id_task_comment}
-                          text={comment.text_comments}
-                          author={comment.name_user}
-                          date={moment(comment.date_comment).format('D/MM/YYYY')}
-                        />
-                      );
-                    })
-                  ) : (
-                    <div>Esta Tarefa ainda não tem comentários</div>
-                  )}
+                  <div className="task-comments-scroll">
+                    {props.taskContent.comments.length ? (
+                      props.taskContent.comments.map(comment => {
+                        return (
+                          <SingleTaskComment
+                            key={comment.id_task_comment}
+                            id={comment.id_task_comment}
+                            text={comment.text_comments}
+                            author={comment.name_user}
+                            date={moment(comment.date_comment).format('D/MM/YYYY')}
+                          />
+                        );
+                      })
+                    ) : (
+                      <div>Esta Tarefa ainda não tem comentários</div>
+                    )}
+                  </div>
                 </div>
               </div>
               {props.concluded && (props.taskContent.details[0].user_approved_task || props.taskContent.details[0].user_concluded_task)?

@@ -121,14 +121,6 @@ export const InsertFormDiv = styled.div`
         }
       }
 
-      textarea {
-        height: 120px;
-        padding: 18px;
-        box-sizing: border-box;
-        text-indent: 0;
-        resize: none;
-      }
-
       select {
         -webkit-appearance: none;
         -moz-appearance: none;
@@ -157,85 +149,6 @@ export const InsertFormDiv = styled.div`
       textarea,
       select {
         color: ${themeConsts.placeholderGrey};
-      }
-
-      .categories-card {
-        padding: 0;
-
-        .categories-grid {
-          display: grid;
-          grid-template-columns: 50% 50%;
-          padding: 15px 10px 2px 15px;
-
-          div {
-            margin-bottom: 15px;
-
-            .label-container {
-              display: block;
-              position: relative;
-              padding-left: 15px;
-              cursor: pointer;
-              font-size: 1.3em;
-              -webkit-user-select: none;
-              -moz-user-select: none;
-              -ms-user-select: none;
-              user-select: none;
-
-              input {
-                position: absolute;
-                opacity: 0;
-                cursor: pointer;
-                height: 0;
-                width: 0;
-              }
-
-              .checkmark {
-                position: absolute;
-                top: 50%;
-                bottom: 0;
-                left: 0;
-                height: 12px;
-                width: 12px;
-                border-radius: 50%;
-                border: 2px solid ${themeConsts.secondaryBlue};
-                background-color: transparent;
-                transform: translateY(-50%);
-              }
-              .checkmark:after {
-                content: '';
-                position: absolute;
-                display: none;
-              }
-            }
-
-            .label-container:hover input ~ .checkmark {
-              background-color: ${themeConsts.secondaryBlue};
-            }
-
-            .label-container input:checked ~ .checkmark {
-              background-color: ${themeConsts.secondaryBlue};
-            }
-            .label-container input:checked ~ .checkmark:after {
-              display: block;
-            }
-
-            .container .checkmark:after {
-              left: 9px;
-              top: 5px;
-              width: 5px;
-              height: 10px;
-              border: solid white;
-              border-width: 0 3px 3px 0;
-              -webkit-transform: rotate(45deg);
-              -ms-transform: rotate(45deg);
-              transform: rotate(45deg);
-            }
-          }
-        }
-
-        .users-grid {
-          grid-template-columns: 25% 25% 25% 25%;
-        }
       }
 
       .radio-label-container {
@@ -423,5 +336,93 @@ export const InsertFormDiv = styled.div`
     }
   }
 
+
+  .categories-card {
+        padding: 0;
+
+        .categories-grid {
+          display: grid;
+          grid-template-columns: 50% 50%;
+          padding: 15px 10px 2px 15px;
+
+          div {
+            margin-bottom: 15px;
+
+            .label-container {
+              display: block;
+              position: relative;
+              padding-left: 15px;
+              cursor: pointer;
+              font-size: 1.3em;
+              -webkit-user-select: none;
+              -moz-user-select: none;
+              -ms-user-select: none;
+              user-select: none;
+
+              input {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+                height: 0;
+                width: 0;
+              }
+
+              .checkmark {
+                position: absolute;
+                top: 50%;
+                bottom: 0;
+                left: 0;
+                height: 12px;
+                width: 12px;
+                border-radius: 50%;
+                border: 2px solid ${themeConsts.secondaryBlue};
+                background-color: transparent;
+                transform: translateY(-50%);
+              }
+              .checkmark:after {
+                content: '';
+                position: absolute;
+                display: none;
+              }
+            }
+
+            .label-container:hover input ~ .checkmark {
+              background-color: ${themeConsts.secondaryBlue};
+            }
+
+            .label-container input:checked ~ .checkmark {
+              background-color: ${themeConsts.secondaryBlue};
+            }
+            .label-container input:checked ~ .checkmark:after {
+              display: block;
+            }
+
+            .container .checkmark:after {
+              left: 9px;
+              top: 5px;
+              width: 5px;
+              height: 10px;
+              border: solid white;
+              border-width: 0 3px 3px 0;
+              -webkit-transform: rotate(45deg);
+              -ms-transform: rotate(45deg);
+              transform: rotate(45deg);
+            }
+          }
+        }
+
+        .users-grid {
+          grid-template-columns: 25% 25% 25% 25%;
+        }
+      }
+
+
+      textarea {
+        height: 120px;
+        padding: 18px 0;
+        box-sizing: border-box;
+        text-indent: 0;
+        resize: none;
+      }
   
 `;

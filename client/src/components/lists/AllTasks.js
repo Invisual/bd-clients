@@ -35,7 +35,7 @@ export const AllTasks = props => {
       : null}
       <div className="widgets-grid widget cards-container nofixed-height">
         <div className="grid-widget tasks-title">
-          <h4 className="widget-title">{props.concluded? 'Tarefas Concluídas' : 'Tarefas'}</h4>
+          <h4 className="widget-title">{props.seeBothTasks ? 'Todas as Tarefas' : (props.concluded? 'Tarefas Concluídas' : 'Tarefas em Curso')}</h4>
           <div className="grid-widget left-options">
           <div className="tooltip-container tasks-search">
             <input type="text" placeholder="Pesquisa" id="tasks-search" className={props.displaySearchInput+ ' searchinput'} onChange={props.changeSearchQuery}/>
@@ -109,6 +109,7 @@ export const AllTasks = props => {
               currentTaskList={props.currentTaskList}
               searchQuery={props.searchQuery}
               placeholder={props.placeholder}
+              seeBothTasks={props.seeBothTasks}
             />
           </div>
         </div>

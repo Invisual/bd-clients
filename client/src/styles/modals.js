@@ -150,10 +150,22 @@ export const CostsModalDiv = styled.div`
                 font-weight:500;
                 font-size: 1.1em;
 
+                span {
+                    margin: 7px;
+                    cursor: pointer;
+                }
+
                 svg {
                     font-size: 1.6em;
                     color: ${themeConsts.secondaryBlue}
                 }
+            }
+
+            input {
+                border: none;
+                text-indent: 15px;
+                border-bottom: 2px solid ${themeConsts.tableHeader};
+                width: 90%;
             }
         }
         .costs-list-row:hover{

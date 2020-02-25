@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import moment from 'moment'
 import 'moment/locale/pt'
 import 'moment-duration-format'
-import { FiTrash2, FiCopy, FiEdit3 } from 'react-icons/fi';
 
 class ClientTasksTab extends React.Component {
   render() {
@@ -74,12 +73,12 @@ class ClientTasksTab extends React.Component {
             {this.props.clientContent.tasks.filter(status => {return status.ref_id_user_task_status === 4}).length ?
               this.props.clientContent.tasks
               .filter(status => {
-                return status.ref_id_user_task_status === 4;
+                return status.ref_id_user_task_status === 4 || status.ref_id_user_task_status === 5
               })
               .map(task => {
                 return (
                   <div className="scrum-card scrum-card-clients" key={task.id_task}>
-                    <div className="scrum-done"></div>
+                    <div className={task.ref_id_user_task_status === 4 ? 'scrum-done' : 'scrum-approval'}></div>
                     {Number(user.ref_id_role) === 2 || Number(user.ref_id_role) === 3 || Number(user.id_user)===Number(task.id_user) ? 
                     <Link to={`/tasks/`+task.id_task}>
                     <div className="scrum-info">

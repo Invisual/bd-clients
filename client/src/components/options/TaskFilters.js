@@ -15,7 +15,8 @@ constructor(props){
     taskStatusFilter: this.props.filters.status,
     taskProjectFilter: this.props.filters.project,
     taskDeadlineFilter: this.props.filters.deadline,
-    taskIsDeadlineSet: this.props.filters.isDeadlineSet
+    taskIsDeadlineSet: this.props.filters.isDeadlineSet,
+    taskDateFilter: this.props.filters.date
   }
 }
 
@@ -26,6 +27,7 @@ changeTaskTypeFilter = e => this.setState({taskTypeFilter: e.target.value})
 changeTaskStatusFilter = e => this.setState({taskStatusFilter: e.target.value})
 changeTaskProjectFilter = e => this.setState({taskProjectFilter: e.target.value})
 changeTaskDeadlineFilter = val => this.setState({taskDeadlineFilter: val, taskIsDeadlineSet: true})
+changeTaskDateFilter = e => this.setState({taskDateFilter: e.target.value})
 
 setFilters = () => {
   var filters = {
@@ -36,7 +38,8 @@ setFilters = () => {
     project: this.state.taskProjectFilter,
     deadline: this.state.taskDeadlineFilter,
     isDeadlineSet: this.state.taskIsDeadlineSet,
-    type: this.state.taskTypeFilter
+    type: this.state.taskTypeFilter,
+    date: this.state.taskDateFilter
   }
   this.props.changeFilters(filters)
   this.props.changeFiltersAreActive()
@@ -51,9 +54,10 @@ removeFilters = () => {
     project: '',
     deadline: new Date(),
     isDeadlineSet: false,
-    type: ''
+    type: '',
+    date: '',
   }
-  this.setState({taskClientFilter: '', taskBillingFilter: '', taskUserFilter: '', taskStatusFilter: '', taskProjectFilter: '', taskDeadlineFilter: new Date(), taskIsDeadlineSet:false, taskTypeFilter: ''})
+  this.setState({taskClientFilter: '', taskBillingFilter: '', taskUserFilter: '', taskStatusFilter: '', taskProjectFilter: '', taskDeadlineFilter: new Date(), taskIsDeadlineSet:false, taskTypeFilter: '', taskDateFilter: ''})
   this.props.changeFilters(filters)
   this.props.changeFiltersAreActive();
   this.props.changePlaceholder()
@@ -69,6 +73,11 @@ render(){
       projectsList = this.props.projectsList.filter(project => Number(project.ref_id_client) === Number(this.state.taskClientFilter))
     }
 
+    const months = [
+      {val: '01', name: 'Janeiro'}, {val: '02', name: 'Fevereiro'}, {val: '03', name: 'Março'}, {val: '04', name: 'Abril'}, {val: '05', name: 'Maio'}, {val: '06', name: 'Junho'},
+      {val: '07', name: 'Julho'}, {val: '08', name: 'Agosto'}, {val: '09', name: 'Setembro'}, {val: '10', name: 'Outubro'}, {val: '11', name: 'Novembro'}, {val: '12', name: 'Dezembro'},
+    ]
+    
     return (
       <FiltersDiv className="task-filters options-filters">
 
@@ -160,6 +169,19 @@ render(){
 
 
         <div className="filters-grid grid50-50">
+
+          <div className="status-filter single-filter-container">
+            <fieldset>
+              <legend>Mês</legend>
+              <select onChange={this.changeTaskDateFilter} defaultValue={this.state.taskDateFilter}>
+                  <option value="">Seleccione</option>
+                  {months.map(month => {
+                    return <option key={month.val} value={month.val}>{month.name}</option>
+                  })}
+              </select>
+            </fieldset>
+          </div>
+
 
           <div className="deadline-filter single-filter-container">
             <fieldset>

@@ -126,14 +126,14 @@ class ProjectReviewTab extends React.Component {
             <div className="single-links-wrapper">
               {this.props.projectContent.details[0].zeplin_url ?
                 <div className="single-link">
-                  <a href={this.props.projectContent.details[0].zeplin_url} target="_blank">
+                  <a href={this.props.projectContent.details[0].zeplin_url} target="_blank" rel="noopener noreferrer">
                     <img src="/img/zeplin.svg" className="zeplin-logo" alt="Zeplin" title="Zeplin" />
                   </a>
                 </div>
               : null}
               {this.props.projectContent.details[0].slack_url ?
                 <div className="single-link">
-                  <a href={`slack://channel?team=TDR59C5TK&id=${this.props.projectContent.details[0].slack_url}`} target="_blank">
+                  <a href={`slack://channel?team=TDR59C5TK&id=${this.props.projectContent.details[0].slack_url}`} target="_blank" rel="noopener noreferrer">
                     <img src="/img/slack.svg" className="slack-logo" alt="Slack" title="Slack" />
                   </a>
                 </div>

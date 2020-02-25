@@ -1,8 +1,7 @@
 import React from 'react'
-import SingleUser from '../singles/SingleUser'
 import SingleArea from '../singles/SingleArea'
 import {Link} from 'react-router-dom'
-import { FiArrowRight } from 'react-icons/fi';
+import { FiArrowRight } from 'react-icons/fi'
 
 export const MyUsers = props => {
     var sortedTasks = props.isLoading ? [] : props.data.tasks.length > 0 ? props.data.tasks.sort((a, b) => {
