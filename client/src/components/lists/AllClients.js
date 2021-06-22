@@ -26,10 +26,10 @@ export const AllClients = props => {
                   <FiUserPlus />
                 </Link>
               </div>
-              <div className={props.onlyAvencados ? 'tooltip-container icon-tobe-selected icon-selected' : 'tooltip-container icon-tobe-selected'}>
+              {/* <div className={props.onlyAvencados ? 'tooltip-container icon-tobe-selected icon-selected' : 'tooltip-container icon-tobe-selected'}>
                   <span className="tooltip">Apenas Avençados</span>
                   <FiUserCheck className="clients-avencados-icon" onClick={props.changeOnlyAvencados} />
-              </div>
+              </div> */}
             </>
           : 
           null

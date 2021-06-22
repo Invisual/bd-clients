@@ -28,7 +28,7 @@ export const TeamMemberDetail = props => {
                 <h4 className="project-title member-title">{props.memberContent.details[0].name_user}</h4>
                 <h6 className="member-position">{props.memberContent.details[0].name_position}</h6>
                 <div className="project-infos">
-                  <div
+                  {/* <div
                     className={'project-tab ' + (props.activeTab === 'tasks' ? 'active-tab' : '')}
                     onClick={() => props.changeActiveTab('tasks')}
                   >
@@ -41,14 +41,9 @@ export const TeamMemberDetail = props => {
                     >
                     Histórico
                     </div>
-                  : null}
-                  <div
-                    className={'project-tab ' + (props.activeTab === 'infos' ? 'active-tab' : '')}
-                    onClick={() => props.changeActiveTab('infos')}
-                  >
-                    Infos
-                  </div>
-                  <div
+                  : null} */}
+                  <TeamMemberInfoTab memberContent ={props.memberContent} />
+                  {/* <div
                     className={'project-tab ' + (props.activeTab === 'vacations' ? 'active-tab' : '')}
                     onClick={() => props.changeActiveTab('vacations')}
                   >
@@ -60,11 +55,11 @@ export const TeamMemberDetail = props => {
                     onClick={() => props.changeActiveTab('hours')}
                   >
                     Horas
-                  </div>
-                  : null }
+                  </div> */}
+                  {/* : null } */}
                 </div>
               </div>
-              {(() => {
+              {/* {(() => {
                 switch (props.activeTab) {
                   case 'tasks':
                     return <TeamMemberTasksTab memberContent={props.memberContent}/>
@@ -79,7 +74,7 @@ export const TeamMemberDetail = props => {
                   default:
                     return null;
                 }
-              })()}
+              })()} */}
             </div>
           </div>
         </ClientDetailsDiv>

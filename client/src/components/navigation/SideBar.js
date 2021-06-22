@@ -71,11 +71,11 @@ class SideBar extends Component {
             <ul>
                 <NavLink exact={true} to="/" activeClassName='is-active'><li><FiHome/><span>Dashboard</span></li></NavLink>
 
-                {this.props.userInfo.ref_id_role === 2 || this.props.userInfo.ref_id_role === 3 ?
+                {/* {this.props.userInfo.ref_id_role === 2 || this.props.userInfo.ref_id_role === 3 ?
                 <NavLink exact={true} to="/approvals" activeClassName='is-active'><li><FiInbox/><span>Aprovações</span></li></NavLink>
-                : null }
+                : null } */}
 
-                {this.props.userInfo.ref_id_role === 2 || this.props.userInfo.ref_id_role === 3 ?
+                {/* {this.props.userInfo.ref_id_role === 2 || this.props.userInfo.ref_id_role === 3 ?
                 <li className={this.isProjectsRoute() ? 'is-active has-submenu' : 'has-submenu'} onClick={this.toggleProjectsDropdown}>
                 <FiFolder/>
                 <span>Projetos</span>
@@ -85,9 +85,9 @@ class SideBar extends Component {
                   <NavLink to="/concludedprojects"><div className="submenu-item">Ver Concluídos</div></NavLink>
                 </div>
               </li>
-                : <NavLink exact={true} to="/projects" activeClassName='is-active'><li><FiFolder/><span>Projetos</span></li></NavLink>}
+                : <NavLink exact={true} to="/projects" activeClassName='is-active'><li><FiFolder/><span>Projetos</span></li></NavLink>} */}
 
-                {this.props.userInfo.ref_id_role === 2 || this.props.userInfo.ref_id_role === 3 ?
+                {/* {this.props.userInfo.ref_id_role === 2 || this.props.userInfo.ref_id_role === 3 ?
                 <li className={this.isTasksRoute() ? 'is-active has-submenu' : 'has-submenu'} onClick={this.toggleTasksDropdown}>
                   <FiFileText/>
                   <span>Tarefas</span>
@@ -98,15 +98,17 @@ class SideBar extends Component {
                     <NavLink to="/bothtasks" activeClassName='is-active'><div className="submenu-item">Ver Todas</div></NavLink>
                   </div>
                 </li>
-                : <NavLink exact={true} to="/tasks" activeClassName='is-active'><li><FiFileText/><span>Tarefas</span></li></NavLink>}
+                : <NavLink exact={true} to="/tasks" activeClassName='is-active'><li><FiFileText/><span>Tarefas</span></li></NavLink>} */}
 
                 <NavLink to="/clients" activeClassName='is-active'><li><FiUser/><span>Clientes</span></li></NavLink>
-                <NavLink to="/meetings" activeClassName='is-active'><li><FiCalendar/><span>Reuniões</span></li></NavLink>
-                {this.props.userInfo.ref_id_role === 2 || this.props.userInfo.ref_id_role === 3 || this.props.userInfo.ref_id_position === 3 ?
+                {/* <NavLink to="/meetings" activeClassName='is-active'><li><FiCalendar/><span>Reuniões</span></li></NavLink> */}
+                {/* {this.props.userInfo.ref_id_role === 2 || this.props.userInfo.ref_id_role === 3 || this.props.userInfo.ref_id_position === 3 ?
                 <NavLink to="/billing" activeClassName='is-active'><li><FiBookmark/><span>Contabilidade</span></li></NavLink>
-                : null}
+                : null} */}
 
-                <li className={this.isCompanyRoute() ? 'is-active has-submenu' : 'has-submenu'} onClick={this.toggleCompanyDropdown}>
+                <NavLink to="/team" activeClassName='is-active'><li><FiUser/><span>Equipa</span></li></NavLink>
+
+                {/* <li className={this.isCompanyRoute() ? 'is-active has-submenu' : 'has-submenu'} onClick={this.toggleCompanyDropdown}>
                   <FiUsers/><span>Empresa</span>
                   <div className={this.state.companyDropDown ? 'submenu opened-submenu company-submenu' : 'submenu closed-submenu company-submenu'}>
                   {this.props.userInfo.ref_id_role === 2 || this.props.userInfo.ref_id_role === 3 ?
@@ -117,7 +119,7 @@ class SideBar extends Component {
                     <NavLink to="/trips" activeClassName='is-active'><div className="submenu-item">Deslocações</div></NavLink>
                     <NavLink to="/regulation" activeClassName='is-active'><div className="submenu-item">Regulamento</div></NavLink>
                   </div>
-                </li>
+                </li> */}
             </ul>
         </div>
         <div className="sidebar-toggle">

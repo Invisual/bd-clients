@@ -16,7 +16,7 @@ export const TopBar = props => {
       <ul className="main-nav">
       {props.canGoBack ? <li className="topbar-goback"> <FiChevronLeft onClick={props.goBackHistory}/></li> : null}
 
-      {props.userInfo.ref_id_role === 2 || props.userInfo.ref_id_role === 3 ? 
+      {/* {props.userInfo.ref_id_role === 2 || props.userInfo.ref_id_role === 3 ? 
       <li className="topbar-add" onClick={() => props.showDropdownCreate()}>
          <span><FiPlusSquare id="createicon"/></span>
          {props.displayDropdownCreate? (
@@ -30,7 +30,7 @@ export const TopBar = props => {
          ) 
          : null}
        </li>
-       : null}
+       : null} */}
 
        {props.userInfo.ref_id_role === 2 ?
           <li className={props.isAccountDashboard ? 'topbar-dashboard-toggle dashboard-account' : 'topbar-dashboard-toggle'} 
@@ -43,11 +43,11 @@ export const TopBar = props => {
        }
      
 
-        <li className="topbar-todo" onClick={() => props.openModal('todo')}>
+        {/* <li className="topbar-todo" onClick={() => props.openModal('todo')}>
           <span><FiEdit/></span>
-        </li>
+        </li> */}
 
-        <li className="topbar-notifications" id="notificationsli" onClick={() => {props.showDropdownMenu(); props.setNotificationsSeen()}}>
+        {/* <li className="topbar-notifications" id="notificationsli" onClick={() => {props.showDropdownMenu(); props.setNotificationsSeen()}}>
           {notSeenNotifications.length > 0 ? 
             <div className="notification-number"><span id="notificationsnumber">{notSeenNotifications.length}</span></div>
           : null }
@@ -174,9 +174,9 @@ export const TopBar = props => {
               }
             </ul>
           ) : null}
-        </li>
+        </li> */}
 
-        {props.activeHours !== null && props.activeHours !== '' ? 
+        {/* {props.activeHours !== null && props.activeHours !== '' ? 
           <li className="topbar-clock">
             <div className="notification-number"><span id="notificationsnumber">1</span></div>
             <Link to={`/tasks/${props.activeHours[0].id_task}`}><FiClock /></Link>
@@ -192,7 +192,7 @@ export const TopBar = props => {
               <span className="tooltip tool-topbar">Sem registo de horas em aberto</span>
             </div>
           </li>
-        }      
+        }       */}
         
         <li className="topbar-avatar" onClick={() => props.showDropdownUser()}>
           <span id="topbar-user-name">{props.userInfo.name_user}</span>
@@ -207,9 +207,9 @@ export const TopBar = props => {
           {props.displayDropdownUser ? (
             <ul className="notifications-dropdown show-notifications user-dropdown">
               <Link to={`/team/${props.userInfo.id_user}`}><li id="topbar-user-link1">Ver Utilizador</li></Link>
-              <Link to={`/team/hours/${props.userInfo.id_user}`}><li id="topbar-user-link1">Ver as Minhas Horas</li></Link>
+              {/* <Link to={`/team/hours/${props.userInfo.id_user}`}><li id="topbar-user-link1">Ver as Minhas Horas</li></Link>
               <Link to="/createvacations"><li id="topbar-user-link2">Pedir Férias</li></Link>
-              <Link to="/createtrip"><li id="topbar-user-link3">Inserir Deslocação</li></Link>
+              <Link to="/createtrip"><li id="topbar-user-link3">Inserir Deslocação</li></Link> */}
               <li id="topbar-user-link4" onClick={props.logout}>Terminar Sessão</li>
             </ul>
           ) : null}

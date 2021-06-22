@@ -26,7 +26,8 @@ export const ClientDetail = props => {
               <div className="project-header">
                 <h4 className="project-title">{props.clientContent.details[0].name_client}</h4>
                 <div className="project-infos">
-                  <div
+                    <ClientInfoTab clientContent={props.clientContent} logout={props.logout} />
+                  {/* <div
                     className={'project-tab ' + (props.activeTab === 'clientprojects' ? 'active-tab' : '')}
                     onClick={() => props.changeActiveTab('clientprojects')}
                   >
@@ -49,10 +50,10 @@ export const ClientDetail = props => {
                     onClick={() => props.changeActiveTab('clientdata')}
                   >
                     Data
-                  </div>
+                  </div> */}
                 </div>
               </div>
-              {(() => {
+              {/* {(() => {
                 switch (props.activeTab) {
                   case 'clientinfo':
                     return <ClientInfoTab clientContent={props.clientContent} logout={props.logout} />;
@@ -65,7 +66,7 @@ export const ClientDetail = props => {
                   default:
                     return null;
                 }
-              })()}
+              })()} */}
             </div>
           </div>
         </ClientDetailsDiv>
