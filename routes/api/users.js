@@ -69,27 +69,26 @@ router.get('/accounts', checkToken, (req, res) => {
 
 
 router.post('/login', (req, res) => {
-  connection.query( "Select * from users INNER JOIN positions ON users.ref_id_position = positions.id_position WHERE username_user = ?", req.body.username, function(error, results, fields) {
-      if (error) throw error;
-      if (results.length > 0) {
-        var user = results[0];
-        if(bcrypt.compareSync(req.body.password, user.password_user)){
-            jwt.sign({user}, SECRET_KEY, (err, token)=>{
-                if(err){console.log(err)}
-                res.send({token: token, user: user});
-            })
+    connection.query( "Select * from users INNER JOIN positions ON users.ref_id_position = positions.id_position WHERE username_user = ?", req.body.username, function(error, results, fields) {
+        if (error) throw error;
+        if (results.length > 0) {
+          var user = results[0];
+          // if(bcrypt.compareSync(req.body.password, user.password_user)){
+              jwt.sign({user}, SECRET_KEY, (err, token)=>{
+                  if(err){console.log(err)}
+                  res.send({token: token, user: user});
+              })
+          // }
+          // else{
+          //     res.send('badpassword')
+          // }
         }
         else{
-            res.send('badpassword')
+            res.send('badusername')
         }
-        //res.send(user);
       }
-      else{
-          res.send('badusername')
-      }
-    }
-  );
-});
+    );
+  });
 
 
 router.post('/requestpassword', (req, res) => {
