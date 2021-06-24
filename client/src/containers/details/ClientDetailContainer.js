@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ClientDetail } from '../../components/details/ClientDetail';
 
 class ClientDetailContainer extends Component {
+
   render() {
     return (
       <ClientDetail

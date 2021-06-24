@@ -2,83 +2,68 @@ import React from 'react';
 import { ClientDetailsDiv } from '../../styles/listings';
 import { FiUser, FiMoreHorizontal } from 'react-icons/fi';
 import ClientInfoTab from '../tabs/ClientInfoTab';
-import ClientProjectsTab from '../tabs/ClientProjectsTab';
-import ClientTasksTab from '../tabs/ClientTasksTab';
-import ClientDataTab from '../tabs/ClientDataTab';
+import ClientMarketingTab from '../tabs/ClientMarketingTab';
 
 export const ClientDetail = props => {
-  return (
-    <>
-      {props.isLoading ? (
-        <ClientDetailsDiv>
-          <img src="/img/loading.svg" alt="loading" className="loading-spinner" />
-        </ClientDetailsDiv>
-      ) : props.clientContent ? (
-        <ClientDetailsDiv>
-          <div className="project-details-grid">
-            <div className="grid-item">
-              <div className="project-icon">
-                <FiUser />
-              </div>
-            </div>
+    var userRole = JSON.parse(localStorage.getItem('user')).ref_id_role
 
-            <div className="grid-item">
-              <div className="project-header">
-                <h4 className="project-title">{props.clientContent.details[0].name_client}</h4>
-                <div className="project-infos">
-                    <ClientInfoTab clientContent={props.clientContent} logout={props.logout} />
-                  {/* <div
-                    className={'project-tab ' + (props.activeTab === 'clientprojects' ? 'active-tab' : '')}
-                    onClick={() => props.changeActiveTab('clientprojects')}
-                  >
-                    Projetos
-                  </div>
-                  <div
-                    className={'project-tab ' + (props.activeTab === 'clienttasks' ? 'active-tab' : '')}
-                    onClick={() => props.changeActiveTab('clienttasks')}
-                  >
-                    Tarefas
-                  </div>
-                  <div
-                    className={'project-tab ' + (props.activeTab === 'clientinfo' ? 'active-tab' : '')}
-                    onClick={() => props.changeActiveTab('clientinfo')}
-                  >
-                    Infos
-                  </div>
-                  <div
-                    className={'project-tab ' + (props.activeTab === 'clientdata' ? 'active-tab' : '')}
-                    onClick={() => props.changeActiveTab('clientdata')}
-                  >
-                    Data
-                  </div> */}
+    return (
+        <>
+        {props.isLoading ? (
+            <ClientDetailsDiv>
+            <img src="/img/loading.svg" alt="loading" className="loading-spinner" />
+            </ClientDetailsDiv>
+        ) : props.clientContent ? (
+            <ClientDetailsDiv>
+            <div className="project-details-grid">
+                <div className="grid-item">
+                    <div className="project-icon">
+                        <FiUser />
+                    </div>
                 </div>
-              </div>
-              {/* {(() => {
-                switch (props.activeTab) {
-                  case 'clientinfo':
-                    return <ClientInfoTab clientContent={props.clientContent} logout={props.logout} />;
-                  case 'clientprojects':
-                    return <ClientProjectsTab clientContent={props.clientContent} />;
-                  case 'clienttasks':
-                    return <ClientTasksTab clientContent={props.clientContent} />;
-                  case 'clientdata':
-                    return <ClientDataTab clientContent={props.clientContent} />;
-                  default:
-                    return null;
-                }
-              })()} */}
+
+                <div className="grid-item">
+                    <div className="project-header">
+                        <h4 className="project-title">{props.clientContent.details[0].name_client}</h4>
+                        <div className="project-infos">
+                            {userRole === 3 &&
+                                <div
+                                    className={'project-tab ' + (props.activeTab === 'clientinfo' ? 'active-tab' : '')}
+                                    onClick={() => props.changeActiveTab('clientinfo')}
+                                >
+                                    Infos
+                                </div>
+                            }
+                            <div
+                                className={'project-tab ' + (props.activeTab === 'clientmarketing' ? 'active-tab' : '')}
+                                onClick={() => props.changeActiveTab('clientmarketing')}
+                            >
+                                Marketing
+                            </div>
+                        </div>
+                    </div>
+                    {(() => {
+                        switch (props.activeTab) {
+                            case 'clientinfo':
+                                return <ClientInfoTab clientContent={props.clientContent} logout={props.logout} />;
+                            case 'clientmarketing':
+                                return <ClientMarketingTab clientContent={props.clientContent}  logout={props.logout} />;
+                            default:
+                                return null;
+                        }
+                    })()}
+                </div>
             </div>
-          </div>
-        </ClientDetailsDiv>
-      ) : (
-        <div>
-          <div className="no-content">
-            <FiMoreHorizontal />
-          </div>
-        </div>
-      )}
-    </>
-  );
+            </ClientDetailsDiv>
+        ) : (
+            <div>
+            <div className="no-content">
+                <FiMoreHorizontal />
+            </div>
+            </div>
+        )}
+        </>
+    );
 };
 
 export default ClientDetail;

@@ -418,8 +418,8 @@ router.put('/details', checkToken, (req, res) => {
       //If error send Forbidden (403)
       res.sendStatus(403);
     } else {
-      connection.query('UPDATE clients SET cpanel_username_client = ?, cpanel_password_client = ?, dns_nichandle_client = ?, dns_password_client = ?, wordpress_link_client = ?, wordpress_username_client = ?, wordpress_password_client = ?, email_client = ?, others_client = ?, cpanel_link_client = ? WHERE id_client = ?',
-      [req.body.cpanelUser, req.body.cpanelPass, req.body.dnsNic, req.body.dnsPass, req.body.wpLink, req.body.wpUser, req.body.wpPass, req.body.emails, req.body.others, req.body.cpanelLink, req.body.id],
+      connection.query('UPDATE clients SET cpanel_username_client = ?, cpanel_password_client = ?, dns_nichandle_client = ?, dns_password_client = ?, wordpress_link_client = ?, wordpress_username_client = ?, wordpress_password_client = ?, email_client = ?, others_client = ?, cpanel_link_client = ?, google_username = ?, google_password = ?, instagram_username = ?, instagram_password = ?, facebook_username = ?, facebook_password = ?, others_marketing = ? WHERE id_client = ?',
+      [req.body.cpanelUser, req.body.cpanelPass, req.body.dnsNic, req.body.dnsPass, req.body.wpLink, req.body.wpUser, req.body.wpPass, req.body.emails, req.body.others, req.body.cpanelLink, req.body.googleUser, req.body.googlePass, req.body.instagramUser, req.body.instagramPass, req.body.facebookUser, req.body.facebookPass, req.body.othersMarketing, req.body.id],
       function(error, results, fields) {
         if (error) throw error;
         res.send(results);

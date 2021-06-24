@@ -13,7 +13,7 @@ export const AllTeam = props => {
     <AllClientsDiv className="dashboard-container">
       <div className="widgets-grid widget cards-container nofixed-height no-shadow team-members-grid">
         <div className="grid-widget tasks-title">
-          <h4 className="widget-title">Equipa</h4>
+          <h4 className="widget-title">Utilizadores</h4>
           <div className="grid-widget left-options">
           <div className="tooltip-container client-search">
             <input

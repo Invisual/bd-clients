@@ -3,7 +3,7 @@ import { AllClientsDiv } from '../../styles/listings';
 import ClientsListContainer from '../../containers/tables/ClientsListContainer';
 import ClientDetailContainer from '../../containers/details/ClientDetailContainer';
 import OptionsContainer from '../../containers/options/OptionsContainer';
-import { FiUserPlus, FiSearch, FiUserCheck } from 'react-icons/fi';
+import { FiUserPlus, FiSearch } from 'react-icons/fi';
 import {Link} from 'react-router-dom'
 
 export const AllClients = props => {
@@ -18,7 +18,7 @@ export const AllClients = props => {
             <FiSearch onClick={props.toggleSearchInput}/>
             <span className="tooltip">Pesquisar Clientes</span>
           </div>
-          {props.userRole === 3 || props.userRole === 2 ? 
+          {props.userRole === 3 ? 
             <>
               <div className="tooltip-container">
                 <Link to="/createclient">
@@ -26,10 +26,6 @@ export const AllClients = props => {
                   <FiUserPlus />
                 </Link>
               </div>
-              {/* <div className={props.onlyAvencados ? 'tooltip-container icon-tobe-selected icon-selected' : 'tooltip-container icon-tobe-selected'}>
-                  <span className="tooltip">Apenas Avençados</span>
-                  <FiUserCheck className="clients-avencados-icon" onClick={props.changeOnlyAvencados} />
-              </div> */}
             </>
           : 
           null

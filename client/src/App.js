@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SideBar from './components/navigation/SideBar';
 import TopBarContainer from './containers/navigation/TopBarContainer';
-import UserDashboardContainer from './containers/dashboard/UserDashboardContainer';
+import ClientsContainer from './containers/details/ClientDetailContainer';
 import LoginContainer from './containers/auth/LoginContainer';
 import ResetPasswordContainer from './containers/auth/ResetPasswordContainer';
 import AllTasksContainer from './containers/lists/AllTasksContainer';
@@ -53,7 +53,7 @@ class App extends Component {
             <MyToDoContainer title="To-do List" type="complete" closeModal={this.props.closeModal} shouldTodosUpdate={this.props.shouldTodosUpdate} changeShouldTodosUpdate={this.props.changeShouldTodosUpdate}/>
             <CreateTaskHourContainer closeModal={this.props.closeModal} editHourId={this.props.editHourId} changeEditHourId={this.props.changeEditHourId}/>
             <Switch>
-              <Route exact path="/" render={props => <UserDashboardContainer isAccountDashboard={this.props.isAccountDashboard} userInfo={this.props.userInfo} userRole={this.props.userInfo.ref_id_role} activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} openModal={this.props.openModal} shouldTodosUpdate={this.props.shouldTodosUpdate} changeShouldTodosUpdate={this.props.changeShouldTodosUpdate} {...props} />} />
+              <Route exact path="/" render={props => <ClientsContainer isAccountDashboard={this.props.isAccountDashboard} userInfo={this.props.userInfo} userRole={this.props.userInfo.ref_id_role} activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} openModal={this.props.openModal} shouldTodosUpdate={this.props.shouldTodosUpdate} changeShouldTodosUpdate={this.props.changeShouldTodosUpdate} {...props} />} />
               <Route key="all-approvals" exact path="/approvals" render={ props => <AllApprovalsContainer openModal={this.props.openModal} closeModal={this.props.closeModal} isShare={false} userInfo={this.props.userInfo} {...props} /> } />
               <Route key="all-approvals-id" exact path="/approvals/:type/:id" render={ props => <AllApprovalsContainer openModal={this.props.openModal} closeModal={this.props.closeModal} isShare={true} userInfo={this.props.userInfo} {...props} /> } />
               <Route key="all-tasks" exact path="/tasks" render={ props => <AllTasksContainer openModal={this.props.openModal} closeModal={this.props.closeModal} isShare={false} userInfo={this.props.userInfo} {...props} activeHours={this.props.activeHours} getActiveHours={this.props.getActiveHours} activeBudgetHours={this.props.activeBudgetHours} getActiveBudgetHours={this.props.getActiveBudgetHours}/> } />

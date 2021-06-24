@@ -157,13 +157,13 @@ export const LoginDiv = styled.div`
         }
         
         .sa-icon.sa-success {
-            border-color: transparent\9;
+            border-color: transparent;
         }
         .sa-icon.sa-success .sa-line.sa-tip {
-            -ms-transform: rotate(45deg) \9;
+            -ms-transform: rotate(45deg);
         }
         .sa-icon.sa-success .sa-line.sa-long {
-            -ms-transform: rotate(-45deg) \9;
+            -ms-transform: rotate(-45deg);
         }
         
         .animateSuccessTip {

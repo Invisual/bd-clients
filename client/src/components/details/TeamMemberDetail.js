@@ -1,11 +1,7 @@
 import React from 'react';
 import { ClientDetailsDiv } from '../../styles/listings';
 import { FiMoreHorizontal } from 'react-icons/fi';
-import {TeamMemberTasksTab} from '../tabs/TeamMemberTasksTab';
-import {TeamMemberHistoryTab} from '../tabs/TeamMemberHistoryTab';
 import {TeamMemberInfoTab} from '../tabs/TeamMemberInfoTab';
-import {TeamMemberVacationsTab} from '../tabs/TeamMemberVacationsTab';
-import TeamMemberHoursTab from '../tabs/TeamMemberHoursTab';
 
 export const TeamMemberDetail = props => {
   return (

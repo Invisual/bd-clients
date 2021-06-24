@@ -73,15 +73,15 @@ router.post('/login', (req, res) => {
         if (error) throw error;
         if (results.length > 0) {
           var user = results[0];
-          // if(bcrypt.compareSync(req.body.password, user.password_user)){
+          if(bcrypt.compareSync(req.body.password, user.password_user)){
               jwt.sign({user}, SECRET_KEY, (err, token)=>{
                   if(err){console.log(err)}
                   res.send({token: token, user: user});
               })
-          // }
-          // else{
-          //     res.send('badpassword')
-          // }
+          }
+          else{
+              res.send('badpassword')
+          }
         }
         else{
             res.send('badusername')

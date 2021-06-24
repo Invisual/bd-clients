@@ -10,10 +10,11 @@ const history = createBrowserHistory();
 class AllClientsContainer extends Component {
   _isMounted = false;
   constructor(props) {
+    var userRole = JSON.parse(localStorage.getItem('user')).ref_id_role
     super(props);
     this.state = {
       activeClient: '',
-      activeTab: 'clientprojects',
+      activeTab: userRole === 3 ? 'clientinfo' : 'clientmarketing',
       clientContent: [],
       searchQuery: '',
       displaySearchInput: '',
@@ -129,9 +130,11 @@ class AllClientsContainer extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    var userRole = JSON.parse(localStorage.getItem('user')).ref_id_role
+
     if (prevState.activeClient !== this.state.activeClient) {
       this.getClientDetails();
-      this.setState({ activeTab: 'clientprojects' });
+      this.setState({ activeTab: userRole === 3 ? 'clientinfo' : 'clientmarketing' });
     }
   }
 
