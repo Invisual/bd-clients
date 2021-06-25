@@ -411,8 +411,7 @@ export const SingleTaskCommentDiv = styled.div`
 `;
  
 export const SingleClientDiv = styled.div`
-  display: grid;
-  grid-template-columns: 45% 35% 20%;
+  display: flex;
   color: ${themeConsts.textDarkGrey};
   min-height: 50px;
   cursor: pointer;
@@ -420,24 +419,9 @@ export const SingleClientDiv = styled.div`
   .client-title {
     display: flex;
     align-items: center;
-    font-size: 1.4em;
+    font-size: 1.5em;
     font-weight: 500;
-  }
- 
-  .hours-progress {
-    padding: 18px 0;
-    svg {
-      display: flex;
-      align-items: center;
-    }
-  }
- 
-  .client-hours {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: ${themeConsts.secondaryBlue};
-    font-size: 1em;
+    text-transform:uppercase;
   }
  
   svg {
@@ -460,7 +444,7 @@ export const SingleMemberDiv = styled.div`
  
     img{
       width:27px;
-      border: 2px solid #0036ff;
+      border: 2px solid #006cff;
       border-radius: 50%;
     }
   }

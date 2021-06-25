@@ -11,26 +11,24 @@ export const AllClients = props => {
     <AllClientsDiv className="dashboard-container">
       <div className="widgets-grid widget cards-container nofixed-height no-shadow">
         <div className="grid-widget tasks-title">
-          <h4 className="widget-title">Clientes</h4>
           <div className="grid-widget left-options">
-          <div className="tooltip-container client-search">
-            <input type="text" placeholder="Pesquisa" id="clients-search" className={props.displaySearchInput+ ' searchinput'} onChange={props.changeSearchQuery}/>
-            <FiSearch onClick={props.toggleSearchInput}/>
-            <span className="tooltip">Pesquisar Clientes</span>
+            <div className="tooltip-container client-search">
+                <input type="text" placeholder="Pesquisa" id="clients-search" className='showsearch searchinput' onChange={props.changeSearchQuery}/>
+            </div>
+            {props.userRole === 3 ? 
+                <>
+                <div className="tooltip-container">
+                    <Link to="/createclient">
+                    <span className="tooltip">Adicionar Cliente</span>
+                    <FiUserPlus />
+                    </Link>
+                </div>
+                </>
+            : 
+            null
+            }
           </div>
-          {props.userRole === 3 ? 
-            <>
-              <div className="tooltip-container">
-                <Link to="/createclient">
-                  <span className="tooltip">Adicionar Cliente</span>
-                  <FiUserPlus />
-                </Link>
-              </div>
-            </>
-          : 
-          null
-          }
-          </div>
+          
         </div>
         <OptionsContainer
           userRole={props.userRole}

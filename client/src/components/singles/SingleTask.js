@@ -19,7 +19,7 @@ class SingleTask extends Component {
         taskColor = '#651FFF';
         break;
       case 4:
-        taskColor = '#0036ff';
+        taskColor = '#006cff';
         break;
       case 5:
         taskColor = '#FFC107';

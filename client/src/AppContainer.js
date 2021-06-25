@@ -169,7 +169,7 @@ class AppContainer extends Component {
   }
 
   componentDidMount() {
-    console.log('%c Made with ❤ by INvisual - Eduardo, Lina & Tiago', 'background: #0036ff; color: #fff');
+    console.log('%c Made with ❤ by INvisual - Eduardo, Lina & Tiago', 'background: #006cff; color: #fff');
     this.hydrateStateWithLocalStorage();
     if (localStorage.hasOwnProperty('user')) {this.getActiveHours();this.getActiveBudgetHours();}
     if(this.props.location.pathname.indexOf('tasks/') !== -1){

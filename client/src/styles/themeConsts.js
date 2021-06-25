@@ -1,5 +1,5 @@
 export const themeConsts = {
-    primaryBlue: '#0036ff',
+    primaryBlue: '#006cff',
     secondaryBlue: '#7f9aff',
     activeBlue: '#4e71f4',
     lightBlue: '#00e5ff',

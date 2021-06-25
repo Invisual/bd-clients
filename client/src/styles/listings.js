@@ -27,7 +27,7 @@ export const AllTasksDiv = styled.div`
 
     .tasks-title{
       margin: 0;
-      padding: 20px 22px 15px 22px;
+      padding: 20px 5%;
       border-right: 1px solid #e6e6e6;
       border-bottom: 1px solid #e6e6e6;
       display: flex;
@@ -73,6 +73,8 @@ export const AllTasksDiv = styled.div`
     }
     .tasks-detail {
       position: relative;
+      height: 79vh;
+        overflow-y: scroll;
     }
   }
   .cards-container {
@@ -106,7 +108,7 @@ export const AllProjectsDiv = styled.div`
 
     .tasks-title {
       margin: 0;
-      padding: 20px 22px 15px 22px;
+      padding: 20px 5%;
       border-right: 1px solid #e6e6e6;
       border-bottom: 1px solid #e6e6e6;
       display: flex;
@@ -152,6 +154,8 @@ export const AllProjectsDiv = styled.div`
     }
     .tasks-detail {
       position: relative;
+      height: 79vh;
+    overflow-y: scroll;
     }
   }
 
@@ -385,7 +389,7 @@ export const TaskDetailsDiv = styled.div`
           border-radius: 50%;
           width: 17px;
           height: 17px;
-          border: 2px solid #0036ff;
+          border: 2px solid #006cff;
           margin-right: 10px;
         }
 
@@ -614,10 +618,10 @@ export const ProjectDetailsDiv = styled.div`
 
     .project-icon {
       text-align: center;
-      margin-top: 28px;
+      margin-top: 32px;
 
       svg {
-        font-size: 2.2em;
+        font-size: 2.5em;
         color: ${themeConsts.primaryBlue};
       }
     }
@@ -627,9 +631,10 @@ export const ProjectDetailsDiv = styled.div`
       border-bottom: 1px solid #e6e6e6;
       .project-title {
         margin: 0;
-        font-size: 1.6em;
+        font-size: 2.5em;
         font-weight: 600;
         color: ${themeConsts.titlesDarkGrey};
+        text-transform:uppercase;
       }
       .project-date {
         margin-top: 5px;
@@ -663,7 +668,7 @@ export const ProjectDetailsDiv = styled.div`
 
       .project-tab {
         padding-right: 45px;
-        font-size: 1.1em;
+        font-size: 1.5em;
         font-weight: 600;
         cursor: pointer;
       }
@@ -889,7 +894,7 @@ export const ProjectDetailsDiv = styled.div`
           border-radius: 50%;
           width: 17px;
           height: 17px;
-          border: 2px solid #0036ff;
+          border: 2px solid #006cff;
           margin-right: 10px;
         }
 
@@ -1048,7 +1053,7 @@ export const AllClientsDiv = styled.div`
 
   .widgets-grid {
     display: grid;
-    grid-template-columns: 40% 60%;
+    grid-template-columns: auto 1fr;
     width: 92%;
     margin: 40px auto 0 auto;
 
@@ -1064,18 +1069,20 @@ export const AllClientsDiv = styled.div`
 
     .tasks-title {
       margin: 0;
-      padding: 20px 22px 15px 22px;
+      padding: 20px 5%;
       border-right: 1px solid #e6e6e6;
       border-bottom: 1px solid #e6e6e6;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
+      background:#006cff;
       .left-options{
         display:flex;
         align-items:center;
-        justify-content:space-around;
+        justify-content: space-between;
+        width:100%;
         svg {
-          color: ${themeConsts.secondaryBlue};
+          color: #fff;
           font-size: 2em;
         }
       }
@@ -1090,13 +1097,17 @@ export const AllClientsDiv = styled.div`
     .tasks-options {
       border-bottom: 1px solid #e6e6e6;
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
       align-items: center;
+      background:#006cff;
       svg {
-        color: ${themeConsts.secondaryBlue};
+        color: #fff;
         font-size: 2em;
         padding: 0 15px;
         cursor: pointer;
+      }
+      h4{
+          color:#fff;
       }
       .account-avatar {
         display: flex;
@@ -1110,6 +1121,8 @@ export const AllClientsDiv = styled.div`
     }
     .tasks-detail {
       position: relative;
+      height: 79vh;
+    overflow-y: scroll;
     }
   }
   .team-members-grid {
@@ -1133,10 +1146,10 @@ export const ClientDetailsDiv = styled.div`
 
     .project-icon {
       text-align: center;
-      margin-top: 28px;
+      margin-top: 32px;
 
       svg {
-        font-size: 2.2em;
+        font-size: 2.5em;
         color: ${themeConsts.primaryBlue};
       }
     }
@@ -1157,9 +1170,10 @@ export const ClientDetailsDiv = styled.div`
       border-bottom: 1px solid #e6e6e6;
       .project-title {
         margin: 0;
-        font-size: 1.6em;
+        font-size: 2.5em;
         font-weight: 600;
         color: ${themeConsts.titlesDarkGrey};
+        text-transform:uppercase;
       }
       .member-position {
         color: ${themeConsts.secondaryBlue};
@@ -1199,7 +1213,7 @@ export const ClientDetailsDiv = styled.div`
 
       .project-tab {
         padding-right: 45px;
-        font-size: 1.1em;
+        font-size: 1.5em;
         font-weight: 600;
         cursor: pointer;
       }
@@ -1342,10 +1356,23 @@ export const ClientDetailsDiv = styled.div`
         .client-info {
           h4 {
             font-weight: 600;
-            font-size: 1.1em;
+            font-size: 2em;
             color: ${themeConsts.titlesDarkGrey};
             margin: 0;
             margin-bottom: 10px;
+          }
+
+          div{
+            font-size: 1.5em;
+          }
+
+          .copy-btn{
+                border: none; 
+                background: none;
+                
+                :hover{
+                    cursor:pointer;
+                }
           }
         }
         .right {
@@ -1365,10 +1392,14 @@ export const ClientDetailsDiv = styled.div`
         .client-info {
           h4 {
             font-weight: 600;
-            font-size: 1.1em;
+            font-size: 2em;
             color: ${themeConsts.titlesDarkGrey};
             margin: 0;
             margin-bottom: 10px;
+          }
+
+          div{
+            font-size: 1.5em;
           }
         }
       }
@@ -2007,7 +2038,7 @@ export const AllTripsDiv = styled.div`
                 width: 28px;
                 height: 28px;
                 border-radius: 50%;
-                border: 2px solid #0036ff;
+                border: 2px solid #006cff;
                 margin-right: 10px;
               }
             }

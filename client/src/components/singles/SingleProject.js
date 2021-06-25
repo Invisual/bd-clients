@@ -17,7 +17,7 @@ class SingleProject extends Component {
           <AllSingleProjectDiv className={`single-card${active}`} onClick={() => this.props.changeActiveProject(this.props.id)}>
             <div className="project-header">
               <div className="project-title">
-                <span className={Number(this.props.billedProject)=== 2? 'billed' : ''}>{Number(this.props.stateVal) === 2 ? <FiCircle fill="#0036ff" color="#0036ff" /> : this.props.percentage_tasks === 0 ? <FiCircle color="#5e78dd" /> : <FiCircle fill="#1de9b6" color="#1de9b6" />}</span>
+                <span className={Number(this.props.billedProject)=== 2? 'billed' : ''}>{Number(this.props.stateVal) === 2 ? <FiCircle fill="#006cff" color="#006cff" /> : this.props.percentage_tasks === 0 ? <FiCircle color="#5e78dd" /> : <FiCircle fill="#1de9b6" color="#1de9b6" />}</span>
                 <span className="title-click">{this.props.title}</span>
               </div>
               <div className="project-client-date">
@@ -71,7 +71,7 @@ class SingleProject extends Component {
       case 'clients':
         content = (
           <ClientProjectDiv className="single-card" >
-            <div className={Number(this.props.billedProject)=== 2? 'project-status billed' : 'project-status'}>{Number(this.props.stateVal) === 2 ? <FiCircle fill="#0036ff" color="#0036ff" /> : this.props.percentage_tasks === 0 ? <FiCircle color="#5e78dd" /> : <FiCircle fill="#1de9b6" color="#1de9b6" />}</div>
+            <div className={Number(this.props.billedProject)=== 2? 'project-status billed' : 'project-status'}>{Number(this.props.stateVal) === 2 ? <FiCircle fill="#006cff" color="#006cff" /> : this.props.percentage_tasks === 0 ? <FiCircle color="#5e78dd" /> : <FiCircle fill="#1de9b6" color="#1de9b6" />}</div>
             <div className="project-title">
               <span className="title-divider"><Link to={this.props.stateVal===2? `/concludedprojects/`+this.props.id:`/projects/`+this.props.id}>{this.props.title}</Link></span>{' '}
               <span className="project-participants">{this.props.intervenientes
@@ -90,8 +90,8 @@ class SingleProject extends Component {
                 <Line
                 percent={100}
                 strokeWidth="10"
-                strokeColor="#0036ff"
-                trailColor="#0036ff"
+                strokeColor="#006cff"
+                trailColor="#006cff"
                 trailWidth="10"
                 />
               :

@@ -15,6 +15,7 @@ export const Options =  props => {
             <div className="grid-widget tasks-options" />
             :(
               <div className="grid-widget tasks-options">
+                <h4 className="widget-title" style={{paddingLeft:'15px'}}>Clientes</h4>
                 <div className="options-actions">
                     <div className="tooltip-container action-clientinfo">
                         <Link to={`createclientinfo/${props.clientContent.details[0].id_client}`}>

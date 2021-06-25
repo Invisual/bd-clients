@@ -61,7 +61,7 @@ select:focus {
   width: 28px;
   height: 2px;
   margin-bottom: 5px;
-  background-color: #0036ff;
+  background-color: #006cff;
   border-radius: 10px;
 }
 
@@ -120,11 +120,15 @@ body.collapsed-sidebar .topbar-goback {
 }
 
 .single-card-task.active {
-  background-color: #ecf0fd;
+  background-color: #006cff;
 }
 .active {
-  background-color: #f5f7fd;
+  background-color: #006cff;
 }
+
+.active .client-title{
+    color:#fff;
+  }
 
 .project-task-tab-title {
   text-align: center;
@@ -294,10 +298,8 @@ body.collapsed-sidebar .topbar-goback {
 }
 
 .cards-container {
-  border-top: 6px solid #7f9aff;
   background-color: #fff;
   padding: 25px;
-  border-radius: 0 0 10px 10px;
   box-shadow: 1px 1px 10px #d2d2d2;
   min-height: 350px;
   position: relative;
@@ -500,9 +502,9 @@ body.collapsed-sidebar .topbar-goback {
 .nodisplay {
   display: none;
 }
-.no-shadow {
+/* .no-shadow {
   box-shadow: none;
-}
+} */
 .nomargin{
   margin:0 !important;
 }
@@ -535,7 +537,7 @@ body.collapsed-sidebar .topbar-goback {
 }
 
 .main-btn {
-  background-color: #0036ff;
+  background-color: #006cff;
 }
 
 .secondary-btn {
@@ -675,8 +677,7 @@ body.has-modal #overlay{
   outline: none;
   background: none;
   z-index: 3;
-  width: 100px;
-  border-bottom: 1px solid #0036ff;
+  border-bottom: 1px solid #fff;
   cursor: text;
   -webkit-transform: scaleX(.0);
   -ms-transform: scaleX(.0);
@@ -684,15 +685,12 @@ body.has-modal #overlay{
   -webkit-transform-origin: right;
   -ms-transform-origin: right;
   transform-origin: right;
-  color: #7f9aff;
+  color: #fff;
   font-weight: 600;
-  position: relative;
-  bottom: 5px;
-  right: 4px;
 }
 
 .searchinput::-webkit-input-placeholder {
-  color:#7f9aff;
+  color:#cecece;
   font-weight:600;
   font-size: .9em;
   font-family: 'Montserrat', sans-serif;
@@ -701,7 +699,7 @@ body.has-modal #overlay{
 }
 
 .searchinput::-moz-placeholder {
-  color:#7f9aff;
+  color:#cecece;
   font-weight:600;
   font-size: .9em;
   font-family: 'Montserrat', sans-serif;
@@ -710,7 +708,7 @@ body.has-modal #overlay{
 }
 
 .searchinput:-ms-input-placeholder {
-  color:#7f9aff;
+  color:#cecece;
   font-weight:600;
   font-size: .9em;
   font-family: 'Montserrat', sans-serif;
@@ -719,7 +717,7 @@ body.has-modal #overlay{
 }
 
 .searchinput:-moz-placeholder {
-  color:#7f9aff;
+  color:#cecece;
   font-weight:600;
   font-size: .9em;
   font-family: 'Montserrat', sans-serif;
@@ -763,7 +761,7 @@ input[type='text'].hidesearch{
 
 /*CARDS COM BORDER COM COR PARA CADA TIPO DE TAREFA*/
 .card-project{
-  border-top:5px solid #0036ff;
+  border-top:5px solid #006cff;
 }
 .card-diaria{
   border-top:5px solid #ffeb3b;
@@ -897,7 +895,7 @@ input[type='text'].hidesearch{
 
 .calendar-modal-day{
   text-align: left;
-  color: #0036ff;
+  color: #006cff;
   border-bottom: 1px solid #e6e6e6;
   margin-left: 15px;
   margin-right: 15px;
@@ -975,7 +973,7 @@ input[type='text'].hidesearch{
   border-radius: 50%;
   width: 23px;
   height: 23px;
-  border: 2px solid #0036ff;
+  border: 2px solid #006cff;
   margin-right: 5px;
 }
 
@@ -1101,8 +1099,12 @@ input[type='text'].hidesearch{
 }
 
 .tasks-list-container .single-card:hover{
-  background-color: #fdfdff;
+  background-color: #006cff;
 }
+
+.tasks-list-container .single-card:hover .client-title{
+    color:#fff;
+  }
 
 .see-all-costs span span:after, .billing-add-costs span span:after {
   display:block;

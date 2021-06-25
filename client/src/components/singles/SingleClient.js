@@ -27,29 +27,6 @@ render() {
         content = (
           <SingleClientDiv className={`single-card${active}`} onClick={() => this.props.changeActiveClient(this.props.id)}>
             <div className="client-title">{this.props.client}</div>
-            {this.props.monthly_hours !== '0' ? (
-              <>
-                <div className="hours-progress">
-                  <Line percent={hour_percentage} strokeWidth="10" strokeColor={hour_percentage >=100 ? "#F50057" : hour_percentage === 0 ? "#d2fbf0" : "#1de9b6"} trailColor="#d2fbf0" trailWidth="10" />
-                </div>
-                <div className="client-hours">
-                  <span>
-                    {moment.duration(this.props.total_hours, 'hours').format('*HH:mm', {
-                      forceLength: true
-                    })}
-                    /
-                  </span>
-                  <span>
-                    {this.props.monthly_hours}h
-                  </span>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="hours-progress" />
-                <div className="client-hours" />
-              </>
-            )}
           </SingleClientDiv>
         );
         break;

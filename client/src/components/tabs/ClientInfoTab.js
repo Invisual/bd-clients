@@ -33,28 +33,160 @@ class ClientInfoTab extends Component {
 
   render() {
    var noInfo = "Informação indisponível"
+   
+    function copy(text, splice) {
+        let dummy = document.createElement("textarea")
+        document.body.appendChild(dummy)
+        if (splice) {
+            text = text.split(":").slice(1).join(":").trim()
+        }
+        dummy.value = text
+        dummy.select()
+        document.execCommand("copy")
+        document.body.removeChild(dummy)
+    }
      return (
         <>
           <div className="client-content">
             <div className="client-info-grid50">
               <div className="client-info">
                 <h4 className="client-content-title">cPanel</h4>
-                <div><b>Link:</b> <span>{this.props.clientContent.details[0].cpanel_link_client? this.props.clientContent.details[0].cpanel_link_client : noInfo}</span></div>
-                <div><b>Username: </b><span>{this.props.clientContent.details[0].cpanel_username_client ? this.props.clientContent.details[0].cpanel_username_client : noInfo}</span></div>
-                <div><b>Password: </b><span>{this.props.clientContent.details[0].cpanel_password_client ? this.props.clientContent.details[0].cpanel_password_client : noInfo}</span></div>
+                <div>
+                    <b>Link:</b> 
+                    <span>
+                        {this.props.clientContent.details[0].cpanel_link_client? this.props.clientContent.details[0].cpanel_link_client : noInfo}
+                    </span>
+                    <button
+                      className="copy-btn"
+                      onClick={() => {
+                        copy(this.props.clientContent.details[0].cpanel_link_client? this.props.clientContent.details[0].cpanel_link_client : noInfo)
+                      }}
+                    >
+                      <span role="img" aria-label="Botão de Copiar">
+                        &#x1f4cb;
+                      </span>
+                    </button>
+                </div>
+                <div>
+                    <b>Username: </b>
+                    <span>
+                        {this.props.clientContent.details[0].cpanel_username_client ? this.props.clientContent.details[0].cpanel_username_client : noInfo}
+                    </span>
+                    <button
+                      className="copy-btn"
+                      onClick={() => {
+                        copy(this.props.clientContent.details[0].cpanel_username_client ? this.props.clientContent.details[0].cpanel_username_client : noInfo)
+                      }}
+                    >
+                      <span role="img" aria-label="Botão de Copiar">
+                        &#x1f4cb;
+                      </span>
+                    </button>
+                </div>
+                <div>
+                    <b>Password: </b>
+                    <span>
+                        {this.props.clientContent.details[0].cpanel_password_client ? this.props.clientContent.details[0].cpanel_password_client : noInfo}
+                    </span>
+                    <button
+                      className="copy-btn"
+                      onClick={() => {
+                        copy(this.props.clientContent.details[0].cpanel_password_client ? this.props.clientContent.details[0].cpanel_password_client : noInfo)
+                      }}
+                    >
+                      <span role="img" aria-label="Botão de Copiar">
+                        &#x1f4cb;
+                      </span>
+                    </button>
+                </div>
               </div>
               <div className="client-info right">
                 <h4 className="client-content-title">Wordpress</h4>
-                <div><b>Link: </b><span>{this.props.clientContent.details[0].wordpress_link_client ? this.props.clientContent.details[0].wordpress_link_client : noInfo}</span></div>
-                <div><b>Username: </b><span>{this.props.clientContent.details[0].wordpress_username_client ? this.props.clientContent.details[0].wordpress_username_client : noInfo}</span></div>
-                <div><b>Password: </b><span>{this.props.clientContent.details[0].wordpress_password_client ? this.props.clientContent.details[0].wordpress_password_client : noInfo}</span></div>
+                <div>
+                    <b>Link: </b>
+                    <span>
+                        {this.props.clientContent.details[0].wordpress_link_client ? this.props.clientContent.details[0].wordpress_link_client : noInfo}
+                    </span>
+                    <button
+                      className="copy-btn"
+                      onClick={() => {
+                        copy(this.props.clientContent.details[0].wordpress_link_client ? this.props.clientContent.details[0].wordpress_link_client : noInfo)
+                      }}
+                    >
+                      <span role="img" aria-label="Botão de Copiar">
+                        &#x1f4cb;
+                      </span>
+                    </button>
+                </div>
+                <div>
+                    <b>Username: </b>
+                    <span>
+                        {this.props.clientContent.details[0].wordpress_username_client ? this.props.clientContent.details[0].wordpress_username_client : noInfo}
+                    </span>
+                    <button
+                      className="copy-btn"
+                      onClick={() => {
+                        copy(this.props.clientContent.details[0].wordpress_username_client ? this.props.clientContent.details[0].wordpress_username_client : noInfo)
+                      }}
+                    >
+                      <span role="img" aria-label="Botão de Copiar">
+                        &#x1f4cb;
+                      </span>
+                    </button>
+                </div>
+                <div>
+                    <b>Password: </b>
+                    <span>
+                        {this.props.clientContent.details[0].wordpress_password_client ? this.props.clientContent.details[0].wordpress_password_client : noInfo}
+                    </span>
+                    <button
+                      className="copy-btn"
+                      onClick={() => {
+                        copy(this.props.clientContent.details[0].wordpress_password_client ? this.props.clientContent.details[0].wordpress_password_client : noInfo)
+                      }}
+                    >
+                      <span role="img" aria-label="Botão de Copiar">
+                        &#x1f4cb;
+                      </span>
+                    </button>
+                </div>
               </div>
             </div>
             <div className="client-info-grid50">
               <div className="client-info">
                 <h4 className="client-content-title">DNS</h4>
-                <div><b>Username: </b><span>{this.props.clientContent.details[0].dns_nichandle_client ? this.props.clientContent.details[0].dns_nichandle_client : noInfo}</span></div>
-                <div><b>Password: </b><span>{this.props.clientContent.details[0].dns_password_client ? this.props.clientContent.details[0].dns_password_client : noInfo}</span></div>
+                <div>
+                    <b>Username: </b>
+                    <span>
+                        {this.props.clientContent.details[0].dns_nichandle_client ? this.props.clientContent.details[0].dns_nichandle_client : noInfo}
+                    </span>
+                    <button
+                      className="copy-btn"
+                      onClick={() => {
+                        copy(this.props.clientContent.details[0].dns_nichandle_client ? this.props.clientContent.details[0].dns_nichandle_client : noInfo)
+                      }}
+                    >
+                      <span role="img" aria-label="Botão de Copiar">
+                        &#x1f4cb;
+                      </span>
+                    </button>
+                </div>
+                <div>
+                    <b>Password: </b>
+                    <span>
+                        {this.props.clientContent.details[0].dns_password_client ? this.props.clientContent.details[0].dns_password_client : noInfo}
+                    </span>
+                    <button
+                      className="copy-btn"
+                      onClick={() => {
+                        copy(this.props.clientContent.details[0].dns_password_client ? this.props.clientContent.details[0].dns_password_client : noInfo)
+                      }}
+                    >
+                      <span role="img" aria-label="Botão de Copiar">
+                        &#x1f4cb;
+                      </span>
+                    </button>
+                </div>
               </div>
             </div>
             

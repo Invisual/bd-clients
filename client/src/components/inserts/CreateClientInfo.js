@@ -8,6 +8,10 @@ export const CreateClientInfo = props => {
         return <Redirect to='/' />;
     }
 
+    function goBack() {
+        window.history.back();
+    }
+
     var userRole = JSON.parse(localStorage.getItem('user')).ref_id_role
 
     return (
@@ -194,7 +198,13 @@ export const CreateClientInfo = props => {
                     </div>
 
                     <div className="form-buttons">
-                        <button type="button" className="btn secondary-btn">Cancelar</button>
+                    <button
+                        type="button"
+                        className="btn secondary-btn"
+                        onClick={() => goBack()}
+                    >
+                        Cancelar
+                    </button>
                         <button className="btn main-btn">{props.type === 'edit' ? 'Editar' : 'Criar'}</button>
                     </div>
                 </form>
