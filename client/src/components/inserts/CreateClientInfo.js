@@ -1,15 +1,11 @@
 import React from 'react';
 import { InsertFormDiv } from '../../styles/inserts'
-import { Redirect } from 'react-router'
+import { Redirect, withRouter } from 'react-router'
 
-export const CreateClientInfo = props => {
+const CreateClientInfo = props => {
 
     if (props.redirect) {
         return <Redirect to='/' />;
-    }
-
-    function goBack() {
-        window.history.back();
     }
 
     var userRole = JSON.parse(localStorage.getItem('user')).ref_id_role
@@ -201,9 +197,9 @@ export const CreateClientInfo = props => {
                     <button
                         type="button"
                         className="btn secondary-btn"
-                        onClick={() => goBack()}
-                    >
-                        Cancelar
+                        onClick={() => props.history.goBack()}
+                        >
+                            Cancelar
                     </button>
                         <button className="btn main-btn">{props.type === 'edit' ? 'Editar' : 'Criar'}</button>
                     </div>
@@ -219,3 +215,5 @@ export const CreateClientInfo = props => {
         </InsertFormDiv>
     );
 }
+
+export default withRouter(CreateClientInfo)

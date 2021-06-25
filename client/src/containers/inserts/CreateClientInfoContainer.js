@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {CreateClientInfo} from '../../components/inserts/CreateClientInfo';
+import CreateClientInfo from '../../components/inserts/CreateClientInfo';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 const axios = require('axios');
