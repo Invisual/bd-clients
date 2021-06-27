@@ -165,7 +165,7 @@ export const CostsModalDiv = styled.div`
                 border: none;
                 text-indent: 15px;
                 border-bottom: 2px solid ${themeConsts.tableHeader};
-                width: 90%;
+                width: 95%;
             }
         }
         .costs-list-row:hover{
@@ -335,7 +335,7 @@ export const ConcludeModalDiv = styled.div`
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-gap: 20px;
-            width: 90%;
+            width: 95%;
             margin: 0 auto;
         }
 

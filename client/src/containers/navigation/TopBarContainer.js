@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {TopBar} from '../../components/navigation/TopBar'
+import {LolBar} from '../../components/navigation/SideBar'
 import { createBrowserHistory } from 'history';
 
 const history = createBrowserHistory();

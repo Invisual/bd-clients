@@ -384,7 +384,7 @@ export const LoginDiv = styled.div`
         max-width:375px;
 
         input{
-            width:90%;
+            width:95%;
             margin:0 auto;
             background-color:${themeConsts.white};
             color: ${themeConsts.textDarkGrey};

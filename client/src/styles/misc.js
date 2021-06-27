@@ -6,7 +6,7 @@ export const RegulationDiv = styled.div`
     padding:20px;
     max-height: 80vh;
     overflow: scroll;
-    width: 86%;
+    width: 95%;
 
     .content-title{
         text-align:center;

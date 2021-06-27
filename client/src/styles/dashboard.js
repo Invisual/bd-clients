@@ -2,18 +2,21 @@ import styled from 'styled-components';
 import { themeConsts } from './themeConsts';
 
 export const DashboardContainer = styled.div`
-  width:86%;
-  background-color: #f7f7f7;
-  overflow-y: scroll;
-  transition:all .5s ease;
-  margin-top: 45px;
+    width:95%;
+    background-color: #f7f7f7;
+    overflow-y: scroll;
+    transition:all .5s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
   .widgets-grid {
     display: grid;
     grid-template-columns: 69% 29%;
     grid-gap: 2%;
-    width: 92%;
-    margin: 40px auto 0 auto;
+    width: 95%;
+    height: 90%;
 
     .grid-widget {
       /*overflow:hidden;*/

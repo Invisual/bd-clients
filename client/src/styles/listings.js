@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { themeConsts } from './themeConsts';
 
 export const AllTasksDiv = styled.div`
-  width: 86%;
+  width: 95%;
   //min-height: 100vh;
   background-color: #f7f7f7;
   overflow-y: scroll;
@@ -83,7 +83,7 @@ export const AllTasksDiv = styled.div`
 `;
 
 export const AllProjectsDiv = styled.div`
-  width: 86%;
+  width: 95%;
   //min-height: 100vh;
   background-color: #f7f7f7;
   overflow-y: scroll;
@@ -1044,18 +1044,23 @@ export const ProjectDetailsDiv = styled.div`
 `;
 
 export const AllClientsDiv = styled.div`
-  width: 86%;
+  width: 95%;
   //min-height: 100vh;
   background-color: #f7f7f7;
   overflow-y: scroll;
   transition: all 0.5s ease;
-  margin-top: 45px;
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
   .widgets-grid {
     display: grid;
     grid-template-columns: auto 1fr;
-    width: 92%;
-    margin: 40px auto 0 auto;
+    width: 95%;
+    height: 90%;
+    border-radius: 10px;
+    border-top: 2px solid #006cff;
 
     .grid-widget {
       /*overflow:hidden;*/
@@ -1075,14 +1080,13 @@ export const AllClientsDiv = styled.div`
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      background:#006cff;
       .left-options{
         display:flex;
         align-items:center;
         justify-content: space-between;
         width:100%;
         svg {
-          color: #fff;
+          color: #006cff;
           font-size: 2em;
         }
       }
@@ -1099,15 +1103,14 @@ export const AllClientsDiv = styled.div`
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background:#006cff;
       svg {
-        color: #fff;
+        color: #006cff;
         font-size: 2em;
         padding: 0 15px;
         cursor: pointer;
       }
       h4{
-          color:#fff;
+          color:#006cff;
       }
       .account-avatar {
         display: flex;
@@ -1990,7 +1993,7 @@ export const ClientDetailsDiv = styled.div`
 
 
 export const AllTripsDiv = styled.div`
-    width: 86%;
+    width: 95%;
     //min-height: 100vh;
     background-color: #f7f7f7;
     overflow-y: scroll;

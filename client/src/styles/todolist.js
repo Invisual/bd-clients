@@ -51,7 +51,7 @@ export const TodoListDashboardDiv = styled.div`
     .todo-textarea{
             
             textarea{
-                width: 90%;
+                width: 95%;
                 margin-top: 17px;
                 border: none;
                 text-indent: 20px;
@@ -168,7 +168,7 @@ export const TodoListCompleteDiv = styled.div`
             text-align: center;
 
             textarea{
-                width: 90%;
+                width: 95%;
                 margin-top: 17px;
                 border: none;
                 text-indent: 20px;

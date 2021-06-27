@@ -4,99 +4,166 @@
     }
 }
 
-
-
-
-/* MEDIA QUERIE PARA IPAD LANDSCAPE */
-
-@media only screen and (max-width: 1113px){
-    .hamburguer-icon{
-        display:block;
-    }
-
-    body .sidebar-container {
-    width: 0;
-    }
-    
-    body .dashboard-container {
-    width: 100%;
-    }
-
-    body.mobile-sidebar .sidebar-container {
-    width: 20%;
-    position: absolute;
-    }
-
-    body.mobile-sidebar .hamburguer-icon{
-    transform: translateY(-50%) translateX(215px);
-    }
-
-    .sidebar-toggle{
-        display:none;
-    }
-
-    .dashboard-container .widgets-grid{
-        width:96% !important;
-        margin: 22px auto 40px auto !important;
-    }
-
-    .sidebar-container .navigation{
-        margin-top: 10px !important;
-    }
-
-    .task-details-grid .task-infos span {
-        padding-right: 10px !important;
-        font-size: 1.05em !important;
-    }
-
-    .widgets-grid .tasks-list {
-        height: 77vh !important;
-    }
-
-    .client-project-container {
-        height: 61vh;
-    }
-
-    .main-nav li svg {
-        font-size: 2.2em !important;
-    }
-
-    .main-nav .topbar-todo svg {
-        font-size: 2em !important;
-    }
-
-    .main-nav .topbar-avatar img{
-        width:25px;
-        height:25px;
-    }
-
+@media only screen and (min-width: 900px){
     .topbar-nav{
-        padding-top:0 !important;
-        padding-bottom:0 !important;
-    }
-
-    .trips-container .trips-container-grid .trips-content {
-        height: 74vh !important;
-    }
-
-    .project-details-grid .user-tasks-content {
-        height: 67vh !important;
-    }
-
-    .member-history-tab {
-        height: 66vh !important;
-    }
-
-    .insert-edit-form{
-        width: 100% !important;
-        margin-top: 40px !important;
-    }
-
-    .limited-height-item{
-        height:77vh;
-        overflow-y:scroll;
+        display:none;
     }
 }
 
+@media only screen and (max-width: 900px){
+    .app-container{
+        display:block;
+    }
 
-/* MEDIA QUERIE PARA IPAD LANDSCAPE */
+    .topbar-nav{
+        position:relative;
+        display: flex;
+        justify-content: space-between;
+        align-items:center;
+        padding: 15px 5%;
+        box-sizing: border-box;
+    }
+
+    .topbar-nav ul li{
+        padding:0;
+        margin-left:0;
+        padding-right:20px;
+    }
+
+    .topbar-nav svg{
+        font-size:2.5em !important;
+    }
+
+    .topbar-nav img{
+        display:none;
+    }
+
+    .topbar-nav #topbar-user-name{
+        font-weight: 600;
+        margin-right: 18px;
+        color: rgb(127, 154, 255);
+        font-size: 1.25em;
+    }
+
+    .topbar-nav #logout{
+        padding: 8px;
+        background: #006cff;
+        color: #fff;
+    }
+
+    ::-webkit-scrollbar {
+        width: 0.4em;
+    }
+
+    .sidebar-container{
+        display:none;
+    }
+
+    .dashboard-container{
+        width:100%;
+        overflow:unset;
+    }
+
+    .dashboard-container .widgets-grid{
+        width: 100%;
+        display: block;
+        height: 100%;
+        border-top:0;
+        border-radius:0;
+        box-shadow:none;
+    }
+
+    .mytasks-container .widget-title{
+        display:none;
+    }
+
+    .cards-container{
+        min-height:unset;
+    }
+
+    .widgets-grid .tasks-title{
+        border-right: 0 !important;
+    }
+
+    .widgets-grid .tasks-options{
+        padding: 20px 5%;
+    }
+
+    .widgets-grid .tasks-list{
+        height: unset !important;
+        padding:0 !important;
+        border-right:0 !important;
+        overflow:scroll;
+        border-bottom: 1px solid #e6e6e6;
+    }
+
+    .mytasks-container .tasks-list-container{
+        display:flex;
+        gap:10px;
+        padding: 18px 5% 0 5%;
+        box-sizing: border-box;
+    }
+
+    .mytasks-container .single-card{
+        margin:0 !important;
+    }
+
+    .mytasks-container .tasks-list-container .client-title{
+        width:max-content;
+    }
+
+    .widgets-grid .tasks-detail{
+        height:unset !important;
+    }
+
+    .project-details-grid{
+        display:block !important;
+        padding:20px 5%;
+    }
+
+    .project-details-grid .project-icon{
+        display:none;
+    }
+
+    .project-details-grid .project-header{
+        margin:0 !important;
+    }
+
+    .project-details-grid .client-content{
+        margin-right:0 !important;
+        padding:0 !important;
+    }
+
+    .project-details-grid .project-header .project-title{
+        text-align:center;
+    }
+
+    .project-details-grid .project-infos{
+        justify-content:space-evenly !important;
+    }
+
+    .project-details-grid .project-infos .project-tab{
+        padding-right:0 !important;
+    }
+
+    .project-details-grid h4{
+        text-align:center;
+    }
+
+    .project-details-grid .client-content .client-info-grid50{
+        display:block !important;
+        border-bottom:0 !important;
+        padding:0 !important;
+        margin-bottom:0 !important;
+    }
+
+    .project-details-grid .client-content .client-info-grid50 .right{
+        border-left:0 !important;
+        padding-left:0 !important;
+    }
+
+    .project-details-grid .client-content .client-info{
+        border-bottom: 1px solid #e6e6e6;
+        padding: 20px 0;
+    }
+}

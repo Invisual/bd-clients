@@ -65,7 +65,7 @@ select:focus {
   border-radius: 10px;
 }
 
-body.collapsed-sidebar .sidebar-container {
+/* body.collapsed-sidebar .sidebar-container {
   width: 5%;
 }
 
@@ -97,7 +97,7 @@ body.collapsed-sidebar .sidebar-container li span {
 
 body.collapsed-sidebar .topbar-goback {
   left:6.7%;
-}
+} */
 
 .single-card {
   padding: 0 20px;
@@ -253,17 +253,17 @@ body.collapsed-sidebar .topbar-goback {
   background-color: #FFC107;
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 0.8em;
 }
 
-/* Track */
+/* Track
 ::-webkit-scrollbar-track {
   -webkit-border-radius: 10px;
   border-radius: 10px;
 }
 
-/* Handle */
+/* Handle
 ::-webkit-scrollbar-thumb {
   -webkit-border-radius: 10px;
   border-radius: 10px;
@@ -271,7 +271,7 @@ body.collapsed-sidebar .topbar-goback {
 }
 ::-webkit-scrollbar-thumb:window-inactive {
   background: #dfe4f8;
-}
+} */
 
 .mt10 {
   margin-top: 10px;
@@ -283,10 +283,6 @@ body.collapsed-sidebar .topbar-goback {
 
 .mt20 {
   margin-top: 30px;
-}
-
-.nofixed-height {
-  height: auto !important;
 }
 
 .bts1 {
@@ -677,7 +673,7 @@ body.has-modal #overlay{
   outline: none;
   background: none;
   z-index: 3;
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid #006cff;
   cursor: text;
   -webkit-transform: scaleX(.0);
   -ms-transform: scaleX(.0);
@@ -685,12 +681,12 @@ body.has-modal #overlay{
   -webkit-transform-origin: right;
   -ms-transform-origin: right;
   transform-origin: right;
-  color: #fff;
+  color: #006cff;
   font-weight: 600;
 }
 
 .searchinput::-webkit-input-placeholder {
-  color:#cecece;
+  color:#006aff86;
   font-weight:600;
   font-size: .9em;
   font-family: 'Montserrat', sans-serif;
@@ -699,7 +695,7 @@ body.has-modal #overlay{
 }
 
 .searchinput::-moz-placeholder {
-  color:#cecece;
+  color:#006aff86;
   font-weight:600;
   font-size: .9em;
   font-family: 'Montserrat', sans-serif;
@@ -708,7 +704,7 @@ body.has-modal #overlay{
 }
 
 .searchinput:-ms-input-placeholder {
-  color:#cecece;
+  color:#006aff86;
   font-weight:600;
   font-size: .9em;
   font-family: 'Montserrat', sans-serif;
@@ -717,7 +713,7 @@ body.has-modal #overlay{
 }
 
 .searchinput:-moz-placeholder {
-  color:#cecece;
+  color:#006aff86;
   font-weight:600;
   font-size: .9em;
   font-family: 'Montserrat', sans-serif;

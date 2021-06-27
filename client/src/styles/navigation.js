@@ -2,17 +2,22 @@ import styled from 'styled-components';
 import {themeConsts} from './themeConsts'
 
 export const SidebarDiv = styled.div`
-  width:14%;
-  height: 100vh;
-  background-color: ${themeConsts.primaryBlue};
-  position: relative;
-  overflow-x:hidden;
-  transition:all .5s ease;
-  z-index:11;
+    width:5%;
+    min-width:80px;
+    height: 100vh;
+    background-color: ${themeConsts.primaryBlue};
+    position: relative;
+    overflow-x:hidden;
+    transition:all .5s ease;
+    z-index:11;
+    padding: 50px 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
   .logo {
     text-align: center;
-    margin-top: 50px;
     height:90px;
   }
 
@@ -24,7 +29,8 @@ export const SidebarDiv = styled.div`
 
   .logo-small{
     img {
-      max-width: 60%;
+      width: 60%;
+      max-width:70px;
     }
   }
 
@@ -38,11 +44,10 @@ export const SidebarDiv = styled.div`
       padding-inline-start: 0;
       list-style-type: none;
       padding-bottom: 15px;
-      display:table;
       margin:0 auto;
 
       .is-active{
-        background-color: ${themeConsts.activeBlue};
+            background-color: ${themeConsts.activeBlue};
           box-shadow: ${themeConsts.activeShadow};
         li{
           background-color: ${themeConsts.activeBlue};
@@ -54,14 +59,12 @@ export const SidebarDiv = styled.div`
         margin-bottom: 12px;
         font-size:1.6em;
         font-weight: 600;
-        width: 175%;
         padding: 12px 8px 8px 11px;
         background-color: transparent;
-        border-top-left-radius: ${themeConsts.borderRadius};
-        border-bottom-left-radius: ${themeConsts.borderRadius};
         transition: all .4s ease;
         overflow: hidden;
         cursor:pointer;
+        text-align:center;
 
           .submenu{
             margin: 0 0 0 40px;
@@ -87,12 +90,37 @@ export const SidebarDiv = styled.div`
 
         span{
           position: relative;
-          bottom: 4px;
-          padding-left:15px;
         }
       }
     }
   }
+
+  .sidebar-logout {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap:10px;
+
+      span {
+        font-weight: 600;
+        color: #fff;
+        font-size: 1.25em;
+        text-align:center;
+      }
+
+      img {
+        background:#fff; 
+        border-radius:0 !important;
+      }
+
+      #logout{
+        cursor:pointer;
+        padding: 8px;
+        background: #fff;
+        color: #006cff;
+      }
+    }
 
   .sidebar-toggle {
     position: absolute;
@@ -192,20 +220,6 @@ export const TopBarDiv = styled.div`
       left:15.5%;
       top:50%;
       transform:translateY(-50%);
-    }
-
-    .topbar-avatar {
-      span {
-        font-weight: 600;
-        margin-right: 18px;
-        color: ${themeConsts.secondaryBlue};
-        font-size: 1.25em;
-      }
-
-      img {
-        vertical-align: middle;
-        border: 2px solid ${themeConsts.primaryBlue};
-      }
     }
 
     li {

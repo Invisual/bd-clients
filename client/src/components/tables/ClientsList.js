@@ -15,7 +15,7 @@ export const ClientsList = props => {
               <div className="empty-placeholder">Sem Clientes que correspodam à pesquisa.</div>
             </div>
             :(
-            <div>
+            <div className='tasks-list-container'>
               <h4 className="widget-title">{props.title}</h4>
               {props.clients.map(client => {
                 return (

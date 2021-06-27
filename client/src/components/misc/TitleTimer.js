@@ -27,7 +27,7 @@ componentDidUpdate(prevProps){
                     this.setState({interval: interval})
                 }
                 if(this.props.latestActiveHour === null && this.props.latestActiveBudgetHour === null){
-                    document.title = 'INVISUAL - TAREFAS';
+                    document.title = 'Invisual - Clients Data';
                     clearInterval(this.state.interval);
                 }
             } else if (prevProps.latestActiveBudgetHour !== this.props.latestActiveBudgetHour){     
@@ -36,13 +36,13 @@ componentDidUpdate(prevProps){
                     this.setState({interval: interval})
                 }
                 if(this.props.latestActiveBudgetHour === null && this.props.latestActiveHour === null){
-                    document.title = 'INVISUAL - TAREFAS';
+                    document.title = 'Invisual - Clients Data';
                     clearInterval(this.state.interval);
                 }
             }
         }
         else{
-            document.title = 'INVISUAL - TAREFAS';
+            document.title = 'Invisual - Clients Data';
             clearInterval(this.state.interval);
         }
     

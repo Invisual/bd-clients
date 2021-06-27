@@ -2,14 +2,14 @@ import styled from 'styled-components';
 import { themeConsts } from './themeConsts';
 
 export const InsertFormDiv = styled.div`
-  width: 86%;
+  width: 95%;
   background-color: #f7f7f7;
   overflow-y: scroll;
   transition: all 0.5s ease;
   margin-top: 65px;
 
   .form-container {
-    width: 94%;
+    width: 95%;
     margin: 30px auto 0 auto;
     height: unset;
     box-shadow: none;
