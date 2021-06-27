@@ -20,7 +20,7 @@
     }
 
     .topbar-nav{
-        position:relative;
+        position:relative !important;
         display: flex;
         justify-content: space-between;
         align-items:center;
@@ -53,10 +53,6 @@
         padding: 8px;
         background: #006cff;
         color: #fff;
-    }
-
-    ::-webkit-scrollbar {
-        width: 0.4em;
     }
 
     .dashboard-container{
@@ -100,7 +96,7 @@
     .mytasks-container .tasks-list-container{
         display:flex;
         gap:10px;
-        padding: 18px 5% 0 5%;
+        padding: 20px 5%;
         box-sizing: border-box;
     }
 

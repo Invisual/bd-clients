@@ -253,17 +253,17 @@ body.collapsed-sidebar .topbar-goback {
   background-color: #FFC107;
 }
 
-/* ::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 0.8em;
 }
 
-/* Track
+/* Track */
 ::-webkit-scrollbar-track {
   -webkit-border-radius: 10px;
   border-radius: 10px;
 }
 
-/* Handle
+/* Handle */
 ::-webkit-scrollbar-thumb {
   -webkit-border-radius: 10px;
   border-radius: 10px;
@@ -271,7 +271,7 @@ body.collapsed-sidebar .topbar-goback {
 }
 ::-webkit-scrollbar-thumb:window-inactive {
   background: #dfe4f8;
-} */
+}
 
 .mt10 {
   margin-top: 10px;
