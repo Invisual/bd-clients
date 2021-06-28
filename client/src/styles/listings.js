@@ -25,20 +25,21 @@ export const AllTasksDiv = styled.div`
       font-weight: 600;
     }
 
-    .tasks-title{
+    .tasks-title {
       margin: 0;
       padding: 20px 5%;
       border-right: 1px solid #e6e6e6;
       border-bottom: 1px solid #e6e6e6;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
       .left-options{
         display:flex;
         align-items:center;
-        justify-content:space-around;
+        justify-content: space-between;
+        width:100%;
         svg {
-          color: ${themeConsts.secondaryBlue};
+          color: #006cff;
           font-size: 2em;
         }
       }
@@ -51,15 +52,18 @@ export const AllTasksDiv = styled.div`
       position: relative;
     }
     .tasks-options {
-      border-bottom: 1px solid #e6e6e6;
+    border-bottom: 1px solid #e6e6e6;
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
       align-items: center;
       svg {
-        color: ${themeConsts.secondaryBlue};
+        color: #006cff;
         font-size: 2em;
         padding: 0 15px;
         cursor: pointer;
+      }
+      h4{
+          color:#006cff;
       }
       .account-avatar {
         display: flex;
@@ -112,14 +116,15 @@ export const AllProjectsDiv = styled.div`
       border-right: 1px solid #e6e6e6;
       border-bottom: 1px solid #e6e6e6;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
       .left-options{
         display:flex;
         align-items:center;
-        justify-content:space-around;
+        justify-content: space-between;
+        width:100%;
         svg {
-          color: ${themeConsts.secondaryBlue};
+          color: #006cff;
           font-size: 2em;
         }
       }
@@ -132,15 +137,18 @@ export const AllProjectsDiv = styled.div`
       position: relative;
     }
     .tasks-options {
-      border-bottom: 1px solid #e6e6e6;
+        border-bottom: 1px solid #e6e6e6;
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
       align-items: center;
       svg {
-        color: ${themeConsts.secondaryBlue};
+        color: #006cff;
         font-size: 2em;
         padding: 0 15px;
         cursor: pointer;
+      }
+      h4{
+          color:#006cff;
       }
       .account-avatar {
         display: flex;
@@ -1367,6 +1375,7 @@ export const ClientDetailsDiv = styled.div`
 
           div{
             font-size: 1.5em;
+            line-height: 1.5em;
           }
 
           .copy-btn{
@@ -1403,6 +1412,7 @@ export const ClientDetailsDiv = styled.div`
 
           div{
             font-size: 1.5em;
+            line-height: 1.5em;
           }
         }
       }
