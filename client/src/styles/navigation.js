@@ -117,8 +117,16 @@ export const SidebarDiv = styled.div`
       #logout{
         cursor:pointer;
         padding: 8px;
-        background: #fff;
-        color: #006cff;
+        border-radius: 10px;
+        border: 2px solid #fff;
+        background: transparent;
+        color: #fff;
+        margin-top: 20px;
+      }
+
+      #logout:hover{
+        background:#fff;
+        color:#006cff;
       }
     }
 
