@@ -10,14 +10,6 @@ const CreateClientInfo = props => {
 
     var userRole = JSON.parse(localStorage.getItem('user')).ref_id_role
 
-    // ON "ENTER" INSERT ","
-    const onKeyUp = (event) => {
-        console.log(event)
-        if (event.key === 'Enter') {
-           event.target.value += ",";
-        }
-    }
-
     return (
         <InsertFormDiv>
 
@@ -173,7 +165,7 @@ const CreateClientInfo = props => {
                             <div className="input-wrapper">
                                 <fieldset>
                                     <legend>Outros Marketing</legend>
-                                    <textarea id='outros-marketing' onChange={props.changeOthersMarketingInput} onKeyPress={onKeyUp} placeholder="exemplo de conta - password," value={props.type === 'edit' ? props.othersMarketingInput || '' : ''}></textarea>
+                                    <textarea id='outros-marketing' onChange={props.changeOthersMarketingInput} placeholder="exemplo de conta - password," value={props.type === 'edit' ? props.othersMarketingInput || '' : ''}></textarea>
                                 </fieldset>
                             </div>
                         </div>
@@ -184,7 +176,7 @@ const CreateClientInfo = props => {
                                     <div className="input-wrapper">
                                         <fieldset>
                                             <legend>Emails</legend>
-                                            <textarea onChange={props.changeEmailsInput} placeholder="ex@exemplo.pt - password," onKeyPress={onKeyUp} value={props.type === 'edit' ? props.emailsInput || '' : ''}></textarea>
+                                            <textarea onChange={props.changeEmailsInput} placeholder="ex@exemplo.pt - password," value={props.type === 'edit' ? props.emailsInput || '' : ''}></textarea>
                                         </fieldset>
                                     </div>
                                 </div>
@@ -193,7 +185,7 @@ const CreateClientInfo = props => {
                                     <div className="input-wrapper">
                                         <fieldset>
                                             <legend>Outros</legend>
-                                            <textarea onChange={props.changeOthersInput} placeholder="exemplo de conta - password," onKeyPress={onKeyUp} value={props.type === 'edit' ? props.othersInput || '' : ''}></textarea>
+                                            <textarea onChange={props.changeOthersInput} placeholder="exemplo de conta - password," value={props.type === 'edit' ? props.othersInput || '' : ''}></textarea>
                                         </fieldset>
                                     </div>
                                 </div>
