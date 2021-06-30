@@ -33,20 +33,6 @@ const CreateClient = props => {
                 </fieldset>
               </div>
             </div>
-
-            <div className="grid-item">
-              <div className="input-wrapper">
-                <fieldset>
-                  <legend>Bolsa de Horas Mensal</legend>
-                  <input
-                    type="number"
-                    onChange={props.changeHoursInput}
-                    placeholder="Inserir"
-                    value={props.type === 'edit' ? props.hoursInput : undefined}
-                  />
-                </fieldset>
-              </div>
-            </div>
           </div>
 
           <div className="form-buttons">

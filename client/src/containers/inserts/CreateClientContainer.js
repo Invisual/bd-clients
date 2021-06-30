@@ -9,7 +9,6 @@ class CreateClientContainer extends Component {
     super(props)
     this.state = {
       nameInput: '',
-      hoursInput: '',
       redirect: false,
       isLoading: true
     }
@@ -17,10 +16,6 @@ class CreateClientContainer extends Component {
 
   changeNameInput = e => {
     this.setState({ nameInput: e.target.value })
-  }
-
-  changeHoursInput = e => {
-    this.setState({ hoursInput: e.target.value })
   }
 
   getClientData = () => {
@@ -40,8 +35,7 @@ class CreateClientContainer extends Component {
           })
         } else {
           this.setState({
-            nameInput: res.data[0].name_client,
-            hoursInput: res.data[0].monthly_hours_client
+            nameInput: res.data[0].name_client
           })
         }
       })
@@ -50,8 +44,7 @@ class CreateClientContainer extends Component {
   insertClient = e => {
     e.preventDefault()
     var data = {
-      clientName: this.state.nameInput,
-      clientHours: this.state.hoursInput
+      clientName: this.state.nameInput
     }
     var token = JSON.parse(localStorage.getItem('token'))
     var AuthStr = 'Bearer ' + token
@@ -74,8 +67,7 @@ class CreateClientContainer extends Component {
     e.preventDefault()
     var data = {
       id: this.props.match.params.id,
-      clientName: this.state.nameInput,
-      clientHours: this.state.hoursInput
+      clientName: this.state.nameInput
     }
     var token = JSON.parse(localStorage.getItem('token'))
     var AuthStr = 'Bearer ' + token
@@ -105,9 +97,7 @@ class CreateClientContainer extends Component {
       <CreateClient
         title={this.props.title}
         changeNameInput={this.changeNameInput}
-        changeHoursInput={this.changeHoursInput}
         nameInput={this.state.nameInput}
-        hoursInput={this.state.hoursInput}
         insertClient={this.insertClient}
         editClient={this.editClient}
         redirect={this.state.redirect}
