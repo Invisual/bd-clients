@@ -126,9 +126,13 @@ body.collapsed-sidebar .topbar-goback {
   background-color: #006cff;
 }
 
-.active .client-title{
-    color:#fff;
-  }
+.active .client-title, .active .member-name, .active .member-role{
+  color:#fff;
+}
+.active .member-avatar img{
+  background-color: #fff;
+  border: 2px solid #fff;
+}
 
 .project-task-tab-title {
   text-align: center;
@@ -1095,12 +1099,16 @@ input[type='text'].hidesearch{
 }
 
 .tasks-list-container .single-card:hover{
-  background-color: #006cff;
+  background-color: rgba(0, 108, 255, 1);
 }
 
-.tasks-list-container .single-card:hover .client-title{
+.tasks-list-container .single-card:hover .client-title, .tasks-list-container .single-card:hover .member-name, .tasks-list-container .single-card:hover .member-role{
     color:#fff;
   }
+.tasks-list-container .single-card:hover .member-avatar img{
+  background-color: #fff;
+  border: 2px solid #fff;
+}
 
 .see-all-costs span span:after, .billing-add-costs span span:after {
   display:block;
