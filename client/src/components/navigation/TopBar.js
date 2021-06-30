@@ -10,10 +10,10 @@ export const TopBar = props => {
     return (
         <TopBarDiv className="topbar-nav">
             <div className="navigation">
-                    <ul>
-                        <NavLink to="/clients" activeClassName='is-active'><li><FiUsers/></li></NavLink>
-                        {userRole === 3 && <NavLink to="/team" activeClassName='is-active'><li><FiUser/></li></NavLink>}
-                    </ul>
+                <ul>
+                    <NavLink to="/clients" activeClassName='is-active'><li><FiUsers/></li></NavLink>
+                    {userRole === 3 && <NavLink to="/team" activeClassName='is-active'><li><FiUser/></li></NavLink>}
+                </ul>
             </div>
             <div className="sidebar-logout" onClick={props.showDropdownUser}>
                 <img

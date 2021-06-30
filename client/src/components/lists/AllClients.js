@@ -3,7 +3,7 @@ import { AllClientsDiv } from '../../styles/listings';
 import ClientsListContainer from '../../containers/tables/ClientsListContainer';
 import ClientDetailContainer from '../../containers/details/ClientDetailContainer';
 import OptionsContainer from '../../containers/options/OptionsContainer';
-import { FiUserPlus, FiSearch } from 'react-icons/fi';
+import { FiUserPlus } from 'react-icons/fi';
 import {Link} from 'react-router-dom'
 
 export const AllClients = props => {

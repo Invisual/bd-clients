@@ -3,9 +3,8 @@ import { AllClientsDiv } from '../../styles/listings';
 import TeamListContainer from '../../containers/tables/TeamListContainer';
 import TeamMemberDetailContainer from '../../containers/details/TeamMemberDetailContainer';
 import InsertUserInfo from '../../components/inserts/InsertUserInfo';
-import MembersHistoryFilters from '../options/MembersHistoryFilters';
 import OptionsContainer from '../../containers/options/OptionsContainer';
-import { FiUserPlus, FiSearch } from 'react-icons/fi';
+import { FiUserPlus } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 export const AllTeam = props => {
@@ -39,8 +38,6 @@ export const AllTeam = props => {
           memberContent={props.memberContent}
           isLoading={props.isLoading}
           deleteActiveMember={props.deleteActiveMember}
-          duplicateActiveTask={props.duplicateActiveTask}
-          editActiveTask={props.editActiveTask}
           filtersAreActive={props.filtersAreActive}
           changeFiltersAreActive={props.changeFiltersAreActive}
           changeInfosAreActive={props.changeInfosAreActive}
@@ -61,26 +58,18 @@ export const AllTeam = props => {
           </div>
         </div>
         <div className="grid-widget tasks-detail">
-          {props.filtersAreActive ?
-                        <MembersHistoryFilters 
-                            changeFilters={props.changeFilters}
-                            changeFiltersAreActive={props.changeFiltersAreActive}
-                            filters={props.filters}
-                            clientsList={props.clientsList}
-                        />
-                    : props.infosAreActive ?
-                        <InsertUserInfo activeMember={props.activeMember} />
-                        :<TeamMemberDetailContainer
-                            activeMember={props.activeMember}
-                            memberContent={props.memberContent}
-                            changeActiveTab={props.changeActiveTab}
-                            activeTab={props.activeTab}
-                            isLoading={props.isLoading}
-                            filters={props.filters}
-                            openModal={props.openModal}
-                            changeEditHourId={props.changeEditHourId}
-                            userInfo={props.userInfo}
-                        />
+          {props.infosAreActive ?
+            <InsertUserInfo activeMember={props.activeMember} />
+            :<TeamMemberDetailContainer
+                activeMember={props.activeMember}
+                memberContent={props.memberContent}
+                changeActiveTab={props.changeActiveTab}
+                activeTab={props.activeTab}
+                isLoading={props.isLoading}
+                filters={props.filters}
+                openModal={props.openModal}
+                userInfo={props.userInfo}
+            />
           }
         </div>
       </div>
