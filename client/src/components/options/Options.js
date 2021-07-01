@@ -24,7 +24,6 @@ export const Options =  props => {
                     </div>
                     {props.userRole === 3 &&
                         <>
-
                             <div className="tooltip-container action-delete">
                                 <FiTrash2
                                 className="task-info-icon"
