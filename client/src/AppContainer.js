@@ -86,6 +86,7 @@ class AppContainer extends Component {
 
   componentDidMount() {
     console.log('%c Made with ❤ by INvisual - Eduardo, Lina & Tiago', 'background: #006cff; color: #fff');
+    console.log('%c Acho que o Guga também merece estar nesta versão ❤', 'background: #006cff; color: #fff');
     this.hydrateStateWithLocalStorage();
   }
 

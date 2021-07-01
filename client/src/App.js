@@ -71,10 +71,6 @@ class App extends Component {
                 )}
               />
               <Route
-                path="/admin"
-                render={""}
-              />
-              <Route
                 key="all-team"
                 exact
                 path="/team"

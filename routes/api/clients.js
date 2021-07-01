@@ -35,6 +35,47 @@ router.get('/', checkToken, (req, res) => {
   })
 })
 
+router.get('/basic', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403)
+    } else {
+      connection.query(
+        'Select id_client, name_client from clients ORDER BY name_client ASC',
+        function (error, results, fields) {
+          if (error) throw error
+          if (results.length > 0) {
+            res.send(results)
+          }
+        }
+      )
+    }
+  })
+})
+
+router.get('/basic/:client', checkToken, (req, res) => {
+  jwt.verify(req.token, SECRET_KEY, (err, results) => {
+    if (err) {
+      //If error send Forbidden (403)
+      res.sendStatus(403)
+    } else {
+      connection.query(
+        'Select id_client, name_client from clients WHERE id_client = ?',
+        req.params.client,
+        function (error, results, fields) {
+          if (error) throw error
+          if (results.length > 0) {
+            res.send(results)
+          } else {
+            res.send('noclient')
+          }
+        }
+      )
+    }
+  })
+})
+
 router.get('/details/:client', checkToken, (req, res) => {
   var id = req.params.user
   var client = req.params.client

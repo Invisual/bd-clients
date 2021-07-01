@@ -26,7 +26,7 @@ const CreateClientInfo = props => {
                                 <div className="input-wrapper">
                                     <fieldset>
                                         <legend>Link cPanel</legend>
-                                        <input type="text" onChange={props.changeCpanelLinkInput} placeholder="Escrever" value={props.type === 'edit' ? props.cpanelLinkInput : ''}/>
+                                        <input type="text" onChange={props.changeCpanelLinkInput} placeholder="Escrever" value={props.type === 'edit' ? props.cpanelLinkInput || '' : ''}/>
                                     </fieldset>
                                 </div>
                             </div>
@@ -35,7 +35,7 @@ const CreateClientInfo = props => {
                                 <div className="input-wrapper">
                                     <fieldset>
                                         <legend>Username cPanel</legend>
-                                        <input type="text" onChange={props.changeCpanelUserInput} placeholder="Escrever" value={props.type === 'edit' ? props.cpanelUserInput : ''}/>
+                                        <input type="text" onChange={props.changeCpanelUserInput} placeholder="Escrever" value={props.type === 'edit' ? props.cpanelUserInput || '' : ''}/>
                                     </fieldset>
                                 </div>
                             </div>
@@ -43,7 +43,7 @@ const CreateClientInfo = props => {
                                 <div className="input-wrapper">
                                     <fieldset>
                                         <legend>Password cPanel</legend>
-                                        <input type="text" onChange={props.changeCpanelPassInput} placeholder="Escrever" value={props.type === 'edit' ? props.cpanelPassInput : ''}/>
+                                        <input type="text" onChange={props.changeCpanelPassInput} placeholder="Escrever" value={props.type === 'edit' ? props.cpanelPassInput || '' : ''}/>
                                     </fieldset>
                                 </div>
                             </div>
@@ -54,7 +54,7 @@ const CreateClientInfo = props => {
                                     <div className="input-wrapper">
                                         <fieldset>
                                             <legend>Link WordPress</legend>
-                                            <input type="text" onChange={props.changeWpLinkInput} placeholder="Escrever" value={props.type === 'edit' ? props.wpLinkInput : ''}/>
+                                            <input type="text" onChange={props.changeWpLinkInput} placeholder="Escrever" value={props.type === 'edit' ? props.wpLinkInput || '' : ''}/>
                                         </fieldset>
                                     </div>
                                 </div>
@@ -63,7 +63,7 @@ const CreateClientInfo = props => {
                                     <div className="input-wrapper">
                                         <fieldset>
                                             <legend>Username WordPress</legend>
-                                            <input type="text" onChange={props.changeWpUserInput} placeholder="Escrever" value={props.type === 'edit' ? props.wpUserInput : ''}/>
+                                            <input type="text" onChange={props.changeWpUserInput} placeholder="Escrever" value={props.type === 'edit' ? props.wpUserInput || '' : ''}/>
                                         </fieldset>
                                     </div>
                                 </div>
@@ -72,7 +72,7 @@ const CreateClientInfo = props => {
                                     <div className="input-wrapper">
                                         <fieldset>
                                             <legend>Password WordPress</legend>
-                                            <input type="text" onChange={props.changeWpPassInput} placeholder="Escrever" value={props.type === 'edit' ? props.wpPassInput : ''}/>
+                                            <input type="text" onChange={props.changeWpPassInput} placeholder="Escrever" value={props.type === 'edit' ? props.wpPassInput || '' : ''}/>
                                         </fieldset>
                                     </div>
                                 </div>
@@ -83,7 +83,7 @@ const CreateClientInfo = props => {
                                     <div className="input-wrapper">
                                         <fieldset>
                                             <legend>NicHandle DNS</legend>
-                                            <input type="text" onChange={props.changeDnsNicInput} placeholder="Escrever" value={props.type === 'edit' ? props.dnsNicInput : ''}/>
+                                            <input type="text" onChange={props.changeDnsNicInput} placeholder="Escrever" value={props.type === 'edit' ? props.dnsNicInput || '' : ''}/>
                                         </fieldset>
                                     </div>
                                 </div>
@@ -92,7 +92,7 @@ const CreateClientInfo = props => {
                                     <div className="input-wrapper">
                                         <fieldset>
                                             <legend>Password DNS</legend>
-                                            <input type="text" onChange={props.changeDnsPassInput} placeholder="Escrever" value={props.type === 'edit' ? props.dnsPassInput : ''}/>
+                                            <input type="text" onChange={props.changeDnsPassInput} placeholder="Escrever" value={props.type === 'edit' ? props.dnsPassInput || '' : ''}/>
                                         </fieldset>
                                     </div>
                                 </div>
@@ -125,7 +125,7 @@ const CreateClientInfo = props => {
                             <div className="input-wrapper">
                                 <fieldset>
                                     <legend>Facebook Username</legend>
-                                    <input type="text" onChange={props.changeFacebookUserInput} placeholder="Escrever" value={props.type === 'edit' ? props.facebookUserInput : ''}/>
+                                    <input type="text" onChange={props.changeFacebookUserInput} placeholder="Escrever" value={props.type === 'edit' ? props.facebookUserInput || '' : ''}/>
                                 </fieldset>
                             </div>
                         </div>
@@ -134,7 +134,7 @@ const CreateClientInfo = props => {
                             <div className="input-wrapper">
                                 <fieldset>
                                     <legend>Facebook Password</legend>
-                                    <input type="text" onChange={props.changeFacebookPassInput} placeholder="Escrever" value={props.type === 'edit' ? props.facebookPassInput : ''}/>
+                                    <input type="text" onChange={props.changeFacebookPassInput} placeholder="Escrever" value={props.type === 'edit' ? props.facebookPassInput || '' : ''}/>
                                 </fieldset>
                             </div>
                         </div>
@@ -145,7 +145,7 @@ const CreateClientInfo = props => {
                             <div className="input-wrapper">
                                 <fieldset>
                                     <legend>Instagram Username | E-mail</legend>
-                                    <input type="text" onChange={props.changeInstagramUserInput} placeholder="Escrever" value={props.type === 'edit' ? props.instagramUserInput : ''}/>
+                                    <input type="text" onChange={props.changeInstagramUserInput} placeholder="Escrever" value={props.type === 'edit' ? props.instagramUserInput || '' : ''}/>
                                 </fieldset>
                             </div>
                         </div>
@@ -154,7 +154,7 @@ const CreateClientInfo = props => {
                             <div className="input-wrapper">
                                 <fieldset>
                                     <legend>Instagram Password</legend>
-                                    <input type="text" onChange={props.changeInstagramPassInput} placeholder="Escrever" value={props.type === 'edit' ? props.instagramPassInput : ''}/>
+                                    <input type="text" onChange={props.changeInstagramPassInput} placeholder="Escrever" value={props.type === 'edit' ? props.instagramPassInput || '' : ''}/>
                                 </fieldset>
                             </div>
                         </div>
