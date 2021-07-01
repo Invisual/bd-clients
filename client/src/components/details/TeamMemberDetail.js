@@ -22,7 +22,7 @@ export const TeamMemberDetail = props => {
             <div className="grid-item">
               <div className="project-header">
                 <h4 className="project-title member-title">{props.memberContent.details[0].name_user}</h4>
-                <h6 className="member-position">{props.memberContent.details[0].name_position}</h6>
+                <h6 className="member-position">{props.memberContent.details[0].ref_id_role === 0 ? "Admin" : "Marketing"}</h6>
                 <div className="project-infos">
                   {/* <div
                     className={'project-tab ' + (props.activeTab === 'tasks' ? 'active-tab' : '')}
