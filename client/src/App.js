@@ -25,14 +25,8 @@ class App extends Component {
             <TopBarContainer
               canGoBack={this.props.canGoBack}
               userInfo={this.props.userInfo}
-              notifications={this.props.notifications}
-              setNotificationsSeen={this.props.setNotificationsSeen}
-              setNotificationOpened={this.props.setNotificationOpened}
               openModal={this.props.openModal}
               logout={this.props.logout}
-              changeEditHourId={this.props.changeEditHourId}
-              activeHours={this.props.activeHours}
-              activeBudgetHours={this.props.activeBudgetHours}
               isAccountDashboard={this.props.isAccountDashboard}
               changeIsAccountDashboard={this.props.changeIsAccountDashboard}
             />
@@ -90,7 +84,6 @@ class App extends Component {
                     isShare={false}
                     {...props}
                     openModal={this.props.openModal}
-                    changeEditHourId={this.props.changeEditHourId}
                   />
                 )}
               />
@@ -104,7 +97,6 @@ class App extends Component {
                     isShare={true}
                     {...props}
                     openModal={this.props.openModal}
-                    changeEditHourId={this.props.changeEditHourId}
                   />
                 )}
               />

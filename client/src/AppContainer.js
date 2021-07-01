@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import App from './App';
 import { withRouter } from "react-router-dom";
-import {createBrowserHistory} from 'history'
-const history = createBrowserHistory()
-const axios = require('axios');
+import {createBrowserHistory} from 'history';
+const history = createBrowserHistory();
 
 class AppContainer extends Component {
   constructor(props){
@@ -12,12 +11,6 @@ class AppContainer extends Component {
       loggedIn: false,
       userInfo: {},
       token: '',
-      activeHours:'',
-      latestActiveHour: '', 
-      activeBudgetHours:'',
-      latestActiveBudgetHour: '',
-      editHourId: '',
-      notifications:[],
       isAccountDashboard: false,
       shouldTodosUpdate: false,
       canGoBack: false
@@ -32,22 +25,14 @@ class AppContainer extends Component {
       loggedIn: true,
       userInfo: user,
       token: token
-    }, () => {
-          this.getNotifications()
-          this.getActiveHours()
-          this.getActiveBudgetHours()
-        })
+    })
   }
 
   logout = () => {
     this.setState({
       loggedIn: false,
       userInfo: {},
-      token: '',
-      activeBudgetHours: '',
-      activeHours: '',
-      latestActiveBudgetHour: '',
-      latestActiveHour: ''
+      token: ''
     }, () => {
       localStorage.removeItem('loggedIn');
       localStorage.removeItem('user');
@@ -71,9 +56,9 @@ class AppContainer extends Component {
       let loggedUserStorage = localStorage.getItem('user');
       loggedUserStorage = JSON.parse(loggedUserStorage);
       try {
-        this.setState({ userInfo: loggedUserStorage }, () => this.getNotifications());
+        this.setState({ userInfo: loggedUserStorage });
       } catch (e) {
-        this.setState({ userInfo: loggedUserStorage }, () => this.getNotifications());
+        this.setState({ userInfo: loggedUserStorage });
       }
     }
 
@@ -88,69 +73,6 @@ class AppContainer extends Component {
     }
   }
 
-  getActiveHours = () => {
-    var token = JSON.parse(localStorage.getItem('token'));
-    var AuthStr = 'Bearer ' + token;
-    var user = JSON.parse(localStorage.getItem('user'));
-    axios.get(`/api/hours/active/${user.id_user}`, { headers: { Authorization: AuthStr } }).then(res => {
-      if (res.data === 'nohours') {
-        this.setState({ activeHours: null, latestActiveHour: null});
-      } else {
-        this.setState({ activeHours: res.data, latestActiveHour: res.data[0].beginning_hour});
-      }
-    });
-  }
-
-  getActiveBudgetHours = () => {
-    var token = JSON.parse(localStorage.getItem('token'));
-    var AuthStr = 'Bearer ' + token;
-    var user = JSON.parse(localStorage.getItem('user'));
-
-    axios.get(`/api/hours/active/budget/${user.id_user}`, { headers: { Authorization: AuthStr } }).then(res => {
-      if (res.data === 'nohours') {
-        this.setState({ activeBudgetHours: null, latestActiveBudgetHour: null});
-      } else {
-        this.setState({ activeBudgetHours: res.data, latestActiveBudgetHour: res.data[0].beginning_hour});
-      }
-    });
-  }
-
-  notificationsInterval = 0
-
-  getNotifications = () => {
-      var token = JSON.parse(localStorage.getItem('token'));
-      var AuthStr = 'Bearer ' + token;
-      axios.get(`/api/misc/notifications/${this.state.userInfo.id_user}`, { headers: { Authorization: AuthStr } }).then(res => {
-        if (res.data !== 'nodata') {
-          this.setState({ notifications: res.data});
-        }
-      });
-  }
-
-  setNotificationsSeen = () => {
-      var notificationsIds = []
-      this.state.notifications.map(not => notificationsIds.push(not.id_notification))
-      var token = JSON.parse(localStorage.getItem('token'));
-      var AuthStr = 'Bearer ' + token;
-      axios.put('/api/misc/notifications/seen', {notifications: notificationsIds}, { headers: { Authorization: AuthStr } })
-      .then((res) => { 
-        if(res.data !== 'error'){this.getNotifications() }
-        else{console.log('error')}
-      })
-  }
-
-  setNotificationOpened = (id) => {
-    var token = JSON.parse(localStorage.getItem('token'));
-    var AuthStr = 'Bearer ' + token;
-    axios.put('/api/misc/notifications/opened', {id: id}, { headers: { Authorization: AuthStr } })
-    .then((res) => { 
-      if(res.data !== 'error'){
-        this.getNotifications()
-      }
-      else{console.log('error')}
-    })
-  }
-
   openModal = (modal) => {
     document.getElementById('overlay').addEventListener('click', () => this.closeModal(modal))
     document.body.classList.add('has-modal', `modal-${modal}`)
@@ -161,25 +83,15 @@ class AppContainer extends Component {
     document.body.classList.remove('has-modal', `modal-${modal}`)
   }
 
-  changeEditHourId = id => this.setState({editHourId: id})
-
-  changeShouldTodosUpdate = (bool) => {
-    this.setState({ shouldTodosUpdate: bool })
-  }
 
   componentDidMount() {
     console.log('%c Made with ❤ by INvisual - Eduardo, Lina & Tiago', 'background: #006cff; color: #fff');
     this.hydrateStateWithLocalStorage();
-    if (localStorage.hasOwnProperty('user')) {this.getActiveHours();this.getActiveBudgetHours();}
-    if(this.props.location.pathname.indexOf('tasks/') !== -1){
-      this.setState({canGoBack : true})
-    }
-    this.notificationsInterval = setInterval(this.getNotifications, 30000)
   }
 
   componentDidUpdate(prevProps){
     if (this.props.location.pathname !== prevProps.location.pathname) {
-      if(this.props.location.pathname.indexOf('tasks/') !== -1 || this.props.location.pathname.indexOf('projects/') !== -1 || this.props.location.pathname.indexOf('clients/') !== -1){
+      if(this.props.location.pathname.indexOf('clients/') !== -1){
         this.setState({canGoBack : true})
       }
         else {
@@ -187,12 +99,6 @@ class AppContainer extends Component {
       }
     }
   }
-
-
-  componentWillUnmount(){
-    clearInterval(this.notificationsInterval)
-  }
-
 
   render() {
     return (
@@ -203,19 +109,8 @@ class AppContainer extends Component {
                 login={this.login} 
                 logout={this.logout} 
                 userInfo={this.state.userInfo} 
-                activeHours={this.state.activeHours} 
-                getActiveHours={this.getActiveHours} 
-                activeBudgetHours={this.state.activeBudgetHours} 
-                getActiveBudgetHours={this.getActiveBudgetHours}
-                notifications={this.state.notifications}
-                setNotificationsSeen={this.setNotificationsSeen}
-                setNotificationOpened={this.setNotificationOpened}
                 openModal={this.openModal}
                 closeModal={this.closeModal}
-                editHourId={this.state.editHourId}
-                changeEditHourId={this.changeEditHourId}
-                shouldTodosUpdate={this.state.shouldTodosUpdate}
-                changeShouldTodosUpdate={this.changeShouldTodosUpdate}
                 isAccountDashboard={this.state.isAccountDashboard}
                 changeIsAccountDashboard={this.changeIsAccountDashboard}
               />
