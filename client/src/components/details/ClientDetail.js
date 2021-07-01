@@ -26,7 +26,7 @@ export const ClientDetail = props => {
                     <div className="project-header">
                         <h4 className="project-title">{props.clientContent.details[0].name_client}</h4>
                         <div className="project-infos">
-                            {userRole === 3 &&
+                            {userRole === 0 &&
                                 <div
                                     className={'project-tab ' + (props.activeTab === 'clientinfo' ? 'active-tab' : '')}
                                     onClick={() => props.changeActiveTab('clientinfo')}

@@ -22,9 +22,8 @@ export const Options =  props => {
                             <FiBook className="task-info-icon"/><span className="tooltip">Editar Infos de Cliente</span>
                         </Link>
                     </div>
-                    {props.userRole === 3 &&
+                    {props.userRole === 0 &&
                         <>
-
                             <div className="tooltip-container action-delete">
                                 <FiTrash2
                                 className="task-info-icon"

@@ -15,7 +15,7 @@ export const AllClients = props => {
             <div className="tooltip-container client-search">
                 <input type="text" placeholder="Pesquisa" id="clients-search" className='showsearch searchinput' onChange={props.changeSearchQuery}/>
             </div>
-            {props.userRole === 3 ? 
+            {props.userRole === 0 ? 
                 <>
                 <div className="tooltip-container">
                     <Link to="/createclient">
