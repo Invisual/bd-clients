@@ -22,7 +22,7 @@ export const AllTeam = props => {
               onChange={props.changeSearchQuery}
             />
           </div>
-          {props.userRole === 3 || props.userRole === 2 ? (
+          {props.userRole === 0 ? (
             <div className="tooltip-container">
               <Link to="/createuser">
                 <FiUserPlus />

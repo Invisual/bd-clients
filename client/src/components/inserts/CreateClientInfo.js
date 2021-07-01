@@ -19,7 +19,7 @@ const CreateClientInfo = props => {
 
                 <div className="form-title"><h4 className="widget-title">{props.title}{props.clientInfo.name_client}</h4></div>
                 <form onSubmit={props.editClientInfo}>
-                    {userRole === 3 &&
+                    {userRole === 0 &&
                         <>
                         <div className="grid33-33-33 form-grid">
                             <div className="grid-item">
@@ -170,7 +170,7 @@ const CreateClientInfo = props => {
                             </div>
                         </div>
 
-                        {userRole === 3 &&
+                        {userRole === 0 &&
                             <>
                                 <div className="grid-item">
                                     <div className="input-wrapper">

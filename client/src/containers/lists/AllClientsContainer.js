@@ -14,7 +14,7 @@ class AllClientsContainer extends Component {
     super(props)
     this.state = {
       activeClient: '',
-      activeTab: userRole === 3 ? 'clientinfo' : 'clientmarketing',
+      activeTab: userRole === 0 ? 'clientinfo' : 'clientmarketing',
       clientContent: [],
       searchQuery: '',
       displaySearchInput: '',
@@ -174,7 +174,7 @@ class AllClientsContainer extends Component {
     if (prevState.activeClient !== this.state.activeClient) {
       this.getClientDetails()
       this.setState({
-        activeTab: userRole === 3 ? 'clientinfo' : 'clientmarketing'
+        activeTab: userRole === 0 ? 'clientinfo' : 'clientmarketing'
       })
     }
   }

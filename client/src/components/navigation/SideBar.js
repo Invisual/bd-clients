@@ -18,7 +18,7 @@ class SideBar extends Component {
             <div className="navigation">
                 <ul>
                     <NavLink to="/clients" activeClassName='is-active'><li><FiUsers/></li></NavLink>
-                    {userRole === 3 && <NavLink to="/team" activeClassName='is-active'><li><FiUser/></li></NavLink>}
+                    {userRole === 0 && <NavLink to="/team" activeClassName='is-active'><li><FiUser/></li></NavLink>}
                 </ul>
             </div>
         </div>
