@@ -44,7 +44,8 @@ class CreateClientContainer extends Component {
   insertClient = e => {
     e.preventDefault()
     var data = {
-      clientName: this.state.nameInput
+      clientName: this.state.nameInput,
+      userId: JSON.parse(localStorage.getItem('user')).id_user
     }
     var token = JSON.parse(localStorage.getItem('token'))
     var AuthStr = 'Bearer ' + token
@@ -67,7 +68,8 @@ class CreateClientContainer extends Component {
     e.preventDefault()
     var data = {
       id: this.props.match.params.id,
-      clientName: this.state.nameInput
+      clientName: this.state.nameInput,
+      userId: JSON.parse(localStorage.getItem('user')).id_user
     }
     var token = JSON.parse(localStorage.getItem('token'))
     var AuthStr = 'Bearer ' + token
@@ -87,6 +89,10 @@ class CreateClientContainer extends Component {
   }
 
   componentDidMount() {
+    const userRole = JSON.parse(localStorage.getItem('user')).ref_id_role
+    if (userRole !== 0 && userRole !== 1) {
+      this.setState({ redirect: true })
+    }
     if (this.props.type === 'edit') {
       this.getClientData()
     }

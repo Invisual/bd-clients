@@ -5,6 +5,7 @@ import LoginContainer from './containers/auth/LoginContainer'
 import ResetPasswordContainer from './containers/auth/ResetPasswordContainer'
 import AllClientsContainer from './containers/lists/AllClientsContainer'
 import AllTeamContainer from './containers/lists/AllTeamContainer'
+import RecordsContainer from './containers/lists/RecordsContainer'
 import CreateClientContainer from './containers/inserts/CreateClientContainer'
 import CreateUserContainer from './containers/inserts/CreateUserContainer'
 import CreateClientInfoContainer from './containers/inserts/CreateClientInfoContainer'
@@ -94,6 +95,14 @@ class App extends Component {
                     {...props}
                     openModal={this.props.openModal}
                   />
+                )}
+              />
+              <Route
+                key="records"
+                exact
+                path="/records"
+                render={props => (
+                  <RecordsContainer userInfo={this.props.userInfo} {...props} />
                 )}
               />
               <Route

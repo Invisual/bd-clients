@@ -1,13 +1,13 @@
-import styled from 'styled-components';
-import { themeConsts } from './themeConsts';
- 
+import styled from 'styled-components'
+import { themeConsts } from './themeConsts'
+
 export const SingleTaskDiv = styled.div`
   display: grid;
   grid-template-columns: 80% 5% 5% 10%;
   padding-left: 20px;
   margin-top: 15px;
   color: ${themeConsts.textDarkGrey};
- 
+
   .task-title {
     margin: 0;
     padding: 18px 0;
@@ -22,23 +22,23 @@ export const SingleTaskDiv = styled.div`
   .title-click {
     cursor: pointer;
   }
- 
+
   .task-watch {
     padding: 18px 0;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: flex-start;
- 
+
     .active-clock {
       color: ${themeConsts.red};
     }
- 
+
     .inactive-clock {
       color: ${themeConsts.primaryBlue};
     }
   }
- 
+
   .task-state {
     color: #fff;
     border-radius: ${themeConsts.borderRadius};
@@ -55,15 +55,15 @@ export const SingleTaskDiv = styled.div`
   svg {
     font-size: 2em;
   }
-`;
- 
+`
+
 export const AllSingleTaskDiv = styled.div`
   display: grid;
   grid-template-columns: 75% 5% 5% 5% 10%;
   padding-left: 20px;
   margin-top: 15px;
   color: ${themeConsts.textDarkGrey};
- 
+
   .task-title {
     margin: 0;
     padding: 18px 0;
@@ -74,16 +74,16 @@ export const AllSingleTaskDiv = styled.div`
     justify-content: flex-start;
     font-size: 1.3em;
   }
-  .task-title-client{
-    display:block;
+  .task-title-client {
+    display: block;
 
-    .client-task{
-      font-size: .8em;
+    .client-task {
+      font-size: 0.8em;
       margin-top: 2px;
       font-weight: 600;
       color: #7f9aff;
 
-      span{
+      span {
         margin-left: 10px;
         color: ${themeConsts.textDarkGrey};
       }
@@ -92,7 +92,7 @@ export const AllSingleTaskDiv = styled.div`
   .title-click {
     cursor: pointer;
   }
- 
+
   .task-link {
     padding: 18px 0;
     cursor: pointer;
@@ -110,26 +110,26 @@ export const AllSingleTaskDiv = styled.div`
     align-items: center;
     svg {
       font-size: 2em;
-      color: ${themeConsts.green}
+      color: ${themeConsts.green};
     }
   }
- 
+
   .task-watch {
     padding: 18px 0;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: flex-start;
- 
+
     .active-clock {
       color: ${themeConsts.red};
     }
- 
+
     .inactive-clock {
       color: ${themeConsts.primaryBlue};
     }
   }
- 
+
   .task-state {
     color: #fff;
     border-radius: ${themeConsts.borderRadius};
@@ -146,13 +146,13 @@ export const AllSingleTaskDiv = styled.div`
   svg {
     font-size: 2em;
   }
-`;
- 
+`
+
 export const SingleProjectDiv = styled.div`
   display: grid;
   grid-template-columns: 4% 60% 8% 8% 20%;
   color: ${themeConsts.textDarkGrey};
- 
+
   .project-title {
     /*margin: 0;
     padding: 18px 0;
@@ -160,7 +160,7 @@ export const SingleProjectDiv = styled.div`
     top: 6px;*/
     display: flex;
     align-items: center;
- 
+
     .title-divider {
       padding-right: 5px;
       border-right: 1px solid #afacd1;
@@ -172,7 +172,7 @@ export const SingleProjectDiv = styled.div`
       font-weight: 700;
     }
   }
- 
+
   .project-status,
   .project-total-tasks,
   .project-concluded-tasks {
@@ -188,7 +188,7 @@ export const SingleProjectDiv = styled.div`
     /*margin: auto 0;
     position: relative;
     top: 4px;*/
-    display:flex;
+    display: flex;
     align-items: center;
   }
   .task-progress {
@@ -196,28 +196,28 @@ export const SingleProjectDiv = styled.div`
     position: relative;
     top: 4px;
   }
- 
+
   svg {
     font-size: 1.7em;
   }
-`;
- 
+`
+
 export const ClientProjectDiv = styled.div`
   display: grid;
   grid-template-columns: 4% 60% 8% 8% 20%;
   color: ${themeConsts.textDarkGrey};
- 
+
   .project-status {
-    display:flex;
-    align-items:center;
+    display: flex;
+    align-items: center;
     position: relative;
   }
- 
-  .project-status.billed::after{
+
+  .project-status.billed::after {
     content: '';
     position: absolute;
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
     top: 0;
     left: 0;
     background: url('/img/euro.svg');
@@ -226,9 +226,9 @@ export const ClientProjectDiv = styled.div`
     background-size: 10px;
   }
   .project-title {
-    display:flex;
-    align-items:center;
- 
+    display: flex;
+    align-items: center;
+
     .title-divider {
       padding-right: 5px;
       border-right: 1px solid #afacd1;
@@ -237,7 +237,7 @@ export const ClientProjectDiv = styled.div`
     .project-participants {
       padding-left: 7px;
       img {
-        margin-right:3px;
+        margin-right: 3px;
         border-radius: 50%;
         width: 20px;
         height: 20px;
@@ -245,7 +245,7 @@ export const ClientProjectDiv = styled.div`
       }
     }
   }
- 
+
   .project-total-tasks,
   .project-concluded-tasks {
     display: flex;
@@ -253,23 +253,23 @@ export const ClientProjectDiv = styled.div`
     align-items: center;
     font-size: 1.3em;
   }
- 
+
   .task-progress {
     padding: 18px 0;
     position: relative;
     top: 0px;
   }
- 
+
   svg {
     font-size: 1.7em;
   }
-`;
- 
+`
+
 export const AllSingleProjectDiv = styled.div`
   color: ${themeConsts.textDarkGrey};
   padding: 10px !important;
   cursor: pointer;
- 
+
   .project-header {
     padding-bottom: 3px;
     border-bottom: 1px solid #e6e6e6;
@@ -280,29 +280,27 @@ export const AllSingleProjectDiv = styled.div`
       margin-bottom: 25px;
       font-size: 1.4em;
       font-weight: 500;
- 
-    .billed{
-      position: relative;
-    }
-    .billed::after{
-      content: '';
-      position: absolute;
-      width:100%;
-      height:100%;
-      top: 0;
-      left: 0;
-      background: url('/img/euro.svg');
-      background-position: 22% 38%;
-      background-repeat: no-repeat;
-      background-size: 11px;
-    }
+
+      .billed {
+        position: relative;
+      }
+      .billed::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: url('/img/euro.svg');
+        background-position: 22% 38%;
+        background-repeat: no-repeat;
+        background-size: 11px;
+      }
       .title-click {
         padding-left: 5px;
       }
     }
- 
-   
- 
+
     .project-client-date {
       display: flex;
       justify-content: space-between;
@@ -349,156 +347,158 @@ export const AllSingleProjectDiv = styled.div`
   svg {
     font-size: 1.7em;
   }
-`;
- 
+`
+
 export const SingleToDoDiv = styled.div`
   display: grid;
   grid-template-columns: 7% 88% 5%;
   color: ${themeConsts.textDarkGrey};
   padding: 10px 0;
- 
+
   .todo-text {
     margin: 0;
     font-size: 1em;
     font-size: 1.2em;
     line-height: 1.4em;
   }
- 
+
   .todo-status {
     margin: auto 0;
     position: relative;
     cursor: pointer;
   }
 
-  .todo-delete{
+  .todo-delete {
     cursor: pointer;
 
-    span{
-      color:${themeConsts.textLighterGrey};
+    span {
+      color: ${themeConsts.textLighterGrey};
       transform: rotate(45deg);
       font-weight: 100;
       font-size: 1.4em;
     }
   }
 
-  .todo-text, .todo-status, .todo-delete{
+  .todo-text,
+  .todo-status,
+  .todo-delete {
     display: flex;
     align-items: center;
   }
- 
+
   svg {
     font-size: 1.4em;
   }
-`;
- 
+`
+
 export const SingleTaskCommentDiv = styled.div`
   display: grid;
   grid-template-columns: 6% 94%;
   color: ${themeConsts.textDarkGrey};
   margin-bottom: 10px;
- 
+
   .todo-text {
     margin: 0;
     padding: 18px 0;
     position: relative;
   }
- 
+
   .todo-status {
     margin: auto 0;
     position: relative;
     cursor: pointer;
   }
-`;
- 
+`
+
 export const SingleClientDiv = styled.div`
   display: flex;
   color: ${themeConsts.textDarkGrey};
   min-height: 50px;
   cursor: pointer;
- 
+
   .client-title {
     display: flex;
     align-items: center;
     font-size: 1.5em;
     font-weight: 500;
-    text-transform:uppercase;
+    text-transform: uppercase;
   }
- 
+
   svg {
     font-size: 1.7em;
   }
-`;
- 
- 
- 
- 
+`
+
 export const SingleMemberDiv = styled.div`
   display: flex;
   color: ${themeConsts.textDarkGrey};
   min-height: 50px;
   cursor: pointer;
- 
-  .member-avatar{
+
+  .member-avatar {
     display: flex;
     align-items: center;
- 
-    img{
-      width:27px;
+
+    img {
+      width: 27px;
       border: 2px solid #006cff;
       border-radius: 50%;
     }
   }
-  .member-name{
+  .member-name {
     display: flex;
     align-items: center;
     font-size: 1.4em;
     font-weight: 500;
     margin-left: 20px;
   }
-  .member-role{
+  .ml5 {
+    margin-left: 5px;
+  }
+  .member-role {
     display: flex;
     align-items: center;
     font-size: 1.1em;
     font-weight: 300;
     margin-left: 20px;
-    color:${themeConsts.secondaryBlue}
+    color: ${themeConsts.secondaryBlue};
   }
-`;
- 
- 
- 
- 
+`
+
 export const AllMeetingsDiv = styled.div`
- 
-  .meeting-card-grid{
+  .meeting-card-grid {
     display: grid;
     grid-template-columns: 93% 7%;
- 
-    .meeting-type-1{background-color:${themeConsts.orange}}
-    .meeting-type-2{background-color:${themeConsts.thirdBlue}}
-    .meeting-info-date{
-      display:inline-block;
-      color:${themeConsts.white};
-      border-radius:${themeConsts.borderRadius};
-      padding:4px 8px;
-      margin-top:15px;
- 
-      .date{
+
+    .meeting-type-1 {
+      background-color: ${themeConsts.orange};
+    }
+    .meeting-type-2 {
+      background-color: ${themeConsts.thirdBlue};
+    }
+    .meeting-info-date {
+      display: inline-block;
+      color: ${themeConsts.white};
+      border-radius: ${themeConsts.borderRadius};
+      padding: 4px 8px;
+      margin-top: 15px;
+
+      .date {
         margin-left: 5px;
       }
     }
- 
-    h3{
+
+    h3 {
       font-weight: 500;
       font-size: 1.4em;
-      color:${themeConsts.titlesDarkGrey};
+      color: ${themeConsts.titlesDarkGrey};
       margin: 10px 0 10px 3px;
     }
- 
-    .meeting-info-users{
+
+    .meeting-info-users {
       margin-left: 3px;
- 
-      img{
+
+      img {
         border-radius: 50%;
         width: 20px;
         height: 20px;
@@ -506,41 +506,40 @@ export const AllMeetingsDiv = styled.div`
         margin-right: 5px;
       }
     }
- 
-    .meeting-info-extra{
-      display:flex;
+
+    .meeting-info-extra {
+      display: flex;
       margin-top: 12px;
       margin-bottom: 7px;
- 
- 
-      .meeting-extra-place{
-        margin-left:25px;
+
+      .meeting-extra-place {
+        margin-left: 25px;
       }
-      svg{
+      svg {
         padding-right: 5px;
         font-size: 1.5em;
-        color:${themeConsts.primaryBlue};
+        color: ${themeConsts.primaryBlue};
       }
-      span{
-        font-weight:500;
-        color:${themeConsts.textDarkGrey};
+      span {
+        font-weight: 500;
+        color: ${themeConsts.textDarkGrey};
         position: relative;
         bottom: 3px;
       }
     }
- 
-    .meeting-card-actions{
+
+    .meeting-card-actions {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
 
-      .single-meeting-action{
-        position:relative;
+      .single-meeting-action {
+        position: relative;
 
-        &:after{
-          content:'';
-          position:absolute;
+        &:after {
+          content: '';
+          position: absolute;
           width: 200%;
           height: 100%;
           background-color: #f5f7fd;
@@ -549,86 +548,91 @@ export const AllMeetingsDiv = styled.div`
           top: 50%;
           transform: translateX(-50%) translateY(-50%);
           border-radius: 10px;
-          opacity:0;
+          opacity: 0;
         }
       }
 
-      svg{
-        font-size:1.75em;
-        color:${themeConsts.secondaryBlue};
-        margin:9px 0;
-        cursor:pointer;
-        position:relative;
-        z-index:1;
+      svg {
+        font-size: 1.75em;
+        color: ${themeConsts.secondaryBlue};
+        margin: 9px 0;
+        cursor: pointer;
+        position: relative;
+        z-index: 1;
       }
     }
   }
- 
-  .meeting-card-small{
- 
-    .meeting-info-date{
+
+  .meeting-card-small {
+    .meeting-info-date {
       padding: 2px 6px;
- 
-      .hours{
-        font-size:.85em;
+
+      .hours {
+        font-size: 0.85em;
       }
     }
- 
-    h3{
-      font-size:1.1em;
+
+    h3 {
+      font-size: 1.1em;
     }
- 
-    .meeting-info-users img{
+
+    .meeting-info-users img {
       width: 17px;
       height: 17px;
     }
- 
-    .meeting-info-extra{
-      svg{
-        font-size:1.3em;
+
+    .meeting-info-extra {
+      svg {
+        font-size: 1.3em;
       }
- 
-      span{
-        font-size: .85em;
+
+      span {
+        font-size: 0.85em;
       }
     }
   }
- 
- 
-.small-height{
-    animation: incHeight .3s ease;
+
+  .small-height {
+    animation: incHeight 0.3s ease;
     animation-fill-mode: forwards;
-}
-.full-height{
-    animation: redHeight .3s ease;
+  }
+  .full-height {
+    animation: redHeight 0.3s ease;
     animation-fill-mode: forwards;
-}
- 
-@keyframes incHeight{
-    0%{padding-bottom: 0;}
-    100%{padding-bottom: 60px;}
-}
- 
- 
-@keyframes redHeight{
-    0%{padding-bottom: 60px;}
-    100%{padding-bottom: 0;}
-}
+  }
+
+  @keyframes incHeight {
+    0% {
+      padding-bottom: 0;
+    }
+    100% {
+      padding-bottom: 60px;
+    }
+  }
+
+  @keyframes redHeight {
+    0% {
+      padding-bottom: 60px;
+    }
+    100% {
+      padding-bottom: 0;
+    }
+  }
 `
 export const AllSingleBillingDiv = styled.div`
-    display: grid;
+  display: grid;
   grid-template-columns: 10% 80% 10%;
   padding-left: 20px;
   margin-top: 15px;
   color: ${themeConsts.textDarkGrey};
- 
+
   .billing-type-icon {
     display: flex;
     justify-content: center;
     align-items: center;
     svg {
       font-size: 2em;
-      color: ${themeConsts.secondaryBlue}
+      color: ${themeConsts.secondaryBlue};
     }
   }
   .billing-title {
@@ -644,7 +648,7 @@ export const AllSingleBillingDiv = styled.div`
       margin-left: 10px;
       border-left: 1px solid ${themeConsts.bordersGrey};
       padding-left: 10px;
-      color: ${themeConsts.secondaryBlue}
+      color: ${themeConsts.secondaryBlue};
     }
   }
   .title-click {
@@ -656,76 +660,71 @@ export const AllSingleBillingDiv = styled.div`
     align-items: center;
     svg {
       font-size: 2em;
-      color: ${themeConsts.green}
+      color: ${themeConsts.green};
     }
   }
- 
- 
-`;
- 
- 
- 
- 
+`
+
 export const SingleVacationDiv = styled.div`
   padding: 0 !important;
- 
-  .vacation-card-grid{
-    display:grid;
-    grid-template-columns:50% 45% 5%;
+
+  .vacation-card-grid {
+    display: grid;
+    grid-template-columns: 50% 45% 5%;
     padding: 20px 5px 20px 14px !important;
- 
-    .user-info{
+
+    .user-info {
       display: flex;
       align-items: center;
- 
-      img{
+
+      img {
         width: 35px;
         height: 35px;
         border-radius: 50%;
         border: 2px solid ${themeConsts.primaryBlue};
         margin-right: 10px;
       }
-      .user-name{
+      .user-name {
         margin-right: 14px;
         color: ${themeConsts.textDarkGrey};
         font-size: 1.3em;
       }
-      .user-position{
+      .user-position {
         font-weight: 600;
         text-transform: uppercase;
         color: ${themeConsts.secondaryBlue};
-        letter-spacing: .02em;
+        letter-spacing: 0.02em;
       }
     }
-   
-    .vacation-info{
+
+    .vacation-info {
       display: flex;
       align-items: center;
- 
-      span{
+
+      span {
         font-size: 1.3em;
-        color:${themeConsts.white};
-        padding:5px 10px;
-        background:${themeConsts.secondaryBlue};
-        border-radius:25px;
+        color: ${themeConsts.white};
+        padding: 5px 10px;
+        background: ${themeConsts.secondaryBlue};
+        border-radius: 25px;
       }
-      span.vacation-type{
-        background:${themeConsts.thirdBlue};
-        margin-left:10px;
+      span.vacation-type {
+        background: ${themeConsts.thirdBlue};
+        margin-left: 10px;
       }
     }
- 
-    .vacation-actions{
-      display:flex;
-      align-items:center;
-      justify-content:flex-start;
 
-      .single-vacation-action{
-        position:relative;
+    .vacation-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
 
-        &:after{
-          content:'';
-          position:absolute;
+      .single-vacation-action {
+        position: relative;
+
+        &:after {
+          content: '';
+          position: absolute;
           width: 200%;
           height: 100%;
           background-color: #f5f7fd;
@@ -734,55 +733,54 @@ export const SingleVacationDiv = styled.div`
           top: 50%;
           transform: translateX(-50%) translateY(-50%);
           border-radius: 10px;
-          opacity:0;
+          opacity: 0;
         }
       }
- 
-      svg{
+
+      svg {
         font-size: 1.75em;
         color: ${themeConsts.secondaryBlue};
         margin: 9px 0;
         cursor: pointer;
-        z-index:1;
-        position:relative;
+        z-index: 1;
+        position: relative;
       }
     }
   }
- 
-  .small-vacations-card{
+
+  .small-vacations-card {
     grid-template-columns: 35% 75%;
     padding: 10px 5px 10px 10px !important;
- 
-    .user-info img{
-      width:30px;
-      height:30px;
+
+    .user-info img {
+      width: 30px;
+      height: 30px;
     }
- 
-    .vacation-info span{
-        font-size: 1.2em;
+
+    .vacation-info span {
+      font-size: 1.2em;
     }
   }
- 
-`;
- 
+`
+
 export const SingleApprovalDiv = styled.div`
   display: grid;
   grid-template-columns: 10% 90%;
   padding-left: 20px;
-  margin-right:5px;
-  margin-left:5px;
+  margin-right: 5px;
+  margin-left: 5px;
   margin-top: 15px;
   color: ${themeConsts.textDarkGrey};
-  &:first-of-type{
+  &:first-of-type {
     margin-top: 5px;
   }
-  &:last-of-type{
+  &:last-of-type {
     margin-bottom: 5px;
   }
- 
+
   .approval-type-icon {
-    font-size:1.8em;
-    color:${themeConsts.secondaryBlue};
+    font-size: 1.8em;
+    color: ${themeConsts.secondaryBlue};
     display: flex;
     align-items: center;
   }
@@ -801,217 +799,211 @@ export const SingleApprovalDiv = styled.div`
       font-weight: 700;
     }
   }
- 
-`;
-
-
-
+`
 
 export const SingleUserDiv = styled.div`
-    padding:0 !important;
-    box-shadow:none !important;
-    border-top: 1px solid #e6e6e6;
-    border-radius: 0 !important;
-    margin-top: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  border-top: 1px solid #e6e6e6;
+  border-radius: 0 !important;
+  margin-top: 0 !important;
 
-    &:first-child{
-      border-top: none;
+  &:first-child {
+    border-top: none;
+  }
+
+  .limit-width {
+    padding: 0 20px;
+    background-color: #fff;
+    transition: all 0.4s ease;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+  .limit-width.active {
+    background-color: ${themeConsts.lightGrey};
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .single-card-grid {
+    display: grid;
+    grid-template-columns: 10% 60% 10% 10% 10%;
+    min-height: 51px;
+
+    .flex {
+      display: flex;
+      align-items: center;
     }
 
-    .limit-width{
-      padding:0 20px;
-      background-color:#fff;
-      transition:all .4s ease;
-      border-top-right-radius: 10px;
-      border-top-left-radius: 10px;
-      border-bottom-left-radius: 10px;
-      border-bottom-right-radius: 10px;
-    }
-    .limit-width.active{
-      background-color:${themeConsts.lightGrey};
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
+    .user-avatar {
+      img {
+        width: 27px;
+        border: 2px solid ${themeConsts.primaryBlue};
+        border-radius: 50%;
+      }
     }
 
-    .single-card-grid{
+    .user-name-position {
+      h3 {
+        color: ${themeConsts.textDarkGrey};
+        font-size: 1.4em;
+        letter-spacing: 0.02em;
+        margin: 0;
+      }
+      h4 {
+        color: ${themeConsts.secondaryBlue};
+        margin: 0;
+        margin-left: 15px;
+        font-size: 1.1em;
+        font-weight: 500;
+      }
+    }
+
+    .user-tasks,
+    .user-completed-tasks {
+      justify-content: center;
+
+      span {
+        font-size: 1.3em;
+        font-weight: 600;
+        color: ${themeConsts.textDarkGrey};
+      }
+    }
+
+    .card-arrow {
+      justify-content: flex-end;
+
+      svg {
+        color: ${themeConsts.primaryBlue};
+        font-size: 1.7em;
+        stroke-width: 2.5;
+      }
+    }
+  }
+
+  .user-tasks-info {
+    overflow: hidden;
+    width: 97%;
+    margin: 0 auto;
+    transition: all 0.5s ease;
+
+    h2 {
+      color: ${themeConsts.primaryBlue};
+    }
+    hr {
+      border-color: ${themeConsts.secondaryBlue};
+    }
+  }
+  .tasks-info-closed {
+    max-height: 0;
+  }
+  .tasks-info-opened {
+    max-height: 500px;
+  }
+
+  .see-tasks-arrow {
+    transition: all 0.4s ease;
+  }
+  .see-tasks-arrow.up {
+    transform: rotate(180deg);
+  }
+
+  .user-tasks {
+    .single-user-task {
       display: grid;
-      grid-template-columns: 10% 60% 10% 10% 10%;
-      min-height:51px;
+      grid-template-columns: 67% 11% 11% 11%;
+      padding: 12px 0 12px 10px;
+      border-bottom: 1px solid #e6e6e6;
 
-      .flex{
-        display:flex;
+      .single-task-title-client {
+        display: flex;
         align-items: center;
-      }
 
-      .user-avatar{
-        img{
-          width: 27px;
-          border: 2px solid ${themeConsts.primaryBlue};
-          border-radius: 50%;
+        h4 {
+          margin: 0;
+          color: ${themeConsts.textDarkGrey};
+          font-size: 1.05em;
+          font-weight: 500;
         }
-      }
-
-      .user-name-position{
-        h3{
-          color:${themeConsts.textDarkGrey};
-          font-size: 1.4em;
-          letter-spacing: .02em;
-          margin:0;
-        }
-        h4{
-          color:${themeConsts.secondaryBlue};
-          margin:0;
-          margin-left:15px;
-          font-size: 1.1em;
+        h5 {
+          margin: 0;
+          margin-left: 10px;
+          color: ${themeConsts.secondaryBlue};
           font-weight: 500;
         }
       }
 
-      .user-tasks, .user-completed-tasks{
-        justify-content:center;
-
-        span{
-          font-size: 1.3em;
-          font-weight:600;
-          color:${themeConsts.textDarkGrey};
-        }
+      .single-task-hours,
+      .single-task-deadline,
+      .single-task-status,
+      .single-task-approval-time {
+        text-align: center;
       }
 
-      .card-arrow{
-        justify-content:flex-end;
-
-        svg{
-          color:${themeConsts.primaryBlue};
-          font-size: 1.7em;
-          stroke-width: 2.5;
-        }
+      .single-task-hours span {
+        color: ${themeConsts.secondaryBlue};
       }
 
-    }
-
-    .user-tasks-info{
-      overflow:hidden;
-      width:97%;
-      margin:0 auto;
-      transition:all .5s ease;
-
-      h2{
-        color:${themeConsts.primaryBlue};
+      .single-task-status span,
+      .single-task-approval-time span {
+        color: ${themeConsts.primaryBlue};
+        font-weight: 600;
       }
-      hr{
-        border-color:${themeConsts.secondaryBlue};
-      }
-    }
-    .tasks-info-closed{
-      max-height:0;
-    }
-    .tasks-info-opened{
-      max-height:500px;
-    }
 
-    .see-tasks-arrow{
-      transition:all .4s ease;
-    }
-    .see-tasks-arrow.up{
-      transform: rotate(180deg);
-    }
-    
-
-    .user-tasks{
-
-      .single-user-task{
-        display: grid;
-        grid-template-columns: 67% 11% 11% 11%;
-        padding: 12px 0 12px 10px;
-        border-bottom:1px solid #e6e6e6;
-
-        .single-task-title-client{
-          display:flex;
-          align-items:center;
-
-          h4{
-            margin:0;
-            color:${themeConsts.textDarkGrey};
-            font-size:1.05em;
-            font-weight: 500;
-          }
-          h5{
-            margin:0;
-            margin-left:10px;
-            color:${themeConsts.secondaryBlue};
-            font-weight: 500;
-          }
+      .single-task-deadline {
+        span {
+          color: ${themeConsts.textDarkGrey};
         }
-
-        .single-task-hours, .single-task-deadline, .single-task-status, .single-task-approval-time{
-          text-align:center; 
-        }
-
-        .single-task-hours span{
-          color:${themeConsts.secondaryBlue};
-        }
-
-        .single-task-status span, .single-task-approval-time span{
-          color:${themeConsts.primaryBlue};
-          font-weight:600;
-        }
-
-        .single-task-deadline{
-          span{
-            color:${themeConsts.textDarkGrey};
-          }
-          .red{
-            color:${themeConsts.red};
-          }
+        .red {
+          color: ${themeConsts.red};
         }
       }
     }
-    .see-all-tasks{
-        margin: 12px 0 15px 0;
-        font-weight: 500;
-        color: #7f9aff;
-        cursor: pointer;
-        font-size: 1.3em;
-      }
-`;
-
-
-
+  }
+  .see-all-tasks {
+    margin: 12px 0 15px 0;
+    font-weight: 500;
+    color: #7f9aff;
+    cursor: pointer;
+    font-size: 1.3em;
+  }
+`
 
 export const SingleAreaDiv = styled.div`
-    padding: 13px 20px !important;
+  padding: 13px 20px !important;
 
-    .single-area-title{
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
+  .single-area-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-      h5{
-        margin: 0;
-        color:${themeConsts.titlesDarkGrey};
-        font-size: 1.3em;
-        font-weight: 500;
-      }
-
-      .toggle-area-card{
-        font-size: 1.8em;
-        color: #7f9aff;
-        font-weight: 500;
-        cursor: pointer;
-      }
-    }
-    
-    .area-users{
-      overflow: hidden;
-      -webkit-transition: all .5s ease;
-      transition: all .5s ease;
-    }
-    .area-users-closed{
-      max-height:0;
-    }
-    .area-users-opened{
-      max-height:500px;
-      margin-top: 6px;
+    h5 {
+      margin: 0;
+      color: ${themeConsts.titlesDarkGrey};
+      font-size: 1.3em;
+      font-weight: 500;
     }
 
-`;
+    .toggle-area-card {
+      font-size: 1.8em;
+      color: #7f9aff;
+      font-weight: 500;
+      cursor: pointer;
+    }
+  }
+
+  .area-users {
+    overflow: hidden;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+  .area-users-closed {
+    max-height: 0;
+  }
+  .area-users-opened {
+    max-height: 500px;
+    margin-top: 6px;
+  }
+`

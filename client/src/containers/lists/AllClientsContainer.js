@@ -14,7 +14,8 @@ class AllClientsContainer extends Component {
     super(props)
     this.state = {
       activeClient: '',
-      activeTab: userRole === 0 ? 'clientinfo' : 'clientmarketing',
+      activeTab:
+        userRole === 0 || userRole === 3 ? 'clientinfo' : 'clientmarketing',
       clientContent: [],
       searchQuery: '',
       displaySearchInput: '',
@@ -127,8 +128,10 @@ class AllClientsContainer extends Component {
     if (window.confirm('Eliminar cliente ' + name + '?')) {
       var token = JSON.parse(localStorage.getItem('token'))
       var AuthStr = 'Bearer ' + token
+      var userId = JSON.parse(localStorage.getItem('user')).id_user
+
       axios
-        .delete(`/api/clients/${id}`, {
+        .delete(`/api/clients/${id}/${userId}`, {
           headers: { Authorization: AuthStr }
         })
         .then(res => {
@@ -174,7 +177,8 @@ class AllClientsContainer extends Component {
     if (prevState.activeClient !== this.state.activeClient) {
       this.getClientDetails()
       this.setState({
-        activeTab: userRole === 0 ? 'clientinfo' : 'clientmarketing'
+        activeTab:
+          userRole === 0 || userRole === 3 ? 'clientinfo' : 'clientmarketing'
       })
     }
   }

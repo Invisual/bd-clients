@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import { Options } from '../../components/options/Options';
+import React, { Component } from 'react'
+import { Options } from '../../components/options/Options'
 
 class OptionsContainer extends Component {
-  
   render() {
     return (
       <Options
@@ -42,8 +41,8 @@ class OptionsContainer extends Component {
         placeholder={this.props.placeholder}
         duplicateActiveProject={this.props.duplicateActiveProject}
       />
-    );
+    )
   }
 }
 
-export default OptionsContainer;
+export default OptionsContainer

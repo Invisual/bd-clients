@@ -135,6 +135,13 @@ router.post('/', checkToken, (req, res) => {
         [req.body.clientName],
         function (error, results, fields) {
           if (error) throw error
+          connection.query(
+            'INSERT INTO records (type_record, user_record, client_record, client_name_record) VALUES (?, ?, ?, ?)',
+            ['insert', req.body.userId, results.insertId, req.body.clientName],
+            function (err) {
+              if (err) throw err
+            }
+          )
           res.send(results)
         }
       )
@@ -150,9 +157,16 @@ router.put('/', checkToken, (req, res) => {
     } else {
       connection.query(
         'UPDATE clients SET name_client = ? WHERE id_client = ?',
-        [req.body.clientName, req.body.clientHours, req.body.id],
+        [req.body.clientName, req.body.id],
         function (error, results, fields) {
           if (error) throw error
+          connection.query(
+            'INSERT INTO records (type_record, user_record, client_record, client_name_record) VALUES (?, ?, ?, ?)',
+            ['edit', req.body.userId, req.body.id, req.body.clientName],
+            function (err) {
+              if (err) throw err
+            }
+          )
           res.send(results)
         }
       )
@@ -166,6 +180,18 @@ router.put('/details', checkToken, (req, res) => {
       //If error send Forbidden (403)
       res.sendStatus(403)
     } else {
+      let clientName
+      connection.query(
+        'SELECT name_client FROM clients WHERE id_client=?',
+        req.body.id,
+        function (error1, res) {
+          if (error1) throw error1
+          if (res.length > 0) {
+            clientName = res[0].name_client
+          }
+        }
+      )
+
       connection.query(
         'UPDATE clients SET cpanel_username_client = ?, cpanel_password_client = ?, dns_nichandle_client = ?, dns_password_client = ?, wordpress_link_client = ?, wordpress_username_client = ?, wordpress_password_client = ?, email_client = ?, others_client = ?, cpanel_link_client = ?, google_username = ?, google_password = ?, instagram_username = ?, instagram_password = ?, facebook_username = ?, facebook_password = ?, others_marketing = ? WHERE id_client = ?',
         [
@@ -190,6 +216,13 @@ router.put('/details', checkToken, (req, res) => {
         ],
         function (error, results, fields) {
           if (error) throw error
+          connection.query(
+            'INSERT INTO records (type_record, user_record, client_record, client_name_record) VALUES (?, ?, ?, ?)',
+            ['edit-info', req.body.userId, req.body.id, clientName],
+            function (err) {
+              if (err) throw err
+            }
+          )
           res.send(results)
         }
       )
@@ -197,17 +230,36 @@ router.put('/details', checkToken, (req, res) => {
   })
 })
 
-router.delete('/:id', checkToken, (req, res) => {
+router.delete('/:id/:userId', checkToken, (req, res) => {
   jwt.verify(req.token, SECRET_KEY, (err, results) => {
     if (err) {
       //If error send Forbidden (403)
       res.sendStatus(403)
     } else {
+      let clientName
+      connection.query(
+        'SELECT name_client FROM clients WHERE id_client=?',
+        req.params.id,
+        function (error1, res) {
+          if (error1) throw error1
+          if (res.length > 0) {
+            clientName = res[0].name_client
+          }
+        }
+      )
+
       connection.query(
         'DELETE FROM clients WHERE id_client=?',
         req.params.id,
         function (error, results, fields) {
           if (error) throw error
+          connection.query(
+            'INSERT INTO records (type_record, user_record, client_name_record) VALUES (?, ?, ?)',
+            ['delete', req.params.userId, clientName],
+            function (err) {
+              if (err) throw err
+            }
+          )
           res.send('deleted')
         }
       )
