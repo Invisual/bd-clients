@@ -43,6 +43,8 @@ class RecordsContainer extends Component {
             activeMonth: months[0].id,
             isLoading: false
           })
+        } else if (res.data.length === 0) {
+          this.setState({ isLoading: false })
         }
       })
   }

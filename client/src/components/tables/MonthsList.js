@@ -8,16 +8,19 @@ export const MonthsList = props => {
         <img src="img/loading.svg" alt="loading" className="loading-spinner" />
       ) : (
         <div>
-          <h4 className="widget-title">{props.title}</h4>
-          {props.monthsList.map(month => (
-            <SingleMonth
-              key={month.id}
-              id={month.id}
-              name={month.name}
-              activeMonth={props.activeMonth}
-              changeActiveMonth={props.changeActiveMonth}
-            />
-          ))}
+          {props.monthsList.length > 0 ? (
+            props.monthsList.map(month => (
+              <SingleMonth
+                key={month.id}
+                id={month.id}
+                name={month.name}
+                activeMonth={props.activeMonth}
+                changeActiveMonth={props.changeActiveMonth}
+              />
+            ))
+          ) : (
+            <p>Ainda não há registos</p>
+          )}
         </div>
       )}
     </div>

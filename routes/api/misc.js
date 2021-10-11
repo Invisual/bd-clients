@@ -53,9 +53,7 @@ router.get('/records', checkToken, (req, res) => {
         'Select id_record, type_record, client_record, client_name_record, date_record, user_record, name_user from records INNER JOIN users ON records.user_record = users.id_user ORDER BY date_record DESC',
         function (error, results, fields) {
           if (error) throw error
-          if (results.length > 0) {
-            res.send(results)
-          }
+          res.send(results)
         }
       )
     }

@@ -39,38 +39,42 @@ export const RecordsDetail = ({
         </RecordDetailsDiv>
       ) : (
         <RecordDetailsDiv>
-          <div className="container">
-            <h2>{monthName}</h2>
+          {records.length > 0 ? (
+            <div className="container">
+              <h2>{monthName}</h2>
 
-            <ul>
-              {records.map(record => (
-                <li key={record.id_record}>
-                  <strong>
-                    {moment(record.date_record).format('DD MMM - HH:mm')}
-                  </strong>
-                  <a
-                    href={`/team/${record.user_record}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {record.name_user}
-                  </a>{' '}
-                  {generateTypeString(record.type_record)}
-                  {record.client_record ? (
+              <ul>
+                {records.map(record => (
+                  <li key={record.id_record}>
+                    <strong>
+                      {moment(record.date_record).format('DD MMM - HH:mm')}
+                    </strong>
                     <a
-                      href={`/clients/${record.client_record}`}
+                      href={`/team/${record.user_record}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {record.client_name_record}
-                    </a>
-                  ) : (
-                    <span>{record.client_name_record}</span>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
+                      {record.name_user}
+                    </a>{' '}
+                    {generateTypeString(record.type_record)}
+                    {record.client_record ? (
+                      <a
+                        href={`/clients/${record.client_record}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {record.client_name_record}
+                      </a>
+                    ) : (
+                      <span>{record.client_name_record}</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <div className="no-content"></div>
+          )}
         </RecordDetailsDiv>
       )}
     </>
