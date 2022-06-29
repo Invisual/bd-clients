@@ -32,7 +32,7 @@
     "test": "cross-env CI=true react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:6000",
+  "proxy": "http://localhost:5000",
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -44,5 +44,8 @@
   ],
   "devDependencies": {
     "cross-env": "^5.2.0"
+  },
+  "engines": {
+    "node": "14.15"
   }
 }
